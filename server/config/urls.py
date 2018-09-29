@@ -15,9 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls import url
+from rest_framework.schemas import get_schema_view
+from rest_framework.renderers import CoreJSONRenderer
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_schema_view(
+    title='API',
+    renderer_classes=[CoreJSONRenderer]
+)
+
+swagger_view = get_swagger_view(
+    title='API'
+)
 
 urlpatterns = [
-    path('', include('hello.urls')),
+    # url('swagger-schema/', schema_view),
+    # url('swagger-view/', swagger_view),
     path('admin/', admin.site.urls),
     path('hello/', include('hello.urls'))
 ]
