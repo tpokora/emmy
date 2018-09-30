@@ -33,39 +33,64 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.json()['content'], 'Welcome to Emmy Rose application! - Serialized!')
 
     def test_api_get_dog(self):
-        response = self.client.get(path="/hello/dog", format="json")
+        response = self.client.get(path="/hello/dog/", format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 0)
 
     def test_api_post_add_dog(self):
         dog = {'name': 'Test'}
-        response = self.client.post(path="/hello/dog", data=dog, format="json")
+        response = self.client.post(path="/hello/dog/", data=dog, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.get(path="/hello/dog", format="json")
+        response = self.client.get(path="/hello/dog/", format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 1)
 
         dog = {'name': 'Test1'}
-        response = self.client.post(path="/hello/dog", data=dog, format="json")
+        response = self.client.post(path="/hello/dog/", data=dog, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.get(path="/hello/dog", format="json")
+        response = self.client.get(path="/hello/dog/", format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 2)
 
     def test_api_post_delete_all_dogs(self):
         dog = {'name': 'Test'}
-        response = self.client.post(path="/hello/dog", data=dog, format="json")
+        response = self.client.post(path="/hello/dog/", data=dog, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        response = self.client.get(path="/hello/dog", format="json")
+        response = self.client.get(path="/hello/dog/", format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 1)
 
-        response = self.client.delete(path="/hello/dog_clear", format="json")
+        response = self.client.delete(path="/hello/dog_clear/", format="json")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        response = self.client.get(path="/hello/dog", format="json")
+        response = self.client.get(path="/hello/dog/", format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.json()), 0)
+
+    def test_api_get_one_dog(self):
+        dog = {'name': 'Test'}
+        response = self.client.post(path="/hello/dog/", data=dog, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response = self.client.get(path="/hello/dog/1/", format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json()['name'], 'Test')
+
+    def test_api_delete_one_dog(self):
+        dog = {'name': 'Test'}
+        response = self.client.post(path="/hello/dog/", data=dog, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response = self.client.get(path="/hello/dog/1/", format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json()['name'], 'Test')
+
+        response = self.client.delete(path="/hello/dog/1/", format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response = self.client.get(path="/hello/dog/", format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()), 0)

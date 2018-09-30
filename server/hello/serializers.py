@@ -11,5 +11,5 @@ class HelloSerializer(serializers.Serializer):
 class DogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dog
-        fields = ('name',)
+        fields = ('id', 'name',)
 
