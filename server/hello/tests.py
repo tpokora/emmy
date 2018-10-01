@@ -89,7 +89,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(response.json()['name'], 'Test')
 
         response = self.client.delete(path="/hello/dog/1/", format="json")
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         response = self.client.get(path="/hello/dog/", format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)

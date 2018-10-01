@@ -6,6 +6,7 @@ from .serializers import HelloSerializer, DogSerializer
 from django.http import JsonResponse, Http404
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework import generics
 
 
 def get_hello(request):
@@ -43,21 +44,13 @@ def dogs_clear(request):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class DogDetails(APIView):
+class DogDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Dog.objects.all()
+    serializer_class = DogSerializer
 
-    def get_object(self, pk):
-        try:
-            return Dog.objects.get(pk=pk)
-        except Dog.DoesNotExist:
-            raise Http404
+    """ Override methods if needed """
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
-    def get(self, request, pk, format=None):
-        serializer = DogSerializer(self.get_object(pk))
-        return Response(serializer.data)
-
-    def delete(self, request, pk, format=None):
-        dog = self.get_object(pk)
-        dog.delete()
-        return Response(status.HTTP_204_NO_CONTENT)
 
 
