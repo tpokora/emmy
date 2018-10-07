@@ -1,7 +1,4 @@
-from flask_restful import Resource
-
-
-class Error(Resource):
+class Error:
     def __init__(self, error_string):
         self.error = error_string
 
