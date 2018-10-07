@@ -11,4 +11,5 @@ class Hello:
 
 class Dog(models.Model):
     name = models.CharField(max_length=10)
+    owner = models.ForeignKey('auth.User', related_name='dog', on_delete=models.CASCADE)
 

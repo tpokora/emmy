@@ -1,8 +1,9 @@
+from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
 from .models import Hello, Dog
-from .serializers import HelloSerializer, DogSerializer
+from .serializers import HelloSerializer, DogSerializer, UserSerializer
 from django.http import JsonResponse, Http404
 from rest_framework import status
 from rest_framework.response import Response
@@ -30,8 +31,9 @@ class DogsList(APIView):
 
     def post(self, request, format=None):
         serializer = DogSerializer(data=request.data)
+        owner = User.objects.get_by_natural_key(request.data['owner'])
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(owner=owner)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -52,5 +54,14 @@ class DogDetails(generics.RetrieveUpdateDestroyAPIView):
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetails(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
