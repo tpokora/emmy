@@ -1,15 +1,17 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
 from server_flask.common.errors import Error
 from server_flask.common.message import Message
+from flask_restful_swagger import swagger
 
 
+@swagger.model
 class Dog:
     def __init__(self, name, age, color):
         self.name = name
         self.age = int(age)
         self.color = color
 
-    def json(self):
+    def serialize(self):
         return self.__dict__
 
 
@@ -24,16 +26,57 @@ resource_fields = {
 
 
 class DogApi(Resource):
+    @swagger.operation(
+        notes='Get dog by name',
+        nickname='get',
+        responseClass=Dog.__name__,
+        parameters=[
+            {
+                "name": "name",
+                "description": "Dog name",
+                "required": True,
+                "allowMultiple": False,
+                "dataType": 'string',
+                "paramType": "path"
+            }
+        ]
+    )
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('name')
         args = parser.parse_args()
+        name = args['name']
         for dog in dogs:
-            if args['name'] == dog.name:
-                return dog.json(), 200
+            if name == dog.name:
+                return dog.serialize(), 200
 
         return Error('Dog not found').print(), 404
 
+    @swagger.operation(
+        notes='Add dog',
+        nickname='create',
+        responseClass=Dog.__name__,
+        parameters=[
+            {
+                "name": "body",
+                "description": "Dog item",
+                "required": True,
+                "allowMultiple": False,
+                "dataType": Dog.__name__,
+                "paramType": "body"
+            }
+        ],
+        responseMesseges=[
+            {
+                "code": 201,
+                "message": "Dog created"
+            },
+            {
+                "code": 400,
+                "message": "Dog already exists"
+            }
+        ]
+    )
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('name')
@@ -52,8 +95,33 @@ class DogApi(Resource):
         dog = Dog(name, age, color)
 
         dogs.append(dog)
-        return dog.json(), 201
+        return dog.serialize(), 201
 
+    @swagger.operation(
+        notes='Update Dog',
+        nickname='update',
+        responseClass=Dog.__name__,
+        parameters=[
+            {
+                "name": "body",
+                "description": "Dog item",
+                "required": True,
+                "allowMultiple": False,
+                "dataType": Dog.__name__,
+                "paramType": "body"
+            }
+        ],
+        responseMesseges=[
+            {
+                "code": 200,
+                "message": "Dog updated"
+            },
+            {
+                "code": 201,
+                "message": "Dog created"
+            },
+        ]
+    )
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument('name')
@@ -69,13 +137,27 @@ class DogApi(Resource):
             if name == dog.name:
                 dog.age = age
                 dog.color = color
-                return dog, 200
+                return dog.serialize(), 200
 
         dog = Dog(name, age, color)
 
         dogs.append(dog)
-        return dog.json(), 201
+        return dog.serialize(), 201
 
+    @swagger.operation(
+        notes='Delete dog by name',
+        nickname='delete',
+        parameters=[
+            {
+                "name": "name",
+                "description": "Dog name",
+                "required": True,
+                "allowMultiple": False,
+                "dataType": 'string',
+                "paramType": "path"
+            }
+        ]
+    )
     def delete(self):
         global dogs
         parser = reqparse.RequestParser()
@@ -88,6 +170,11 @@ class DogApi(Resource):
 
 class DogsListApi(Resource):
     @marshal_with(resource_fields)
+    @swagger.operation(
+        notes='Get Dogs list',
+        nickname='getDogsList',
+        responseClass=Dog.__name__
+    )
     def get(self):
         global dogs
         return dogs, 200
