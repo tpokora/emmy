@@ -32,4 +32,6 @@ def swagger():
 api.add_resource(Hello, '/flask/hello')
 api.add_resource(DogApi, '/flask/dog')
 api.add_resource(DogsListApi, '/flask/dogs')
-app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run(debug=True)
