@@ -30,7 +30,7 @@ class TestDogApi(unittest.TestCase):
         new_age = 11
         new_color = 'updated_color'
         update_dog = Dog(self.test_dog1_name, new_age, new_color)
-        response = self.test_app.put('/flask/dog', data=update_dog.serialize())
+        response = self.test_app.put('/flask/dog/{}'.format(self.test_dog1_name), data=update_dog.serialize())
         self.assertEqual(response.status, '200 OK')
         self.assertEqual(response.json['name'], self.test_dog1_name)
         self.assertEqual(response.json['age'], new_age)
@@ -45,18 +45,18 @@ class TestDogApi(unittest.TestCase):
         self.assertNotEqual(updated_response.json['color'], old_color)
 
     def test_deleteDogByName(self):
-        response = self.test_app.delete('/flask/dog?name={}'.format(self.test_dog2_name))
+        response = self.test_app.delete('/flask/dog/{}'.format(self.test_dog2_name))
         self.assertEqual(response.status, '200 OK')
         self.assertEqual(response.json['message'], '{} is deleted'.format(self.test_dog2_name))
 
     def test_getDogsList(self):
-        response = self.test_app.get('/flask/dogs')
+        response = self.test_app.get('/flask/dog')
         self.assertEqual(response.status, '200 OK')
         self.assertIsInstance(response.json, list)
 
     '''Helper methods'''
     def get_dog_by_name_response(self, dog_name):
-        return self.test_app.get('/flask/dog?name={}'.format(dog_name))
+        return self.test_app.get('/flask/dog/{}'.format(dog_name))
 
 
 if __name__ == '__main__':

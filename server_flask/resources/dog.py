@@ -41,16 +41,96 @@ class DogApi(Resource):
             }
         ]
     )
-    def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('name')
-        args = parser.parse_args()
-        name = args['name']
+    def get(self, name):
         for dog in dogs:
             if name == dog.name:
                 return dog.serialize(), 200
 
         return Error('Dog not found').print(), 404
+
+    @swagger.operation(
+        notes='Update Dog',
+        nickname='update',
+        responseClass=Dog.__name__,
+        parameters=[
+            {
+                "name": "name",
+                "description": "Dog name",
+                "required": True,
+                "allowMultiple": False,
+                "dataType": 'string',
+                "paramType": "path"
+            },
+            {
+                "name": "body",
+                "description": "Dog item",
+                "required": True,
+                "allowMultiple": False,
+                "dataType": Dog.__name__,
+                "paramType": "body"
+            }
+        ],
+        responseMesseges=[
+            {
+                "code": 200,
+                "message": "Dog updated"
+            },
+            {
+                "code": 201,
+                "message": "Dog created"
+            },
+        ]
+    )
+    def put(self, name):
+        parser = reqparse.RequestParser()
+        parser.add_argument('age')
+        parser.add_argument('color')
+        args = parser.parse_args()
+
+        age = int(args['age'])
+        color = args['color']
+
+        for dog in dogs:
+            if name == dog.name:
+                dog.age = age
+                dog.color = color
+                return dog.serialize(), 200
+
+        dog = Dog(name, age, color)
+
+        dogs.append(dog)
+        return dog.serialize(), 201
+
+    @swagger.operation(
+        notes='Delete dog by name',
+        nickname='delete',
+        parameters=[
+            {
+                "name": "name",
+                "description": "Dog name",
+                "required": True,
+                "allowMultiple": False,
+                "dataType": 'string',
+                "paramType": "path"
+            }
+        ]
+    )
+    def delete(self, name):
+        global dogs
+        dogs = [dog for dog in dogs if dog.name != name]
+        return Message('{} is deleted'.format(name)).print(), 200
+
+
+class DogsListApi(Resource):
+    @marshal_with(resource_fields)
+    @swagger.operation(
+        notes='Get Dogs list',
+        nickname='getDogsList',
+        responseClass=Dog.__name__
+    )
+    def get(self):
+        global dogs
+        return dogs, 200
 
     @swagger.operation(
         notes='Add dog',
@@ -96,85 +176,3 @@ class DogApi(Resource):
 
         dogs.append(dog)
         return dog.serialize(), 201
-
-    @swagger.operation(
-        notes='Update Dog',
-        nickname='update',
-        responseClass=Dog.__name__,
-        parameters=[
-            {
-                "name": "body",
-                "description": "Dog item",
-                "required": True,
-                "allowMultiple": False,
-                "dataType": Dog.__name__,
-                "paramType": "body"
-            }
-        ],
-        responseMesseges=[
-            {
-                "code": 200,
-                "message": "Dog updated"
-            },
-            {
-                "code": 201,
-                "message": "Dog created"
-            },
-        ]
-    )
-    def put(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('name')
-        parser.add_argument('age')
-        parser.add_argument('color')
-        args = parser.parse_args()
-
-        name = args['name']
-        age = int(args['age'])
-        color = args['color']
-
-        for dog in dogs:
-            if name == dog.name:
-                dog.age = age
-                dog.color = color
-                return dog.serialize(), 200
-
-        dog = Dog(name, age, color)
-
-        dogs.append(dog)
-        return dog.serialize(), 201
-
-    @swagger.operation(
-        notes='Delete dog by name',
-        nickname='delete',
-        parameters=[
-            {
-                "name": "name",
-                "description": "Dog name",
-                "required": True,
-                "allowMultiple": False,
-                "dataType": 'string',
-                "paramType": "path"
-            }
-        ]
-    )
-    def delete(self):
-        global dogs
-        parser = reqparse.RequestParser()
-        parser.add_argument('name')
-        args = parser.parse_args()
-        name = args['name']
-        dogs = [dog for dog in dogs if dog.name != name]
-        return Message('{} is deleted'.format(name)).print(), 200
-
-
-class DogsListApi(Resource):
-    @marshal_with(resource_fields)
-    @swagger.operation(
-        notes='Get Dogs list',
-        nickname='getDogsList',
-        responseClass=Dog.__name__
-    )
-    def get(self):
-        global dogs
-        return dogs, 200

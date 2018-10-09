@@ -30,8 +30,8 @@ def swagger():
 
 
 api.add_resource(Hello, '/flask/hello')
-api.add_resource(DogApi, '/flask/dog')
-api.add_resource(DogsListApi, '/flask/dogs')
+api.add_resource(DogApi, '/flask/dog/<string:name>')
+api.add_resource(DogsListApi, '/flask/dog')
 
 if __name__ == "__main__":
     app.run(debug=True)
