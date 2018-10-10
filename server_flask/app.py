@@ -1,3 +1,4 @@
+import os
 from flask import Flask, redirect
 from flask_restful import Api, Resource
 from server_flask.resources.dog import DogApi, DogsListApi
@@ -5,6 +6,7 @@ from flask_restful_swagger import swagger
 
 
 app = Flask(__name__)
+app.config.from_object(os.environ['APP_SETTINGS'])
 api = swagger.docs(Api(app),
                    apiVersion='0.1',
                    basePath='http://localhost:5000',
