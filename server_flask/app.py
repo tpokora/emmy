@@ -1,7 +1,7 @@
 import os
 from flask import Flask, redirect
 from flask_restful import Api, Resource
-from server_flask.resources.dog import DogApi, DogsListApi
+from server_flask.dog.controllers import DogApi, DogsListApi
 from flask_restful_swagger import swagger
 
 

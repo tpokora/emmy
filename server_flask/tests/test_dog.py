@@ -1,6 +1,6 @@
 import unittest
 from server_flask.app import app
-from server_flask.resources.dog import Dog
+from server_flask.dog.controllers import Dog
 
 
 class TestDogApi(unittest.TestCase):

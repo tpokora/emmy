@@ -2,18 +2,7 @@ from flask_restful import Resource, reqparse, fields, marshal_with
 from server_flask.common.errors import Error
 from server_flask.common.message import Message
 from flask_restful_swagger import swagger
-
-
-@swagger.model
-class Dog:
-    def __init__(self, name, age, color):
-        self.name = name
-        self.age = int(age)
-        self.color = color
-
-    def serialize(self):
-        return self.__dict__
-
+from .models import Dog
 
 dogs = [
     Dog('testDog1', 13, 'black'),
