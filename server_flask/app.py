@@ -1,9 +1,10 @@
 import os
 from flask import Flask, redirect
 from flask_restful import Api, Resource
-from server_flask.dog.controllers import DogApi, DogsListApi
 from flask_restful_swagger import swagger
-
+from server_flask.database import init_db
+from server_flask.dog.controllers import DogApi, DogsListApi
+from server_flask.exercise.controllers import ExerciseListApi
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -34,6 +35,8 @@ def swagger():
 api.add_resource(Hello, '/flask/hello')
 api.add_resource(DogApi, '/flask/dog/<string:name>')
 api.add_resource(DogsListApi, '/flask/dog')
+api.add_resource(ExerciseListApi, '/flask/exercise')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    init_db()
+    app.run()
