@@ -16,6 +16,9 @@ api = swagger.docs(Api(app),
                    api_spec_url='/api/spec',
                    description='A Simple Emmy API')
 
+if os.environ.get('SQLALCHEMY_DATABASE_URI') is not None:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+
 
 class Hello(Resource):
     """My Hello API"""
