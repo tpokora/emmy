@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask_restful_swagger import swagger
-from .models import Exercise
-from server_flask.database import db_session
+from .models import Exercise, db
 
 
 class ExerciseListApi(Resource):
@@ -41,7 +40,7 @@ class ExerciseListApi(Resource):
         name = args['name']
         exercise = Exercise(name)
 
-        db_session.add(exercise)
-        db_session.commit()
+        db.session.add(exercise)
+        db.session.commit()
 
         return Exercise.query.filter(Exercise.name == name).first().serialize(), 201
