@@ -5,7 +5,7 @@ from flask_restful_swagger import swagger
 from server_flask.common.models import db
 from server_flask.dog.controllers import DogApi, DogsListApi
 from server_flask.exercise.controllers import ExerciseListApi
-from server_flask.user.controllers import UserListApi, UserApi
+from server_flask.user.controllers import UserListApi, UserApi, UserDetailsApi
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -42,6 +42,7 @@ api.add_resource(DogApi, '/flask/dog/<string:name>')
 api.add_resource(ExerciseListApi, '/flask/exercise')
 api.add_resource(UserListApi, '/flask/user')
 api.add_resource(UserApi, '/flask/user/<string:username>')
+api.add_resource(UserDetailsApi, '/flask/user/<string:username>/details')
 
 if __name__ == "__main__":
     app.run()

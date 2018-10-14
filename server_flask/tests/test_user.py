@@ -54,6 +54,18 @@ class UserApiTest(unittest.TestCase):
         response = self.test_app.get('/flask/user/notfoundusername')
         self.assertEqual(response.status, '404 NOT FOUND')
 
+    def test_user_api_get_user_details_by_username(self):
+        self.create_user()
+        response = self.test_app.get('/flask/user/' + self.user.username + '/details')
+        self.assertEqual(response.status, '200 OK')
+        self.assertIsInstance(response.json['id'], int)
+        self.assertEqual(response.json['username'], self.user.username)
+        self.assertIsInstance(response.json['password_hash'], str)
+
+    def test_user_api_get_user_details_by_username_notfound(self):
+        response = self.test_app.get('/flask/user/notfoundusername/details')
+        self.assertEqual(response.status, '404 NOT FOUND')
+
     '''Helper Methods'''
     def create_user(self):
         return self.test_app.post('/flask/user', data={'username': self.user.username, 'password': self.password})

@@ -12,6 +12,12 @@ user_get_list_resources_list = {
     'username': fields.String
 }
 
+user_get_details_list_resources_list = {
+    'id': fields.Integer,
+    'username': fields.String,
+    'password_hash': fields.String
+}
+
 
 class UserApi(Resource):
     @marshal_with(user_get_list_resources_list)
@@ -34,6 +40,37 @@ class UserApi(Resource):
 
                 "code": 200,
                 "message": "Returns user"
+            }
+        ]
+    )
+    def get(self, username):
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            return user, 404
+        return User.query.filter_by(username=username).first().serialize()
+
+
+class UserDetailsApi(Resource):
+    @marshal_with(user_get_details_list_resources_list)
+    @swagger.operation(
+        notes='Get user details by username',
+        nickname='getUserDetails',
+        responseClass=User.__name__,
+        parameters=[
+            {
+                "name": "username",
+                "description": "Username",
+                "required": True,
+                "allowMultiple": False,
+                "dataType": 'string',
+                "paramType": "path"
+            }
+        ],
+        responseMesseges=[
+            {
+
+                "code": 200,
+                "message": "Returns user details"
             }
         ]
     )
