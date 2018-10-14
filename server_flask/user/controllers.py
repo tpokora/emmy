@@ -1,9 +1,21 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, fields, marshal_with
 from flask_restful_swagger import swagger
-from server_flask.user.models import User
+from server_flask.user.models import User, db
+
+user_list_resource_fields = {
+    'username': fields.String
+}
 
 
 class UserListApi(Resource):
+    @marshal_with(user_list_resource_fields)
+    @swagger.operation(
+        notes='Get all users',
+        nickname='getUsersList',
+    )
+    def get(self):
+        return [user.serialize() for user in User.query.all()], 200
+
     @swagger.operation(
         tags=['user'],
         notes='Create user',
@@ -29,13 +41,16 @@ class UserListApi(Resource):
     )
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('name')
+        parser.add_argument('username')
         parser.add_argument('password')
         args = parser.parse_args()
-        name = args['name']
+        username = args['username']
         password = args['password']
-        user = User(name)
+        user = User(username)
         user.hash_password(password)
+
+        db.session.add(user)
+        db.session.commit()
 
         return user.serialize(), 201
 

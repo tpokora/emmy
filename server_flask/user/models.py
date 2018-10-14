@@ -10,8 +10,8 @@ class User(db.Model):
     username = db.Column(db.String(32), index=True)
     password_hash = db.Column(db.String(128))
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, username):
+        self.username = username
 
     def hash_password(self, password):
         self.password_hash = pwd_context.hash(password)
@@ -19,12 +19,12 @@ class User(db.Model):
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, username):
+        self.username = username
 
     def __repr__(self):
-        return '<User {}, {}>'.format(self.name, self.password_hash)
+        return '<User {}, {}>'.format(self.username, self.password_hash)
 
     def serialize(self):
-        return {"name": self.name,
+        return {"username": self.username,
                 "password_hash": self.password_hash}
