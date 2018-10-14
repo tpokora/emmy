@@ -26,5 +26,6 @@ class User(db.Model):
         return '<User {}, {}>'.format(self.username, self.password_hash)
 
     def serialize(self):
-        return {"username": self.username,
+        return {"id": self.id,
+                "username": self.username,
                 "password_hash": self.password_hash}
