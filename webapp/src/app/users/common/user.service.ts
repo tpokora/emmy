@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { User } from './user.model';
-import { BaseApiService } from '../common/base.service';
+import { BaseApiService } from '../../common/base.service';
 
 @Injectable()
 export class UserService extends BaseApiService {
