@@ -1,4 +1,5 @@
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatCardModule, MatListModule, MatToolbarModule } from '@angular/material';
+import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,20 +9,32 @@ import { AppComponent } from './app.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserListComponent
+    UserListComponent,
+    NavBarComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    RouterModule.forRoot(routes),
     HttpModule,
-    MatButtonModule,
-    MatCheckboxModule
+    MatCardModule,
+    MatToolbarModule,
+    MatListModule
   ],
+  exports: [ RouterModule ],
   providers: [
     UserService
   ],
