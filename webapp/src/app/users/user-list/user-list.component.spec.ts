@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { UserServiceStub } from './../../testing/user.stubs';
+import { UserService } from './../common/user.service';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { UserListComponent } from './user-list.component';
+import { MatListModule } from '@angular/material';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -8,18 +11,26 @@ describe('UserListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserListComponent ]
+      declarations: [ UserListComponent ],
+      imports: [
+        MatListModule
+      ],
+      providers: [
+        { provide: UserService, useClass: UserServiceStub }
+      ]
     })
     .compileComponents();
   }));
 
-  beforeEach(() => {
+  function createComponent() {
     fixture = TestBed.createComponent(UserListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+    tick();
+  }
 
-  it('should create', () => {
+  it('should create', fakeAsync(() => {
+    createComponent();
     expect(component).toBeTruthy();
-  });
+  }));
 });

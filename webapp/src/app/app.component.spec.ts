@@ -1,13 +1,35 @@
+import { UserListComponent } from './users/user-list/user-list.component';
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { MatToolbarModule, MatCardModule, MatListModule } from '@angular/material';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+];
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        NavBarComponent,
+        DashboardComponent,
+        UserListComponent
       ],
+      imports: [
+        RouterModule.forRoot(routes),
+        MatCardModule,
+        MatToolbarModule,
+        MatListModule
+      ],
+      providers: [
+
+      ]
     }).compileComponents();
   }));
 
@@ -15,18 +37,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  }));
-
-  it(`should have as title 'app works!'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
-  }));
-
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
   }));
 });
