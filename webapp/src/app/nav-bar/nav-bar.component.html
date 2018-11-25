@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Toolbar</span>
-    <span><a routerLink="/dashboard">Dashboard</a></span>
+    <button aria-label="Home button" mat-icon-button [routerLink]="['/']">
+      <mat-icon>home</mat-icon>
+    </button>
     <span><a routerLink="/user-list">Users</a></span>
   </mat-toolbar-row>
 </mat-toolbar>

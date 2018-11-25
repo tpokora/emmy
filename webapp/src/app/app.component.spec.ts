@@ -4,7 +4,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { MatToolbarModule, MatCardModule, MatListModule } from '@angular/material';
+import { MatToolbarModule, MatCardModule, MatListModule, MatIconModule } from '@angular/material';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
@@ -25,6 +25,7 @@ describe('AppComponent', () => {
       imports: [
         RouterModule.forRoot(routes),
         MatCardModule,
+        MatIconModule,
         MatToolbarModule,
         MatListModule
       ],

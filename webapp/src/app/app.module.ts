@@ -1,4 +1,4 @@
-import { MatCardModule, MatListModule, MatToolbarModule } from '@angular/material';
+import { MatCardModule, MatListModule, MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +32,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpModule,
     MatCardModule,
+    MatIconModule,
+    MatButtonModule,
     MatToolbarModule,
     MatListModule
   ],
