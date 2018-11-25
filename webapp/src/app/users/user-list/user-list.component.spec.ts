@@ -3,7 +3,7 @@ import { UserService } from './../common/user.service';
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { UserListComponent } from './user-list.component';
-import { MatListModule } from '@angular/material';
+import { MatListModule, MatCardModule } from '@angular/material';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -13,6 +13,7 @@ describe('UserListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ UserListComponent ],
       imports: [
+        MatCardModule,
         MatListModule
       ],
       providers: [
