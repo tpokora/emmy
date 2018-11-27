@@ -1,6 +1,5 @@
 import { environment } from './../../environments/environment';
 import {Headers} from '@angular/http';
-import 'rxjs/add/operator/toPromise';
 
 export abstract class BaseApiService {
 
