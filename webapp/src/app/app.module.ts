@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { MatCardModule, MatListModule, MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
@@ -11,25 +12,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'user-list', component: UserListComponent },
-];
+import { UserDetailsComponent } from './users/user-details/user-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
     NavBarComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserDetailsComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    RouterModule.forRoot(routes),
     HttpModule,
     MatCardModule,
     MatIconModule,

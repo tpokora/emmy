@@ -7,7 +7,7 @@ import { MatListModule, MatCardModule } from '@angular/material';
 import { By } from '@angular/platform-browser';
 
 describe('UserListComponent', () => {
-  let NO_USERS_STRING = "No users!";
+  const NO_USERS_STRING = 'No users!';
   let component: UserListComponent;
   let fixture: ComponentFixture<UserListComponent>;
 
@@ -40,7 +40,7 @@ describe('UserListComponent', () => {
   it('should have users list elements', fakeAsync(() => {
     createComponent();
     expect(component.users.length > 0);
-    let debugElement = getListElements();
+    const debugElement = getListElements();
     expect(debugElement.length).toEqual(component.users.length);
   }));
 
@@ -48,7 +48,7 @@ describe('UserListComponent', () => {
     createComponent();
     component.users = null;
     expect(component.users == null);
-    let debugElement = getListElements();
+    const debugElement = getListElements();
     expect(debugElement[0].nativeElement.textContent).toEqual(NO_USERS_STRING);
   }));
 
