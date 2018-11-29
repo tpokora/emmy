@@ -17,4 +17,12 @@ export class UserService extends BaseApiService {
       .then(response => response.json() as User[])
       .catch(this.handleError);
   }
+
+  getUser(username: string): Promise<User> {
+    let url = `${this.url}/user/${username}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json() as User)
+      .catch(this.handleError);
+  }
 }

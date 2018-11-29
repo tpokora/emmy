@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
   }
 
   isUsersEmpty(): boolean {
-    return this.users == null || this.users.length == 0;
+    return this.users == null || this.users.length === 0;
   }
 
 }

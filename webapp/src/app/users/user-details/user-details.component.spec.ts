@@ -1,7 +1,10 @@
+import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserDetailsComponent } from './user-details.component';
+import { UserService } from '../common/user.service';
+import { UserServiceStub } from 'src/app/testing/user.stubs';
 
 describe('UserDetailsComponent', () => {
   let component: UserDetailsComponent;
@@ -12,6 +15,10 @@ describe('UserDetailsComponent', () => {
       declarations: [ UserDetailsComponent ],
       imports: [
         MatCardModule
+      ],
+      providers: [
+        { provide: UserService, useClass: UserServiceStub },
+        ActivatedRoute
       ]
     })
     .compileComponents();
