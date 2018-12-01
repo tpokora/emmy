@@ -14,14 +14,14 @@ class UserApiTest(unittest.TestCase):
         db.create_all()
         self.user = User()
         self.user.username = 'testUser'
-        self.password = 'testPassword'
-        self.user.hash_password(self.password)
+        self.user.password = 'testPassword'
 
     def test_user___repr__(self):
-        self.assertEqual(self.user.__repr__(), '<User {}, {}>'.format(self.user.username, self.user.password_hash))
+        self.assertEqual(self.user.__repr__(), '<User {}, {}>'.format(self.user.username, self.user.password))
 
-    def test_user_password_verify(self):
-        self.assertEqual(self.user.verify_password(self.password), True)
+    def test_user_verify_hash(self):
+        user_password_hash = User.generate_hash(self.user.password)
+        self.assertTrue(User.verify_hash(self.user.password, user_password_hash))
 
     def test_create_user(self):
         response = self.create_user()
@@ -61,7 +61,7 @@ class UserApiTest(unittest.TestCase):
         self.assertEqual(response.status, '200 OK')
         self.assertIsInstance(response.json['id'], int)
         self.assertEqual(response.json['username'], self.user.username)
-        self.assertIsInstance(response.json['password_hash'], str)
+        self.assertTrue(User.verify_hash(self.user.password, response.json['password']))
 
     def test_user_api_get_user_details_by_username_notfound(self):
         response = self.test_app.get('/flask/user/notfoundusername/details')
@@ -69,4 +69,4 @@ class UserApiTest(unittest.TestCase):
 
     '''Helper Methods'''
     def create_user(self):
-        return self.test_app.post('/flask/user', data={'username': self.user.username, 'password': self.password})
+        return self.test_app.post('/flask/user', data={'username': self.user.username, 'password': self.user.password})

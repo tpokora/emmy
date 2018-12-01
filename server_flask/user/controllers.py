@@ -1,7 +1,6 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
 from flask_restful_swagger import swagger
 from server_flask.user.models import User, UserResourcesList, db
-from flask_security import auth_token_required
 
 
 class UserApi(Resource):
@@ -100,15 +99,12 @@ class UserListApi(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('username')
         parser.add_argument('password')
-        parser.add_argument('email')
         args = parser.parse_args()
         username = args['username']
         password = args['password']
-        email = args['email']
         user = User()
         user.username = username
-        user.email = email
-        user.hash_password(password)
+        user.password = User.generate_hash(password)
         user.active = True
 
         db.session.add(user)
