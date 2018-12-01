@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 })
 export class UserDetailsComponent implements OnInit {
 
-  private user: User;
+  user: User;
 
   constructor(
     private route: ActivatedRoute,
