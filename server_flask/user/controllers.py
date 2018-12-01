@@ -58,7 +58,6 @@ class UserDetailsApi(Resource):
             }
         ]
     )
-    @auth_token_required
     def get(self, username):
         user = User.query.filter_by(username=username).first()
         if user is None:

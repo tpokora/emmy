@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
 
         response = self.test_app.get('/flask/hello')
         self.assertEqual(response.status, "200 OK")
-        self.assertEqual(response.json['message'], 'Hello')
+        self.assertEqual(response.json['message'], 'Hello to Emmy!')
 
 
 if __name__ == '__main__':

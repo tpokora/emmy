@@ -12,7 +12,8 @@ class UserApiTest(unittest.TestCase):
         db.app = self.test_app.application
         db.drop_all()
         db.create_all()
-        self.user = User('testUser')
+        self.user = User()
+        self.user.username = 'testUser'
         self.password = 'testPassword'
         self.user.hash_password(self.password)
 
