@@ -16,7 +16,7 @@ export class UserServiceStub {
   }
 
   getUser(username: string): Promise<User> {
-    const user = USERS.filter(user => user.username === username)[0];
+    const user = USERS.filter(eachUser => eachUser.username === username)[0];
     return Promise.resolve(user);
   }
 }

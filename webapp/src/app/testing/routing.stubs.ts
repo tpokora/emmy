@@ -5,7 +5,7 @@ import { convertToParamMap, ParamMap } from '@angular/router';
 @Injectable()
 export class ActivatedRouteStub {
 
-    //Observable that contains a map of the parameters
+    // Observable that contains a map of the parameters
     private subjectParamMap = new BehaviorSubject(convertToParamMap(this.testParamMap));
     paramMap = this.subjectParamMap.asObservable();
 
@@ -18,7 +18,7 @@ export class ActivatedRouteStub {
         this.subjectParamMap.next(this._testParamMap);
     }
 
-    //Observable that contains a map of the query parameters
+    // Observable that contains a map of the query parameters
     private subjectQueryParamMap = new BehaviorSubject(convertToParamMap(this.testParamMap));
     queryParamMap = this.subjectQueryParamMap.asObservable();
 
