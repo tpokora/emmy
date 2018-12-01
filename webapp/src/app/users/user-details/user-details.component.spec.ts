@@ -8,7 +8,7 @@ import { UserDetailsComponent } from './user-details.component';
 import { UserService } from '../common/user.service';
 import { UserServiceStub, USERS } from 'src/app/testing/user.stubs';
 
-fdescribe('UserDetailsComponent', () => {
+describe('UserDetailsComponent', () => {
   const TEST_USER_USERNAME = 'testUser';
   const TEST_USER = USERS.filter(user => user.username === TEST_USER_USERNAME)[0];
   let component: UserDetailsComponent;

@@ -1,5 +1,5 @@
+import { MaterialModule } from './material-module';
 import { AppRoutingModule } from './app-routing.module';
-import { MatCardModule, MatListModule, MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { NgModule } from '@angular/core';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserDetailsComponent } from './users/user-details/user-details.componen
     UserListComponent,
     NavBarComponent,
     DashboardComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -28,11 +30,7 @@ import { UserDetailsComponent } from './users/user-details/user-details.componen
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatListModule
+    MaterialModule
   ],
   exports: [ RouterModule ],
   providers: [
