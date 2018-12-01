@@ -11,7 +11,7 @@ export class UserService extends BaseApiService {
   }
 
   getUsers(): Promise<User[]> {
-    let url = `${this.url}/user`;
+    const url = `${this.url}/user`;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json() as User[])
@@ -19,7 +19,7 @@ export class UserService extends BaseApiService {
   }
 
   getUser(username: string): Promise<User> {
-    let url = `${this.url}/user/${username}`;
+    const url = `${this.url}/user/${username}`;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json() as User)
