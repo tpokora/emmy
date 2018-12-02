@@ -39,7 +39,7 @@ class Hello(Resource):
         nickname='get'
     )
     def get(self):
-        return Message('Hello to Emmy!').print()
+        return Message('Hello to Emmy!').serialize()
 
 
 @app.route('/')

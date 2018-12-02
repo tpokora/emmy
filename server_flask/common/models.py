@@ -7,5 +7,5 @@ class Message:
     def __init__(self, message_string):
         self.message = message_string
 
-    def print(self):
-        return self.__dict__
+    def serialize(self):
+        return {'message': self.message}

@@ -4,6 +4,7 @@ from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_r
 
 from server_flask.common.errors import Error
 from server_flask.common.models import Message
+from server_flask.login.models import Authentication
 from server_flask.user.models import User, UserResourcesList, db
 
 
@@ -121,14 +122,14 @@ class UserListApi(Resource):
             db.session.commit()
             access_token = create_access_token(identity=username)
             refresh_token = create_refresh_token(identity=username)
+            authentication = Authentication(access_token, refresh_token)
             return {
                 'message': 'User created',
                 'user': user.serialize(),
-                'access_token': access_token,
-                'refresh_token': refresh_token
+                'authentication': authentication.serialize()
                 }, 201
         except:
-            return Error('Something went wrong').print(), 500
+            return Error('Something went wrong').serialize(), 500
 
 
     def delete(self):

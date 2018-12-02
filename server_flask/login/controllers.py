@@ -54,11 +54,8 @@ class LoginApi(Resource):
         if User.verify_hash(password, user.password):
             access_token = create_access_token(identity=username)
             refresh_token = create_refresh_token(identity=username)
-            return {
-                       'message': 'User {} logged in'.format(username),
-                       'access_token': access_token,
-                       'refresh_token': refresh_token
-                    }, 201
+            authentication = Authentication(access_token, refresh_token)
+            return {'authentication': authentication.serialize()}, 201
         else:
             return Error('Could not log in'), 404
 
@@ -81,9 +78,9 @@ class UserLogoutAccess(Resource):
         try:
             revoked_token = RevokedToken(jti=jti)
             revoked_token.add()
-            return Message('Access token has been revoked').print(), 200
+            return Message('Access token has been revoked').serialize(), 200
         except:
-            return Error('Something went wrong').print(), 500
+            return Error('Something went wrong').serialize(), 500
 
 
 class UserLogoutRefresh(Resource):
@@ -104,6 +101,6 @@ class UserLogoutRefresh(Resource):
         try:
             revoked_token = RevokedToken(jti=jti)
             revoked_token.add()
-            return Message('Refresh token has been revoked').print(), 200
+            return Message('Refresh token has been revoked').serialize(), 200
         except:
-            return Error('Something went wrong').print(), 500
+            return Error('Something went wrong').serialize(), 500

@@ -9,6 +9,11 @@ class Authentication:
         self.access_token = access_token
         self.refresh_token = refresh_token
 
+    def serialize(self):
+        return {'access_token': self.access_token,
+                'refresh_token': self.refresh_token
+                }
+
 
 class RevokedToken(db.Model):
     __tablename__ = 'revoked_tokens'

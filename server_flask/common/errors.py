@@ -2,7 +2,7 @@ class Error:
     def __init__(self, error_string):
         self.error = error_string
 
-    def print(self):
-        return self.__dict__
+    def serialize(self):
+        return {'error': self.error}
 
 
