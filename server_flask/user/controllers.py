@@ -110,7 +110,7 @@ class UserListApi(Resource):
         password = args['password']
         user_exists = User.query.filter_by(username=username).first()
         if user_exists:
-            return Message('User {} already exists'.format(username)).print(), 422
+            return Message('User {} already exists'.format(username)).serialize(), 422
 
         user = User()
         user.username = username
