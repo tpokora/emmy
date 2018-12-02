@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 
+from server_flask.login.models import RevokedToken
 from server_flask.user.models import User, UserResourcesList, db
 
 
@@ -28,3 +29,27 @@ class LoginApi(Resource):
                     }, 201
         else:
             return {'message': 'Could not log in'}, 404
+
+
+class UserLogoutAccess(Resource):
+    @jwt_required
+    def post(self):
+        jti = get_raw_jwt()['jti']
+        try:
+            revoked_token = RevokedToken(jti=jti)
+            revoked_token.add()
+            return {'message': 'Access token has been revoked'}
+        except:
+            return {'message': 'Something went wrong'}, 500
+
+
+class UserLogoutRefresh(Resource):
+    @jwt_refresh_token_required
+    def post(self):
+        jti = get_raw_jwt()['jti']
+        try:
+            revoked_token = RevokedToken(jti=jti)
+            revoked_token.add()
+            return {'message': 'Refresh token has been revoked'}
+        except:
+            return {'message': 'Something went wrong'}, 500
