@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
 from flask_restful_swagger import swagger
+from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
 from server_flask.user.models import User, UserResourcesList, db
 
 
@@ -11,19 +12,19 @@ class UserApi(Resource):
         responseClass=User.__name__,
         parameters=[
             {
-                "name": "username",
-                "description": "Username",
-                "required": True,
-                "allowMultiple": False,
-                "dataType": 'string',
-                "paramType": "path"
+                'name': 'username',
+                'description': 'Username',
+                'required': True,
+                'allowMultiple': False,
+                'dataType': 'string',
+                'paramType': 'path'
             }
         ],
         responseMesseges=[
             {
 
-                "code": 200,
-                "message": "Returns user"
+                'code': 200,
+                'message': 'Returns user'
             }
         ]
     )
@@ -41,22 +42,23 @@ class UserDetailsApi(Resource):
         responseClass=User.__name__,
         parameters=[
             {
-                "name": "username",
-                "description": "Username",
-                "required": True,
-                "allowMultiple": False,
-                "dataType": 'string',
-                "paramType": "path"
+                'name': 'username',
+                'description': 'Username',
+                'required': True,
+                'allowMultiple': False,
+                'dataType': 'string',
+                'paramType': 'path'
             }
         ],
         responseMesseges=[
             {
 
-                "code": 200,
-                "message": "Returns user details"
+                'code': 200,
+                'message': 'Returns user details'
             }
         ]
     )
+    @jwt_required
     def get(self, username):
         user = User.query.filter_by(username=username).first()
         if user is None:
@@ -79,19 +81,19 @@ class UserListApi(Resource):
         responseClass=User.__name__,
         parameters=[
             {
-                "name": "body",
-                "description": "User item",
-                "required": True,
-                "allowMultiple": False,
-                "dataType": User.__name__,
-                "paramType": "body"
+                'name': 'body',
+                'description': 'User item',
+                'required': True,
+                'allowMultiple': False,
+                'dataType': User.__name__,
+                'paramType': 'body'
             }
         ],
         responseMesseges=[
             {
 
-                "code": 201,
-                "message": "User created"
+                'code': 201,
+                'message': 'User created'
             }
         ]
     )
@@ -102,15 +104,29 @@ class UserListApi(Resource):
         args = parser.parse_args()
         username = args['username']
         password = args['password']
+        user_exists = User.query.filter_by(username=username).first()
+        if user_exists:
+            return {'message': 'User {} already exists'.format(username)}, 422
+
         user = User()
         user.username = username
         user.password = User.generate_hash(password)
         user.active = True
 
-        db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.add(user)
+            db.session.commit()
+            access_token = create_access_token(identity=username)
+            refresh_token = create_refresh_token(identity=username)
+            return {
+                'message': 'User created',
+                'user': user.serialize(),
+                'access_token': access_token,
+                'refresh_token': refresh_token
+                }, 201
+        except:
+            return {'message': 'Something went wrong'}, 500
 
-        return user.serialize(), 201
 
     def delete(self):
         db.session.query(User).delete()

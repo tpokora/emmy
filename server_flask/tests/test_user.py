@@ -2,6 +2,7 @@ import os
 import unittest
 from server_flask.app import app
 from server_flask.common.models import db
+from server_flask.tests.test_helpers import TestHelpers
 from server_flask.user.models import User
 
 
@@ -24,49 +25,54 @@ class UserApiTest(unittest.TestCase):
         self.assertTrue(User.verify_hash(self.user.password, user_password_hash))
 
     def test_create_user(self):
-        response = self.create_user()
-        self.assertEqual(response.status, '201 CREATED')
-        self.assertIsInstance(response.json['id'], int)
-        self.assertEqual(response.json['username'], self.user.username)
+        response = TestHelpers.create_user(self.test_app, self.user)
+        self.assertEqual('201 CREATED', response.status)
+        self.assertIsInstance(response.json['user']['id'], int)
+        self.assertEqual(response.json['user']['username'], self.user.username)
+        self.assertIsInstance(response.json['access_token'], str)
+        self.assertIsInstance(response.json['refresh_token'], str)
 
     def test_user_api_empty_list(self):
         response = self.test_app.get('/flask/user')
-        self.assertEqual(response.status, '200 OK')
+        self.assertEqual('200 OK', response.status)
         self.assertIsInstance(response.json, list)
         self.assertEqual(response.json.__len__(), 0)
 
     def test_user_api_create_user(self):
-        self.create_user()
+        TestHelpers.create_user(self.test_app, self.user)
         response = self.test_app.get('/flask/user')
-        self.assertEqual(response.status, '200 OK')
+        self.assertEqual('200 OK', response.status)
         self.assertIsInstance(response.json, list)
         self.assertEqual(response.json.__len__(), 1)
         self.assertIsInstance(response.json[0]['id'], int)
         self.assertIsInstance(response.json[0]['username'], str)
 
     def test_user_api_get_user_by_username(self):
-        self.create_user()
+        TestHelpers.create_user(self.test_app, self.user)
         response = self.test_app.get('/flask/user/' + self.user.username)
-        self.assertEqual(response.status, '200 OK')
+        self.assertEqual('200 OK', response.status)
         self.assertIsInstance(response.json['id'], int)
         self.assertEqual(response.json['username'], self.user.username)
 
     def test_user_api_get_user_by_username_notfound(self):
         response = self.test_app.get('/flask/user/notfoundusername')
-        self.assertEqual(response.status, '404 NOT FOUND')
+        self.assertEqual('404 NOT FOUND', response.status)
 
     def test_user_api_get_user_details_by_username(self):
-        self.create_user()
-        response = self.test_app.get('/flask/user/' + self.user.username + '/details')
-        self.assertEqual(response.status, '200 OK')
+        TestHelpers.create_user(self.test_app, self.user)
+        login_response = TestHelpers.login_user(self.test_app, self.user)
+        access_token = 'Bearer ' + login_response.json['access_token']
+        response = self.test_app.get('/flask/user/' + self.user.username + '/details',
+                                     headers={'Authorization': access_token})
+        self.assertEqual('200 OK', response.status)
         self.assertIsInstance(response.json['id'], int)
         self.assertEqual(response.json['username'], self.user.username)
         self.assertTrue(User.verify_hash(self.user.password, response.json['password']))
 
     def test_user_api_get_user_details_by_username_notfound(self):
-        response = self.test_app.get('/flask/user/notfoundusername/details')
-        self.assertEqual(response.status, '404 NOT FOUND')
-
-    '''Helper Methods'''
-    def create_user(self):
-        return self.test_app.post('/flask/user', data={'username': self.user.username, 'password': self.user.password})
+        TestHelpers.create_user(self.test_app, self.user)
+        login_response = TestHelpers.login_user(self.test_app, self.user)
+        access_token = 'Bearer ' + login_response.json['access_token']
+        response = self.test_app.get('/flask/user/notexistinguser/details',
+                                     headers={'Authorization': access_token})
+        self.assertEqual('404 NOT FOUND', response.status)
