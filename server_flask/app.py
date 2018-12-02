@@ -5,7 +5,7 @@ from flask_restful import Api, Resource
 from flask_restful_swagger import swagger
 from flask_jwt_extended import JWTManager
 
-from server_flask.common.models import db
+from server_flask.common.models import db, Message
 from server_flask.exercise.controllers import ExerciseListApi
 from server_flask.login.controllers import LoginApi, UserLogoutAccess, UserLogoutRefresh
 from server_flask.login.models import RevokedToken
@@ -39,7 +39,7 @@ class Hello(Resource):
         nickname='get'
     )
     def get(self):
-        return {'message': 'Hello to Emmy!'}
+        return Message('Hello to Emmy!').print()
 
 
 @app.route('/')

@@ -1,6 +1,9 @@
 from flask_restful import Resource, reqparse, fields, marshal_with
 from flask_restful_swagger import swagger
 from flask_jwt_extended import (create_access_token, create_refresh_token, jwt_required, jwt_refresh_token_required, get_jwt_identity, get_raw_jwt)
+
+from server_flask.common.errors import Error
+from server_flask.common.models import Message
 from server_flask.user.models import User, UserResourcesList, db
 
 
@@ -106,7 +109,7 @@ class UserListApi(Resource):
         password = args['password']
         user_exists = User.query.filter_by(username=username).first()
         if user_exists:
-            return {'message': 'User {} already exists'.format(username)}, 422
+            return Message('User {} already exists'.format(username)).print(), 422
 
         user = User()
         user.username = username
@@ -125,7 +128,7 @@ class UserListApi(Resource):
                 'refresh_token': refresh_token
                 }, 201
         except:
-            return {'message': 'Something went wrong'}, 500
+            return Error('Something went wrong').print(), 500
 
 
     def delete(self):

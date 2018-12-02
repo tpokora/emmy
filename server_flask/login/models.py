@@ -1,4 +1,13 @@
+from flask_restful_swagger import swagger
+
 from server_flask.common.models import db
+
+
+@swagger.model
+class Authentication:
+    def __init__(self, access_token, refresh_token):
+        self.access_token = access_token
+        self.refresh_token = refresh_token
 
 
 class RevokedToken(db.Model):
@@ -14,3 +23,4 @@ class RevokedToken(db.Model):
     def is_jti_blacklisted(cls, jti):
         query = cls.query.filter_by(jti=jti).first()
         return bool(query)
+
