@@ -49,15 +49,15 @@ class LoginApi(Resource):
         user = User.query.filter_by(username=username).first()
 
         if not user:
-            return Message('User {} doesn\'t exist'.format(username)).print(), 404
+            return Message('User {} doesn\'t exist'.format(username)).serialize(), 404
 
         if User.verify_hash(password, user.password):
             access_token = create_access_token(identity=username)
             refresh_token = create_refresh_token(identity=username)
             authentication = Authentication(access_token, refresh_token)
-            return {'authentication': authentication.serialize()}, 201
+            return authentication.serialize(), 201
         else:
-            return Error('Could not log in'), 404
+            return Error('Could not log in').serialize(), 404
 
 
 class UserLogoutAccess(Resource):

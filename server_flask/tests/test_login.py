@@ -21,8 +21,8 @@ class LoginApiTest(unittest.TestCase):
         TestHelpers.create_user(self.test_app, self.user)
         response = TestHelpers.login_user(self.test_app, self.user)
         self.assertEqual('201 CREATED', response.status)
-        access_token = response.json['authentication']['access_token']
-        refresh_token = response.json['authentication']['refresh_token']
+        access_token = response.json['access_token']
+        refresh_token = response.json['refresh_token']
         self.assertIsInstance(access_token, str)
         self.assertIsInstance(refresh_token, str)
 
@@ -30,8 +30,8 @@ class LoginApiTest(unittest.TestCase):
         TestHelpers.create_user(self.test_app, self.user)
         response = TestHelpers.login_user(self.test_app, self.user)
         self.assertEqual('201 CREATED', response.status)
-        access_token = response.json['authentication']['access_token']
-        refresh_token = response.json['authentication']['refresh_token']
+        access_token = response.json['access_token']
+        refresh_token = response.json['refresh_token']
         response_logout_access = TestHelpers.logout_access_token_user(self.test_app, access_token)
         self.assertEqual('Access token has been revoked', response_logout_access.json['message'])
         response_logout_refresh = TestHelpers.logout_refresh_token_user(self.test_app, refresh_token)
