@@ -1,8 +1,11 @@
+import { LoginService } from './common/login.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { MatCardModule, MatInputModule } from '@angular/material';
+import { LoginServiceStub } from '../testing/login.stubs';
+import { FormsModule } from '@angular/forms';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -14,19 +17,26 @@ describe('LoginComponent', () => {
       imports: [
         MatCardModule,
         MatInputModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        FormsModule
+      ],
+      providers: [
+        { provide: LoginService, useClass: LoginServiceStub }
       ]
     })
     .compileComponents();
   }));
 
-  beforeEach(() => {
+  function createComponent() {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
+    tick();
     expect(component).toBeTruthy();
-  });
+  }
+
+  it('should create', fakeAsync(() => {
+    createComponent();
+    expect(component).toBeTruthy();
+  }));
 });

@@ -1,3 +1,4 @@
+import { LoginService } from './login/common/login.service';
 import { MaterialModule } from './material-module';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -34,7 +35,8 @@ import { LoginComponent } from './login/login.component';
   ],
   exports: [ RouterModule ],
   providers: [
-    UserService
+    UserService,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })
