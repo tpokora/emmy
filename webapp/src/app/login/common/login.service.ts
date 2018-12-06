@@ -18,4 +18,14 @@ export class LoginService extends BaseApiService {
       .then(response => response.json() as Authentication)
       .catch(this.handleError);
   }
+
+  saveTokensInSession(auth: Authentication) {
+    sessionStorage.setItem('access_token', auth.access_token);
+    sessionStorage.setItem('refresh_token', auth.refresh_token);
+  }
+
+  clearTokensInSession() {
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('refresh_token');
+  }
 }

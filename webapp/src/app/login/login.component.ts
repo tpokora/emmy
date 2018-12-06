@@ -22,7 +22,10 @@ export class LoginComponent implements OnInit {
   loginAction() {
     console.log(JSON.stringify(this.login));
     this.loginService.login(this.login)
-      .then(auth => this.auth = auth);
+      .then(auth => {
+        this.auth = auth ;
+        this.loginService.saveTokensInSession(this.auth);
+      });
   }
 
 }
