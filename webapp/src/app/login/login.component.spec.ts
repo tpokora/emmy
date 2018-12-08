@@ -8,6 +8,8 @@ import { LoginServiceStub } from '../testing/login.stubs';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterStub } from '../testing/routing.stubs';
+import { UserService } from '../users/common/user.service';
+import { UserServiceStub } from '../testing/user.stubs';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -24,6 +26,7 @@ describe('LoginComponent', () => {
       ],
       providers: [
         { provide: LoginService, useClass: LoginServiceStub },
+        { provide: UserService, useClass: UserServiceStub},
         { provide: Router, useClass: RouterStub }
       ]
     })

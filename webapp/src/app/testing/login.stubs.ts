@@ -2,6 +2,7 @@ import { Authentication } from './../login/common/auth.model';
 import { Injectable } from '@angular/core';
 import { User } from '../users/common/user.model';
 import { Login } from '../login/common/login.model';
+import { BehaviorSubject } from 'rxjs';
 
 export const LOGIN: Login = {
     username: 'testUser',
@@ -15,6 +16,9 @@ export const LOGIN: Login = {
 
 @Injectable()
 export class LoginServiceStub {
+
+  private messageSource = new BehaviorSubject(new User());
+  user = this.messageSource.asObservable();
 
   login(login: Login): Promise<Authentication> {
     return Promise.resolve(AUTH);

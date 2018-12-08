@@ -3,9 +3,14 @@ import { Injectable } from '@angular/core';
 import { BaseApiService } from 'src/app/common/base.service';
 import { Http } from '@angular/http';
 import { Authentication } from './auth.model';
+import { User } from 'src/app/users/common/user.model';
+import { Observable, Observer, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class LoginService extends BaseApiService {
+
+  private messageSource = new BehaviorSubject(new User());
+  user = this.messageSource.asObservable();
 
   constructor(private http: Http) {
     super();
@@ -27,5 +32,10 @@ export class LoginService extends BaseApiService {
   clearTokensInSession() {
     sessionStorage.removeItem('access_token');
     sessionStorage.removeItem('refresh_token');
+  }
+
+  updateUser(user: User) {
+    console.log('loginService: ' + JSON.stringify(user));
+    this.messageSource.next(user);
   }
 }
