@@ -26,7 +26,7 @@ export class UserDetailsComponent implements OnInit {
 
   getUser(): void {
     const username = this.route.snapshot.paramMap.get('username');
-    this.userService.getUser(username)
+    this.userService.getUserDetails(username)
       .then(user =>
         this.user = user);
   }

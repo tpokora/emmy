@@ -6,6 +6,8 @@ import { LoginComponent } from './login.component';
 import { MatCardModule, MatInputModule } from '@angular/material';
 import { LoginServiceStub } from '../testing/login.stubs';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RouterStub } from '../testing/routing.stubs';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -21,7 +23,8 @@ describe('LoginComponent', () => {
         FormsModule
       ],
       providers: [
-        { provide: LoginService, useClass: LoginServiceStub }
+        { provide: LoginService, useClass: LoginServiceStub },
+        { provide: Router, useClass: RouterStub }
       ]
     })
     .compileComponents();

@@ -19,4 +19,9 @@ export class UserServiceStub {
     const user = USERS.filter(eachUser => eachUser.username === username)[0];
     return Promise.resolve(user);
   }
+
+  getUserDetails(username: string): Promise<User> {
+    const user = USERS.filter(eachUser => eachUser.username === username)[0];
+    return Promise.resolve(user);
+  }
 }

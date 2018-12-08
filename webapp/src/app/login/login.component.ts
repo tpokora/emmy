@@ -2,6 +2,7 @@ import { Authentication } from './common/auth.model';
 import { LoginService } from './common/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Login } from './common/login.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,10 @@ export class LoginComponent implements OnInit {
   login: Login;
   auth: Authentication;
 
-  constructor(private loginService: LoginService) { }
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.login = new Login();
@@ -25,7 +29,12 @@ export class LoginComponent implements OnInit {
       .then(auth => {
         this.auth = auth ;
         this.loginService.saveTokensInSession(this.auth);
+        this.router.navigate(['/']);
       });
+  }
+
+  logoutAction() {
+    
   }
 
 }
