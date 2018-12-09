@@ -23,4 +23,13 @@ export class LoginServiceStub {
   login(login: Login): Promise<Authentication> {
     return Promise.resolve(AUTH);
   }
+
+  saveTokensInSession(auth: Authentication) {
+    sessionStorage.setItem('access_token', auth.access_token);
+    sessionStorage.setItem('refresh_token', auth.refresh_token);
+  }
+
+  updateUser(user: User) {
+    this.messageSource.next(user);
+  }
 }
