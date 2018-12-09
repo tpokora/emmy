@@ -19,8 +19,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getMessage() {
-    let message = 'Welcome!';
-    if (this.user.username != null) {
+    const message = 'Welcome!';
+    if (this.user.username !== undefined) {
       return 'Welcome ' + this.user.username + '!';
     }
     return message;

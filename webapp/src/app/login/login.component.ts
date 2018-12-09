@@ -48,7 +48,16 @@ export class LoginComponent implements OnInit {
   }
 
   logoutAction() {
-
+    this.loginService.logoutAccessToken();
+    this.loginService.clearAccessToken();
+    this.loginService.logoutRefreshToken();
+    this.loginService.clearRefreshToken();
+    this.user = undefined;
+    this.auth = undefined;
+    this.login.username = undefined;
+    this.login.password = undefined;
+    this.loginService.updateUser(new User());
+    this.router.navigate(['/']);
   }
 
 }

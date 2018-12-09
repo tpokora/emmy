@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { Authentication } from './auth.model';
 import { User } from 'src/app/users/common/user.model';
 import { Observable, Observer, BehaviorSubject } from 'rxjs';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Injectable()
 export class LoginService extends BaseApiService {
@@ -24,14 +25,41 @@ export class LoginService extends BaseApiService {
       .catch(this.handleError);
   }
 
-  saveTokensInSession(auth: Authentication) {
-    sessionStorage.setItem('access_token', auth.access_token);
-    sessionStorage.setItem('refresh_token', auth.refresh_token);
+  logoutAccessToken(): Promise<Message> {
+    const url = `${this.url}/logout/access`;
+    const message = this.http.post(url, '', { headers: this.generateHeadersWithToken(true) })
+      .toPromise()
+      .then(response => response.json() as Message)
+      .catch(this.handleError);
+
+    console.log('logoutAccess: ' + JSON.stringify(message));
+
+    return message;
   }
 
-  clearTokensInSession() {
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('refresh_token');
+  logoutRefreshToken(): Promise<Message> {
+    const url = `${this.url}/logout/refresh`;
+    const message = this.http.post(url, '', { headers: this.generateHeadersWithToken(false) })
+      .toPromise()
+      .then(response => response.json() as Message)
+      .catch(this.handleError);
+
+    console.log('logoutRefresh: ' + JSON.stringify(message));
+
+    return message;
+  }
+
+  saveTokensInSession(auth: Authentication) {
+    sessionStorage.setItem(this.ACCESS_TOKEN, auth.access_token);
+    sessionStorage.setItem(this.REFRESH_TOKEN, auth.refresh_token);
+  }
+
+  clearAccessToken() {
+    sessionStorage.removeItem(this.ACCESS_TOKEN);
+  }
+
+  clearRefreshToken() {
+    sessionStorage.removeItem(this.REFRESH_TOKEN);
   }
 
   updateUser(user: User) {
