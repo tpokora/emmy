@@ -22,13 +22,6 @@ class UserResourcesList:
 
 
 @swagger.model
-class Role(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(80), unique=True)
-    description = db.Column(db.String(255))
-
-
-@swagger.model
 class User(db.Model):
     __tablename__ = 'user'
 

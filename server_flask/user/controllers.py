@@ -62,7 +62,7 @@ class UserDetailsApi(Resource):
             }
         ]
     )
-    @jwt_required
+    @jwt_refresh_token_required
     def get(self, username):
         user = User.query.filter_by(username=username).first()
         if user is None:
@@ -130,7 +130,6 @@ class UserListApi(Resource):
                 }, 201
         except:
             return Error('Something went wrong').serialize(), 500
-
 
     def delete(self):
         db.session.query(User).delete()
