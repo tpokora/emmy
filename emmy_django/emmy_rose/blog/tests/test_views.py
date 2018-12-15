@@ -35,7 +35,7 @@ class GetEntriesTest(TestCase):
         create_entry(self.ENTRY2_TITLE, self.ENTRY2_CONTENT, self.user)
 
     def test_get_entries_list(self):
-        url = '/blog/'
+        url = '/blog/entries'
         response = entry_list(get_request(url))
         entries = Entry.objects.all()
         serializer = EntrySerializer(entries, many=True, context={'request': Request(get_request(url))})
@@ -44,7 +44,7 @@ class GetEntriesTest(TestCase):
 
     def test_get_entry_by_id(self):
         entry = Entry.objects.get(title=self.ENTRY1_TITLE)
-        url = '/blog/%s' % (entry.id)
+        url = '/blog/entries/%s' % (entry.id)
         response = entry_detail(get_request(url), pk=entry.id)
         serializer = EntrySerializer(entry, many=False, context={'request': Request(get_request(url))})
         self.assertEqual(response.data, serializer.data)
@@ -54,7 +54,7 @@ class GetEntriesTest(TestCase):
         new_entry_title = 'newTestEntryTitle'
         new_entry_content = 'newTestEntryContent'
         entry = create_entry(new_entry_title, new_entry_content, self.user)
-        url = '/blog/%s' % (entry.id)
+        url = '/blog/entries/%s' % (entry.id)
         response = entry_detail(get_request(url), pk=entry.id)
         serializer = EntrySerializer(entry, many=False, context={'request': Request(get_request(url))})
         self.assertEqual(response.data, serializer.data)
@@ -64,7 +64,7 @@ class GetEntriesTest(TestCase):
         new_entry_title = 'newTestEntryTitleToDelete'
         new_entry_content = 'newTestEntryContentToDelete'
         entry = create_entry(new_entry_title, new_entry_content, self.user)
-        url = '/blog/%s' % (entry.id)
+        url = '/blog/entries/%s' % (entry.id)
         response = entry_detail(get_request(url), pk=entry.id)
         serializer = EntrySerializer(entry, many=False, context={'request': Request(get_request(url))})
         self.assertEqual(response.data, serializer.data)
