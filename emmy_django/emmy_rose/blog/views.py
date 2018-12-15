@@ -1,9 +1,8 @@
-from django.shortcuts import render
-
 # Create your views here.
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from emmy_rose.blog.serializers import UserSerializer, GroupSerializer
+from emmy_rose.blog.models import Entry
+from emmy_rose.blog.serializers import UserSerializer, GroupSerializer, EntrySerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -20,3 +19,8 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class EntryViewSet(viewsets.ModelViewSet):
+    queryset = Entry.objects.all()
+    serializer_class = EntrySerializer
