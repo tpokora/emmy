@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from emmy_rose.blog.models import Entry
 from emmy_rose.blog.serializers import UserSerializer, GroupSerializer, EntrySerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -22,5 +23,6 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 
 class EntryViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated, )
     queryset = Entry.objects.all()
     serializer_class = EntrySerializer

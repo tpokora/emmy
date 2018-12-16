@@ -14,12 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from django.contrib import admin
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-# ]
+# from django.urls import path
 
 from django.conf.urls import url, include
 from rest_framework import routers
@@ -37,7 +32,7 @@ router.register(r'blog/entries', views.EntryViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^auth-jwt/', obtain_jwt_token),
     url(r'^auth-jwt-refresh/', refresh_jwt_token),
     url(r'^auth-jwt-verify/', verify_jwt_token),
