@@ -21,12 +21,14 @@ from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_jwt.views import verify_jwt_token
-from emmy_rose.blog import views
+from emmy_rose.blog import views as blog_views
+from emmy_rose.holiday_counter import views as holiday_counter_views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'blog/entries', views.EntryViewSet)
+router.register(r'users', blog_views.UserViewSet)
+router.register(r'groups', blog_views.GroupViewSet)
+router.register(r'blog/entries', blog_views.EntryViewSet)
+router.register(r'holidays', holiday_counter_views.HolidayCounterViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

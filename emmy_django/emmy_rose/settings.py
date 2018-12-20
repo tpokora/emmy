@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'emmy_rose.blog'
+    'emmy_rose.blog',
+    'emmy_rose.holiday_counter'
 ]
 
 MIDDLEWARE = [
