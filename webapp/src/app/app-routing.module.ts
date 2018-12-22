@@ -1,3 +1,4 @@
+import { HolidaysComponent } from './holidays/holidays.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -10,7 +11,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user-list', component: UserListComponent },
-  { path: 'user-details/:username', component: UserDetailsComponent }
+  { path: 'user-details/:username', component: UserDetailsComponent },
+  { path: 'holidays', component: HolidaysComponent }
 ];
 
 @NgModule({
