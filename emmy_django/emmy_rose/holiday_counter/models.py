@@ -4,5 +4,5 @@ from django.db import models
 
 
 class HolidayCounter(models.Model):
-    deadline = models.DateTimeField(auto_now_add=True)
+    deadline = models.DateTimeField(default='', blank=False)
     title = models.CharField(max_length=100, blank=True, default='')
