@@ -5,6 +5,7 @@ export const USERS: User[] = [
   {
     id: 1,
     username: 'testUser',
+    email: 'test@test.com'
   },
 ];
 

@@ -7,6 +7,7 @@ export abstract class BaseApiService {
 
   protected readonly ACCESS_TOKEN = 'access_token';
   protected readonly REFRESH_TOKEN = 'refresh_token';
+  protected readonly TOKEN = 'token';
 
   constructor() { }
 
@@ -24,6 +25,9 @@ export abstract class BaseApiService {
     } else {
       token += this.getRefreshToken();
     }
+    if (token === '') {
+      token = this.getToken();
+    }
     headers.append('Authorization', 'Bearer ' + token);
     return headers;
   }
@@ -34,6 +38,10 @@ export abstract class BaseApiService {
 
   private getAccessToken() {
     return sessionStorage.getItem(this.ACCESS_TOKEN);
+  }
+
+  private getToken() {
+    return sessionStorage.getItem(this.TOKEN);
   }
 
   protected handleError(error: any): Promise<any> {

@@ -18,7 +18,7 @@ export class LoginService extends BaseApiService {
   }
 
   login(login: Login): Promise<Authentication> {
-    const url = `${this.url}/login`;
+    const url = `${this.url}/auth-jwt/`;
     return this.http.post(url, JSON.stringify(login), { headers: this.generateHeaders() })
       .toPromise()
       .then(response => response.json() as Authentication)
@@ -50,8 +50,10 @@ export class LoginService extends BaseApiService {
   }
 
   saveTokensInSession(auth: Authentication) {
+    console.log('auth: ' + JSON.stringify(auth));
     sessionStorage.setItem(this.ACCESS_TOKEN, auth.access_token);
     sessionStorage.setItem(this.REFRESH_TOKEN, auth.refresh_token);
+    sessionStorage.setItem(this.TOKEN, auth.token);
   }
 
   clearAccessToken() {
@@ -60,6 +62,10 @@ export class LoginService extends BaseApiService {
 
   clearRefreshToken() {
     sessionStorage.removeItem(this.REFRESH_TOKEN);
+  }
+
+  clearToken() {
+    sessionStorage.removeItem(this.TOKEN);
   }
 
   updateUser(user: User) {

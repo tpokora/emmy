@@ -8,6 +8,7 @@ import { Message } from '../common/common.model';
 
 const REFRESH_TOKEN = 'refresh_token';
 const ACCESS_TOKEN = 'access_token';
+const TOKEN = 'token';
 
 export const LOGIN: Login = {
     username: 'testUser',
@@ -16,7 +17,8 @@ export const LOGIN: Login = {
 
 export const AUTH: Authentication = {
   access_token: ACCESS_TOKEN,
-  refresh_token: REFRESH_TOKEN
+  refresh_token: REFRESH_TOKEN,
+  token: TOKEN
  };
 
 
