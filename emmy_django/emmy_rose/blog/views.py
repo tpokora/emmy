@@ -1,4 +1,5 @@
 # Create your views here.
+from django.shortcuts import get_list_or_404
 from rest_framework import viewsets, status
 from emmy_rose.blog.serializers import *
 from rest_framework.decorators import action
@@ -45,8 +46,12 @@ class EntryViewSet(viewsets.ModelViewSet):
 
     @action(methods=['get'], detail=False, url_path='username/(?P<username>\w+)')
     def get_entries_by_username(self, request, username=None):
-        # TODO: get entries by username
-        user = get_object_or_404(User, username=username)
-        # entries_by_username = get_object_or_404(Entry, user.username=username)
-        entries = get_object_or_404(Entry)
-        return Response(EntryListSerializer(entries, context={'request': request}).data, status=status.HTTP_200_OK)
+        entries_by_username = get_list_or_404(Entry, user__username=username)
+        serializer = EntryListSerializer(entries_by_username, context={'request': request}, many=True)
+
+        page = self.paginate_queryset(entries_by_username)
+        if page is not None:
+            serializer = self.get_serializer(page, context={'request': request}, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        return self.get_paginated_response(Response(serializer, status=status.HTTP_200_OK))

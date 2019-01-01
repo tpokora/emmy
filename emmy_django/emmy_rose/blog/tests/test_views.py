@@ -14,6 +14,7 @@ from rest_framework.test import APIRequestFactory
 
 client = Client()
 entry_list = EntryViewSet.as_view({'get': 'list'})
+entry_list_by_username = EntryViewSet.as_view({'get': 'get_entries_by_username'})
 entry_detail = EntryViewSet.as_view({'get': 'retrieve'})
 entry_create = EntryViewSet.as_view({'post': 'create'})
 entry_update = EntryViewSet.as_view({'put': 'update'})
@@ -23,19 +24,26 @@ entry_delete = EntryViewSet.as_view({'delete': 'destroy'})
 class GetEntriesTest(TestCase):
     """ Test module for GET all entries API """
 
-    USERNAME = 'testUser'
-    PASSWORD = 'testPassword'
+    FIRST_USERNAME = 'testFirstUser'
+    FIRST_PASSWORD = 'testFirstPassword'
+    SECOND_USERNAME = 'testSecondUser'
+    SECOND_PASSWORD = 'testSecondPassword'
     ENTRY1_TITLE = 'testTitle1'
     ENTRY1_CONTENT = 'testTitle1'
     ENTRY2_TITLE = 'testTitle2'
     ENTRY2_CONTENT = 'testTitle2'
+    ENTRY3_TITLE = 'testTitle3'
+    ENTRY3_CONTENT = 'testTitle3'
 
     def setUp(self):
-        User.objects.create_user(username=self.USERNAME, email='test@test.com', password=self.PASSWORD)
-        self.user = User.objects.get(username=self.USERNAME)
+        User.objects.create_user(username=self.FIRST_USERNAME, email='test@test.com', password=self.FIRST_PASSWORD)
+        self.user = User.objects.get(username=self.FIRST_USERNAME)
         create_entry(self.ENTRY1_TITLE, self.ENTRY1_CONTENT, self.user)
         create_entry(self.ENTRY2_TITLE, self.ENTRY2_CONTENT, self.user)
-        self.token = login(self.USERNAME, self.PASSWORD)
+        self.token = login(self.FIRST_USERNAME, self.FIRST_PASSWORD)
+        User.objects.create_user(username=self.SECOND_USERNAME, email='test@test.com', password=self.SECOND_PASSWORD)
+        self.second_user = User.objects.get(username=self.SECOND_USERNAME)
+        create_entry(self.ENTRY3_TITLE, self.ENTRY3_CONTENT, self.second_user)
 
     def test_get_entries_list(self):
         url = '/blog/entries'
@@ -47,7 +55,7 @@ class GetEntriesTest(TestCase):
 
     def test_get_entry_by_id(self):
         entry = Entry.objects.get(title=self.ENTRY1_TITLE)
-        url = '/blog/entries/%s' % (entry.id)
+        url = '/blog/entries/%s' % entry.id
         response = entry_detail(get_request(url, self.token), pk=entry.id)
         serializer = EntryListSerializer(entry, many=False, context={'request': Request(get_request(url, self.token))})
         self.assertEqual(response.data, serializer.data)
@@ -85,13 +93,23 @@ class GetEntriesTest(TestCase):
         new_entry_title = 'newTestEntryTitleToDelete'
         new_entry_content = 'newTestEntryContentToDelete'
         entry = create_entry(new_entry_title, new_entry_content, self.user)
-        url = '/blog/entries/%s' % (entry.id)
+        url = '/blog/entries/%s' % entry.id
         response = entry_detail(get_request(url, self.token), pk=entry.id)
         serializer = EntryListSerializer(entry, many=False, context={'request': Request(get_request(url, self.token))})
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         response = entry_delete(delete_request(url, self.token), pk=entry.id)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_get_entries_by_username(self):
+        second_user_entries = Entry.objects.filter(user__username=self.second_user.username)
+        for entry in second_user_entries:
+            self.assertEqual(self.second_user.username, entry.user.username, 'Entry username should equal: %s' % self.second_user.username)
+        url = '/blog/entries/username/%s' % self.second_user.username
+        response = entry_list_by_username(get_request(url, self.token), username=self.second_user.username)
+        serializer = EntryListSerializer(second_user_entries, many=True, context={'request': Request(get_request(url, self.token))})
+        self.assertEqual(response.data['results'], serializer.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 def create_entry(new_entry_title, new_entry_content, user):
@@ -102,7 +120,7 @@ def create_entry(new_entry_title, new_entry_content, user):
 
 def get_request(url, token):
     factory = APIRequestFactory()
-    request = factory.get(url, HTTP_AUTHORIZATION='Bearer %s' % (token))
+    request = factory.get(url, HTTP_AUTHORIZATION='Bearer %s' % token)
     return request
 
 
@@ -113,7 +131,7 @@ def post_request(url, token, data):
         "content": data.content,
         'user': data.user.id
     }
-    request = factory.post(url, data_string, HTTP_AUTHORIZATION='Bearer %s' % (token))
+    request = factory.post(url, data_string, HTTP_AUTHORIZATION='Bearer %s' % token)
     return request
 
 
@@ -125,11 +143,11 @@ def put_request(url, token, data):
         "content": data.content,
         'user': data.user.id
     }
-    request = factory.put(url, data_string, HTTP_AUTHORIZATION='Bearer %s' % (token))
+    request = factory.put(url, data_string, HTTP_AUTHORIZATION='Bearer %s' % token)
     return request
 
 
 def delete_request(url, token):
     factory = APIRequestFactory()
-    request = factory.delete(url, HTTP_AUTHORIZATION='Bearer %s' % (token))
+    request = factory.delete(url, HTTP_AUTHORIZATION='Bearer %s' % token)
     return request
