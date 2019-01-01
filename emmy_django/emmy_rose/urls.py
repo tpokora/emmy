@@ -18,6 +18,7 @@ Including another URLconf
 
 from django.conf.urls import url, include
 from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_jwt.views import verify_jwt_token
@@ -30,9 +31,11 @@ router.register(r'groups', blog_views.GroupViewSet)
 router.register(r'blog/entries', blog_views.EntryViewSet)
 router.register(r'holidays', holiday_counter_views.HolidayCounterViewSet)
 
+schema_view = get_swagger_view(title='Emmy API')
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
+    url(r'^api/', schema_view),
     url(r'^', include(router.urls)),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^auth-jwt/', obtain_jwt_token),
