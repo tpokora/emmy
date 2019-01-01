@@ -1,8 +1,6 @@
 # Create your views here.
-from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, status
-from emmy_rose.blog.models import Entry
-from emmy_rose.blog.serializers import UserSerializer, UserSummarySerializer, GroupSerializer, EntrySerializer
+from emmy_rose.blog.serializers import *
 from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -38,4 +36,17 @@ class GroupViewSet(viewsets.ModelViewSet):
 class EntryViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
     queryset = Entry.objects.all()
-    serializer_class = EntrySerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return EntryPostSerializer
+        else:
+            return EntryListSerializer
+
+    @action(methods=['get'], detail=False, url_path='username/(?P<username>\w+)')
+    def get_entries_by_username(self, request, username=None):
+        # TODO: get entries by username
+        user = get_object_or_404(User, username=username)
+        # entries_by_username = get_object_or_404(Entry, user.username=username)
+        entries = get_object_or_404(Entry)
+        return Response(EntryListSerializer(entries, context={'request': request}).data, status=status.HTTP_200_OK)

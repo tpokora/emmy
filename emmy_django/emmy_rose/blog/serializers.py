@@ -21,9 +21,15 @@ class UserSummarySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'username', 'email')
 
 
-class EntrySerializer(serializers.ModelSerializer):
+class EntryListSerializer(serializers.ModelSerializer):
     user = UserSummarySerializer(many=False, read_only=True)
 
+    class Meta:
+        model = Entry
+        fields = ('id', 'created', 'title', 'content', 'user')
+
+
+class EntryPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
         fields = ('id', 'created', 'title', 'content', 'user')
