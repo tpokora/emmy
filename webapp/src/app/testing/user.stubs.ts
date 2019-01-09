@@ -7,6 +7,11 @@ export const USERS: User[] = [
     username: 'testUser',
     email: 'test@test.com'
   },
+  {
+    id: 2,
+    username: 'testUser2',
+    email: 'test2@test.com'
+  }
 ];
 
 @Injectable()

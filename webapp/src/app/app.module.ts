@@ -17,6 +17,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { LoginComponent } from './login/login.component';
 import { HolidaysComponent } from './holidays/holidays.component';
+import { BlogListComponent } from './blog/blog-list/blog-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HolidaysComponent } from './holidays/holidays.component';
     DashboardComponent,
     UserDetailsComponent,
     LoginComponent,
-    HolidaysComponent
+    HolidaysComponent,
+    BlogListComponent
   ],
   imports: [
     AppRoutingModule,
@@ -34,7 +36,7 @@ import { HolidaysComponent } from './holidays/holidays.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
-    MaterialModule
+    MaterialModule,
   ],
   exports: [ RouterModule ],
   providers: [

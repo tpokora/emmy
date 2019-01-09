@@ -1,4 +1,4 @@
-import { UserServiceStub } from './../../testing/user.stubs';
+import { UserServiceStub, USERS } from './../../testing/user.stubs';
 import { UserService } from './../common/user.service';
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
@@ -25,34 +25,38 @@ describe('UserListComponent', () => {
     .compileComponents();
   }));
 
-  function createComponent() {
+  function createComponent(withUsers: boolean) {
     fixture = TestBed.createComponent(UserListComponent);
     component = fixture.componentInstance;
+    component.users = null;
+    if (withUsers) {
+      component.users = USERS;
+    }
     fixture.detectChanges();
     tick();
     expect(component).toBeTruthy();
   }
 
   it('should create', fakeAsync(() => {
-    createComponent();
+    createComponent(true);
   }));
 
   it('should have users list elements', fakeAsync(() => {
-    createComponent();
+    createComponent(true);
     expect(component.users.length > 0);
     const debugElement = getListElements();
     expect(debugElement.length).toEqual(component.users.length);
   }));
 
   it('should have user list element with text ' + NO_USERS_STRING, fakeAsync(() => {
-    createComponent();
+    createComponent(false);
     component.users = null;
     expect(component.users == null);
-    const debugElement = getListElements();
+    const debugElement = fixture.debugElement.queryAll(By.css('mat-card mat-card-content mat-list mat-list-item'));
     expect(debugElement[0].nativeElement.textContent).toEqual(NO_USERS_STRING);
   }));
 
   function getListElements() {
-    return fixture.debugElement.queryAll(By.css('mat-card mat-card-content mat-list mat-list-item'));
+    return fixture.debugElement.queryAll(By.css('mat-card mat-card-content mat-list a'));
   }
 });
