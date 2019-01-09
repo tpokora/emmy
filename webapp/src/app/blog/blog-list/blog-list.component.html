@@ -23,14 +23,13 @@
         </mat-form-field>
       </mat-expansion-panel>
       <mat-divider></mat-divider>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                          (closed)="panelOpenState = false">
+      <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Self aware panel
           </mat-panel-title>
           <mat-panel-description>
-            Currently I am {{panelOpenState ? 'open' : 'closed'}}
+            Description
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p>I'm visible because I am open</p>
