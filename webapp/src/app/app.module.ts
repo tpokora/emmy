@@ -18,6 +18,7 @@ import { UserDetailsComponent } from './users/user-details/user-details.componen
 import { LoginComponent } from './login/login.component';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
+import { BlogAddComponent } from './blog/blog-add/blog-add.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BlogListComponent } from './blog/blog-list/blog-list.component';
     UserDetailsComponent,
     LoginComponent,
     HolidaysComponent,
-    BlogListComponent
+    BlogListComponent,
+    BlogAddComponent
   ],
   imports: [
     AppRoutingModule,

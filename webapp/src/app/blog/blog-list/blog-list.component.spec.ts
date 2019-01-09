@@ -1,3 +1,4 @@
+import { BlogAddComponent } from './../blog-add/blog-add.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BlogListComponent } from './blog-list.component';
@@ -11,7 +12,10 @@ describe('BlogListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlogListComponent ],
+      declarations: [
+        BlogListComponent,
+        BlogAddComponent
+       ],
       imports: [
         BrowserAnimationsModule,
         MatCardModule,
