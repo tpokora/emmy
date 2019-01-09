@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Entry } from '../common/entry.model';
 
 @Component({
   selector: 'app-blog-add',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog-add.component.css']
 })
 export class BlogAddComponent implements OnInit {
+
+  entry: Entry;
 
   constructor() { }
 

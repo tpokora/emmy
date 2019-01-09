@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BlogAddComponent } from './blog-add.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatCardModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
 describe('BlogAddComponent', () => {
@@ -16,6 +16,7 @@ describe('BlogAddComponent', () => {
         BrowserAnimationsModule,
         MatInputModule,
         ReactiveFormsModule,
+        MatCardModule
       ],
     })
     .compileComponents();
