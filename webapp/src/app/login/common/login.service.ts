@@ -11,10 +11,13 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 export class LoginService extends BaseApiService {
 
   private messageSource = new BehaviorSubject(new User());
-  user = this.messageSource.asObservable();
 
   constructor(private http: Http) {
     super();
+  }
+
+  getUser() {
+    return this.messageSource.asObservable();
   }
 
   login(login: Login): Promise<Authentication> {

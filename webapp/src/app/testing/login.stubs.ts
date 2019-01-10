@@ -26,7 +26,10 @@ export const AUTH: Authentication = {
 export class LoginServiceStub {
 
   private messageSource = new BehaviorSubject(new User());
-  user = this.messageSource.asObservable();
+
+  getUser() {
+    return this.messageSource.asObservable();
+  }
 
   login(login: Login): Promise<Authentication> {
     return Promise.resolve(AUTH);
