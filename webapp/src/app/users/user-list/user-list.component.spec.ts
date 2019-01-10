@@ -50,7 +50,6 @@ describe('UserListComponent', () => {
 
   it('should have user list element with text ' + NO_USERS_STRING, fakeAsync(() => {
     createComponent(false);
-    component.users = null;
     expect(component.users == null);
     const debugElement = fixture.debugElement.queryAll(By.css('mat-card mat-card-content mat-list mat-list-item'));
     expect(debugElement[0].nativeElement.textContent).toEqual(NO_USERS_STRING);

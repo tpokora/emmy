@@ -1,3 +1,4 @@
+import { BlogService } from './blog/common/blog.service';
 import { HolidayService } from './holidays/common/holiday.service';
 import { LoginService } from './login/common/login.service';
 import { MaterialModule } from './material-module';
@@ -45,6 +46,7 @@ import { BlogAddComponent } from './blog/blog-add/blog-add.component';
   providers: [
     UserService,
     LoginService,
+    BlogService,
     HolidayService
   ],
   bootstrap: [AppComponent]

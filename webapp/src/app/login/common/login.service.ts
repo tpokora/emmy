@@ -51,9 +51,15 @@ export class LoginService extends BaseApiService {
 
   saveTokensInSession(auth: Authentication) {
     console.log('auth: ' + JSON.stringify(auth));
-    sessionStorage.setItem(this.ACCESS_TOKEN, auth.access_token);
-    sessionStorage.setItem(this.REFRESH_TOKEN, auth.refresh_token);
-    sessionStorage.setItem(this.TOKEN, auth.token);
+    if (auth.access_token !== undefined) {
+      sessionStorage.setItem(this.ACCESS_TOKEN, auth.access_token);
+    }
+    if (auth.refresh_token !== undefined) {
+      sessionStorage.setItem(this.REFRESH_TOKEN, auth.refresh_token);
+    }
+    if (auth.token !== undefined) {
+      sessionStorage.setItem(this.TOKEN, auth.token);
+    }
   }
 
   clearAccessToken() {

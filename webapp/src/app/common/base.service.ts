@@ -25,11 +25,18 @@ export abstract class BaseApiService {
     } else {
       token += this.getRefreshToken();
     }
-    if (token === '') {
+    if (!this.validateToken(token)) {
       token = this.getToken();
     }
     headers.append('Authorization', 'Bearer ' + token);
     return headers;
+  }
+
+  private validateToken(token: string): boolean {
+    if (token === undefined || token === '' || token === 'undefined' || token === 'null') {
+      return false;
+    }
+    return true;
   }
 
   private getRefreshToken() {

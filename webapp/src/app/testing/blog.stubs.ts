@@ -1,5 +1,6 @@
 import { USERS } from './user.stubs';
 import { Entry } from '../blog/common/entry.model';
+import { Injectable } from '@angular/core';
 
 export const ENTRIES: Entry[] = [
   {
@@ -17,3 +18,12 @@ export const ENTRIES: Entry[] = [
     user: USERS[1]
   }
 ];
+
+@Injectable()
+export class BlogServiceStub {
+
+  getBlogEntries(): Promise<Entry[]> {
+    return Promise.resolve(ENTRIES);
+  }
+
+}

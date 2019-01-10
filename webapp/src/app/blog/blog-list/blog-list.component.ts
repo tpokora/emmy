@@ -1,5 +1,7 @@
+import { BlogService } from './../common/blog.service';
 import { Component, OnInit } from '@angular/core';
-import { ENTRIES } from 'src/app/testing/entry.stubs';
+import { ENTRIES } from 'src/app/testing/blog.stubs';
+import { Entry } from '../common/entry.model';
 
 @Component({
   selector: 'app-blog-list',
@@ -9,11 +11,13 @@ import { ENTRIES } from 'src/app/testing/entry.stubs';
 export class BlogListComponent implements OnInit {
 
   panelOpenState = false;
-  entries = ENTRIES;
+  entries: Entry[];
 
-  constructor() { }
+  constructor(private blogService: BlogService) { }
 
   ngOnInit() {
+    this.blogService.getBlogEntries()
+      .then(entries => this.entries = entries);
   }
 
 }
