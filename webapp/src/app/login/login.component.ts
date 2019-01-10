@@ -1,7 +1,7 @@
 import { UserService } from './../users/common/user.service';
 import { Authentication } from './common/auth.model';
 import { LoginService } from './common/login.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Login } from './common/login.model';
 import { Router } from '@angular/router';
 import { User } from '../users/common/user.model';
@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
 
   login: Login;
   auth: Authentication;
+
+  @Output()
   user: User;
 
   constructor(

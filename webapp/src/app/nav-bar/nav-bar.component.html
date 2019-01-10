@@ -3,15 +3,11 @@
     <button aria-label="Home button" mat-icon-button [routerLink]="['/']">
       <mat-icon>home</mat-icon>
     </button>
-    <button aria-label="Blog button" mat-icon-button [routerLink]="['/blog']">
-      Blog
-    </button>
-    <button aria-label="Users button" mat-icon-button [routerLink]="['/user-list']">
-      Users
-    </button>
+    <button aria-label="Blog button" mat-icon-button [routerLink]="['/blog']">Blog</button>
+    <button aria-label="Users button" mat-icon-button [routerLink]="['/user-list']">Users</button>
     <span class="spacer"></span>
-    <button aria-lebel="Login button" mat-icon-button [routerLink]="['/login']">
-      Login
-    </button>
+    <button aria-lebel="Login button" mat-icon-button [routerLink]="['/login']" *ngIf="!userLoggedIn()">Login</button>
+    <button aria-label="User button" mat-icon-button [routerLink]="['/user-details/', user.username]" *ngIf="userLoggedIn()">{{ user.username }}</button>
+    <button aria-lebel="Login button" mat-icon-button (click)="logout()" *ngIf="userLoggedIn()">Logout</button>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -25,6 +25,13 @@ export class LoginService extends BaseApiService {
       .catch(this.handleError);
   }
 
+  logout() {
+    this.clearAccessToken();
+    this.clearRefreshToken();
+    this.clearToken();
+    this.updateUser(new User());
+  }
+
   logoutAccessToken(): Promise<Message> {
     const url = `${this.url}/logout/access`;
     const message = this.http.post(url, '', { headers: this.generateHeadersWithToken(true) })

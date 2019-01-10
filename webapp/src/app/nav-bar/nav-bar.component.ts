@@ -17,4 +17,12 @@ export class NavBarComponent implements OnInit {
     this.loginService.user.subscribe(user => this.user = user);
   }
 
+  private userLoggedIn(): boolean {
+    return this.user.username !== undefined;
+  }
+
+  private logout(): void {
+    this.loginService.logout();
+  }
+
 }
