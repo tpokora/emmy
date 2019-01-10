@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginAction() {
-    console.log(JSON.stringify(this.login));
     this.loginService.login(this.login)
       .then(auth => {
         this.auth = auth;
@@ -42,7 +41,6 @@ export class LoginComponent implements OnInit {
     this.userService.getUser(username)
       .then(user => {
         this.user = user;
-        console.log('loginComponent: ' + JSON.stringify(this.user));
         this.loginService.updateUser(this.user);
       });
   }

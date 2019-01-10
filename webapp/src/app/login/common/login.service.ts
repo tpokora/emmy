@@ -32,8 +32,6 @@ export class LoginService extends BaseApiService {
       .then(response => response.json() as Message)
       .catch(this.handleError);
 
-    console.log('logoutAccess: ' + JSON.stringify(message));
-
     return message;
   }
 
@@ -44,13 +42,10 @@ export class LoginService extends BaseApiService {
       .then(response => response.json() as Message)
       .catch(this.handleError);
 
-    console.log('logoutRefresh: ' + JSON.stringify(message));
-
     return message;
   }
 
   saveTokensInSession(auth: Authentication) {
-    console.log('auth: ' + JSON.stringify(auth));
     if (auth.access_token !== undefined) {
       sessionStorage.setItem(this.ACCESS_TOKEN, auth.access_token);
     }
@@ -75,7 +70,6 @@ export class LoginService extends BaseApiService {
   }
 
   updateUser(user: User) {
-    console.log('loginService: ' + JSON.stringify(user));
     this.messageSource.next(user);
   }
 }
