@@ -3,9 +3,10 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Router } from '@angular/router';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RouterStub } from './testing/routing.stubs';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -27,7 +28,7 @@ describe('AppComponent', () => {
         MaterialModule
       ],
       providers: [
-
+        { provide: Router, useClass: RouterStub },
       ]
     }).compileComponents();
   }));

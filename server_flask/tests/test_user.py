@@ -61,7 +61,7 @@ class UserApiTest(unittest.TestCase):
     def test_user_api_get_user_details_by_username(self):
         TestHelpers.create_user(self.test_app, self.user)
         login_response = TestHelpers.login_user(self.test_app, self.user)
-        access_token = 'Bearer ' + login_response.json['authentication']['access_token']
+        access_token = 'Bearer ' + login_response.json['access_token']
         response = self.test_app.get('/flask/user/' + self.user.username + '/details',
                                      headers={'Authorization': access_token})
         self.assertEqual('200 OK', response.status)
@@ -72,7 +72,7 @@ class UserApiTest(unittest.TestCase):
     def test_user_api_get_user_details_by_username_notfound(self):
         TestHelpers.create_user(self.test_app, self.user)
         login_response = TestHelpers.login_user(self.test_app, self.user)
-        access_token = 'Bearer ' + login_response.json['authentication']['access_token']
+        access_token = 'Bearer ' + login_response.json['access_token']
         response = self.test_app.get('/flask/user/notexistinguser/details',
                                      headers={'Authorization': access_token})
         self.assertEqual('404 NOT FOUND', response.status)

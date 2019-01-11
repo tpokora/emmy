@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { convertToParamMap, ParamMap } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { convertToParamMap, ParamMap, NavigationEnd } from '@angular/router';
 
 @Injectable()
 export class ActivatedRouteStub {
@@ -37,4 +37,17 @@ export class ActivatedRouteStub {
             queryParamMap: this.testQueryParamMap
         };
     }
+}
+
+@Injectable()
+export class RouterStub {
+  public ne = new NavigationEnd(0, '/', '/');
+  public events = new Observable(observer => {
+    observer.next(this.ne);
+    observer.complete();
+  });
+
+  navigate(commands: any[]) {
+    return commands;
+  }
 }

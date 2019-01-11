@@ -62,7 +62,7 @@ class UserDetailsApi(Resource):
             }
         ]
     )
-    @jwt_required
+    @jwt_refresh_token_required
     def get(self, username):
         user = User.query.filter_by(username=username).first()
         if user is None:
@@ -110,7 +110,7 @@ class UserListApi(Resource):
         password = args['password']
         user_exists = User.query.filter_by(username=username).first()
         if user_exists:
-            return Message('User {} already exists'.format(username)).print(), 422
+            return Message('User {} already exists'.format(username)).serialize(), 422
 
         user = User()
         user.username = username
@@ -130,7 +130,6 @@ class UserListApi(Resource):
                 }, 201
         except:
             return Error('Something went wrong').serialize(), 500
-
 
     def delete(self):
         db.session.query(User).delete()

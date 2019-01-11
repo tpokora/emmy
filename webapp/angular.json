@@ -52,8 +52,56 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "django": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.django.ts"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "flask": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.flask.ts"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
             }
-          }
+        }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -63,6 +111,12 @@
           "configurations": {
             "production": {
               "browserTarget": "webapp:build:production"
+            },
+            "django": {
+              "browserTarget": "webapp:build:django"
+            },
+            "flask": {
+              "browserTarget": "webapp:build:flask"
             }
           }
         },

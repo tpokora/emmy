@@ -11,15 +11,23 @@ export class UserService extends BaseApiService {
   }
 
   getUsers(): Promise<User[]> {
-    const url = `${this.url}/user`;
+    const url = `${this.url}/users`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json() as User[])
+      .then(response => response.json().results as User[])
       .catch(this.handleError);
   }
 
   getUser(username: string): Promise<User> {
-    const url = `${this.url}/user/${username}`;
+    const url = `${this.url}/users/username/${username}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json() as User)
+      .catch(this.handleError);
+  }
+
+  getUserDetails(username: string): Promise<User> {
+    const url = `${this.url}/users/username/${username}`;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json() as User)

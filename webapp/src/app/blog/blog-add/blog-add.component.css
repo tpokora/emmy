@@ -1,0 +1,8 @@
+#add-blog-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#add-blog-container > * {
+  width: 70%;
+}
