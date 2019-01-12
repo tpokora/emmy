@@ -61,6 +61,6 @@ describe('BlogListComponent', () => {
   }));
 
   function getListElements() {
-    return fixture.debugElement.queryAll(By.css('mat-card mat-card-content mat-accordion mat-expansion-panel'));
+    return fixture.debugElement.queryAll(By.css('div.element div.element-body mat-accordion mat-expansion-panel'));
   }
 });
