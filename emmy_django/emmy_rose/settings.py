@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'corsheaders',
     'emmy_rose.blog',
+    'emmy_rose.users',
     'emmy_rose.holiday_counter'
 ]
 

@@ -4,9 +4,7 @@ from emmy_rose.common.tests.helpers import login
 from rest_framework import status
 from django.test import TestCase, Client
 from emmy_rose.blog.models import Entry
-from emmy_rose.blog.serializers import UserSerializer, EntryListSerializer, EntryPostSerializer
-from rest_framework.utils import json
-from rest_framework_jwt.views import obtain_jwt_token
+from emmy_rose.blog.serializers import EntryListSerializer, EntryPostSerializer
 
 # initialize the APIClient app
 from rest_framework.request import Request
