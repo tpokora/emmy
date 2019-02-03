@@ -19,7 +19,6 @@ class BaseConfiguration(Configuration):
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -164,16 +163,33 @@ class BaseConfiguration(Configuration):
 
 
 class Dev(BaseConfiguration):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     DEBUG = True
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BaseConfiguration.BASE_DIR, 'db.sqlite3'),
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
 
 
 class Heroku(BaseConfiguration):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    MIDDLEWARE_CLASSES = [
+        'corsheaders.middleware.CorsMiddleware',
+        'django.middleware.security.SecurityMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'django.middleware.common.BrokenLinkEmailsMiddleware',
+        'django.middleware.common.CommonMiddleware',
+    ]
+
     DEBUG = True
     DATABASES = {
         'default': dj_database_url.config(
@@ -183,6 +199,6 @@ class Heroku(BaseConfiguration):
 
     # Activate Django-Heroku.
     import django_heroku
-    # django_heroku.settings(locals())
+    django_heroku.settings(locals())
 
 
