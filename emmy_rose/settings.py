@@ -172,7 +172,6 @@ class Dev(BaseConfiguration):
 class Heroku(BaseConfiguration):
     DEBUG = True
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    SECRET_KEY = config('SECRET_KEY')
     DATABASES = {
         'default': dj_database_url.config(
             default=config('DATABASE_URL')
