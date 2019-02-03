@@ -190,6 +190,16 @@ class Heroku(BaseConfiguration):
         'django.middleware.common.CommonMiddleware',
     ]
 
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
+
+    # Extra places for collectstatic to find static files.
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
     DEBUG = True
     DATABASES = {
         'default': dj_database_url.config(
