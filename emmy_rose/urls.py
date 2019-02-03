@@ -39,8 +39,8 @@ schema_view = get_swagger_view(title='Emmy API')
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^swagger/', schema_view),
-    url(r'^api/', include(router.urls)),
-    url(r'^$', serve, kwargs={'path': 'index.html'}),
+    url(r'^', include(router.urls)),
+    url(r'^app', serve, kwargs={'path': 'index.html'}),
     url(r'^(?!/?static/)(?!/?media/)(?P<path>.*\..*)$',
         RedirectView.as_view(url='/static/%(path)s', permanent=False)),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

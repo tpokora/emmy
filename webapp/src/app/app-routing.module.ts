@@ -9,6 +9,7 @@ import { BlogListComponent } from './blog/blog-list/blog-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'app', redirectTo: '/dashboard', pathMatch: 'full'  },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'user-list', component: UserListComponent },
