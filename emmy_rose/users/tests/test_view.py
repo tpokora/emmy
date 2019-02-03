@@ -22,21 +22,21 @@ class GetUserByTokenTest(TestCase):
         self.token = login(self.FIRST_USERNAME, self.FIRST_PASSWORD)
 
     def test_get_user_by_username(self):
-        url = '/users/username/{username}'.format(username=self.user.username)
+        url = '/api/users/username/{username}'.format(username=self.user.username)
         response = user_get_by_username(get_request(url, self.token), username=self.user.username)
         serializer = UserSummarySerializer(self.user, many=False, context={'request': Request(get_request(url, self.token))})
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_user_details_by_username(self):
-        url = '/username/{username}/details'.format(username=self.user.username)
+        url = '/api/users/username/{username}/details'.format(username=self.user.username)
         response = user_get_details_by_username(get_request(url, self.token), username=self.user.username)
         serializer = UserSerializer(self.user, many=False, context={'request': Request(get_request(url, self.token))})
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_token_by_username(self):
-        url = '/users/token'
+        url = '/api/users/token'
         response = user_get_user_by_token(post_request(url, self.token))
         serializer = UserSerializer(self.user, many=False, context={'request': Request(post_request(url, self.token))})
         self.assertEqual(response.data, serializer.data)
