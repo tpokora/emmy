@@ -29,7 +29,7 @@ class BaseConfiguration(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
 
 
     # Application definition
@@ -50,8 +50,9 @@ class BaseConfiguration(Configuration):
     ]
 
     MIDDLEWARE_CLASSES = [
-        'django.middleware.security.SecurityMiddleware',
         'corsheaders.middleware.CorsMiddleware',
+        'django.middleware.security.SecurityMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
