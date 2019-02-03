@@ -9,9 +9,6 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-from distutils.command.config import config
-
-import django_heroku
 import datetime
 import os
 import dj_database_url
@@ -174,11 +171,12 @@ class Heroku(BaseConfiguration):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     DATABASES = {
         'default': dj_database_url.config(
-            default=config('DATABASE_URL')
+            default=os.environ['DATABASE_URL']
         )
     }
 
     # Activate Django-Heroku.
+    import django_heroku
     # django_heroku.settings(locals())
 
 
