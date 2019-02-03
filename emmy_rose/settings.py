@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import django_heroku
 import datetime
 import os
+import dj_database_url
 from configurations import Configuration
 
 
@@ -169,12 +170,13 @@ class Dev(BaseConfiguration):
 class Heroku(BaseConfiguration):
     DEBUG = True
 
+    SECRET_KEY = dj_database_url.config('SECRET_KEY')
+
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+        'default': dj_database_url.config(
+            default=dj_database_url.config('DATABASE_URL')
+        )
     }
 
     # Activate Django-Heroku.
