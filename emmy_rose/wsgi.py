@@ -9,9 +9,11 @@ https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 
 import os
 from configurations.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'emmy_rose.settings')
 os.environ.setdefault('DJANGO_CONFIGURATION', 'Dev')
 os.environ.setdefault('DATABASE_URL', '')
 
 application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
