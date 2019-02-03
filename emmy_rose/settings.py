@@ -177,9 +177,9 @@ class Heroku(BaseConfiguration):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     MIDDLEWARE_CLASSES = [
+        'whitenoise.middleware.WhiteNoiseMiddleware',
         'corsheaders.middleware.CorsMiddleware',
         'django.middleware.security.SecurityMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
