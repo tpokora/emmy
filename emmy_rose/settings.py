@@ -48,7 +48,7 @@ class BaseConfiguration(Configuration):
         'emmy_rose.holiday_counter'
     ]
 
-    MIDDLEWARE_CLASSES = [
+    MIDDLEWARE = [
         'corsheaders.middleware.CorsMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -176,7 +176,7 @@ class Dev(BaseConfiguration):
 class Heroku(BaseConfiguration):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    MIDDLEWARE_CLASSES = [
+    MIDDLEWARE = [
         'whitenoise.middleware.WhiteNoiseMiddleware',
         'corsheaders.middleware.CorsMiddleware',
         'django.middleware.security.SecurityMiddleware',
