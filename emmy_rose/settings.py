@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
+from distutils.command.config import config
+
 import django_heroku
 import datetime
 import os
@@ -169,13 +171,11 @@ class Dev(BaseConfiguration):
 
 class Heroku(BaseConfiguration):
     DEBUG = True
-
-    SECRET_KEY = dj_database_url.config('SECRET_KEY')
-
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    SECRET_KEY = config('SECRET_KEY')
     DATABASES = {
         'default': dj_database_url.config(
-            default=dj_database_url.config('DATABASE_URL')
+            default=config('DATABASE_URL')
         )
     }
 
