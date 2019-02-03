@@ -190,12 +190,15 @@ class Heroku(BaseConfiguration):
         'django.middleware.common.CommonMiddleware',
     ]
 
+    ANGULAR_APP_DIR = os.path.join(BASE_DIR, 'webapp/dist/webapp')
+
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
 
     # Extra places for collectstatic to find static files.
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
+        os.path.join(ANGULAR_APP_DIR),
     )
 
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

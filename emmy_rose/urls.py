@@ -17,11 +17,13 @@ Including another URLconf
 # from django.urls import path
 
 from django.conf.urls import url, include
+from django.views.generic import RedirectView
 from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_jwt.views import verify_jwt_token
+from django.contrib.staticfiles.views import serve
 from emmy_rose.users import views as users_views
 from emmy_rose.blog import views as blog_views
 from emmy_rose.holiday_counter import views as holiday_counter_views
@@ -36,8 +38,11 @@ schema_view = get_swagger_view(title='Emmy API')
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    url(r'^api/', schema_view),
-    url(r'^', include(router.urls)),
+    url(r'^swagger/', schema_view),
+    url(r'^api/', include(router.urls)),
+    url(r'^$', serve, kwargs={'path': 'index.html'}),
+    url(r'^(?!/?static/)(?!/?media/)(?P<path>.*\..*)$',
+        RedirectView.as_view(url='/static/%(path)s', permanent=False)),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^auth-jwt/', obtain_jwt_token),
     url(r'^auth-jwt-refresh/', refresh_jwt_token),
