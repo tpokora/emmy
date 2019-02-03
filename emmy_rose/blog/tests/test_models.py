@@ -5,7 +5,7 @@ from django.test import TestCase
 from emmy_rose.blog.models import Entry
 
 
-class BlogTest(TestCase):
+class BlogModelTest(TestCase):
     USERNAME = 'testUser'
     ENTRY_TITLE = 'testTitle'
     ENTRY_CONTENT = 'testTitle'

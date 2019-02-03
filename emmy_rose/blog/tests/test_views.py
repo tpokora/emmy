@@ -19,7 +19,7 @@ entry_update = EntryViewSet.as_view({'put': 'update'})
 entry_delete = EntryViewSet.as_view({'delete': 'destroy'})
 
 
-class GetEntriesTest(TestCase):
+class BlogTest(TestCase):
     """ Test module for GET all entries API """
 
     FIRST_USERNAME = 'testFirstUser'

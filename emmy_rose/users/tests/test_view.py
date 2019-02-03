@@ -11,7 +11,7 @@ user_get_details_by_username = UserViewSet.as_view({'get': 'get_details_by_usern
 user_get_user_by_token = UserViewSet.as_view({'post': 'get_user_by_token'})
 
 
-class GetUserByTokenTest(TestCase):
+class UsersTest(TestCase):
 
     FIRST_USERNAME = 'testFirstUser'
     FIRST_PASSWORD = 'testFirstPassword'
