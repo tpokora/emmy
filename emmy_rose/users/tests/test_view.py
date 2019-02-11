@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
 from django.contrib.auth.models import User
 from django.test import TestCase
 from emmy_rose.common.tests.helpers import login
@@ -28,9 +29,9 @@ class UsersTest(TestCase):
         response = user_create_user(post_user_request(url, test_user))
         user_check = User.objects.get(username=test_user.username)
         self.assertEqual(response.data['username'], user_check.username)
-        # todo
-        # check user password hash
-        self.assertNotEqual(response.data['password'], '')
+        hasher = PBKDF2PasswordHasher()
+        self.assertTrue(hasher.verify(password=test_user.password, encoded=user_check.password))
+
 
     def test_get_user_by_username(self):
         url = '/api/users/username/{username}'.format(username=self.user.username)
