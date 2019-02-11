@@ -13,6 +13,11 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSummarySerializer
 
+    def create(self, request, *args, **kwargs):
+        user = request.data
+        created_user = User.objects.create_user(user['username'], user['email'], user['password'])
+        return Response(UserSummarySerializer(created_user, context={'request': request}).data, status=status.HTTP_200_OK)
+
     @action(methods=['get'], detail=False, url_path='username/(?P<username>\w+)')
     def get_by_username(self, request, username=None):
         user = get_object_or_404(User, username=username)
