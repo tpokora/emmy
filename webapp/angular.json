@@ -53,35 +53,11 @@
                 }
               ]
             },
-            "django": {
+            "heroku": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.django.ts"
-                }
-              ],
-              "optimization": false,
-              "outputHashing": "all",
-              "sourceMap": true,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            },
-            "flask": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.flask.ts"
+                  "with": "src/environments/environment.heroku.ts"
                 }
               ],
               "optimization": false,
@@ -112,11 +88,8 @@
             "production": {
               "browserTarget": "webapp:build:production"
             },
-            "django": {
-              "browserTarget": "webapp:build:django"
-            },
-            "flask": {
-              "browserTarget": "webapp:build:flask"
+            "heroku": {
+              "browserTarget": "webapp:build:heroku"
             }
           }
         },

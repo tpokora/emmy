@@ -51,11 +51,11 @@ describe('UserListComponent', () => {
   it('should have user list element with text ' + NO_USERS_STRING, fakeAsync(() => {
     createComponent(false);
     expect(component.users == null);
-    const debugElement = fixture.debugElement.queryAll(By.css('mat-card mat-card-content mat-list mat-list-item'));
+    const debugElement = fixture.debugElement.queryAll(By.css('div.element div.element-body mat-list mat-list-item'));
     expect(debugElement[0].nativeElement.textContent).toEqual(NO_USERS_STRING);
   }));
 
   function getListElements() {
-    return fixture.debugElement.queryAll(By.css('mat-card mat-card-content mat-list a'));
+    return fixture.debugElement.queryAll(By.css('div.element div.element-body mat-list a'));
   }
 });

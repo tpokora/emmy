@@ -17,11 +17,11 @@ export class NavBarComponent implements OnInit {
     this.loginService.getUser().subscribe(user => this.user = user);
   }
 
-  private userLoggedIn(): boolean {
+  userLoggedIn(): boolean {
     return this.user.username !== undefined;
   }
 
-  private logout(): void {
+  logout(): void {
     this.loginService.logout();
   }
 
