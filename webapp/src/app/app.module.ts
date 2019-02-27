@@ -40,7 +40,7 @@ import { BlogAddComponent } from './blog/blog-add/blog-add.component';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    MaterialModule,
+    MaterialModule
   ],
   exports: [ RouterModule ],
   providers: [

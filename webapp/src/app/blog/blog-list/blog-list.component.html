@@ -1,8 +1,8 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Blog entries:</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+<div class="element">
+  <div class="element-title">
+    <div class="element-title-content spacer">Blog entries</div>
+  </div>
+  <div class="element-body">
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -13,6 +13,7 @@
 
         <app-blog-add></app-blog-add>
       </mat-expansion-panel>
+
       <mat-divider></mat-divider>
 
       <mat-expansion-panel *ngFor="let entry of entries; let i = index"
@@ -37,5 +38,5 @@
         </mat-card>
       </mat-expansion-panel>
     </mat-accordion>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>

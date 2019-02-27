@@ -1,6 +1,5 @@
 import { LoginServiceStub } from './../testing/login.stubs';
 import { LoginService } from './../login/common/login.service';
-import { MatCardModule } from '@angular/material';
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
@@ -14,9 +13,6 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DashboardComponent ],
-      imports: [
-        MatCardModule
-      ],
       providers: [
         { provide: LoginService, useClass: LoginServiceStub }
       ]
