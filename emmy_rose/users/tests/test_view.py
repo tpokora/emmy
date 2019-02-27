@@ -32,6 +32,11 @@ class UsersTest(TestCase):
         hasher = PBKDF2PasswordHasher()
         self.assertTrue(hasher.verify(password=test_user.password, encoded=user_check.password))
 
+    def test_create_new_user_without_password_should_fail(self):
+        test_user = User(username='testUser', email='testUser@mail.com')
+        url = '/users/'
+        response = user_create_user(post_user_request(url, test_user))
+        self.assertTrue(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_get_user_by_username(self):
         url = '/users/username/{username}'.format(username=self.user.username)
@@ -72,10 +77,16 @@ def post_token_request(url, token):
 
 def post_user_request(url, user):
     factory = APIRequestFactory()
-    data_string = {
-        'username': user.username,
-        'email': user.email,
-        'password': user.password
-    }
+    if user.password is None or user.password == '':
+        data_string = {
+            'username': user.username,
+            'email': user.email
+        }
+    else:
+        data_string = {
+            'username': user.username,
+            'email': user.email,
+            'password': user.password
+        }
     request = factory.post(url, data_string)
     return request
