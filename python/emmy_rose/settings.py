@@ -28,7 +28,7 @@ class BaseConfiguration(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 
-    ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'emmy-rose.herokuapp.com']
+    ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'emmy-rose.herokuapp.com', '192.168.1.16']
 
 
     # Application definition
@@ -160,7 +160,6 @@ class BaseConfiguration(Configuration):
         'JWT_AUTH_HEADER_PREFIX': 'Bearer',
         'JWT_ALLOW_REFRESH': True
     }
-
 
 class Dev(BaseConfiguration):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
