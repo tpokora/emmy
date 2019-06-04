@@ -1,4 +1,4 @@
-package org.tpokora.users;
+package org.tpokora.users.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
