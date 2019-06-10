@@ -25,6 +25,11 @@ public class Entry {
 
 //    private User user;
 
+    public Entry(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
 
     public LocalDateTime getCreated() {
         return created;
