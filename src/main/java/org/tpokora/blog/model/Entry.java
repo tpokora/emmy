@@ -1,6 +1,7 @@
 package org.tpokora.blog.model;
 
 import org.hibernate.annotations.Type;
+import org.tpokora.common.model.AbstractEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-public class Entry {
+public class Entry extends AbstractEntity {
 
     @Column(name = "created")
     private LocalDateTime created;

@@ -18,8 +18,12 @@ public class User extends AbstractEntity {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "EMAIL")
     private String email;
+
+    public User() {
+
+    }
 
     public User(String username, String password, String email) {
         this.username = username;

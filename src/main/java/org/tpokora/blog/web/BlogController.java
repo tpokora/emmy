@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tpokora.blog.model.Entry;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class BlogController {
     public ResponseEntity<List<Entry>> getAllEntries() {
         Entry entry1 = new Entry("title1", "content");
         Entry entry2 = new Entry("title2", "content");
-        ArrayList entries = (ArrayList) Arrays.asList(entry1, entry2);
+        List<Entry> entries = Arrays.asList(entry1, entry2);
         return new ResponseEntity<>(entries, HttpStatus.OK);
     }
 }
