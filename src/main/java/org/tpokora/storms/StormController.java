@@ -13,6 +13,7 @@ import javax.xml.soap.*;
 @RestController
 public class StormController {
 
+    public static final String SOAP = "soap";
     private final String NAMESPACE = "http://burze.dzis.net/soap.php";
     private final String URL = "http://burze.dzis.net/soap.php";
     private final String SOAP_ACTION_KEY_API = "http://burze.dzis.net/soap.php#KeyAPI";
@@ -36,13 +37,10 @@ public class StormController {
         SOAPMessage soapMessage = messageFactory.createMessage();
         SOAPPart soapPart = soapMessage.getSOAPPart();
 
-        String namespace = "soap";
-        String namespaceUri = "https://burze.dzis.net/soap.php";
-
         SOAPEnvelope envelope = soapPart.getEnvelope();
-        envelope.addNamespaceDeclaration(namespace, namespaceUri);
+        envelope.addNamespaceDeclaration(SOAP, NAMESPACE);
 
-        createSOAPMessage(storm, namespace, envelope);
+        createSOAPMessage(storm, SOAP, envelope);
         createSOAPHeader(soapMessage, SOAP_ACTION_SZUKAJ_BURZY);
 
         System.out.println("Request SOAP Message:");
@@ -73,11 +71,11 @@ public class StormController {
 
     private void createSOAPMessage(Storm storm, String namespace, SOAPEnvelope envelope) throws SOAPException {
         SOAPBody soapBody = envelope.getBody();
-        SOAPElement szukaj_burzy = soapBody.addChildElement("szukaj_burzy", namespace);
-        SOAPElement xElem = szukaj_burzy.addChildElement("x", namespace);
-        SOAPElement yElem = szukaj_burzy.addChildElement("y", namespace);
-        SOAPElement radiusElem = szukaj_burzy.addChildElement("promien", namespace);
-        SOAPElement keyElem = szukaj_burzy.addChildElement("klucz", namespace);
+        SOAPElement findStorm = soapBody.addChildElement(METHOD_SZUKAJ_BURZY, namespace);
+        SOAPElement xElem = findStorm.addChildElement("x", namespace);
+        SOAPElement yElem = findStorm.addChildElement("y", namespace);
+        SOAPElement radiusElem = findStorm.addChildElement("promien", namespace);
+        SOAPElement keyElem = findStorm.addChildElement("klucz", namespace);
 
         xElem.addTextNode(String.valueOf(storm.getX()));
         yElem.addTextNode(String.valueOf(storm.getY()));
