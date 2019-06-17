@@ -1,4 +1,4 @@
-package org.tpokora.storms;
+package org.tpokora.storms.services;
 
 import org.springframework.stereotype.Service;
 import org.tpokora.storms.model.StormRequest;
@@ -10,18 +10,6 @@ import java.util.HashMap;
 
 @Service
 public class FindStormService extends StormService {
-
-    public static final String SOAP = "soap";
-    private final String NAMESPACE = "http://burze.dzis.net/soap.php";
-    private final String URL = "http://burze.dzis.net/soap.php";
-    private final String SOAP_ACTION_KEY_API = "http://burze.dzis.net/soap.php#KeyAPI";
-    private final String SOAP_ACTION_MIEJSCOWOSC = "http://burze.dzis.net/soap.php#miejscowosc";
-    private final String SOAP_ACTION_OSTRZEZENIA = "http://burze.dzis.net/soap.php#ostrzezenia_pogodowe";
-    private final String SOAP_ACTION_SZUKAJ_BURZY = "http://burze.dzis.net/soap.php#szukaj_burzy";
-    private final String METHOD_KEY_API = "KeyAPI";
-    private final String METHOD_MIEJSCOWOSC = "miejscowosc";
-    private final String METHOD_OSTRZEZENIA = "ostrzezenia_pogodowe";
-    private final String METHOD_SZUKAJ_BURZY = "szukaj_burzy";
 
     public SOAPMessage checkStorm(StormRequest stormRequest) throws SOAPException, IOException {
         SOAPMessage soapMessage = soapService.createSOAPMessage();
