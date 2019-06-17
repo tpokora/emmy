@@ -1,5 +1,6 @@
 package org.tpokora.storms;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.soap.*;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPFault;
+import javax.xml.soap.SOAPMessage;
 
 
 @RestController
@@ -26,40 +29,24 @@ public class StormController {
     private final String METHOD_SZUKAJ_BURZY = "szukaj_burzy";
 //    private PropertyInfo pfApiKey;
 
+    @Autowired
+    StormService stormService;
 
     @RequestMapping(value = "/storm/", method = RequestMethod.GET)
-    public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y, @RequestParam("radius") int radius) throws Exception {
-        Storm storm = new Storm();
-        storm.setX(x);
-        storm.setY(y);
-        storm.setDistance(radius);
+    public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y,
+                                                       @RequestParam("radius") int radius) throws Exception {
+        StormRequest stormRequest = new StormRequest();
+        stormRequest.setX(x);
+        stormRequest.setY(y);
+        stormRequest.setDistance(radius);
 
-        MessageFactory messageFactory = MessageFactory.newInstance();
-        SOAPMessage soapMessage = messageFactory.createMessage();
-        SOAPPart soapPart = soapMessage.getSOAPPart();
+        SOAPMessage stormResponse = stormService.checkStorm(stormRequest);
 
-        SOAPEnvelope envelope = soapPart.getEnvelope();
-        envelope.addNamespaceDeclaration(SOAP, NAMESPACE);
-
-        createSOAPMessage(storm, SOAP, envelope);
-        createSOAPHeader(soapMessage, SOAP_ACTION_SZUKAJ_BURZY);
-
-        System.out.println("Request SOAP Message:");
-        soapMessage.writeTo(System.out);
-        System.out.println();
-        soapMessage.saveChanges();
-
-        SOAPMessage soapResponse = sendSOAPMessage(soapMessage, URL);
-
-        System.out.println("Response SOAP Message:");
-        soapResponse.writeTo(System.out);
-        System.out.println();
-
-        if (checkForError(soapResponse) != null) {
-            return new ResponseEntity<>(checkForError(soapResponse), HttpStatus.OK);
+        if (checkForError(stormResponse) != null) {
+            return new ResponseEntity<>(checkForError(stormResponse), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(storm, HttpStatus.OK);
+        return new ResponseEntity<>(stormService.handleResponse(stormResponse), HttpStatus.OK);
     }
 
     private ErrorMsg checkForError(SOAPMessage soapMessage) throws SOAPException {
@@ -88,29 +75,5 @@ public class StormController {
         }
     }
 
-    private SOAPMessage sendSOAPMessage(SOAPMessage soapMessage, String url) throws SOAPException {
-        SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
-        SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 
-        return soapConnection.call(soapMessage, url);
-    }
-
-    private void createSOAPHeader(SOAPMessage soapMessage, String soapAction) {
-        MimeHeaders headers = soapMessage.getMimeHeaders();
-        headers.addHeader("SOAPAction", soapAction);
-    }
-
-    private void createSOAPMessage(Storm storm, String namespace, SOAPEnvelope envelope) throws SOAPException {
-        SOAPBody soapBody = envelope.getBody();
-        SOAPElement findStorm = soapBody.addChildElement(METHOD_SZUKAJ_BURZY, namespace);
-        SOAPElement xElem = findStorm.addChildElement("x", namespace);
-        SOAPElement yElem = findStorm.addChildElement("y", namespace);
-        SOAPElement radiusElem = findStorm.addChildElement("promien", namespace);
-        SOAPElement keyElem = findStorm.addChildElement("klucz", namespace);
-
-        xElem.addTextNode(String.valueOf(storm.getX()));
-        yElem.addTextNode(String.valueOf(storm.getY()));
-        radiusElem.addTextNode(String.valueOf(storm.getDistance()));
-        keyElem.addTextNode("KEY");
-    }
 }

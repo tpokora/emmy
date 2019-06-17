@@ -1,19 +1,15 @@
 package org.tpokora.storms;
 
-public class Storm {
+public class StormRequest {
     private String x;
     private String y;
-    private int quantity;
     private float distance;
-    private String direction;
     private int time;
 
-    public Storm() {
+    public StormRequest() {
         this.x = "";
         this.y = "";
-        this.quantity = 0;
         this.distance = 0;
-        this.direction = "";
         this.time = 0;
     }
 
@@ -33,14 +29,6 @@ public class Storm {
         this.y = y;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public float getDistance() {
         return distance;
     }
@@ -49,13 +37,6 @@ public class Storm {
         this.distance = distance;
     }
 
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
 
     public int getTime() {
         return time;
@@ -67,10 +48,10 @@ public class Storm {
 
     @Override
     public String toString() {
-        return "Storm{" +
-                "quantity=" + quantity +
+        return "StormRequest{" +
+                "x=" + x +
+                ", y=" + y +
                 ", distance=" + distance +
-                ", direction=" + direction +
                 ", time=" + time +
                 '}';
     }
