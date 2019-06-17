@@ -1,6 +1,7 @@
 package org.tpokora.users.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.tpokora.users.model.User;
 
 import java.util.List;
 
+@Profile("!nodb")
 @RestController
 public class UserController {
 

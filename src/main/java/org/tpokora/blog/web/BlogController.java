@@ -1,5 +1,6 @@
 package org.tpokora.blog.web;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.tpokora.blog.model.Entry;
 import java.util.Arrays;
 import java.util.List;
 
+@Profile("!nodb")
 @RestController
 public class BlogController {
 
