@@ -28,7 +28,7 @@ public class StormController {
 
 
     @RequestMapping(value = "/storm/", method = RequestMethod.GET)
-    public ResponseEntity<Storm> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y, @RequestParam("radius") int radius) throws Exception {
+    public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y, @RequestParam("radius") int radius) throws Exception {
         Storm storm = new Storm();
         storm.setX(x);
         storm.setY(y);
@@ -55,7 +55,37 @@ public class StormController {
         soapResponse.writeTo(System.out);
         System.out.println();
 
+        if (checkForError(soapResponse) != null) {
+            return new ResponseEntity<>(checkForError(soapResponse), HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(storm, HttpStatus.OK);
+    }
+
+    private ErrorMsg checkForError(SOAPMessage soapMessage) throws SOAPException {
+        SOAPFault fault = soapMessage.getSOAPBody().getFault();
+        if (fault != null) {
+            ErrorMsg errorMsg = new ErrorMsg();
+            errorMsg.setError(fault.getFaultString());
+            return errorMsg;
+        }
+        return null;
+    }
+
+    private class ErrorMsg {
+        private String error;
+
+        public ErrorMsg() {
+
+        }
+
+        public String getError() {
+            return error;
+        }
+
+        public void setError(String error) {
+            this.error = error;
+        }
     }
 
     private SOAPMessage sendSOAPMessage(SOAPMessage soapMessage, String url) throws SOAPException {
