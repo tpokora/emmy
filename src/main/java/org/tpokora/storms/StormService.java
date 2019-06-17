@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.web.SOAPService;
+import org.tpokora.storms.model.StormRequest;
+import org.tpokora.storms.model.StormResponse;
 
 import javax.xml.soap.*;
 import java.io.IOException;
@@ -72,11 +74,15 @@ public class StormService {
         SOAPBody soapBody = soapMessage.getSOAPBody();
         Node response = (Node) soapBody.getElementsByTagName("ns1:szukaj_burzyResponse").item(0);
         org.w3c.dom.Node returnElem = response.getParentElement().getElementsByTagName("return").item(0);
-        int amount = Integer.parseInt(((ElementImpl) returnElem).getElementsByTagName("liczba").item(0).getTextContent());
-        double distance = Double.parseDouble(((ElementImpl) returnElem).getElementsByTagName("odleglosc").item(0).getTextContent());
-        String direction = ((ElementImpl) returnElem).getElementsByTagName("kierunek").item(0).getTextContent();
-        int time = Integer.parseInt(((ElementImpl) returnElem).getElementsByTagName("okres").item(0).getTextContent());
+        int amount = Integer.parseInt(elementValue(returnElem, "liczba"));
+        double distance = Double.parseDouble(elementValue(returnElem, "odleglosc"));
+        String direction = elementValue(returnElem, "kierunek");
+        int time = Integer.parseInt(elementValue(returnElem, "okres"));
         StormResponse stormResponse = new StormResponse(amount, distance, direction, time);
         return stormResponse;
+    }
+
+    private String elementValue(org.w3c.dom.Node element, String name) {
+        return ((ElementImpl) element).getElementsByTagName(name).item(0).getTextContent();
     }
 }

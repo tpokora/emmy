@@ -9,6 +9,8 @@ import java.util.Map;
 @Service
 public class SOAPService {
 
+    public static final String SOAP_ACTION = "SOAPAction";
+
     public SOAPMessage createSOAPMessage() throws SOAPException {
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage soapMessage = messageFactory.createMessage();
@@ -34,6 +36,6 @@ public class SOAPService {
 
     public void createSOAPHeader(SOAPMessage soapMessage, String soapAction) {
         MimeHeaders headers = soapMessage.getMimeHeaders();
-        headers.addHeader("SOAPAction", soapAction);
+        headers.addHeader(SOAP_ACTION, soapAction);
     }
 }

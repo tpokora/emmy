@@ -1,4 +1,4 @@
-package org.tpokora.storms;
+package org.tpokora.storms.model;
 
 public class StormResponse {
     private int amount;

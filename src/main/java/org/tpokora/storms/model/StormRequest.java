@@ -1,4 +1,4 @@
-package org.tpokora.storms;
+package org.tpokora.storms.model;
 
 public class StormRequest {
     private String x;
@@ -36,7 +36,6 @@ public class StormRequest {
     public void setDistance(float distance) {
         this.distance = distance;
     }
-
 
     public int getTime() {
         return time;
