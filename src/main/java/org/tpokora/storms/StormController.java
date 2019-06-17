@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.tpokora.common.model.ErrorMsg;
 import org.tpokora.storms.model.StormRequest;
 
 import javax.xml.soap.SOAPException;
@@ -59,22 +60,5 @@ public class StormController {
         }
         return null;
     }
-
-    private class ErrorMsg {
-        private String error;
-
-        public ErrorMsg() {
-
-        }
-
-        public String getError() {
-            return error;
-        }
-
-        public void setError(String error) {
-            this.error = error;
-        }
-    }
-
 
 }
