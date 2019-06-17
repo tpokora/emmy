@@ -54,6 +54,12 @@ public class StormController {
         }
 
         City city = findCityService.handleResponse(stormResponse);
+        if (Double.compare(city.getX(), 0) == 0 && Double.compare(city.getY(), 0) == 0) {
+            ErrorMsg errorMsg = new ErrorMsg();
+            errorMsg.setError(name + " not found");
+            return new ResponseEntity<>(errorMsg, HttpStatus.OK);
+        }
+
         city.setName(name);
         return new ResponseEntity<>(city, HttpStatus.OK);
     }
