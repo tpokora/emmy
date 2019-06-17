@@ -1,35 +1,35 @@
 package org.tpokora.storms;
 
 public class Storm {
-    private int x;
-    private int y;
+    private String x;
+    private String y;
     private int quantity;
     private float distance;
     private String direction;
     private int time;
 
     public Storm() {
-        this.x = 0;
-        this.y = 0;
+        this.x = "";
+        this.y = "";
         this.quantity = 0;
         this.distance = 0;
         this.direction = "";
         this.time = 0;
     }
 
-    public int getX() {
+    public String getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public int getY() {
+    public String getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(String y) {
         this.y = y;
     }
 

@@ -28,10 +28,11 @@ public class StormController {
 
 
     @RequestMapping(value = "/storm/", method = RequestMethod.GET)
-    public ResponseEntity<Storm> getStormByCordinates(@RequestParam("x") int x, @RequestParam("y") int y) throws Exception {
+    public ResponseEntity<Storm> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y, @RequestParam("radius") int radius) throws Exception {
         Storm storm = new Storm();
         storm.setX(x);
         storm.setY(y);
+        storm.setDistance(radius);
 
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage soapMessage = messageFactory.createMessage();
@@ -79,7 +80,7 @@ public class StormController {
 
         xElem.addTextNode(String.valueOf(storm.getX()));
         yElem.addTextNode(String.valueOf(storm.getY()));
-        radiusElem.addTextNode("30");
+        radiusElem.addTextNode(String.valueOf(storm.getDistance()));
         keyElem.addTextNode("KEY");
     }
 }
