@@ -11,8 +11,10 @@ import org.tpokora.common.model.ErrorMsg;
 import org.tpokora.storms.model.City;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.StormRequest;
+import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.services.FindCityService;
 import org.tpokora.storms.services.FindStormService;
+import org.tpokora.storms.services.FindWarningService;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPFault;
@@ -28,6 +30,9 @@ public class StormController {
 
     @Autowired
     FindCityService findCityService;
+
+    @Autowired
+    FindWarningService findWarningService;
 
     @RequestMapping(value = "/find_storm/", method = RequestMethod.GET)
     public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y,
@@ -62,6 +67,15 @@ public class StormController {
 
         city.setName(name);
         return new ResponseEntity<>(city, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/warnings/", method = RequestMethod.GET)
+    public ResponseEntity<Object> getWarnings(@RequestParam("x") String x, @RequestParam("y") String y) throws Exception {
+        Coordinates coordinates = new Coordinates(x, y);
+        SOAPMessage warningResponse = findWarningService.findWarning(coordinates);
+
+        Warning warning = findWarningService.handleResponse(warningResponse);
+        return new ResponseEntity<>(warning, HttpStatus.OK);
     }
 
     private ErrorMsg checkForError(SOAPMessage soapMessage) throws SOAPException {
