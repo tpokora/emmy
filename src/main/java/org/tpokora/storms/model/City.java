@@ -2,16 +2,16 @@ package org.tpokora.storms.model;
 
 public class City {
     private String name;
-    private double x;
-    private double y;
+    private Coordinates coordinates;
 
     public City() {
     }
 
-    public City(double x, double y) {
+    public City(String x, String y) {
+        this.coordinates = new Coordinates();
+        this.coordinates.setX(x);
+        this.coordinates.setY(y);
         this.name = "";
-        this.x = x;
-        this.y = y;
     }
 
     public String getName() {
@@ -22,19 +22,11 @@ public class City {
         this.name = name;
     }
 
-    public double getX() {
-        return x;
+    public Coordinates getCoordinates() {
+        return coordinates;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 }

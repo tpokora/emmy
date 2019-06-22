@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.tpokora.common.model.ErrorMsg;
 import org.tpokora.storms.model.City;
+import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.services.FindCityService;
 import org.tpokora.storms.services.FindStormService;
@@ -32,8 +33,7 @@ public class StormController {
     public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y,
                                                        @RequestParam("radius") int radius) throws Exception {
         StormRequest stormRequest = new StormRequest();
-        stormRequest.setX(x);
-        stormRequest.setY(y);
+        stormRequest.setCoordinates(new Coordinates(x, y));
         stormRequest.setDistance(radius);
 
         SOAPMessage stormResponse = findStormService.checkStorm(stormRequest);
@@ -54,7 +54,7 @@ public class StormController {
         }
 
         City city = findCityService.handleResponse(stormResponse);
-        if (Double.compare(city.getX(), 0) == 0 && Double.compare(city.getY(), 0) == 0) {
+        if (city.getCoordinates().getX().equals("0") && city.getCoordinates().getY().equals("0")) {
             ErrorMsg errorMsg = new ErrorMsg();
             errorMsg.setError(name + " not found");
             return new ResponseEntity<>(errorMsg, HttpStatus.OK);

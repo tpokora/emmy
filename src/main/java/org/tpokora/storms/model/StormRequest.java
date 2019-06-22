@@ -1,32 +1,22 @@
 package org.tpokora.storms.model;
 
 public class StormRequest {
-    private String x;
-    private String y;
+    private Coordinates coordinates;
     private float distance;
     private int time;
 
     public StormRequest() {
-        this.x = "";
-        this.y = "";
+        this.coordinates = new Coordinates();
         this.distance = 0;
         this.time = 0;
     }
 
-    public String getX() {
-        return x;
+    public Coordinates getCoordinates() {
+        return coordinates;
     }
 
-    public void setX(String x) {
-        this.x = x;
-    }
-
-    public String getY() {
-        return y;
-    }
-
-    public void setY(String y) {
-        this.y = y;
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
     }
 
     public float getDistance() {
@@ -48,8 +38,8 @@ public class StormRequest {
     @Override
     public String toString() {
         return "StormRequest{" +
-                "x=" + x +
-                ", y=" + y +
+                "x=" + coordinates.getX() +
+                ", y=" + coordinates.getY() +
                 ", distance=" + distance +
                 ", time=" + time +
                 '}';
