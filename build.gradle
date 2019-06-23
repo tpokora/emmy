@@ -1,7 +1,3 @@
-configurations {
-    jaxb
-}
-
 buildscript {
     repositories {
         mavenCentral()
@@ -26,45 +22,6 @@ repositories {
     mavenCentral()
 }
 
-// tag::wsdl[]
-task genJaxb {
-    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
-    ext.classesDir = "${buildDir}/classes/jaxb"
-    ext.schema = "https://burze.dzis.net/soap.php?WSDL"
-
-    outputs.dir classesDir
-
-    doLast() {
-        project.ant {
-            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
-                    classpath: configurations.jaxb.asPath
-            mkdir(dir: sourcesDir)
-            mkdir(dir: classesDir)
-
-            xjc(destdir: sourcesDir, schema: schema,
-                    package: "org.tpokora.storms") {
-                arg(value: "-wsdl")
-                produces(dir: sourcesDir, includes: "**/*.java")
-            }
-
-            javac(destdir: classesDir, source: 1.9, target: 1.9, debug: true,
-                    debugLevel: "lines,vars,source",
-                    classpath: configurations.jaxb.asPath) {
-                src(path: sourcesDir)
-                include(name: "**/*.java")
-                include(name: "*.java")
-            }
-
-            copy(todir: classesDir) {
-                fileset(dir: sourcesDir, erroronmissingdir: false) {
-                    exclude(name: "**/*.java")
-                }
-            }
-        }
-    }
-}
-// end::wsdl[]
-
 
 sourceCompatibility = 1.9
 targetCompatibility = 1.9
@@ -77,10 +34,6 @@ dependencies {
     compile 'com.sun.xml.messaging.saaj:saaj-impl:1.5.0'
     compile group: 'javax.xml.soap', name: 'javax.xml.soap-api', version: '1.3.5'
     
-    jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"
-    
-    compile(files(genJaxb.classesDir).builtBy(genJaxb))
-
     testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.199'
