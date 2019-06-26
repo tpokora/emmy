@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tpokora.users.dao.UserRepository;
 import org.tpokora.users.model.User;
@@ -26,7 +27,7 @@ public class UserController {
     UserRepository userRepository;
 
     @ApiOperation(value = "Get users", notes = "Returns all users")
-    @RequestMapping("/users")
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> userList = userRepository.findAll();
         return new ResponseEntity<>(userList, HttpStatus.OK);

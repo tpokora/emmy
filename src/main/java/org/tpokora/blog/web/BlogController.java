@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tpokora.blog.model.Entry;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class BlogController {
 
     @ApiOperation(value = "Get blog entries", notes = "Returns list of blog entries")
-    @RequestMapping("/blog")
+    @RequestMapping(value = "/blog", method = RequestMethod.GET)
     public ResponseEntity<List<Entry>> getAllEntries() {
         Entry entry1 = new Entry("title1", "content");
         Entry entry2 = new Entry("title2", "content");
