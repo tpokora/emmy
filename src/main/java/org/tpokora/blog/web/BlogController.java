@@ -1,5 +1,7 @@
 package org.tpokora.blog.web;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Profile("!nodb")
+@Api(value = "Blog Controller", description = "Blog API")
 @RestController
 public class BlogController {
 
+    @ApiOperation(value = "Get blog entries", notes = "Returns list of blog entries")
     @RequestMapping("/blog")
     public ResponseEntity<List<Entry>> getAllEntries() {
         Entry entry1 = new Entry("title1", "content");
