@@ -1,5 +1,9 @@
 package org.tpokora.storms.web;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +25,12 @@ import javax.xml.soap.SOAPFault;
 import javax.xml.soap.SOAPMessage;
 
 
+@Api(value = "Storms", description = "Storms API")
 @RestController
 @RequestMapping(value = "/storms/")
 public class StormController {
+
+    private static final Logger logger = LoggerFactory.getLogger(StormController.class);
 
     @Autowired
     FindStormService findStormService;
@@ -34,6 +41,7 @@ public class StormController {
     @Autowired
     FindWarningService findWarningService;
 
+    @ApiOperation(value = "Find storm", notes = "Find storm by x, y coordinates and radius im km")
     @RequestMapping(value = "/find_storm/", method = RequestMethod.GET)
     public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y,
                                                        @RequestParam("radius") int radius) throws Exception {
@@ -50,6 +58,7 @@ public class StormController {
         return new ResponseEntity<>(findStormService.handleResponse(stormResponse), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Find city", notes = "Returns coordinates of given city")
     @RequestMapping(value = "/city/", method = RequestMethod.GET)
     public ResponseEntity<Object> getCityCordinates(@RequestParam("name") String name) throws Exception {
         SOAPMessage stormResponse = findCityService.findCity(name);
@@ -69,6 +78,7 @@ public class StormController {
         return new ResponseEntity<>(city, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Find warnings", notes = "Returns weather condition warnings for x and y coordinates")
     @RequestMapping(value = "/warnings/", method = RequestMethod.GET)
     public ResponseEntity<Object> getWarnings(@RequestParam("x") String x, @RequestParam("y") String y) throws Exception {
         Coordinates coordinates = new Coordinates(x, y);
