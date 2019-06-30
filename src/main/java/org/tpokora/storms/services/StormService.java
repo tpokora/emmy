@@ -4,7 +4,7 @@ import com.sun.xml.messaging.saaj.soap.impl.ElementImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-import org.tpokora.common.web.SOAPService;
+import org.tpokora.common.services.SOAPService;
 
 @Service
 public class StormService {

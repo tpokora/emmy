@@ -1,4 +1,4 @@
-package org.tpokora.common.web;
+package org.tpokora.common.services;
 
 import org.springframework.stereotype.Service;
 
