@@ -40,7 +40,7 @@ public class AndroidPushNotificationsService {
 
         JSONObject notification = new JSONObject();
         notification.put("title", title);
-        notification.put("jsonObject", text);
+        notification.put("body", text);
 
         jsonObject.put("notification", notification);
 
