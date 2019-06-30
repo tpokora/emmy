@@ -1,5 +1,6 @@
 package org.tpokora.common.services;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
@@ -29,10 +30,30 @@ public class AndroidPushNotificationsService {
         return CompletableFuture.completedFuture(firebaseResponse);
     }
 
+    public JSONObject generatePushNotificationJSON(String topic, String title, String text) {
+        JSONObject jsonObject = new JSONObject();
+        if (topic != null) {
+            jsonObject.put("to",  "/topics/" + topic);
+        } else {
+            jsonObject.put("to",  environment.getProperty("firebase.client.token"));
+        }
+
+        JSONObject notification = new JSONObject();
+        notification.put("title", title);
+        notification.put("jsonObject", text);
+
+        jsonObject.put("notification", notification);
+
+        return jsonObject;
+    }
+
     private ArrayList<ClientHttpRequestInterceptor> createInterceptors() {
         ArrayList<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+        //464584673875
         interceptors.add(new HeaderRequestInterceptor("Authorization", "key=" + environment.getProperty("firebase.server.key")));
         interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json"));
         return interceptors;
     }
+
+
 }
