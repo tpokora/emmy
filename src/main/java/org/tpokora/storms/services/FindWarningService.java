@@ -1,18 +1,23 @@
 package org.tpokora.storms.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.tpokora.storms.model.*;
+import org.tpokora.storms.model.Coordinates;
+import org.tpokora.storms.model.Period;
+import org.tpokora.storms.model.Warning;
+import org.tpokora.storms.model.WarningStrings;
 
 import javax.xml.soap.*;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
 public class FindWarningService extends StormService {
+
+    private static final Logger logger = LoggerFactory.getLogger(FindWarningService.class);
 
     public SOAPMessage findWarning(Coordinates coordinates) throws SOAPException, IOException {
         SOAPMessage soapMessage = soapService.createSOAPMessage();
@@ -42,7 +47,7 @@ public class FindWarningService extends StormService {
         Node response = (Node) soapBody.getElementsByTagName("ns1:ostrzezenia_pogodoweResponse").item(0);
         org.w3c.dom.Node returnElem = response.getParentElement().getElementsByTagName("return").item(0);
         Set<Warning> warnings = new HashSet<>();
-        
+
 //        Warning warning = new Warning();
 //        warning.setFromDay(elementValue(returnElem, "od_dnia"));
 //        warning.setToDay(elementValue(returnElem, "do_dnia"));

@@ -30,4 +30,9 @@ public class Warning {
     public void setPeriod(Period period) {
         this.period = period;
     }
+
+    @Override
+    public String toString() {
+        return "{ name: " + name + ", level: " + level + ", period: " + period.toString() + " }";
+    }
 }
