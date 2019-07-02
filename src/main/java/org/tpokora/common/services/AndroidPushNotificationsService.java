@@ -8,8 +8,10 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.tpokora.common.model.Notification;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -30,19 +32,24 @@ public class AndroidPushNotificationsService {
         return CompletableFuture.completedFuture(firebaseResponse);
     }
 
-    public JSONObject generatePushNotificationJSON(String topic, String title, String text) {
+    public JSONObject generatePushNotificationJSON(Notification notification) {
         JSONObject jsonObject = new JSONObject();
-        if (topic != null) {
-            jsonObject.put("to",  "/topics/" + topic);
+        if (notification.getTopic() != null) {
+            jsonObject.put("to",  "/topics/" + notification.getTopic());
         } else {
             jsonObject.put("to",  environment.getProperty("firebase.client.token"));
         }
 
-        JSONObject notification = new JSONObject();
-        notification.put("title", title);
-        notification.put("body", text);
 
-        jsonObject.put("notification", notification);
+        HashMap<String, String> data = notification.getData();
+        if (data != null) {
+            jsonObject.put("data", data);
+        } else {
+            JSONObject notificationJson = new JSONObject();
+            notificationJson.put("title", notification.getTitle());
+            notificationJson.put("body", notification.getText());
+            jsonObject.put("notification", notificationJson);
+        }
 
         return jsonObject;
     }
