@@ -28,7 +28,7 @@ import java.util.Set;
 
 @Api(value = "Storms", description = "Storms API")
 @RestController
-@RequestMapping(value = "/storms/")
+@RequestMapping(value = "/api/storms")
 public class StormController {
 
     private static final Logger logger = LoggerFactory.getLogger(StormController.class);

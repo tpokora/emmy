@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping(value = "/notifications/")
+@RequestMapping(value = "/api/notifications")
 public class AndroidNotificationsController {
 
     private static final Logger logger = LoggerFactory.getLogger(AndroidNotificationsController.class);
