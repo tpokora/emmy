@@ -1,4 +1,4 @@
-package org.tpokora.config;
+package org.tpokora.config.model;
 
 public class Property {
     private String property;
