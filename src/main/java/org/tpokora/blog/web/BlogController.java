@@ -15,11 +15,11 @@ import java.util.List;
 
 @Profile("!nodb")
 @Api(value = "Blog Controller", description = "Blog API")
-@RestController
+@RestController("/api/blog")
 public class BlogController {
 
     @ApiOperation(value = "Get blog entries", notes = "Returns list of blog entries")
-    @RequestMapping(value = "/blog", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<Entry>> getAllEntries() {
         Entry entry1 = new Entry("title1", "content");
         Entry entry2 = new Entry("title2", "content");
