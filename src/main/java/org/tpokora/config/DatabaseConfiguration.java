@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:application-dev.properties")
+@PropertySource("classpath:application-db.properties")
 @EnableAutoConfiguration
-@Profile("dev")
-public class DevConfiguration {
+@Profile("db")
+public class DatabaseConfiguration {
 }
