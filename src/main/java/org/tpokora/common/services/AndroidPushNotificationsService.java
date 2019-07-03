@@ -2,13 +2,13 @@ package org.tpokora.common.services;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.model.Notification;
+import org.tpokora.config.FirebaseProperties;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class AndroidPushNotificationsService {
     private static final String FIREBASE_API_URL = "https://fcm.googleapis.com/fcm/send";
 
     @Autowired
-    protected Environment environment;
+    private FirebaseProperties firebaseProperties;
 
     @Async
     public CompletableFuture<String> sendNotification(HttpEntity<String> entity) {
@@ -37,7 +37,7 @@ public class AndroidPushNotificationsService {
         if (notification.getTopic() != null) {
             jsonObject.put("to",  "/topics/" + notification.getTopic());
         } else {
-            jsonObject.put("to",  environment.getProperty("firebase.client.token"));
+            jsonObject.put("to",  firebaseProperties.getClientToken());
         }
 
 
@@ -57,7 +57,7 @@ public class AndroidPushNotificationsService {
     private ArrayList<ClientHttpRequestInterceptor> createInterceptors() {
         ArrayList<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
         //464584673875
-        interceptors.add(new HeaderRequestInterceptor("Authorization", "key=" + environment.getProperty("firebase.server.key")));
+        interceptors.add(new HeaderRequestInterceptor("Authorization", "key=" + firebaseProperties.getServerKey()));
         interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json"));
         return interceptors;
     }

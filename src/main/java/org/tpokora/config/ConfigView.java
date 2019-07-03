@@ -1,35 +1,36 @@
 package org.tpokora.config;
 
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import org.springframework.core.env.AbstractEnvironment;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.MapPropertySource;
-import org.springframework.core.env.PropertySource;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
 
-@Route("config")
+@Route(value = "config")
 public class ConfigView extends VerticalLayout {
 
-    Environment environment;
+    private FirebaseProperties firebaseProperties;
+    Grid<Property> grid;
 
-    public ConfigView(Environment environment) {
+    public ConfigView(FirebaseProperties firebaseProperties) {
+        this.firebaseProperties = firebaseProperties;
         add(new Span("Configuration"));
-        Map<String, Object> properties = new HashMap<>();
-        for (Iterator it = ((AbstractEnvironment) environment).getPropertySources().iterator(); it.hasNext(); ) {
-            PropertySource propertySource = (PropertySource) it.next();
-            if (propertySource instanceof MapPropertySource) {
-                properties.putAll(((MapPropertySource) propertySource).getSource());
-            }
-        }
 
-        for (Map.Entry<String, Object> entry : properties.entrySet()) {
-            add(new Span(entry.getKey() + " : " + entry.getValue()));
-        }
+        this.grid = new Grid<>(Property.class);
+        grid.setColumns("property", "value");
+        grid.setItems(getFirebaseProperties());
+
+        add(grid);
+    }
+
+    private ArrayList<Property> getFirebaseProperties() {
+        ArrayList<Property> propertyArrayList = new ArrayList<>();
+        propertyArrayList.add(new Property("serverKey", firebaseProperties.getServerKey()));
+        propertyArrayList.add(new Property("clientToken", firebaseProperties.getClientToken()));
+
+        return propertyArrayList;
+
     }
 }
 

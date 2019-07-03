@@ -1,14 +1,17 @@
 package org.tpokora;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route("")
+@Route(value = "heloo")
 public class HelloView extends VerticalLayout {
 
     public HelloView() {
-        add(new Button("Click me", event -> Notification.show("Hello to Emmy application!")));
+        Button configBtn = new Button("Config");
+        configBtn.addClickListener(e -> {
+            configBtn.getUI().ifPresent(ui -> ui.navigate("config"));
+        });
+        add(configBtn);
     }
 }
