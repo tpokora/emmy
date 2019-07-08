@@ -9,31 +9,17 @@ import java.util.Map;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@ConfigurationProperties(prefix = "firebase")
-public class FirebaseProperties {
-
-    private String serverKey;
-    private String clientToken;
+@ConfigurationProperties("")
+public class AppProperties {
 
     private final Map<String, String> firebase = new HashMap<>();
-
-    public String getServerKey() {
-        return serverKey;
-    }
-
-    public void setServerKey(String serverKey) {
-        this.serverKey = serverKey;
-    }
-
-    public String getClientToken() {
-        return clientToken;
-    }
-
-    public void setClientToken(String clientToken) {
-        this.clientToken = clientToken;
-    }
+    private final Map<String, String> storm = new HashMap<>();
 
     public Map<String, String> getFirebase() {
         return firebase;
+    }
+
+    public Map<String, String> getStorm() {
+        return storm;
     }
 }

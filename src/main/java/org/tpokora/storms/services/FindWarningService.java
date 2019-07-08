@@ -175,6 +175,6 @@ public class FindWarningService extends StormService {
 
         xElem.addTextNode(String.valueOf(coordinates.getX()));
         yElem.addTextNode(String.valueOf(coordinates.getY()));
-        keyElem.addTextNode(environment.getProperty("storm.key"));
+        keyElem.addTextNode(appProperties.getStorm().get("key"));
     }
 }
