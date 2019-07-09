@@ -27,7 +27,7 @@ public class UserController {
     UserRepository userRepository;
 
     @ApiOperation(value = "Get users", notes = "Returns all users")
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> userList = userRepository.findAll();
         return new ResponseEntity<>(userList, HttpStatus.OK);

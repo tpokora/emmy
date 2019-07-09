@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.model.Notification;
-import org.tpokora.config.FirebaseProperties;
+import org.tpokora.config.properties.FirebaseProperties;
 
 import java.util.ArrayList;
 import java.util.HashMap;
