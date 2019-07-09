@@ -29,7 +29,14 @@ public class User {
     private Set<Role> roles;
 
     public User() {
+    }
 
+    public User(User user) {
+        this.id = user.id;
+        this.username = user.username;
+        this.password = user.password;
+        this.email = user.email;
+        this.roles = user.roles;
     }
 
     public User(String username, String password, String email) {
