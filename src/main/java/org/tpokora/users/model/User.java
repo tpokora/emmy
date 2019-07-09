@@ -1,24 +1,32 @@
 package org.tpokora.users.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.tpokora.common.model.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "USER", schema = "public")
-public class User extends AbstractEntity {
+@Table(name = "USERS", schema = "public")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="USER_ID")
+    private int id;
 
     @Column(name = "USERNAME")
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "PASSWORD")
     private String password;
 
     @Column(name = "EMAIL")
     private String email;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(name="USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    private Set<Role> roles;
 
     public User() {
 
@@ -28,6 +36,14 @@ public class User extends AbstractEntity {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -52,5 +68,13 @@ public class User extends AbstractEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
