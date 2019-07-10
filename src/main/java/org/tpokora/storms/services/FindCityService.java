@@ -51,6 +51,6 @@ public class FindCityService extends StormService {
         SOAPElement keyElem = findCity.addChildElement("klucz", namespace);
 
         nameElem.addTextNode(city);
-        keyElem.addTextNode(environment.getProperty("storm.key"));
+        keyElem.addTextNode(appProperties.getStorm().get("key"));
     }
 }

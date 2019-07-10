@@ -57,7 +57,7 @@ public class FindStormService extends StormService {
         xElem.addTextNode(String.valueOf(storm.getCoordinates().getX()));
         yElem.addTextNode(String.valueOf(storm.getCoordinates().getY()));
         radiusElem.addTextNode(String.valueOf(storm.getDistance()));
-        keyElem.addTextNode(environment.getProperty("storm.key"));
+        keyElem.addTextNode(appProperties.getStorm().get("key"));
     }
 
 }

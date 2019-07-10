@@ -15,7 +15,7 @@ import java.util.List;
 
 @Profile("!nodb")
 @Api(value = "Blog Controller", description = "Blog API")
-@RestController
+@RestController("/api/blogs")
 public class BlogController {
 
     @ApiOperation(value = "Get blog entries", notes = "Returns list of blog entries")

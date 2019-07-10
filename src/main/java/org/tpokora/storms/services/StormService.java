@@ -2,9 +2,9 @@ package org.tpokora.storms.services;
 
 import com.sun.xml.messaging.saaj.soap.impl.ElementImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.services.SOAPService;
+import org.tpokora.config.properties.AppProperties;
 
 @Service
 public class StormService {
@@ -22,10 +22,11 @@ public class StormService {
     protected static final String METHOD_SZUKAJ_BURZY = "szukaj_burzy";
 
     @Autowired
-    protected SOAPService soapService;
+    public AppProperties appProperties;
 
     @Autowired
-    protected Environment environment;
+    protected SOAPService soapService;
+
 
     protected String elementValue(org.w3c.dom.Node element, String name) {
         return ((ElementImpl) element).getElementsByTagName(name).item(0).getTextContent();

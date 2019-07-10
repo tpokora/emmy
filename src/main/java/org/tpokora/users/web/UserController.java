@@ -18,7 +18,7 @@ import java.util.List;
 
 @Profile("!nodb")
 @Api(value = "User controller", description = "User API")
-@RestController
+@RestController(value = "/api/users")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -27,7 +27,7 @@ public class UserController {
     UserRepository userRepository;
 
     @ApiOperation(value = "Get users", notes = "Returns all users")
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> userList = userRepository.findAll();
         return new ResponseEntity<>(userList, HttpStatus.OK);

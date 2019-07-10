@@ -23,11 +23,12 @@ import org.tpokora.storms.services.FindWarningService;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPFault;
 import javax.xml.soap.SOAPMessage;
+import java.util.Set;
 
 
 @Api(value = "Storms", description = "Storms API")
 @RestController
-@RequestMapping(value = "/storms/")
+@RequestMapping(value = "/api/storms")
 public class StormController {
 
     private static final Logger logger = LoggerFactory.getLogger(StormController.class);
@@ -84,7 +85,7 @@ public class StormController {
         Coordinates coordinates = new Coordinates(x, y);
         SOAPMessage warningResponse = findWarningService.findWarning(coordinates);
 
-        Warning warning = findWarningService.handleResponse(warningResponse);
+        Set<Warning> warning = findWarningService.handleResponse(warningResponse);
         return new ResponseEntity<>(warning, HttpStatus.OK);
     }
 
