@@ -10,7 +10,6 @@ import org.tpokora.views.LoginView;
 @Component
 public class VaadinServiceListenerConfiguration implements VaadinServiceInitListener {
 
-
     @Override
     public void serviceInit(ServiceInitEvent event) {
         event.getSource().addUIInitListener(uiEvent -> {
@@ -21,7 +20,7 @@ public class VaadinServiceListenerConfiguration implements VaadinServiceInitList
 
     private void beforeEnter(BeforeEnterEvent event) {
         if (!LoginView.class.equals(event.getNavigationTarget())
-            && !SecurityUtils.isUserLoggedIn()) {
+                && !SecurityUtils.isUserLoggedIn()) {
             event.rerouteTo(LoginView.class);
         }
     }
