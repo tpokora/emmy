@@ -1,5 +1,6 @@
 package org.tpokora.users.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -25,7 +26,8 @@ public class User {
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(name="USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    @JoinTable(name="USERS_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    @JsonIgnore
     private Set<Role> roles;
 
     public User() {
