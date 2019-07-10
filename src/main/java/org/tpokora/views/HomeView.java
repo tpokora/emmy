@@ -1,13 +1,14 @@
-package org.tpokora;
+package org.tpokora.views;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "home")
+@Route(value = HomeView.ROUTE)
 public class HomeView extends VerticalLayout {
 
+    public static final String ROUTE = "home";
     public static final String WELCOME_TO_EMMY_APP = "Welcome to Emmy App!";
     public static final String CONFIG_BTN_TEXT = "Config";
 
