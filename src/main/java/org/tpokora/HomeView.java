@@ -9,9 +9,10 @@ import com.vaadin.flow.router.Route;
 public class HomeView extends VerticalLayout {
 
     public static final String WELCOME_TO_EMMY_APP = "Welcome to Emmy App!";
+    public static final String CONFIG_BTN_TEXT = "Config";
 
     public HomeView() {
-        Button configBtn = new Button("Config");
+        Button configBtn = new Button(CONFIG_BTN_TEXT);
         configBtn.addClickListener(e -> {
             configBtn.getUI().ifPresent(ui -> ui.navigate("config"));
         });
