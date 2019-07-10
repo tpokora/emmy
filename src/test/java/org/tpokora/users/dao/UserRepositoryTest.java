@@ -28,7 +28,7 @@ public class UserRepositoryTest {
         User createUser = new User(USERNAME, "", "testUser@email.com");
         userRepository.save(createUser);
 
-        User studentFromDB = userRepository.findByUsername("newUser");
+        User studentFromDB = userRepository.findByUsername("newUser").get();
         Assert.assertEquals(createUser.getUsername(), studentFromDB.getUsername());
         Assert.assertEquals(createUser.getPassword(), studentFromDB.getPassword());
         Assert.assertEquals(createUser.getEmail(), studentFromDB.getEmail());
