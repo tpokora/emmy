@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()
                 .anyRequest().permitAll()
                 // Configure the login page.
-                .and().formLogin().loginPage(LOGIN_URL).permitAll()
+                .and().formLogin().loginPage(LOGIN_URL).permitAll().defaultSuccessUrl("/home")
                 .loginProcessingUrl(LOGIN_PROCESSING_URL)
                 .failureUrl(LOGIN_FAILURE_URL)
 
