@@ -1,4 +1,4 @@
-package org.tpokora.config.view;
+package org.tpokora.views;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Span;

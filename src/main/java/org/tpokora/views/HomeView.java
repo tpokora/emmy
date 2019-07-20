@@ -20,6 +20,8 @@ public class HomeView extends AppLayout {
     public HomeView() {
         AppLayoutMenu menu = createMenu();
 
+        setBranding(new H3(WELCOME_TO_EMMY_APP));
+
         menu.addMenuItems(new AppLayoutMenuItem(ADD_USER_BTN_TEXT, "signup"),
                 new AppLayoutMenuItem(CONFIG_BTN_TEXT, "config"));
 
