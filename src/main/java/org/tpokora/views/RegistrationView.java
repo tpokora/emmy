@@ -1,14 +1,18 @@
 package org.tpokora.views;
 
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Route(value = RegistrationView.ROUTE)
+@Tag("signup-view")
+@Route(value = "signup", layout = MainView.class)
+@PageTitle("Create user")
 public class RegistrationView extends VerticalLayout {
     public static final String ROUTE = "signup";
     //TODO: finish registration form

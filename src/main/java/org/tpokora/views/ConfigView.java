@@ -1,8 +1,10 @@
 package org.tpokora.views;
 
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.tpokora.config.properties.AppProperties;
 import org.tpokora.config.properties.FirebaseProperties;
@@ -10,7 +12,9 @@ import org.tpokora.config.model.Property;
 
 import java.util.ArrayList;
 
-@Route(value = "config")
+@Tag("config-view")
+@Route(value = "config", layout = MainView.class)
+@PageTitle("Configuration")
 public class ConfigView extends VerticalLayout {
 
     private FirebaseProperties firebaseProperties;
