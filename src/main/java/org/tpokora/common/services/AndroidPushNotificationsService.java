@@ -19,8 +19,11 @@ public class AndroidPushNotificationsService {
 
     private static final String FIREBASE_API_URL = "https://fcm.googleapis.com/fcm/send";
 
-    @Autowired
     private FirebaseProperties firebaseProperties;
+
+    public AndroidPushNotificationsService(FirebaseProperties firebaseProperties) {
+        this.firebaseProperties = firebaseProperties;
+    }
 
     @Async
     public CompletableFuture<String> sendNotification(HttpEntity<String> entity) {

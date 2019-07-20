@@ -21,11 +21,14 @@ public class StormService {
     protected static final String METHOD_OSTRZEZENIA = "ostrzezenia_pogodowe";
     protected static final String METHOD_SZUKAJ_BURZY = "szukaj_burzy";
 
-    @Autowired
-    public AppProperties appProperties;
+    protected AppProperties appProperties;
 
-    @Autowired
     protected SOAPService soapService;
+
+    public StormService(AppProperties appProperties, SOAPService soapService) {
+        this.appProperties = appProperties;
+        this.soapService = soapService;
+    }
 
 
     protected String elementValue(org.w3c.dom.Node element, String name) {

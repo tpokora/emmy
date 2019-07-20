@@ -19,8 +19,11 @@ public class WeatherScheduledJobsService {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherScheduledJobsService.class);
 
-    @Autowired
     private FindWarningService findWarningService;
+
+    public WeatherScheduledJobsService(FindWarningService findWarningService) {
+        this.findWarningService = findWarningService;
+    }
 
     @Scheduled(fixedRate = 30000)
     public void checkWeatherWarningsJob() throws IOException, SOAPException {

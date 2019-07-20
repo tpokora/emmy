@@ -3,6 +3,8 @@ package org.tpokora.storms.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.tpokora.common.services.SOAPService;
+import org.tpokora.config.properties.AppProperties;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
@@ -18,6 +20,10 @@ import java.util.Set;
 public class FindWarningService extends StormService {
 
     private static final Logger logger = LoggerFactory.getLogger(FindWarningService.class);
+
+    public FindWarningService(AppProperties appProperties, SOAPService soapService) {
+        super(appProperties, soapService);
+    }
 
     public SOAPMessage findWarning(Coordinates coordinates) throws SOAPException, IOException {
         SOAPMessage soapMessage = soapService.createSOAPMessage();

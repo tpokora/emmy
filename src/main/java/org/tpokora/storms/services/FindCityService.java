@@ -1,6 +1,8 @@
 package org.tpokora.storms.services;
 
 import org.springframework.stereotype.Service;
+import org.tpokora.common.services.SOAPService;
+import org.tpokora.config.properties.AppProperties;
 import org.tpokora.storms.model.City;
 
 import javax.xml.soap.*;
@@ -9,6 +11,10 @@ import java.util.HashMap;
 
 @Service
 public class FindCityService extends StormService {
+
+    public FindCityService(AppProperties appProperties, SOAPService soapService) {
+        super(appProperties, soapService);
+    }
 
     public SOAPMessage findCity(String city) throws SOAPException, IOException {
         SOAPMessage soapMessage = soapService.createSOAPMessage();
