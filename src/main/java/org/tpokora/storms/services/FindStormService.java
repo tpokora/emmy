@@ -1,6 +1,8 @@
 package org.tpokora.storms.services;
 
 import org.springframework.stereotype.Service;
+import org.tpokora.common.services.SOAPService;
+import org.tpokora.config.properties.AppProperties;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 
@@ -10,6 +12,10 @@ import java.util.HashMap;
 
 @Service
 public class FindStormService extends StormService {
+
+    public FindStormService(AppProperties appProperties, SOAPService soapService) {
+        super(appProperties, soapService);
+    }
 
     public SOAPMessage checkStorm(StormRequest stormRequest) throws SOAPException, IOException {
         SOAPMessage soapMessage = soapService.createSOAPMessage();
