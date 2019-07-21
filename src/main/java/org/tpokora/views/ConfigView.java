@@ -2,6 +2,7 @@ package org.tpokora.views;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -28,7 +29,7 @@ public class ConfigView extends AbstractView {
         this.firebaseProperties = firebaseProperties;
         this.appProperties = appProperties;
 
-        this.verticalLayout.add(new Span(RouteStrings.CONFIG));
+        this.verticalLayout.add(new H3(RouteStrings.CONFIG));
         this.grid = new Grid<>(Property.class);
         grid.setColumns("property", "value");
         grid.setItems(getFirebaseProperties());
