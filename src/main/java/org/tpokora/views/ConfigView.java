@@ -9,11 +9,12 @@ import com.vaadin.flow.router.Route;
 import org.tpokora.config.properties.AppProperties;
 import org.tpokora.config.properties.FirebaseProperties;
 import org.tpokora.config.model.Property;
+import org.tpokora.views.common.RouteStrings;
 
 import java.util.ArrayList;
 
 @Tag("config-view")
-@Route(value = "config", layout = MainView.class)
+@Route(value = RouteStrings.CONFIG_ROUTE, layout = MainView.class)
 @PageTitle("Configuration")
 public class ConfigView extends VerticalLayout {
 
