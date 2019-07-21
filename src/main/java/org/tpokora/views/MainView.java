@@ -13,7 +13,7 @@ import static javax.swing.ScrollPaneConstants.VIEWPORT;
 @Viewport(VIEWPORT)
 public class MainView extends AbstractAppRouterLayout {
 
-    public static final String WELCOME_TO_EMMY_APP = "Welcome to Emmy App!";
+    public static final String EMMY_APP = "EmmyApp";
 
     public MainView() {
 
@@ -21,7 +21,7 @@ public class MainView extends AbstractAppRouterLayout {
 
     @Override
     protected void configure(AppLayout appLayout, AppLayoutMenu appLayoutMenu) {
-        appLayout.setBranding(new H3(WELCOME_TO_EMMY_APP));
+        appLayout.setBranding(new H3(EMMY_APP));
 
         appLayoutMenu.addMenuItems(new AppLayoutMenuItem(RouteStrings.HOME, RouteStrings.HOME_ROUTE),
                 new AppLayoutMenuItem(RouteStrings.USERS, RouteStrings.USERS_ROUTE),
