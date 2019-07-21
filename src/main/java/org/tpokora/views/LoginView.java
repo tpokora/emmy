@@ -2,11 +2,13 @@ package org.tpokora.views;
 
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.tpokora.views.common.RouteStrings;
 
-@Route(value = LoginView.ROUTE)
+@Route(value = RouteStrings.LOGIN_ROUTE)
+@PageTitle(RouteStrings.LOGIN)
 public class LoginView extends VerticalLayout {
-    public static final String ROUTE = "login";
 
     private LoginOverlay login = new LoginOverlay();
 
