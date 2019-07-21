@@ -4,7 +4,7 @@ public class RouteStrings {
 
     public static final String LOGIN = "Login";
     public static final String HOME = "Home";
-    public static final String CONFIG = "Config";
+    public static final String CONFIG = "Configuration";
     public static final String USERS = "Users";
     public static final String SINGUP = "Create User";
 

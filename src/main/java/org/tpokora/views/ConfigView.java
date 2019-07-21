@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @Tag("config-view")
 @Route(value = RouteStrings.CONFIG_ROUTE, layout = MainView.class)
-@PageTitle("Configuration")
+@PageTitle(RouteStrings.CONFIG)
 public class ConfigView extends VerticalLayout {
 
     private FirebaseProperties firebaseProperties;
@@ -25,7 +25,7 @@ public class ConfigView extends VerticalLayout {
     public ConfigView(FirebaseProperties firebaseProperties, AppProperties appProperties) {
         this.firebaseProperties = firebaseProperties;
         this.appProperties = appProperties;
-        add(new Span("Configuration"));
+        add(new Span(RouteStrings.CONFIG));
 
         this.grid = new Grid<>(Property.class);
         grid.setColumns("property", "value");
