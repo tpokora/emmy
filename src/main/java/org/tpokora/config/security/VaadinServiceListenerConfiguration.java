@@ -19,7 +19,9 @@ public class VaadinServiceListenerConfiguration implements VaadinServiceInitList
     }
 
     private void beforeEnter(BeforeEnterEvent event) {
-        if (!LoginView.class.equals(event.getNavigationTarget())
+        // TODO: handle redirection when not logged in
+        Class<?> navigationTarget = event.getNavigationTarget();
+        if (!LoginView.class.equals(navigationTarget)
                 && !SecurityUtils.isUserLoggedIn()) {
             event.rerouteTo(LoginView.class);
         }

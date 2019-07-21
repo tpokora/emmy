@@ -1,24 +1,28 @@
 package org.tpokora.views;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.tpokora.views.common.RouteStrings;
 
-@Route(value = HomeView.ROUTE)
-public class HomeView extends VerticalLayout {
+@Tag("home-view")
+@Route(value = RouteStrings.HOME_ROUTE, layout = MainView.class)
+@PageTitle(RouteStrings.HOME)
+public class HomeView extends Div {
 
-    public static final String ROUTE = "home";
     public static final String WELCOME_TO_EMMY_APP = "Welcome to Emmy App!";
-    public static final String CONFIG_BTN_TEXT = "Config";
+    private Div homeContent;
 
     public HomeView() {
-        Button configBtn = new Button(CONFIG_BTN_TEXT);
-        configBtn.addClickListener(e -> {
-            configBtn.getUI().ifPresent(ui -> ui.navigate("config"));
-        });
-        add(
-                new H1(WELCOME_TO_EMMY_APP),
-                configBtn);
+        this.homeContent = new Div();
+        setupContent();
+        add(homeContent);
+    }
+
+    private void setupContent() {
+        this.homeContent.getStyle().set("padding", "30px");
+        this.homeContent.add(new H3(WELCOME_TO_EMMY_APP));
     }
 }
