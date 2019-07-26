@@ -62,7 +62,7 @@ public class FindCityForm extends Div {
             this.city = new City();
             this.xCoordinatesTextField.setValue(String.valueOf(this.city.getCoordinates().getX()));
             this.yCoordinatesTextField.setValue(String.valueOf(this.city.getCoordinates().getY()));
-            this.cityName.setValue("");
+            this.cityName.setValue(this.city.getName());
         });
 
         add(this.layoutWithFormItems);

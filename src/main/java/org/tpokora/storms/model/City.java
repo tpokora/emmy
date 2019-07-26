@@ -6,6 +6,7 @@ public class City {
 
     public City() {
         this.coordinates = new Coordinates();
+        this.name = "";
     }
 
     public City(Double x, Double y) {
