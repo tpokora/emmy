@@ -36,7 +36,9 @@ public class FindCityForm extends Div {
         this.errorTextLabel = new TextField();
         this.cityName = new TextField();
         this.xCoordinatesTextField = new TextField();
+        this.xCoordinatesTextField.setEnabled(false);
         this.yCoordinatesTextField = new TextField();
+        this.yCoordinatesTextField.setEnabled(false);
         this.buttonsLayout = new HorizontalLayout();
         this.findCityBtn = new Button("Find city");
         this.resetBtn = new Button("Reset");
