@@ -35,8 +35,8 @@ public class WeatherScheduledJobsService {
     }
 
     private Set<Warning> checkWeatherWarnings() throws IOException, SOAPException {
-        String weather_scheduler_x = "19.49";
-        String weather_scheduler_y = "49.59";
+        Double weather_scheduler_x = 19.49;
+        Double weather_scheduler_y = 49.59;
         Set<Warning> warnings = findWarningService.handleResponse(findWarningService.findWarning(new Coordinates(weather_scheduler_x, weather_scheduler_y)));
         return warnings;
     }

@@ -5,9 +5,10 @@ public class City {
     private Coordinates coordinates;
 
     public City() {
+        this.coordinates = new Coordinates();
     }
 
-    public City(String x, String y) {
+    public City(Double x, Double y) {
         this.coordinates = new Coordinates();
         this.coordinates.setX(x);
         this.coordinates.setY(y);

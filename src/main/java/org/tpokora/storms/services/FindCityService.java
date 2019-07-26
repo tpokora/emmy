@@ -43,8 +43,8 @@ public class FindCityService extends StormService {
         SOAPBody soapBody = soapMessage.getSOAPBody();
         Node response = (Node) soapBody.getElementsByTagName("ns1:miejscowoscResponse").item(0);
         org.w3c.dom.Node returnElem = response.getParentElement().getElementsByTagName("return").item(0);
-        String x = elementValue(returnElem, "x");
-        String y = elementValue(returnElem, "y");
+        Double x = Double.parseDouble(elementValue(returnElem, "x"));
+        Double y = Double.parseDouble(elementValue(returnElem, "y"));
 
         City city = new City(x, y);
         return city;

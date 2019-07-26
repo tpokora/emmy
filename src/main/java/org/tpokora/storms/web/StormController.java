@@ -44,7 +44,7 @@ public class StormController {
 
     @ApiOperation(value = "Find storm", notes = "Find storm by x, y coordinates and radius im km")
     @RequestMapping(value = "/find_storm/", method = RequestMethod.GET)
-    public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") String x, @RequestParam("y") String y,
+    public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") Double x, @RequestParam("y") Double y,
                                                        @RequestParam("radius") int radius) throws Exception {
         StormRequest stormRequest = new StormRequest();
         stormRequest.setCoordinates(new Coordinates(x, y));
@@ -69,7 +69,7 @@ public class StormController {
         }
 
         City city = findCityService.handleResponse(stormResponse);
-        if (city.getCoordinates().getX().equals("0") && city.getCoordinates().getY().equals("0")) {
+        if (city.getCoordinates().getX().compareTo(0.0) == 0 && city.getCoordinates().getY().equals("0")) {
             ErrorMsg errorMsg = new ErrorMsg();
             errorMsg.setError(name + " not found");
             return new ResponseEntity<>(errorMsg, HttpStatus.OK);
@@ -81,7 +81,7 @@ public class StormController {
 
     @ApiOperation(value = "Find warnings", notes = "Returns weather condition warnings for x and y coordinates")
     @RequestMapping(value = "/warnings/", method = RequestMethod.GET)
-    public ResponseEntity<Object> getWarnings(@RequestParam("x") String x, @RequestParam("y") String y) throws Exception {
+    public ResponseEntity<Object> getWarnings(@RequestParam("x") Double x, @RequestParam("y") Double y) throws Exception {
         Coordinates coordinates = new Coordinates(x, y);
         SOAPMessage warningResponse = findWarningService.findWarning(coordinates);
 

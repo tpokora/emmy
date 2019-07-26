@@ -2,31 +2,32 @@ package org.tpokora.storms.model;
 
 public class Coordinates {
     
-    private String x;
-    private String y;
+    private Double x;
+    private Double y;
     
     public Coordinates() {
-        
+        this.setX(0.0);
+        this.setY(0.0);
     }
 
-    public Coordinates(String x, String y) {
+    public Coordinates(Double x, Double y) {
         this.x = x;
         this.y = y;
     }
 
-    public String getX() {
+    public Double getX() {
         return x;
     }
 
-    public void setX(String x) {
+    public void setX(Double x) {
         this.x = x;
     }
 
-    public String getY() {
+    public Double getY() {
         return y;
     }
 
-    public void setY(String y) {
+    public void setY(Double y) {
         this.y = y;
     }
 }

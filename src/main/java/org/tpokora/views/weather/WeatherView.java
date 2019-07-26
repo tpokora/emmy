@@ -1,7 +1,6 @@
 package org.tpokora.views.weather;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.router.PageTitle;
@@ -23,6 +22,7 @@ public class WeatherView extends AbstractView {
     public WeatherView(FindCityService findCityService) {
         setupContentDefaultStyles();
         addToContent(new H3(RouteStrings.WEATHER));
+        this.city = new City();
         findCityForm = new FindCityForm(city, findCityService);
         Details findCityElement = new Details("Find City",
                 findCityForm);
