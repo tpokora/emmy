@@ -7,10 +7,12 @@ public class RouteStrings {
     public static final String CONFIG = "Configuration";
     public static final String USERS = "Users";
     public static final String SINGUP = "Create User";
+    public static final String WEATHER = "Weather";
 
     public static final String LOGIN_ROUTE = "login";
     public static final String HOME_ROUTE = "home";
     public static final String CONFIG_ROUTE = "config";
     public static final String USERS_ROUTE = "users";
     public static final String SINGUP_ROUTE = "singup";
+    public static final String WEATHER_ROUTE = "weather";
 }

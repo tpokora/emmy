@@ -25,7 +25,8 @@ public class MainView extends AbstractAppRouterLayout {
 
         appLayoutMenu.addMenuItems(new AppLayoutMenuItem(RouteStrings.HOME, RouteStrings.HOME_ROUTE),
                 new AppLayoutMenuItem(RouteStrings.USERS, RouteStrings.USERS_ROUTE),
-                new AppLayoutMenuItem(RouteStrings.CONFIG, RouteStrings.CONFIG_ROUTE)
+                new AppLayoutMenuItem(RouteStrings.CONFIG, RouteStrings.CONFIG_ROUTE),
+                new AppLayoutMenuItem(RouteStrings.WEATHER, RouteStrings.WEATHER_ROUTE)
         );
 
     }
