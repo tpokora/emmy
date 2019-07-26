@@ -7,6 +7,10 @@ public class StormResponse {
     private int time;
 
     public StormResponse() {
+        this.amount = 0;
+        this.distance = 0.0;
+        this.direction = "";
+        this.time = 0;
     }
 
     public StormResponse(int amount, double distance, String direction, int time) {

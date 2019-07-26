@@ -50,7 +50,7 @@ public class FindCityForm extends Div {
 
         this.findCityBtn.addClickListener(e -> {
             try {
-                City city = this.findCityService.handleResponse(this.findCityService.findCity(this.cityName.getValue()));
+                this.city = this.findCityService.handleResponse(this.findCityService.findCity(this.cityName.getValue()));
                 this.xCoordinatesTextField.setValue(String.valueOf(city.getCoordinates().getX()));
                 this.yCoordinatesTextField.setValue(String.valueOf(city.getCoordinates().getY()));
             } catch (SOAPException e1) {
@@ -76,9 +76,9 @@ public class FindCityForm extends Div {
         this.cityName.setPlaceholder("Kraków");
         this.xCoordinatesTextField.setPlaceholder(String.valueOf(this.city.getCoordinates().getX()));
         this.yCoordinatesTextField.setPlaceholder(String.valueOf(this.city.getCoordinates().getY()));
-        this.layoutWithFormItems.addFormItem(cityName, "City");
-        this.layoutWithFormItems.addFormItem(xCoordinatesTextField, "X");
-        this.layoutWithFormItems.addFormItem(yCoordinatesTextField, "Y");
+        this.layoutWithFormItems.addFormItem(this.cityName, "City");
+        this.layoutWithFormItems.addFormItem(this.xCoordinatesTextField, "X");
+        this.layoutWithFormItems.addFormItem(this.yCoordinatesTextField, "Y");
 
         this.buttonsLayout.add(this.findCityBtn, this.resetBtn);
         this.layoutWithFormItems.add(this.buttonsLayout);
