@@ -20,39 +20,31 @@ public class FindCityForm extends Div {
 
     private FindCityService findCityService;
 
+    private FormLayout layoutWithFormItems;
     private TextField errorTextLabel;
     private TextField cityName;
     private TextField xCoordinatesTextField;
     private TextField yCoordinatesTextField;
+    private HorizontalLayout buttonsLayout;
     private Button findCityBtn;
     private Button resetBtn;
 
     public FindCityForm(City city, FindCityService findCityService) {
         this.city = city;
         this.findCityService = findCityService;
+        this.layoutWithFormItems = new FormLayout();
         this.errorTextLabel = new TextField();
         this.cityName = new TextField();
         this.xCoordinatesTextField = new TextField();
         this.yCoordinatesTextField = new TextField();
+        this.buttonsLayout = new HorizontalLayout();
         this.findCityBtn = new Button("Find city");
         this.resetBtn = new Button("Reset");
         setupForm();
     }
 
     private void setupForm() {
-        Styler.setAutoMargin(this);
-        FormLayout layoutWithFormItems = new FormLayout();
-        layoutWithFormItems.setWidth("600px");
-
-        this.cityName.setPlaceholder("Kraków");
-        this.xCoordinatesTextField.setPlaceholder(String.valueOf(this.city.getCoordinates().getX()));
-        this.yCoordinatesTextField.setPlaceholder(String.valueOf(this.city.getCoordinates().getY()));
-        layoutWithFormItems.addFormItem(cityName, "City");
-        layoutWithFormItems.addFormItem(xCoordinatesTextField, "X");
-        layoutWithFormItems.addFormItem(yCoordinatesTextField, "Y");
-
-        HorizontalLayout buttonsLayout = new HorizontalLayout();
-        buttonsLayout.add(this.findCityBtn, this.resetBtn);
+        setupLayouts();
 
         this.findCityBtn.addClickListener(e -> {
             try {
@@ -73,8 +65,21 @@ public class FindCityForm extends Div {
             this.cityName.setValue("");
         });
 
-        layoutWithFormItems.add(buttonsLayout);
-        add(layoutWithFormItems);
+        add(this.layoutWithFormItems);
+    }
+
+    private void setupLayouts() {
+        Styler.setAutoMargin(this);
+        this.layoutWithFormItems.setWidth("600px");
+        this.cityName.setPlaceholder("Kraków");
+        this.xCoordinatesTextField.setPlaceholder(String.valueOf(this.city.getCoordinates().getX()));
+        this.yCoordinatesTextField.setPlaceholder(String.valueOf(this.city.getCoordinates().getY()));
+        this.layoutWithFormItems.addFormItem(cityName, "City");
+        this.layoutWithFormItems.addFormItem(xCoordinatesTextField, "X");
+        this.layoutWithFormItems.addFormItem(yCoordinatesTextField, "Y");
+
+        this.buttonsLayout.add(this.findCityBtn, this.resetBtn);
+        this.layoutWithFormItems.add(this.buttonsLayout);
     }
 
     private void handleServiceError(City city) {
