@@ -17,4 +17,10 @@ public class Styler {
         component.getStyle().set("margin-left", "auto");
         component.getStyle().set("margin-right", "auto");
     }
+
+    public static void setWarningElementStyle(HtmlComponent component) {
+        component.getStyle().set("background-color", "#e0e0e0");
+        component.getStyle().set("margin", "30px");
+        component.getStyle().set("padding", "30px");
+    }
 }

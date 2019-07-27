@@ -54,6 +54,7 @@ dependencies {
     compile 'org.springframework.ws:spring-ws-core'
 
     compile 'com.vaadin:vaadin-spring-boot-starter'
+    compile 'com.vaadin:vaadin-board-flow'
     
     compile 'org.postgresql:postgresql:42.1.1'
     
