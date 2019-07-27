@@ -3,19 +3,19 @@ package org.tpokora.views.weather;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 import org.tpokora.storms.services.FindStormService;
+import org.tpokora.views.common.BaseForm;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
 
 @Tag("find-storm-form")
-public class FindStormForm extends Div {
+public class FindStormForm extends BaseForm {
 
     private Coordinates coordinates;
     private StormResponse stormResponse;
@@ -43,6 +43,12 @@ public class FindStormForm extends Div {
         this.coordinates = coordinates;
         this.findStormService = findStormService;
 
+        initializeElements();
+        setupForm();
+        add(this.layoutWithFormItems);
+    }
+
+    protected void initializeElements() {
         this.layoutWithFormItems = new FormLayout();
         this.errorTextLabel = new TextField();
         this.xCoordinatesTextField = new TextField();
@@ -58,35 +64,25 @@ public class FindStormForm extends Div {
         this.buttonsLayout = new HorizontalLayout();
         this.findStormBtn = new Button("Find storm");
         this.resetBtn = new Button("Reset");
-        setupForm();
     }
 
-    private void setupForm() {
+    protected void setupForm() {
         setupStormForm();
         setupResponseLayout();
-
-        this.layoutWithFormItems.add(this.buttonsLayout);
-        this.layoutWithFormItems.add(this.stormResponseLayout);
-
-        add(this.layoutWithFormItems);
     }
 
     private void setupStormForm() {
-        this.amountTextField.setLabel("Amount");
-        this.distanceTextField.setLabel("Distance");
-        this.directionTextField.setLabel("Direction");
-        this.timeTextField.setLabel("Time");
-
         this.xCoordinatesTextField.setValue(String.valueOf(this.coordinates.getX()));
         this.yCoordinatesTextField.setValue(String.valueOf(this.coordinates.getY()));
         this.layoutWithFormItems.addFormItem(xCoordinatesTextField, "X");
         this.layoutWithFormItems.addFormItem(yCoordinatesTextField, "Y");
         this.layoutWithFormItems.addFormItem(radiusTextField, "Radius");
-
-        setupStormFormButtonsActions();
+        this.buttonsLayout.add(this.findStormBtn, this.resetBtn);
+        this.layoutWithFormItems.add(this.buttonsLayout);
+        setupFormButtonsActions();
     }
 
-    private void setupStormFormButtonsActions() {
+    protected void setupFormButtonsActions() {
         this.findStormBtn.addClickListener(e -> {
             try {
                 StormRequest stormRequest = new StormRequest();
@@ -116,15 +112,18 @@ public class FindStormForm extends Div {
             this.xCoordinatesTextField.setValue(String.valueOf(this.coordinates.getX()));
             this.yCoordinatesTextField.setValue(String.valueOf(this.coordinates.getY()));
         });
-
-        this.buttonsLayout.add(this.findStormBtn, this.resetBtn);
     }
 
     private void setupResponseLayout() {
+        this.amountTextField.setLabel("Amount");
+        this.distanceTextField.setLabel("Distance");
+        this.directionTextField.setLabel("Direction");
+        this.timeTextField.setLabel("Time");
         this.amountTextField.setValue(String.valueOf(this.stormResponse.getAmount()));
         this.distanceTextField.setValue(String.valueOf(this.stormResponse.getDistance()));
         this.directionTextField.setValue(this.stormResponse.getDirection());
         this.timeTextField.setValue(String.valueOf(this.stormResponse.getTime()));
         this.stormResponseLayout.add(this.amountTextField, this.distanceTextField, this.directionTextField, this.timeTextField);
+        this.layoutWithFormItems.add(this.stormResponseLayout);
     }
 }

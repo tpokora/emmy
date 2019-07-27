@@ -3,18 +3,18 @@ package org.tpokora.views.weather;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
 import org.tpokora.storms.services.FindCityService;
+import org.tpokora.views.common.BaseForm;
 import org.tpokora.views.common.Styler;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
 
 @Tag("find-city-form")
-public class FindCityForm extends Div {
+public class FindCityForm extends BaseForm {
 
     private City city;
 
@@ -33,6 +33,12 @@ public class FindCityForm extends Div {
         this.city = city;
         this.findCityService = findCityService;
         this.layoutWithFormItems = new FormLayout();
+        initializeElements();
+        setupForm();
+        add(this.layoutWithFormItems);
+    }
+
+    protected void initializeElements() {
         this.errorTextLabel = new TextField();
         this.cityName = new TextField();
         this.xCoordinatesTextField = new TextField();
@@ -42,12 +48,14 @@ public class FindCityForm extends Div {
         this.buttonsLayout = new HorizontalLayout();
         this.findCityBtn = new Button("Find city");
         this.resetBtn = new Button("Reset");
-        setupForm();
     }
 
-    private void setupForm() {
+    protected void setupForm() {
         setupLayouts();
+        setupFormButtonsActions();
+    }
 
+    protected void setupFormButtonsActions() {
         this.findCityBtn.addClickListener(e -> {
             try {
                 this.city = this.findCityService.handleResponse(this.findCityService.findCity(this.cityName.getValue()));
@@ -66,8 +74,6 @@ public class FindCityForm extends Div {
             this.yCoordinatesTextField.setValue(String.valueOf(this.city.getCoordinates().getY()));
             this.cityName.setValue(this.city.getName());
         });
-
-        add(this.layoutWithFormItems);
     }
 
     private void setupLayouts() {

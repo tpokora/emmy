@@ -9,6 +9,7 @@ import com.vaadin.flow.router.Route;
 import org.tpokora.storms.model.City;
 import org.tpokora.storms.services.FindCityService;
 import org.tpokora.storms.services.FindStormService;
+import org.tpokora.storms.services.FindWarningService;
 import org.tpokora.views.AbstractView;
 import org.tpokora.views.MainView;
 import org.tpokora.views.common.RouteStrings;
@@ -20,23 +21,27 @@ public class WeatherView extends AbstractView {
 
     private FindCityForm findCityForm;
     private FindStormForm findStormForm;
+    private FindWarningsForm findWarningsForm;
     private City city;
 
-    public WeatherView(FindCityService findCityService, FindStormService findStormService) {
+    public WeatherView(FindCityService findCityService, FindStormService findStormService, FindWarningService findWarningService) {
         setupContentDefaultStyles();
         addToContent(new H3(RouteStrings.WEATHER));
         this.city = new City();
         this.findCityForm = new FindCityForm(this.city, findCityService);
         this.findStormForm = new FindStormForm(this.city.getCoordinates(), findStormService);
+        this.findWarningsForm = new FindWarningsForm(this.city.getCoordinates(), findWarningService);
         Details findCityElement = new Details("Find City",
                 findCityForm);
         Details findStormElement = new Details("Find Storm",
                 findStormForm);
+        Details findWarningsElement = new Details("Find Warnings",
+                findWarningsForm);
         findStormElement.addOpenedChangeListener(e -> {
 
             Notification.show(e.isOpened() ? this.city.toString() : "Y: " + this.city.toString());
         });
 
-        addToContent(findCityElement, findStormElement);
+        addToContent(findCityElement, findStormElement, findWarningsElement);
     }
 }
