@@ -5,6 +5,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.model.WarningStrings;
 import org.tpokora.views.common.Styler;
@@ -24,10 +26,13 @@ public class WarningElement extends Div {
     private void createWarningElement() {
         Styler.setWarningElementStyle(this);
         Icon warningIcon = new Icon(VaadinIcon.WARNING);
-        add(warningIcon);
-        add(new Paragraph("Warning: " + this.warning.getName()));
-        add(new Paragraph("Level: " + this.warning.getLevel()));
-        add(new Paragraph("From: " + this.warning.getPeriod().getFrom().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT))));
-        add(new Paragraph("To: " + this.warning.getPeriod().getTo().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT))));
+        HorizontalLayout titleLayout = new HorizontalLayout();
+        titleLayout.add(new Paragraph("Warning: " + this.warning.getName()), new Paragraph("Level: " + this.warning.getLevel()));
+        HorizontalLayout dateLayout = new HorizontalLayout();
+        dateLayout.add(new Paragraph("From: " + this.warning.getPeriod().getFrom().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT))),
+                new Paragraph("To: " + this.warning.getPeriod().getTo().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT))));
+        VerticalLayout verticalLayout = new VerticalLayout();
+        verticalLayout.add(warningIcon, titleLayout, dateLayout);
+        add(verticalLayout);
     }
 }
