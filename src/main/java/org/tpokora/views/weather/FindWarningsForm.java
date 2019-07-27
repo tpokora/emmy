@@ -94,8 +94,6 @@ public class FindWarningsForm extends BaseForm {
         this.warningElementArrayList = new ArrayList<>();
         for (Warning warning : warningsSet) {
             this.warningElementArrayList.add(new WarningElement(warning));
-            this.warningElementArrayList.add(new WarningElement(warning));
-            this.warningElementArrayList.add(new WarningElement(warning));
         }
         Board board = new Board();
         this.warningElementArrayList.stream().forEach(warningElement -> {
