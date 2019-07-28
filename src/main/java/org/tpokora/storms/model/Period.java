@@ -36,6 +36,9 @@ public class Period {
 
     @Override
     public String toString() {
-        return "{ from: " + from + ", to: " + to + " }";
+        return "Period{" +
+                "from=" + from.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
+                ", to=" + to.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
+                '}';
     }
 }

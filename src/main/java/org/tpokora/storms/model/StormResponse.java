@@ -51,4 +51,14 @@ public class StormResponse {
     public void setTime(int time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "StormResponse{" +
+                "amount=" + amount +
+                ", distance=" + distance +
+                ", direction='" + direction + '\'' +
+                ", time=" + time +
+                '}';
+    }
 }

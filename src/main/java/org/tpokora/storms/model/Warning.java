@@ -33,6 +33,10 @@ public class Warning {
 
     @Override
     public String toString() {
-        return "{ name: " + name + ", level: " + level + ", period: " + period.toString() + " }";
+        return "Warning{" +
+                "name='" + name + '\'' +
+                ", level=" + level +
+                ", period=" + period +
+                '}';
     }
 }
