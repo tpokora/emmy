@@ -58,7 +58,9 @@ public class FindCityForm extends BaseForm {
     protected void setupFormButtonsActions() {
         this.findCityBtn.addClickListener(e -> {
             try {
-                this.weatherService.setCity(this.findCityService.handleResponse(this.findCityService.findCity(this.cityName.getValue())));
+                City city = this.findCityService.handleResponse(this.findCityService.findCity(this.cityName.getValue()));
+                city.setName(this.cityName.getValue());
+                this.weatherService.setCity(city);
                 this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
                 this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
                 Notification.show(this.weatherService.getCity().toString());

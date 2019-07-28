@@ -4,19 +4,20 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.board.Board;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
-import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.services.FindWarningService;
 import org.tpokora.views.common.BaseForm;
+import org.tpokora.views.common.Styler;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Set;
 
 @Tag("find-warnings-form")
@@ -97,10 +98,25 @@ public class FindWarningsForm extends BaseForm {
         for (Warning warning : warningsSet) {
             this.warningElementArrayList.add(new WarningElement(warning));
         }
+
+        createWarningsBoard();
+    }
+
+    private void createWarningsBoard() {
         Board board = new Board();
-        this.warningElementArrayList.stream().forEach(warningElement -> {
-            board.addRow(warningElement);
-        });
-        this.layoutWithFormItems.add(board);
+        for (int i = 0; i < this.warningElementArrayList.size() - 1; i = i + 2) {
+            WarningElement warningElementFirst = this.warningElementArrayList.get(i);
+            Optional<WarningElement> warningElementSecond = Optional.ofNullable(this.warningElementArrayList.get(i + 1));
+            board.addRow(warningElementFirst, warningElementSecond.get());
+        }
+
+        if (this.warningElementArrayList.size() % 2 != 0) {
+            board.addRow(this.warningElementArrayList.get(this.warningElementArrayList.size() - 1));
+        }
+        Div boardWrapper = new Div();
+        Styler.setAutoMargin(boardWrapper);
+        boardWrapper.setWidth("70%");
+        boardWrapper.add(board);
+        this.layoutWithFormItems.add(boardWrapper);
     }
 }

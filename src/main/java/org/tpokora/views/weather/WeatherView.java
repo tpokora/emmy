@@ -37,10 +37,14 @@ public class WeatherView extends AbstractView {
         Details findWarningsElement = new Details("Find Warnings",
                 findWarningsForm);
         findStormElement.addOpenedChangeListener(e -> {
-            Notification.show(e.isOpened() ? "Find Storm: " + this.weatherService.getCity().toString() : "");
+            if (e.isOpened()) {
+                Notification.show("Find Storm: " + this.weatherService.getCity().toString());
+            }
         });
         findWarningsElement.addOpenedChangeListener(e -> {
-            Notification.show(e.isOpened() ? "Find Warning: " + this.weatherService.getCity().toString() : "");
+            if (e.isOpened()) {
+                Notification.show("Find Warning: " + this.weatherService.getCity().toString());
+            }
         });
 
 
