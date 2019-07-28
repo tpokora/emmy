@@ -42,7 +42,9 @@ public class Role {
 
     @Override
     public String toString() {
-        return "{ id: " + id +
-                ", name: " + name + " }";
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
