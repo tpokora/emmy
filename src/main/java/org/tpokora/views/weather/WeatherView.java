@@ -6,7 +6,6 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.tpokora.storms.model.City;
 import org.tpokora.storms.services.FindCityService;
 import org.tpokora.storms.services.FindStormService;
 import org.tpokora.storms.services.FindWarningService;
@@ -22,15 +21,15 @@ public class WeatherView extends AbstractView {
     private FindCityForm findCityForm;
     private FindStormForm findStormForm;
     private FindWarningsForm findWarningsForm;
-    private City city;
+    private WeatherService weatherService;
 
-    public WeatherView(FindCityService findCityService, FindStormService findStormService, FindWarningService findWarningService) {
+    public WeatherView(FindCityService findCityService, FindStormService findStormService, FindWarningService findWarningService, WeatherService weatherService) {
         setupContentDefaultStyles();
         addToContent(new H3(RouteStrings.WEATHER));
-        this.city = new City();
-        this.findCityForm = new FindCityForm(this.city, findCityService);
-        this.findStormForm = new FindStormForm(this.city.getCoordinates(), findStormService);
-        this.findWarningsForm = new FindWarningsForm(this.city.getCoordinates(), findWarningService);
+        this.weatherService = weatherService;
+        this.findCityForm = new FindCityForm(this.weatherService, findCityService);
+        this.findStormForm = new FindStormForm(this.weatherService, findStormService);
+        this.findWarningsForm = new FindWarningsForm(this.weatherService, findWarningService);
         Details findCityElement = new Details("Find City",
                 findCityForm);
         Details findStormElement = new Details("Find Storm",
@@ -38,9 +37,12 @@ public class WeatherView extends AbstractView {
         Details findWarningsElement = new Details("Find Warnings",
                 findWarningsForm);
         findStormElement.addOpenedChangeListener(e -> {
-
-            Notification.show(e.isOpened() ? this.city.toString() : "Y: " + this.city.toString());
+            Notification.show(e.isOpened() ? "Find Storm: " + this.weatherService.getCity().toString() : "");
         });
+        findWarningsElement.addOpenedChangeListener(e -> {
+            Notification.show(e.isOpened() ? "Find Warning: " + this.weatherService.getCity().toString() : "");
+        });
+
 
         addToContent(findCityElement, findStormElement, findWarningsElement);
     }

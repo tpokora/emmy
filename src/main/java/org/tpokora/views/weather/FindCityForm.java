@@ -3,6 +3,7 @@ package org.tpokora.views.weather;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
@@ -16,8 +17,7 @@ import java.io.IOException;
 @Tag("find-city-form")
 public class FindCityForm extends BaseForm {
 
-    private City city;
-
+    private WeatherService weatherService;
     private FindCityService findCityService;
 
     private FormLayout layoutWithFormItems;
@@ -29,8 +29,8 @@ public class FindCityForm extends BaseForm {
     private Button findCityBtn;
     private Button resetBtn;
 
-    public FindCityForm(City city, FindCityService findCityService) {
-        this.city = city;
+    public FindCityForm(WeatherService weatherService, FindCityService findCityService) {
+        this.weatherService = weatherService;
         this.findCityService = findCityService;
         this.layoutWithFormItems = new FormLayout();
         initializeElements();
@@ -58,9 +58,10 @@ public class FindCityForm extends BaseForm {
     protected void setupFormButtonsActions() {
         this.findCityBtn.addClickListener(e -> {
             try {
-                this.city = this.findCityService.handleResponse(this.findCityService.findCity(this.cityName.getValue()));
-                this.xCoordinatesTextField.setValue(String.valueOf(city.getCoordinates().getX()));
-                this.yCoordinatesTextField.setValue(String.valueOf(city.getCoordinates().getY()));
+                this.weatherService.setCity(this.findCityService.handleResponse(this.findCityService.findCity(this.cityName.getValue())));
+                this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+                this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
+                Notification.show(this.weatherService.getCity().toString());
             } catch (SOAPException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -69,10 +70,11 @@ public class FindCityForm extends BaseForm {
         });
 
         this.resetBtn.addClickListener(e -> {
-            this.city = new City();
-            this.xCoordinatesTextField.setValue(String.valueOf(this.city.getCoordinates().getX()));
-            this.yCoordinatesTextField.setValue(String.valueOf(this.city.getCoordinates().getY()));
-            this.cityName.setValue(this.city.getName());
+            this.weatherService.setCity(new City());
+            this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+            this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
+            this.cityName.setValue(this.weatherService.getCity().getName());
+            Notification.show(this.weatherService.getCity().toString());
         });
     }
 
@@ -80,8 +82,8 @@ public class FindCityForm extends BaseForm {
         Styler.setAutoMargin(this);
         this.layoutWithFormItems.setWidth("600px");
         this.cityName.setPlaceholder("Kraków");
-        this.xCoordinatesTextField.setPlaceholder(String.valueOf(this.city.getCoordinates().getX()));
-        this.yCoordinatesTextField.setPlaceholder(String.valueOf(this.city.getCoordinates().getY()));
+        this.xCoordinatesTextField.setPlaceholder(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+        this.yCoordinatesTextField.setPlaceholder(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
         this.layoutWithFormItems.addFormItem(this.cityName, "City");
         this.layoutWithFormItems.addFormItem(this.xCoordinatesTextField, "X");
         this.layoutWithFormItems.addFormItem(this.yCoordinatesTextField, "Y");

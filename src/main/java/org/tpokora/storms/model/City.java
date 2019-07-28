@@ -31,4 +31,12 @@ public class City {
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "name='" + name + '\'' +
+                ", coordinates=" + coordinates +
+                '}';
+    }
 }

@@ -4,9 +4,11 @@ import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.board.Board;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import org.tpokora.storms.model.City;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.services.FindWarningService;
@@ -20,11 +22,11 @@ import java.util.Set;
 @Tag("find-warnings-form")
 public class FindWarningsForm extends BaseForm {
 
-    private Coordinates coordinates;
     private Set<Warning> warningsSet;
     private ArrayList<WarningElement> warningElementArrayList;
 
     private FindWarningService findWarningService;
+    private WeatherService weatherService;
 
     private FormLayout layoutWithFormItems;
     private TextField errorTextLabel;
@@ -35,8 +37,8 @@ public class FindWarningsForm extends BaseForm {
     private Button findWarningsBtn;
     private Button resetBtn;
 
-    public FindWarningsForm(Coordinates coordinates, FindWarningService findWarningService) {
-        this.coordinates = coordinates;
+    public FindWarningsForm(WeatherService weatherService, FindWarningService findWarningService) {
+        this.weatherService = weatherService;
         this.findWarningService = findWarningService;
 
         initializeElements();
@@ -60,8 +62,8 @@ public class FindWarningsForm extends BaseForm {
     }
 
     private void setupWarningsForm() {
-        this.xCoordinatesTextField.setValue(String.valueOf(this.coordinates.getX()));
-        this.yCoordinatesTextField.setValue(String.valueOf(this.coordinates.getY()));
+        this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+        this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
         this.layoutWithFormItems.addFormItem(this.xCoordinatesTextField, "X");
         this.layoutWithFormItems.addFormItem(this.yCoordinatesTextField, "Y");
         this.buttonsLayout.add(this.findWarningsBtn, this.resetBtn);
@@ -72,10 +74,9 @@ public class FindWarningsForm extends BaseForm {
     protected void setupFormButtonsActions() {
         this.findWarningsBtn.addClickListener(e -> {
             try {
-                this.coordinates = new Coordinates(Double.valueOf(this.xCoordinatesTextField.getValue()),
-                        Double.valueOf(this.yCoordinatesTextField.getValue()));
-                this.warningsSet = this.findWarningService.handleResponse(this.findWarningService.findWarning(this.coordinates));
+                this.warningsSet = this.findWarningService.handleResponse(this.findWarningService.findWarning(this.weatherService.getCity().getCoordinates()));
                 this.setupResponseForm();
+                Notification.show(this.weatherService.getCity().toString());
             } catch (SOAPException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -84,9 +85,10 @@ public class FindWarningsForm extends BaseForm {
         });
 
         this.resetBtn.addClickListener(e -> {
-            this.coordinates = new Coordinates();
-            this.xCoordinatesTextField.setValue(String.valueOf(this.coordinates.getX()));
-            this.yCoordinatesTextField.setValue(String.valueOf(this.coordinates.getY()));
+            this.weatherService.setCity(new City());
+            this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+            this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
+            Notification.show(this.weatherService.getCity().toString());
         });
     }
 

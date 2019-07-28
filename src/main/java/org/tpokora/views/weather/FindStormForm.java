@@ -3,8 +3,10 @@ package org.tpokora.views.weather;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import org.tpokora.storms.model.City;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
@@ -17,9 +19,9 @@ import java.io.IOException;
 @Tag("find-storm-form")
 public class FindStormForm extends BaseForm {
 
-    private Coordinates coordinates;
     private StormResponse stormResponse;
 
+    private WeatherService weatherService;
     private FindStormService findStormService;
 
     private FormLayout layoutWithFormItems;
@@ -38,9 +40,9 @@ public class FindStormForm extends BaseForm {
     private TextField directionTextField;
     private TextField timeTextField;
 
-    public FindStormForm(Coordinates coordinates, FindStormService findStormService) {
+    public FindStormForm(WeatherService weatherService, FindStormService findStormService) {
         this.stormResponse = new StormResponse();
-        this.coordinates = coordinates;
+        this.weatherService = weatherService;
         this.findStormService = findStormService;
 
         initializeElements();
@@ -72,8 +74,8 @@ public class FindStormForm extends BaseForm {
     }
 
     private void setupStormForm() {
-        this.xCoordinatesTextField.setValue(String.valueOf(this.coordinates.getX()));
-        this.yCoordinatesTextField.setValue(String.valueOf(this.coordinates.getY()));
+        this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+        this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
         this.layoutWithFormItems.addFormItem(xCoordinatesTextField, "X");
         this.layoutWithFormItems.addFormItem(yCoordinatesTextField, "Y");
         this.layoutWithFormItems.addFormItem(radiusTextField, "Radius");
@@ -86,15 +88,14 @@ public class FindStormForm extends BaseForm {
         this.findStormBtn.addClickListener(e -> {
             try {
                 StormRequest stormRequest = new StormRequest();
-                this.coordinates = new Coordinates(Double.valueOf(this.xCoordinatesTextField.getValue()),
-                        Double.valueOf(this.yCoordinatesTextField.getValue()));
-                stormRequest.setCoordinates(this.coordinates);
+                stormRequest.setCoordinates(this.weatherService.getCity().getCoordinates());
                 stormRequest.setDistance(Float.parseFloat(this.radiusTextField.getValue()));
                 this.stormResponse = this.findStormService.handleResponse(this.findStormService.checkStorm(stormRequest));
                 this.amountTextField.setValue(String.valueOf(this.stormResponse.getAmount()));
                 this.distanceTextField.setValue(String.valueOf(this.stormResponse.getDistance()));
                 this.directionTextField.setValue(this.stormResponse.getDirection());
                 this.timeTextField.setValue(String.valueOf(this.stormResponse.getTime()));
+                Notification.show(this.weatherService.getCity().toString());
             } catch (SOAPException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -103,14 +104,15 @@ public class FindStormForm extends BaseForm {
         });
 
         this.resetBtn.addClickListener(e -> {
-            this.coordinates = new Coordinates();
             this.stormResponse = new StormResponse();
+            this.weatherService.setCity(new City());
             this.amountTextField.setValue(String.valueOf(this.stormResponse.getAmount()));
             this.distanceTextField.setValue(String.valueOf(this.stormResponse.getDistance()));
             this.directionTextField.setValue(this.stormResponse.getDirection());
             this.timeTextField.setValue(String.valueOf(this.stormResponse.getTime()));
-            this.xCoordinatesTextField.setValue(String.valueOf(this.coordinates.getX()));
-            this.yCoordinatesTextField.setValue(String.valueOf(this.coordinates.getY()));
+            this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+            this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
+            Notification.show(this.weatherService.getCity().toString());
         });
     }
 
