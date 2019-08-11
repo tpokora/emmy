@@ -21,7 +21,6 @@ public class FindCityForm extends BaseForm {
     private FindCityService findCityService;
 
     private FormLayout layoutWithFormItems;
-    private TextField errorTextLabel;
     private TextField cityName;
     private TextField xCoordinatesTextField;
     private TextField yCoordinatesTextField;
@@ -39,7 +38,6 @@ public class FindCityForm extends BaseForm {
     }
 
     protected void initializeElements() {
-        this.errorTextLabel = new TextField();
         this.cityName = new TextField();
         this.xCoordinatesTextField = new TextField();
         this.xCoordinatesTextField.setEnabled(false);

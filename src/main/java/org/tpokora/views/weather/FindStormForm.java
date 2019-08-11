@@ -24,7 +24,6 @@ public class FindStormForm extends BaseForm {
     private FindStormService findStormService;
 
     private FormLayout layoutWithFormItems;
-    private TextField errorTextLabel;
     private TextField xCoordinatesTextField;
     private TextField yCoordinatesTextField;
     private TextField radiusTextField;
@@ -51,7 +50,6 @@ public class FindStormForm extends BaseForm {
 
     protected void initializeElements() {
         this.layoutWithFormItems = new FormLayout();
-        this.errorTextLabel = new TextField();
         this.xCoordinatesTextField = new TextField();
         this.yCoordinatesTextField = new TextField();
         this.radiusTextField = new TextField();

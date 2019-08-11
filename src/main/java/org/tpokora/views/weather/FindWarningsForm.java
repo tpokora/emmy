@@ -9,16 +9,13 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
-import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
-import org.tpokora.storms.model.WarningStrings;
 import org.tpokora.storms.services.FindWarningService;
 import org.tpokora.views.common.BaseForm;
 import org.tpokora.views.common.Styler;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
@@ -33,7 +30,6 @@ public class FindWarningsForm extends BaseForm {
     private WeatherService weatherService;
 
     private FormLayout layoutWithFormItems;
-    private TextField errorTextLabel;
     private TextField xCoordinatesTextField;
     private TextField yCoordinatesTextField;
 
@@ -52,7 +48,6 @@ public class FindWarningsForm extends BaseForm {
 
     protected void initializeElements() {
         this.layoutWithFormItems = new FormLayout();
-        this.errorTextLabel = new TextField();
         this.xCoordinatesTextField = new TextField();
         this.yCoordinatesTextField = new TextField();
 
