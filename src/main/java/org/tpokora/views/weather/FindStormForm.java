@@ -7,7 +7,6 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
-import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 import org.tpokora.storms.services.FindStormService;
@@ -127,5 +126,10 @@ public class FindStormForm extends BaseForm {
         this.timeTextField.setValue(String.valueOf(this.stormResponse.getTime()));
         this.stormResponseLayout.add(this.amountTextField, this.distanceTextField, this.directionTextField, this.timeTextField);
         this.layoutWithFormItems.add(this.stormResponseLayout);
+    }
+
+    public void refreshInputs() {
+        this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+        this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
     }
 }

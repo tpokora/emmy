@@ -5,17 +5,17 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
-import org.tpokora.storms.model.WarningStrings;
 import org.tpokora.views.common.Styler;
 
-import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Tag("warning-element")
 public class WarningElement extends Div {
 
+    private static final String NO_DATE_PROVIDED = "No date provided";
     private Warning warning;
 
     public WarningElement(Warning warning) {
@@ -26,12 +26,28 @@ public class WarningElement extends Div {
     private void createWarningElement() {
         Styler.setWarningElementStyle(this);
         Icon warningIcon = new Icon(VaadinIcon.WARNING);
-        HorizontalLayout titleLayout = new HorizontalLayout();
-        titleLayout.add(new Span("Warning: " + this.warning.getName()), new Span("Level: " + this.warning.getLevel()));
         VerticalLayout verticalLayout = new VerticalLayout();
-        verticalLayout.add(warningIcon, titleLayout,
-                new Span("From: " + this.warning.getPeriod().getFrom().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT))),
-                new Span("To: " + this.warning.getPeriod().getTo().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT))));
+        Optional<Period> optional = Optional.ofNullable(this.warning.getPeriod());
+        String from;
+        String to;
+        // TODO: Refactoring needed
+        if (optional.isPresent()) {
+            Period period = optional.get();
+            from = Optional.of(period.getFromString()).orElseGet(() -> NO_DATE_PROVIDED);
+            to = Optional.ofNullable(period.getToString()).orElseGet(() -> NO_DATE_PROVIDED);
+        } else {
+            from = NO_DATE_PROVIDED;
+            to = NO_DATE_PROVIDED;
+        }
+        verticalLayout.add(warningIcon,
+                new Span("Warning: " + this.warning.getName()),
+                new Span("Level: " + this.warning.getLevel()),
+                new Span("From: " + from),
+                new Span("To: " + to));
         add(verticalLayout);
+    }
+
+    private Span createSpanElement(String text) {
+        return new Span(text);
     }
 }

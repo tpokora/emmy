@@ -9,13 +9,16 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
+import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
+import org.tpokora.storms.model.WarningStrings;
 import org.tpokora.storms.services.FindWarningService;
 import org.tpokora.views.common.BaseForm;
 import org.tpokora.views.common.Styler;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
@@ -118,5 +121,10 @@ public class FindWarningsForm extends BaseForm {
         boardWrapper.setWidth("70%");
         boardWrapper.add(board);
         this.layoutWithFormItems.add(boardWrapper);
+    }
+
+    public void refreshInputs() {
+        this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
+        this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
     }
 }
