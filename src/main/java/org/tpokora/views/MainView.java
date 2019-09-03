@@ -1,17 +1,10 @@
 package org.tpokora.views;
 
 import com.vaadin.flow.component.Component;
-//import com.vaadin.flow.component.applayout.AbstractAppRouterLayout;
 import com.vaadin.flow.component.applayout.AppLayout;
-//import com.vaadin.flow.component.applayout.AppLayoutMenu;
-//import com.vaadin.flow.component.applayout.AppLayoutMenuItem;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 import org.tpokora.views.common.RouteStrings;
