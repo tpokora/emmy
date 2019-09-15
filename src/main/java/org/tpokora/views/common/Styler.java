@@ -22,6 +22,6 @@ public class Styler {
         component.getStyle().set("background-color", "#e0e0e0");
         component.getStyle().set("margin", "30px");
         component.getStyle().set("padding", "30px");
-        component.setMaxWidth("300px");
+        component.setWidth("240px");
     }
 }

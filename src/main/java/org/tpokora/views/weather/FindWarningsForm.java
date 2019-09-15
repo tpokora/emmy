@@ -1,23 +1,22 @@
 package org.tpokora.views.weather;
 
 import com.vaadin.flow.component.Tag;
-import com.vaadin.flow.component.board.Board;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.services.FindWarningService;
 import org.tpokora.views.common.BaseForm;
-import org.tpokora.views.common.Styler;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.Set;
 
 @Tag("find-warnings-form")
@@ -33,6 +32,7 @@ public class FindWarningsForm extends BaseForm {
     private TextField xCoordinatesTextField;
     private TextField yCoordinatesTextField;
 
+    private FlexLayout warningsLayout;
     private HorizontalLayout buttonsLayout;
     private Button findWarningsBtn;
     private Button resetBtn;
@@ -51,6 +51,9 @@ public class FindWarningsForm extends BaseForm {
         this.xCoordinatesTextField = new TextField();
         this.yCoordinatesTextField = new TextField();
 
+        this.warningsLayout = new FlexLayout();
+        this.warningsLayout.setWrapMode(FlexLayout.WrapMode.WRAP);
+        this.warningsLayout.setWidth("100%");
         this.buttonsLayout = new HorizontalLayout();
         this.findWarningsBtn = new Button("Find warnings");
         this.resetBtn = new Button("Reset");
@@ -66,7 +69,10 @@ public class FindWarningsForm extends BaseForm {
         this.layoutWithFormItems.addFormItem(this.xCoordinatesTextField, "X");
         this.layoutWithFormItems.addFormItem(this.yCoordinatesTextField, "Y");
         this.buttonsLayout.add(this.findWarningsBtn, this.resetBtn);
-        this.layoutWithFormItems.add(this.buttonsLayout);
+        VerticalLayout verticalLayout = new VerticalLayout();
+        verticalLayout.setWidth("100%");
+        verticalLayout.add(this.buttonsLayout, this.warningsLayout);
+        this.layoutWithFormItems.add(verticalLayout);
         setupFormButtonsActions();
     }
 
@@ -101,21 +107,12 @@ public class FindWarningsForm extends BaseForm {
     }
 
     private void createWarningsBoard() {
-        Board board = new Board();
-        for (int i = 0; i < this.warningElementArrayList.size() - 1; i = i + 2) {
-            WarningElement warningElementFirst = this.warningElementArrayList.get(i);
-            Optional<WarningElement> warningElementSecond = Optional.ofNullable(this.warningElementArrayList.get(i + 1));
-            board.addRow(warningElementFirst, warningElementSecond.get());
+        this.warningElementArrayList.add(new WarningElement(new Warning("TEST", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
+        this.warningElementArrayList.add(new WarningElement(new Warning("TEST1", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
+        this.warningElementArrayList.add(new WarningElement(new Warning("TEST2", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
+        for (WarningElement element : this.warningElementArrayList) {
+            this.warningsLayout.add(element);
         }
-
-        if (this.warningElementArrayList.size() % 2 != 0) {
-            board.addRow(this.warningElementArrayList.get(this.warningElementArrayList.size() - 1));
-        }
-        Div boardWrapper = new Div();
-        Styler.setAutoMargin(boardWrapper);
-        boardWrapper.setWidth("70%");
-        boardWrapper.add(board);
-        this.layoutWithFormItems.add(boardWrapper);
     }
 
     public void refreshInputs() {
