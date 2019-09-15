@@ -1,10 +1,24 @@
 package org.tpokora.storms.model;
 
+import java.time.LocalDateTime;
+
 public class Warning {
 
     private String name;
     private int level;
     protected Period period;
+
+    public Warning() {}
+
+    public Warning(String name, int level, Period period) {
+        this.name = name;
+        this.level = level;
+        this.period = period;
+    }
+
+    public Warning(String name, int level, LocalDateTime from, LocalDateTime to) {
+        this(name, level, new Period(from, to));
+    }
 
 
     public String getName() {
