@@ -6,7 +6,6 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
 import org.tpokora.storms.model.Warning;
@@ -44,16 +43,17 @@ public class FindWarningsForm extends BaseForm {
         initializeElements();
         setupForm();
         add(this.layoutWithFormItems);
+        add(this.warningsLayout);
     }
 
     protected void initializeElements() {
         this.layoutWithFormItems = new FormLayout();
+        this.layoutWithFormItems.setWidth("auto");
         this.xCoordinatesTextField = new TextField();
         this.yCoordinatesTextField = new TextField();
 
         this.warningsLayout = new FlexLayout();
         this.warningsLayout.setWrapMode(FlexLayout.WrapMode.WRAP);
-        this.warningsLayout.setWidth("100%");
         this.buttonsLayout = new HorizontalLayout();
         this.findWarningsBtn = new Button("Find warnings");
         this.resetBtn = new Button("Reset");
@@ -69,10 +69,7 @@ public class FindWarningsForm extends BaseForm {
         this.layoutWithFormItems.addFormItem(this.xCoordinatesTextField, "X");
         this.layoutWithFormItems.addFormItem(this.yCoordinatesTextField, "Y");
         this.buttonsLayout.add(this.findWarningsBtn, this.resetBtn);
-        VerticalLayout verticalLayout = new VerticalLayout();
-        verticalLayout.setWidth("100%");
-        verticalLayout.add(this.buttonsLayout, this.warningsLayout);
-        this.layoutWithFormItems.add(verticalLayout);
+        this.layoutWithFormItems.add(this.buttonsLayout);
         setupFormButtonsActions();
     }
 
