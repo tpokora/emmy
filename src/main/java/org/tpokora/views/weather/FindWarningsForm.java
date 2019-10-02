@@ -101,15 +101,12 @@ public class FindWarningsForm extends BaseForm {
     }
 
     private void createWarningsBoard() {
-//        this.warningElementArrayList.add(new WarningElement(new Warning("TEST", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
-//        this.warningElementArrayList.add(new WarningElement(new Warning("TEST1", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
-//        this.warningElementArrayList.add(new WarningElement(new Warning("TEST2", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
         this.warningsLayout.removeAll();
-        if (this.warningElementArrayList.isEmpty()) {
-            this.warningsLayout.add(WarningElement.createNoWarningsElement());
-        }
         for (WarningElement element : this.warningElementArrayList) {
             this.warningsLayout.add(element);
+        }
+        if (this.warningElementArrayList.isEmpty()) {
+            this.warningsLayout.add(WarningElement.createNoWarningsElement());
         }
     }
 
