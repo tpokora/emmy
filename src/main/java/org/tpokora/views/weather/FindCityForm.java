@@ -3,6 +3,7 @@ package org.tpokora.views.weather;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
@@ -60,6 +61,7 @@ public class FindCityForm extends BaseForm {
                 this.weatherService.setCity(city);
                 this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
                 this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
+                handleServiceError(city);
             } catch (SOAPException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -90,5 +92,8 @@ public class FindCityForm extends BaseForm {
     }
 
     private void handleServiceError(City city) {
+        if (city.getCoordinates().getX().compareTo(0.0) == 0 && city.getCoordinates().getY().compareTo(0.0) == 0) {
+            Notification.show("City not found");
+        }
     }
 }
