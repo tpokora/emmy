@@ -3,8 +3,6 @@ package org.tpokora.views.weather;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -15,7 +13,6 @@ import org.tpokora.views.common.BaseForm;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -103,9 +100,9 @@ public class FindWarningsForm extends BaseForm {
     }
 
     private void createWarningsBoard() {
-        this.warningElementArrayList.add(new WarningElement(new Warning("TEST", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
-        this.warningElementArrayList.add(new WarningElement(new Warning("TEST1", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
-        this.warningElementArrayList.add(new WarningElement(new Warning("TEST2", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
+//        this.warningElementArrayList.add(new WarningElement(new Warning("TEST", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
+//        this.warningElementArrayList.add(new WarningElement(new Warning("TEST1", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
+//        this.warningElementArrayList.add(new WarningElement(new Warning("TEST2", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
         for (WarningElement element : this.warningElementArrayList) {
             this.warningsLayout.add(element);
         }
