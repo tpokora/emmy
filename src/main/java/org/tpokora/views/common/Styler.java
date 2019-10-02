@@ -20,8 +20,8 @@ public class Styler {
 
     public static void setWarningElementStyle(HtmlComponent component) {
         component.getStyle().set("background-color", "#e0e0e0");
-        component.getStyle().set("margin", "30px");
+        component.setWidth("80%");
         component.getStyle().set("padding", "30px");
-        component.setWidth("240px");
+        component.getStyle().set("margin", "2px");
     }
 }

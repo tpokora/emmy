@@ -6,6 +6,7 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.tpokora.storms.model.City;
 import org.tpokora.storms.model.Warning;
@@ -31,7 +32,7 @@ public class FindWarningsForm extends BaseForm {
     private TextField xCoordinatesTextField;
     private TextField yCoordinatesTextField;
 
-    private FlexLayout warningsLayout;
+    private VerticalLayout warningsLayout;
     private HorizontalLayout buttonsLayout;
     private Button findWarningsBtn;
     private Button resetBtn;
@@ -52,8 +53,8 @@ public class FindWarningsForm extends BaseForm {
         this.xCoordinatesTextField = new TextField();
         this.yCoordinatesTextField = new TextField();
 
-        this.warningsLayout = new FlexLayout();
-        this.warningsLayout.setWrapMode(FlexLayout.WrapMode.WRAP);
+        this.warningsLayout = new VerticalLayout();
+        this.warningsLayout.getStyle().set("margin-top", "40px");
         this.buttonsLayout = new HorizontalLayout();
         this.findWarningsBtn = new Button("Find warnings");
         this.resetBtn = new Button("Reset");
@@ -78,7 +79,6 @@ public class FindWarningsForm extends BaseForm {
             try {
                 this.warningsSet = this.findWarningService.handleResponse(this.findWarningService.findWarning(this.weatherService.getCity().getCoordinates()));
                 this.setupResponseForm();
-                Notification.show(this.weatherService.getCity().toString());
             } catch (SOAPException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -90,7 +90,6 @@ public class FindWarningsForm extends BaseForm {
             this.weatherService.setCity(new City());
             this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
             this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
-            Notification.show(this.weatherService.getCity().toString());
         });
     }
 

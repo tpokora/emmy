@@ -1,10 +1,12 @@
 package org.tpokora.views.weather;
 
+import com.vaadin.flow.component.HtmlComponent;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
@@ -26,7 +28,8 @@ public class WarningElement extends Div {
     private void createWarningElement() {
         Styler.setWarningElementStyle(this);
         Icon warningIcon = new Icon(VaadinIcon.WARNING);
-        VerticalLayout verticalLayout = new VerticalLayout();
+        FlexLayout verticalLayout = new FlexLayout();
+        verticalLayout.setWrapMode(FlexLayout.WrapMode.WRAP);
         Optional<Period> optional = Optional.ofNullable(this.warning.getPeriod());
         String from;
         String to;
@@ -40,14 +43,17 @@ public class WarningElement extends Div {
             to = NO_DATE_PROVIDED;
         }
         verticalLayout.add(warningIcon,
-                new Span("Warning: " + this.warning.getName()),
-                new Span("Level: " + this.warning.getLevel()),
-                new Span("From: " + from),
-                new Span("To: " + to));
+                createSpanElement("Warning: " + this.warning.getName()),
+                createSpanElement("Level: " + this.warning.getLevel()),
+                createSpanElement("From: " + from),
+                createSpanElement("To: " + to));
         add(verticalLayout);
     }
 
     private Span createSpanElement(String text) {
-        return new Span(text);
+        Span span = new Span(text);
+        span.getStyle().set("padding", "4px");
+        span.getStyle().set("margin", "2px");
+        return span;
     }
 }
