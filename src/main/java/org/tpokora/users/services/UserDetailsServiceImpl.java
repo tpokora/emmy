@@ -8,12 +8,14 @@ import org.tpokora.users.dao.UserRepository;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -24,5 +26,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Optional<User> optionalUser = userRepository.findByUsername(username);
         return Optional.ofNullable(optionalUser).orElseThrow(()->new UsernameNotFoundException("Username Not Found"))
                 .map(UserDetailsImpl::new).get();
+    }
+
+    public List<User> gettAllUsers() {
+        List<User> userList = this.userRepository.findAll();
+        return userList;
     }
 }

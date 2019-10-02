@@ -41,7 +41,7 @@ targetCompatibility = 1.9
 
 dependencyManagement {
     imports {
-        mavenBom 'com.vaadin:vaadin-bom:13.0.10+'
+        mavenBom 'com.vaadin:vaadin-bom:14.0.2'
     }
 }
 
@@ -54,6 +54,7 @@ dependencies {
     compile 'org.springframework.ws:spring-ws-core'
 
     compile 'com.vaadin:vaadin-spring-boot-starter'
+    compile 'com.vaadin:vaadin-board-flow'
     
     compile 'org.postgresql:postgresql:42.1.1'
     

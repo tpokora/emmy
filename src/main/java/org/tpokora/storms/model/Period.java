@@ -22,6 +22,20 @@ public class Period {
         return from;
     }
 
+    public String getFromString() {
+        if (from != null) {
+            return from.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT));
+        }
+        return null;
+    }
+
+    public String getToString() {
+        if (to != null) {
+            return to.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT));
+        }
+        return null;
+    }
+
     public void setFrom(LocalDateTime from) {
         this.from = from;
     }
@@ -36,6 +50,9 @@ public class Period {
 
     @Override
     public String toString() {
-        return "{ from: " + from + ", to: " + to + " }";
+        return "Period{" +
+                "from=" + from.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
+                ", to=" + to.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
+                '}';
     }
 }
