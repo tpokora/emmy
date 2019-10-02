@@ -7,6 +7,10 @@ public class StormResponse {
     private int time;
 
     public StormResponse() {
+        this.amount = 0;
+        this.distance = 0.0;
+        this.direction = "";
+        this.time = 0;
     }
 
     public StormResponse(int amount, double distance, String direction, int time) {
@@ -46,5 +50,15 @@ public class StormResponse {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "StormResponse{" +
+                "amount=" + amount +
+                ", distance=" + distance +
+                ", direction='" + direction + '\'' +
+                ", time=" + time +
+                '}';
     }
 }

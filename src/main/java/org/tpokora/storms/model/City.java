@@ -5,9 +5,11 @@ public class City {
     private Coordinates coordinates;
 
     public City() {
+        this.coordinates = new Coordinates();
+        this.name = "";
     }
 
-    public City(String x, String y) {
+    public City(Double x, Double y) {
         this.coordinates = new Coordinates();
         this.coordinates.setX(x);
         this.coordinates.setY(y);
@@ -28,5 +30,13 @@ public class City {
 
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "name='" + name + '\'' +
+                ", coordinates=" + coordinates +
+                '}';
     }
 }
