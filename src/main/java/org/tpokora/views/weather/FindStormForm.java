@@ -92,7 +92,9 @@ public class FindStormForm extends BaseForm {
                 this.distanceTextField.setValue(String.valueOf(this.stormResponse.getDistance()));
                 this.directionTextField.setValue(this.stormResponse.getDirection());
                 this.timeTextField.setValue(String.valueOf(this.stormResponse.getTime()));
-                Notification.show(this.weatherService.getCity().toString());
+                if (this.stormResponse.getAmount() == 0) {
+                    Notification.show("No lightnings found in area");
+                }
             } catch (SOAPException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
@@ -109,7 +111,6 @@ public class FindStormForm extends BaseForm {
             this.timeTextField.setValue(String.valueOf(this.stormResponse.getTime()));
             this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
             this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
-            Notification.show(this.weatherService.getCity().toString());
         });
     }
 

@@ -3,12 +3,15 @@ package org.tpokora.storms.model;
 import java.time.LocalDateTime;
 
 public class Warning {
-
     private String name;
     private int level;
     protected Period period;
 
     public Warning() {}
+
+    public Warning(String name) {
+        this.name = name;
+    }
 
     public Warning(String name, int level, Period period) {
         this.name = name;

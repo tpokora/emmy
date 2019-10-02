@@ -1,13 +1,11 @@
 package org.tpokora.views.weather;
 
-import com.vaadin.flow.component.HtmlComponent;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.views.common.Styler;
@@ -19,6 +17,8 @@ public class WarningElement extends Div {
 
     private static final String NO_DATE_PROVIDED = "No date provided";
     private Warning warning;
+
+    public WarningElement() { }
 
     public WarningElement(Warning warning) {
         this.warning = warning;
@@ -55,5 +55,15 @@ public class WarningElement extends Div {
         span.getStyle().set("padding", "4px");
         span.getStyle().set("margin", "2px");
         return span;
+    }
+
+    public static WarningElement createNoWarningsElement() {
+        WarningElement warningElement = new WarningElement();
+        Styler.setWarningElementStyle(warningElement);
+        Span text = new Span("No weather warnings");
+        text.getStyle().set("padding", "4px");
+        text.getStyle().set("margin", "2px");
+        warningElement.add(text);
+        return warningElement;
     }
 }

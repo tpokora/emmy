@@ -14,6 +14,7 @@ import org.tpokora.views.common.BaseForm;
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Tag("find-warnings-form")
@@ -50,8 +51,7 @@ public class FindWarningsForm extends BaseForm {
         this.xCoordinatesTextField = new TextField();
         this.yCoordinatesTextField = new TextField();
 
-        this.warningsLayout = new VerticalLayout();
-        this.warningsLayout.getStyle().set("margin-top", "40px");
+        setWarningsLayout();
         this.buttonsLayout = new HorizontalLayout();
         this.findWarningsBtn = new Button("Find warnings");
         this.resetBtn = new Button("Reset");
@@ -74,6 +74,7 @@ public class FindWarningsForm extends BaseForm {
     protected void setupFormButtonsActions() {
         this.findWarningsBtn.addClickListener(e -> {
             try {
+                this.warningsSet = new HashSet<>();
                 this.warningsSet = this.findWarningService.handleResponse(this.findWarningService.findWarning(this.weatherService.getCity().getCoordinates()));
                 this.setupResponseForm();
             } catch (SOAPException e1) {
@@ -92,7 +93,7 @@ public class FindWarningsForm extends BaseForm {
 
     private void setupResponseForm() {
         this.warningElementArrayList = new ArrayList<>();
-        for (Warning warning : warningsSet) {
+        for (Warning warning : this.warningsSet) {
             this.warningElementArrayList.add(new WarningElement(warning));
         }
 
@@ -103,6 +104,10 @@ public class FindWarningsForm extends BaseForm {
 //        this.warningElementArrayList.add(new WarningElement(new Warning("TEST", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
 //        this.warningElementArrayList.add(new WarningElement(new Warning("TEST1", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
 //        this.warningElementArrayList.add(new WarningElement(new Warning("TEST2", 1, LocalDateTime.now(), LocalDateTime.now().plusDays(3))));
+        this.warningsLayout.removeAll();
+        if (this.warningElementArrayList.isEmpty()) {
+            this.warningsLayout.add(WarningElement.createNoWarningsElement());
+        }
         for (WarningElement element : this.warningElementArrayList) {
             this.warningsLayout.add(element);
         }
@@ -111,5 +116,10 @@ public class FindWarningsForm extends BaseForm {
     public void refreshInputs() {
         this.xCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getX()));
         this.yCoordinatesTextField.setValue(String.valueOf(this.weatherService.getCity().getCoordinates().getY()));
+    }
+
+    private void setWarningsLayout() {
+        this.warningsLayout = new VerticalLayout();
+        this.warningsLayout.getStyle().set("margin-top", "40px");
     }
 }
