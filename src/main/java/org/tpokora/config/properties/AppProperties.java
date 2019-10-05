@@ -14,6 +14,7 @@ public class AppProperties {
 
     private final Map<String, String> firebase = new HashMap<>();
     private final Map<String, String> storm = new HashMap<>();
+    private final Map<String, String> notification = new HashMap<>();
 
     public Map<String, String> getFirebase() {
         return firebase;
@@ -22,4 +23,6 @@ public class AppProperties {
     public Map<String, String> getStorm() {
         return storm;
     }
+
+    public Map<String, String> getNotification() { return notification; }
 }

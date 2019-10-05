@@ -10,6 +10,7 @@ import com.vaadin.flow.router.Route;
 import org.tpokora.config.properties.AppProperties;
 import org.tpokora.config.properties.FirebaseProperties;
 import org.tpokora.config.model.Property;
+import org.tpokora.config.properties.NotificationProperties;
 import org.tpokora.views.common.RouteStrings;
 
 import java.util.ArrayList;
@@ -21,22 +22,31 @@ public class ConfigView extends AbstractView {
 
     private FirebaseProperties firebaseProperties;
     private AppProperties appProperties;
+    private NotificationProperties notificationProperties;
 
     VerticalLayout verticalLayout = new VerticalLayout();
     Grid<Property> grid;
 
-    public ConfigView(FirebaseProperties firebaseProperties, AppProperties appProperties) {
+    public ConfigView(FirebaseProperties firebaseProperties, AppProperties appProperties, NotificationProperties notificationProperties) {
         this.firebaseProperties = firebaseProperties;
         this.appProperties = appProperties;
+        this.notificationProperties = notificationProperties;
 
         this.verticalLayout.add(new H3(RouteStrings.CONFIG));
         this.grid = new Grid<>(Property.class);
         grid.setColumns("property", "value");
-        grid.setItems(getFirebaseProperties());
+        grid.setItems(getAllProperties());
         this.verticalLayout.add(grid);
 
         setupContentDefaultStyles();
         addToContent(this.verticalLayout);
+    }
+
+    private ArrayList<Property> getAllProperties() {
+        ArrayList<Property> propertyArrayList = new ArrayList<>();
+        propertyArrayList.addAll(getFirebaseProperties());
+        propertyArrayList.addAll(getNotificationProperties());
+        return propertyArrayList;
     }
 
     private ArrayList<Property> getFirebaseProperties() {
@@ -45,7 +55,14 @@ public class ConfigView extends AbstractView {
         propertyArrayList.add(new Property("clientToken", firebaseProperties.getClientToken()));
 
         return propertyArrayList;
+    }
 
+    private ArrayList<Property> getNotificationProperties() {
+        ArrayList<Property> propertyArrayList = new ArrayList<>();
+        propertyArrayList.add(new Property("coordinateX", notificationProperties.getCoordinateX()));
+        propertyArrayList.add(new Property("coordinateY", notificationProperties.getCoordinateY()));
+
+        return propertyArrayList;
     }
 }
 
