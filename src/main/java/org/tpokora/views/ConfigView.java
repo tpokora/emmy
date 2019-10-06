@@ -32,7 +32,7 @@ public class ConfigView extends AbstractView {
     private AppProperties appProperties;
     private NotificationProperties notificationProperties;
 
-    VerticalLayout verticalLayout = new VerticalLayout();
+    VerticalLayout gridLayout = new VerticalLayout();
     Grid<Property> grid;
 
     private TextField filterField;
@@ -43,13 +43,13 @@ public class ConfigView extends AbstractView {
         this.appProperties = appProperties;
         this.notificationProperties = notificationProperties;
         this.allProperties = getAllProperties();
-        this.verticalLayout.add(new H3(RouteStrings.CONFIG));
+        this.gridLayout.add(new H3(RouteStrings.CONFIG));
 
         gridSetup();
 
-        this.verticalLayout.add(this.validationStatus, this.filterField, this.grid);
+        this.gridLayout.add(this.validationStatus, this.filterField, this.grid);
         setupContentDefaultStyles();
-        addToContent(this.verticalLayout);
+        addToContent(this.gridLayout);
     }
 
     private void gridSetup() {
@@ -113,6 +113,7 @@ public class ConfigView extends AbstractView {
 
     private void filterFieldSetup() {
         this.filterField = new TextField();
+        this.filterField.setLabel("Filter");
         this.filterField.setValueChangeMode(ValueChangeMode.EAGER);
         this.filterField.addValueChangeListener(event -> {
             if (event.getValue().length() > 2) {
