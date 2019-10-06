@@ -1,10 +1,15 @@
 package org.tpokora.views;
 
 import com.vaadin.flow.component.Tag;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.editor.Editor;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -14,8 +19,7 @@ import org.tpokora.config.model.Property;
 import org.tpokora.config.properties.NotificationProperties;
 import org.tpokora.views.common.RouteStrings;
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Tag("config-view")
@@ -31,22 +35,86 @@ public class ConfigView extends AbstractView {
     VerticalLayout verticalLayout = new VerticalLayout();
     Grid<Property> grid;
 
+    private TextField filterField;
+    private Div validationStatus;
+
     public ConfigView(FirebaseProperties firebaseProperties, AppProperties appProperties, NotificationProperties notificationProperties) {
         this.firebaseProperties = firebaseProperties;
         this.appProperties = appProperties;
         this.notificationProperties = notificationProperties;
         this.allProperties = getAllProperties();
-
         this.verticalLayout.add(new H3(RouteStrings.CONFIG));
-        this.grid = new Grid<>(Property.class);
+
+        gridSetup();
+
+        this.verticalLayout.add(this.validationStatus, this.filterField, this.grid);
+        setupContentDefaultStyles();
+        addToContent(this.verticalLayout);
+    }
+
+    private void gridSetup() {
+        this.grid = new Grid<>();
         this.grid.setSelectionMode(Grid.SelectionMode.MULTI);
-        this.grid.setColumns("property", "value");
+
+        Grid.Column<Property> propertyColumn = this.grid.addColumn(Property::getProperty).setHeader("Property");
+        Grid.Column<Property> valueColumn = this.grid.addColumn(Property::getValue).setHeader("Value");
+
         this.grid.setItems(this.allProperties);
         gridDeselectAll();
 
-        TextField filterField = new TextField();
-        filterField.setValueChangeMode(ValueChangeMode.EAGER);
-        filterField.addValueChangeListener(event -> {
+        Binder<Property> binder = new Binder<>(Property.class);
+        Editor<Property> editor = this.grid.getEditor();
+        editor.setBinder(binder);
+        editor.setBuffered(true);
+
+        this.validationStatus = new Div();
+        this.validationStatus.setId("validation");
+
+        TextField valueField = new TextField();
+        binder.forField(valueField)
+                .withValidator(new StringLengthValidator("Value can't be empty", 5, 100))
+                .withStatusLabel(this.validationStatus).bind("value");
+        valueColumn.setEditorComponent(valueField);
+
+        editorButtonsSetup(editor, valueField);
+        filterFieldSetup();
+    }
+
+    private void editorButtonsSetup(Editor<Property> editor, TextField valueField) {
+        Collection<Button> editButtons = Collections.newSetFromMap(new WeakHashMap<>());
+        Grid.Column<Property> editorColumn = this.grid.addComponentColumn(property -> {
+            Button edit = new Button("Edit");
+            edit.addClassName("edit");
+            edit.addClickListener(e -> {
+                editor.editItem(property);
+                valueField.focus();
+            });
+            edit.setEnabled(!editor.isOpen());
+            editButtons.add(edit);
+            return edit;
+        });
+
+        editor.addOpenListener(e -> editButtons.stream()
+                .forEach(button -> button.setEnabled(!editor.isOpen())));
+        editor.addCloseListener(e -> editButtons.stream()
+                .forEach(button -> button.setEnabled(!editor.isOpen())));
+
+        Button save = new Button("Save", e -> editor.save());
+        save.addClassName("save");
+        Button cancel = new Button("Cancel", e -> editor.cancel());
+        cancel.addClassName("cancel");
+
+        this.grid.getElement().addEventListener("keyup", event -> editor.cancel())
+                .setFilter("event.key === 'Escape' || event.key === 'Esc'");
+
+        Div buttons = new Div(save, cancel);
+        editorColumn.setEditorComponent(buttons);
+    }
+
+    private void filterFieldSetup() {
+        this.filterField = new TextField();
+        this.filterField.setValueChangeMode(ValueChangeMode.EAGER);
+        this.filterField.addValueChangeListener(event -> {
             if (event.getValue().length() > 2) {
                 Set<Property> foundProperties = allProperties.stream().filter(
                         property -> property.getProperty().toLowerCase()
@@ -58,11 +126,6 @@ public class ConfigView extends AbstractView {
                 gridDeselectAll();
             }
         });
-
-        this.verticalLayout.add(filterField, this.grid);
-
-        setupContentDefaultStyles();
-        addToContent(this.verticalLayout);
     }
 
     private ArrayList<Property> getAllProperties() {
