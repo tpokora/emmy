@@ -46,13 +46,14 @@ public class ConfigView extends AbstractView {
         this.notificationProperties = notificationProperties;
         this.allProperties = getAllProperties();
 
-        gridSetup();
         gridLayoutHeaderSetup();
+        gridSetup();
         setupContentDefaultStyles();
         addToContent(this.gridLayout);
     }
 
     private void gridLayoutHeaderSetup() {
+        filterFieldSetup();
         validationStatusSetup();
         this.gridLayoutHeader.addFormItem(this.filterField, "Filter");
         this.gridLayoutHeader.add(this.validationStatus);
@@ -80,14 +81,12 @@ public class ConfigView extends AbstractView {
         editor.setBuffered(true);
 
         TextField valueField = new TextField();
-        // @TODO Fix validation
-//        binder.forField(valueField)
-//                .withValidator(new StringLengthValidator("Value can't be empty", 5, 100))
-//                .withStatusLabel(this.validationStatus).bind("value");
+        binder.forField(valueField)
+                .withValidator(new StringLengthValidator("Value can't be empty", 5, 100))
+                .withStatusLabel(this.validationStatus).bind("value");
         valueColumn.setEditorComponent(valueField);
 
         editorButtonsSetup(editor, valueField);
-        filterFieldSetup();
 
         this.gridLayout.add(this.gridLayoutHeader, this.grid);
     }
