@@ -2,6 +2,7 @@ package org.tpokora.views;
 
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.editor.Editor;
 import com.vaadin.flow.component.html.Div;
@@ -13,9 +14,9 @@ import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.tpokora.config.model.Property;
 import org.tpokora.config.properties.AppProperties;
 import org.tpokora.config.properties.FirebaseProperties;
-import org.tpokora.config.model.Property;
 import org.tpokora.config.properties.NotificationProperties;
 import org.tpokora.views.common.RouteStrings;
 
@@ -33,6 +34,7 @@ public class ConfigView extends AbstractView {
     private NotificationProperties notificationProperties;
 
     VerticalLayout gridLayout = new VerticalLayout();
+    FormLayout gridLayoutHeader = new FormLayout();
     Grid<Property> grid;
 
     private TextField filterField;
@@ -43,32 +45,39 @@ public class ConfigView extends AbstractView {
         this.appProperties = appProperties;
         this.notificationProperties = notificationProperties;
         this.allProperties = getAllProperties();
-        this.gridLayout.add(new H3(RouteStrings.CONFIG));
 
         gridSetup();
-
-        this.gridLayout.add(this.validationStatus, this.filterField, this.grid);
+        gridLayoutHeaderSetup();
         setupContentDefaultStyles();
         addToContent(this.gridLayout);
     }
 
+    private void gridLayoutHeaderSetup() {
+        validationStatusSetup();
+        this.gridLayoutHeader.addFormItem(this.filterField, "Filter");
+        this.gridLayoutHeader.add(this.validationStatus);
+    }
+
+    private void validationStatusSetup() {
+        this.validationStatus = new Div();
+        this.validationStatus.setId("validation");
+        this.validationStatus.getStyle().set("color", "#d61010");
+        this.validationStatus.getStyle().set("font-weight", "500");
+    }
+
     private void gridSetup() {
+        this.gridLayout.add(new H3(RouteStrings.CONFIG));
         this.grid = new Grid<>();
         this.grid.setSelectionMode(Grid.SelectionMode.MULTI);
+        this.grid.setItems(this.allProperties);
 
         Grid.Column<Property> propertyColumn = this.grid.addColumn(Property::getProperty).setHeader("Property");
         Grid.Column<Property> valueColumn = this.grid.addColumn(Property::getValue).setHeader("Value");
-
-        this.grid.setItems(this.allProperties);
         gridDeselectAll();
-
         Binder<Property> binder = new Binder<>(Property.class);
         Editor<Property> editor = this.grid.getEditor();
         editor.setBinder(binder);
         editor.setBuffered(true);
-
-        this.validationStatus = new Div();
-        this.validationStatus.setId("validation");
 
         TextField valueField = new TextField();
         binder.forField(valueField)
@@ -78,6 +87,8 @@ public class ConfigView extends AbstractView {
 
         editorButtonsSetup(editor, valueField);
         filterFieldSetup();
+
+        this.gridLayout.add(this.gridLayoutHeader, this.grid);
     }
 
     private void editorButtonsSetup(Editor<Property> editor, TextField valueField) {
@@ -113,7 +124,6 @@ public class ConfigView extends AbstractView {
 
     private void filterFieldSetup() {
         this.filterField = new TextField();
-        this.filterField.setLabel("Filter");
         this.filterField.setValueChangeMode(ValueChangeMode.EAGER);
         this.filterField.addValueChangeListener(event -> {
             if (event.getValue().length() > 2) {
