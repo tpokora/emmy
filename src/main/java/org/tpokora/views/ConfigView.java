@@ -80,9 +80,10 @@ public class ConfigView extends AbstractView {
         editor.setBuffered(true);
 
         TextField valueField = new TextField();
-        binder.forField(valueField)
-                .withValidator(new StringLengthValidator("Value can't be empty", 5, 100))
-                .withStatusLabel(this.validationStatus).bind("value");
+        // @TODO Fix validation
+//        binder.forField(valueField)
+//                .withValidator(new StringLengthValidator("Value can't be empty", 5, 100))
+//                .withStatusLabel(this.validationStatus).bind("value");
         valueColumn.setEditorComponent(valueField);
 
         editorButtonsSetup(editor, valueField);

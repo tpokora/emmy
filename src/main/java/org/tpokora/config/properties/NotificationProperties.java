@@ -9,13 +9,13 @@ import java.util.Map;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@ConfigurationProperties(prefix = "notification")
+@ConfigurationProperties(prefix = "notifications")
 public class NotificationProperties {
 
     private String coordinateX;
     private String coordinateY;
 
-    private final Map<String, String> notification = new HashMap<>();
+    private final Map<String, String> notifications = new HashMap<>();
 
     public String getCoordinateX() {
         return coordinateX;
@@ -33,7 +33,7 @@ public class NotificationProperties {
         this.coordinateY = coordinateY;
     }
 
-    public Map<String, String> getNotification() {
-        return notification;
+    public Map<String, String> getNotifications() {
+        return notifications;
     }
 }
