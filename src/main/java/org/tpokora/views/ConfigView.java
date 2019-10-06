@@ -19,6 +19,7 @@ import org.tpokora.config.properties.AppProperties;
 import org.tpokora.config.properties.FirebaseProperties;
 import org.tpokora.config.properties.NotificationProperties;
 import org.tpokora.views.common.RouteStrings;
+import org.tpokora.views.validators.ConfigViewValidators;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -82,7 +83,7 @@ public class ConfigView extends AbstractView {
 
         TextField valueField = new TextField();
         binder.forField(valueField)
-                .withValidator(new StringLengthValidator("Value can't be empty", 5, 100))
+                .withValidator(ConfigViewValidators.valueFieldValidator())
                 .withStatusLabel(this.validationStatus).bind("value");
         valueColumn.setEditorComponent(valueField);
 
