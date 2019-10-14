@@ -19,4 +19,12 @@ public class StormProperties {
     public Map<String, String> getStorm() {
         return storm;
     }
+
+    public String getValue(String value) {
+        return this.storm.get(value);
+    }
+
+    public String setValue(String key, String value) {
+        return this.storm.put(key, value);
+    }
 }
