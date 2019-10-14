@@ -3,23 +3,23 @@ package org.tpokora.config.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 @Configuration
 @PropertySource("classpath:application.properties")
 @ConfigurationProperties("")
-public class AppProperties {
+public class NotificationProperties {
 
-    private final Map<String, String> firebase = new HashMap<>();
-    private final Map<String, String> storm = new HashMap<>();
+    public static final String COORDINATE_X = "coordinateX";
+    public static final String COORDINATE_Y = "coordinateY";
 
-    public Map<String, String> getFirebase() {
-        return firebase;
-    }
+    private final Map<String, String> notifications = new HashMap<>();
 
-    public Map<String, String> getStorm() {
-        return storm;
+    public Map<String, String> getNotifications() {
+        return notifications;
     }
 }

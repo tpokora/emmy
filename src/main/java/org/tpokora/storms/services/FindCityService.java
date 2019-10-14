@@ -2,7 +2,7 @@ package org.tpokora.storms.services;
 
 import org.springframework.stereotype.Service;
 import org.tpokora.common.services.SOAPService;
-import org.tpokora.config.properties.AppProperties;
+import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.City;
 
 import javax.xml.soap.*;
@@ -12,8 +12,8 @@ import java.util.HashMap;
 @Service
 public class FindCityService extends StormService {
 
-    public FindCityService(AppProperties appProperties, SOAPService soapService) {
-        super(appProperties, soapService);
+    public FindCityService(StormProperties stormProperties, SOAPService soapService) {
+        super(stormProperties, soapService);
     }
 
     public SOAPMessage findCity(String city) throws SOAPException, IOException {
@@ -57,6 +57,6 @@ public class FindCityService extends StormService {
         SOAPElement keyElem = findCity.addChildElement("klucz", namespace);
 
         nameElem.addTextNode(city);
-        keyElem.addTextNode(appProperties.getStorm().get("key"));
+        keyElem.addTextNode(stormProperties.getStorm().get(StormProperties.KEY));
     }
 }

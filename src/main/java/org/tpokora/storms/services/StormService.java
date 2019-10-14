@@ -1,10 +1,9 @@
 package org.tpokora.storms.services;
 
 import com.sun.xml.messaging.saaj.soap.impl.ElementImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.services.SOAPService;
-import org.tpokora.config.properties.AppProperties;
+import org.tpokora.config.properties.StormProperties;
 
 @Service
 public class StormService {
@@ -21,12 +20,12 @@ public class StormService {
     protected static final String METHOD_OSTRZEZENIA = "ostrzezenia_pogodowe";
     protected static final String METHOD_SZUKAJ_BURZY = "szukaj_burzy";
 
-    protected AppProperties appProperties;
+    protected StormProperties stormProperties;
 
     protected SOAPService soapService;
 
-    public StormService(AppProperties appProperties, SOAPService soapService) {
-        this.appProperties = appProperties;
+    public StormService(StormProperties stormProperties, SOAPService soapService) {
+        this.stormProperties = stormProperties;
         this.soapService = soapService;
     }
 

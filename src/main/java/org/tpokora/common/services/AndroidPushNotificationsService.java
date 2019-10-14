@@ -40,7 +40,7 @@ public class AndroidPushNotificationsService {
         if (notification.getTopic() != null) {
             jsonObject.put("to",  "/topics/" + notification.getTopic());
         } else {
-            jsonObject.put("to",  firebaseProperties.getClientToken());
+            jsonObject.put("to",  firebaseProperties.getValue(FirebaseProperties.CLIENT_TOKEN));
         }
 
 
@@ -59,8 +59,7 @@ public class AndroidPushNotificationsService {
 
     private ArrayList<ClientHttpRequestInterceptor> createInterceptors() {
         ArrayList<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
-        //464584673875
-        interceptors.add(new HeaderRequestInterceptor("Authorization", "key=" + firebaseProperties.getServerKey()));
+        interceptors.add(new HeaderRequestInterceptor("Authorization", "key=" + firebaseProperties.getValue(FirebaseProperties.SERVER_KEY)));
         interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json"));
         return interceptors;
     }

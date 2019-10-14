@@ -2,7 +2,7 @@ package org.tpokora.storms.services;
 
 import org.springframework.stereotype.Service;
 import org.tpokora.common.services.SOAPService;
-import org.tpokora.config.properties.AppProperties;
+import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 
@@ -13,8 +13,8 @@ import java.util.HashMap;
 @Service
 public class FindStormService extends StormService {
 
-    public FindStormService(AppProperties appProperties, SOAPService soapService) {
-        super(appProperties, soapService);
+    public FindStormService(StormProperties stormProperties, SOAPService soapService) {
+        super(stormProperties, soapService);
     }
 
     public SOAPMessage checkStorm(StormRequest stormRequest) throws SOAPException, IOException {
@@ -63,7 +63,7 @@ public class FindStormService extends StormService {
         xElem.addTextNode(String.valueOf(storm.getCoordinates().getX()));
         yElem.addTextNode(String.valueOf(storm.getCoordinates().getY()));
         radiusElem.addTextNode(String.valueOf(storm.getDistance()));
-        keyElem.addTextNode(appProperties.getStorm().get("key"));
+        keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }
 
 }
