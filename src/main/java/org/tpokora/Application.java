@@ -6,11 +6,12 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.tpokora.config.properties.FirebaseProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.tpokora.config.properties.AppProperties;
+import org.tpokora.config.properties.StormProperties;
+import org.tpokora.config.properties.NotificationProperties;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableConfigurationProperties({FirebaseProperties.class, AppProperties.class})
+@EnableConfigurationProperties({FirebaseProperties.class, NotificationProperties.class, StormProperties.class})
 public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {

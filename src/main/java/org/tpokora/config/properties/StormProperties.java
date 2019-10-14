@@ -10,19 +10,13 @@ import java.util.Map;
 @Configuration
 @PropertySource("classpath:application.properties")
 @ConfigurationProperties("")
-public class AppProperties {
+public class StormProperties {
 
-    private final Map<String, String> firebase = new HashMap<>();
+    public static final String KEY = "key";
+
     private final Map<String, String> storm = new HashMap<>();
-    private final Map<String, String> notification = new HashMap<>();
-
-    public Map<String, String> getFirebase() {
-        return firebase;
-    }
 
     public Map<String, String> getStorm() {
         return storm;
     }
-
-    public Map<String, String> getNotification() { return notification; }
 }

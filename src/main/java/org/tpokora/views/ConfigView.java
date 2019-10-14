@@ -5,19 +5,20 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.editor.Editor;
+import com.vaadin.flow.component.grid.editor.EditorImpl;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.validator.StringLengthValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.tpokora.config.model.Property;
-import org.tpokora.config.properties.AppProperties;
+import org.tpokora.config.properties.StormProperties;
 import org.tpokora.config.properties.FirebaseProperties;
 import org.tpokora.config.properties.NotificationProperties;
+import org.tpokora.config.properties.PropertiesEnum;
 import org.tpokora.views.common.RouteStrings;
 import org.tpokora.views.validators.ConfigViewValidators;
 
@@ -31,7 +32,7 @@ public class ConfigView extends AbstractView {
 
     private final ArrayList<Property> allProperties;
     private FirebaseProperties firebaseProperties;
-    private AppProperties appProperties;
+    private StormProperties stormProperties;
     private NotificationProperties notificationProperties;
 
     VerticalLayout gridLayout = new VerticalLayout();
@@ -41,9 +42,9 @@ public class ConfigView extends AbstractView {
     private TextField filterField;
     private Div validationStatus;
 
-    public ConfigView(FirebaseProperties firebaseProperties, AppProperties appProperties, NotificationProperties notificationProperties) {
+    public ConfigView(FirebaseProperties firebaseProperties, StormProperties stormProperties, NotificationProperties notificationProperties) {
         this.firebaseProperties = firebaseProperties;
-        this.appProperties = appProperties;
+        this.stormProperties = stormProperties;
         this.notificationProperties = notificationProperties;
         this.allProperties = getAllProperties();
 
@@ -111,7 +112,13 @@ public class ConfigView extends AbstractView {
         editor.addCloseListener(e -> editButtons.stream()
                 .forEach(button -> button.setEnabled(!editor.isOpen())));
 
-        Button save = new Button("Save", e -> editor.save());
+        Button save = new Button("Save", e -> {
+            Property property = (Property) ((EditorImpl)editor).getItem();
+            boolean saved = editor.save();
+            if (saved) {
+                saveProperty(property);
+            }
+        });
         save.addClassName("save");
         Button cancel = new Button("Cancel", e -> editor.cancel());
         cancel.addClassName("cancel");
@@ -142,29 +149,53 @@ public class ConfigView extends AbstractView {
 
     private ArrayList<Property> getAllProperties() {
         ArrayList<Property> propertyArrayList = new ArrayList<>();
+        propertyArrayList.addAll(getStormProperties());
         propertyArrayList.addAll(getFirebaseProperties());
         propertyArrayList.addAll(getNotificationProperties());
         return propertyArrayList;
     }
 
+    private ArrayList<Property> getStormProperties() {
+        ArrayList<Property> propertyArrayList = new ArrayList<>();
+        for (Map.Entry<String, String> entry : this.stormProperties.getStorm().entrySet()) {
+            propertyArrayList.add(new Property(entry.getKey(), entry.getValue(), PropertiesEnum.STORM));
+        }
+
+        return propertyArrayList;
+    }
+
     private ArrayList<Property> getFirebaseProperties() {
         ArrayList<Property> propertyArrayList = new ArrayList<>();
-        propertyArrayList.add(new Property("serverKey", firebaseProperties.getServerKey()));
-        propertyArrayList.add(new Property("clientToken", firebaseProperties.getClientToken()));
+        for (Map.Entry<String, String> entry : this.firebaseProperties.getFirebase().entrySet()) {
+            propertyArrayList.add(new Property(entry.getKey(), entry.getValue(), PropertiesEnum.FIREBASE));
+        }
 
         return propertyArrayList;
     }
 
     private ArrayList<Property> getNotificationProperties() {
         ArrayList<Property> propertyArrayList = new ArrayList<>();
-        propertyArrayList.add(new Property("coordinateX", notificationProperties.getCoordinateX()));
-        propertyArrayList.add(new Property("coordinateY", notificationProperties.getCoordinateY()));
+        for (Map.Entry<String, String> entry : this.notificationProperties.getNotifications().entrySet()) {
+            propertyArrayList.add(new Property(entry.getKey(), entry.getValue(), PropertiesEnum.NOTIFICATIONS));
+        }
 
         return propertyArrayList;
     }
 
     private void gridDeselectAll() {
         this.grid.deselectAll();
+    }
+
+    private void saveProperty(Property property) {
+        if (PropertiesEnum.STORM == property.getType()) {
+            this.stormProperties.getStorm().put(property.getProperty(), property.getValue());
+        }
+        if (PropertiesEnum.FIREBASE == property.getType()) {
+            this.firebaseProperties.getFirebase().put(property.getProperty(), property.getValue());
+        }
+        if (PropertiesEnum.NOTIFICATIONS == property.getType()) {
+            this.notificationProperties.getNotifications().put(property.getProperty(), property.getValue());
+        }
     }
 }
 
