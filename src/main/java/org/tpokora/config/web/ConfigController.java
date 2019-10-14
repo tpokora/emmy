@@ -25,7 +25,7 @@ public class ConfigController {
     @RequestMapping(value = "/firebase/set", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<FirebaseProperties> getFirebaseConfigSet(@RequestParam(value = "clientToken", required = false) String clientToken) {
         if (clientToken != null) {
-            firebaseProperties.setClientToken(clientToken);
+            firebaseProperties.setValue(FirebaseProperties.CLIENT_TOKEN, clientToken);
         }
         return new ResponseEntity<>(firebaseProperties, HttpStatus.OK);
     }

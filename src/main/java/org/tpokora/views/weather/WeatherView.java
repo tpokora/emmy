@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.tpokora.config.properties.NotificationProperties;
 import org.tpokora.storms.services.FindCityService;
 import org.tpokora.storms.services.FindStormService;
 import org.tpokora.storms.services.FindWarningService;
@@ -23,7 +24,8 @@ public class WeatherView extends AbstractView {
     private FindWarningsForm findWarningsForm;
     private WeatherService weatherService;
 
-    public WeatherView(FindCityService findCityService, FindStormService findStormService, FindWarningService findWarningService, WeatherService weatherService) {
+    public WeatherView(FindCityService findCityService, FindStormService findStormService,
+                       FindWarningService findWarningService, WeatherService weatherService) {
         setupContentDefaultStyles();
         addToContent(new H3(RouteStrings.WEATHER));
         this.weatherService = weatherService;
