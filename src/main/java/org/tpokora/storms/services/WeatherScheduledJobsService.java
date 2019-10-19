@@ -2,16 +2,20 @@ package org.tpokora.storms.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.tpokora.common.model.Notification;
+import org.tpokora.common.services.AndroidPushNotificationsService;
+import org.tpokora.config.properties.NotificationProperties;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.Warning;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 @Profile("crone")
 @Component
@@ -20,24 +24,35 @@ public class WeatherScheduledJobsService {
     private static final Logger logger = LoggerFactory.getLogger(WeatherScheduledJobsService.class);
 
     private FindWarningService findWarningService;
+    AndroidPushNotificationsService androidPushNotificationsService;
 
-    public WeatherScheduledJobsService(FindWarningService findWarningService) {
+    private NotificationProperties notificationProperties;
+
+    public WeatherScheduledJobsService(FindWarningService findWarningService,
+                                       AndroidPushNotificationsService androidPushNotificationsService,
+                                       NotificationProperties notificationProperties) {
         this.findWarningService = findWarningService;
+        this.androidPushNotificationsService = androidPushNotificationsService;
+        this.notificationProperties = notificationProperties;
     }
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(cron = "0 0 6,12,18,24 * * *")
+//    @Scheduled(fixedRate = 30000)
     public void checkWeatherWarningsJob() throws IOException, SOAPException {
+
         logger.info("Check for weather warnings");
         Set<Warning> warnings = checkWeatherWarnings();
         for (Warning warning : warnings) {
             logger.info(warning.toString());
+            HttpEntity<String> request = new HttpEntity<>(androidPushNotificationsService.generatePushNotificationJSON(Notification.createNotificationFromWarning(warning)).toString());
+            CompletableFuture<String> pushNotification = androidPushNotificationsService.sendNotification(request);
         }
     }
 
     private Set<Warning> checkWeatherWarnings() throws IOException, SOAPException {
-        Double weather_scheduler_x = 19.49;
-        Double weather_scheduler_y = 49.59;
-        Set<Warning> warnings = findWarningService.handleResponse(findWarningService.findWarning(new Coordinates(weather_scheduler_x, weather_scheduler_y)));
+        Double coordinateX = Double.parseDouble(this.notificationProperties.getValue(NotificationProperties.COORDINATE_X));
+        Double coordinateY = Double.parseDouble(this.notificationProperties.getValue(NotificationProperties.COORDINATE_Y));
+        Set<Warning> warnings = findWarningService.handleResponse(findWarningService.findWarning(new Coordinates(coordinateX, coordinateY)));
         return warnings;
     }
 }

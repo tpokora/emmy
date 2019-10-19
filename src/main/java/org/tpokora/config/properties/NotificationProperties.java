@@ -22,4 +22,12 @@ public class NotificationProperties {
     public Map<String, String> getNotifications() {
         return notifications;
     }
+
+    public String getValue(String key) {
+        return this.notifications.get(key);
+    }
+
+    public String setValue(String key, String value) {
+        return this.notifications.put(key, value);
+    }
 }
