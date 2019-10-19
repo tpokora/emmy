@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 public class WeatherScheduledJobsService {
 
     private static final Logger logger = LoggerFactory.getLogger(WeatherScheduledJobsService.class);
-    private static final String WEATHER_WARNINGS_CRONE = "0 0 6,12,18,24 * * *";
+    private static final String WEATHER_WARNINGS_CRONE = "0 0 0,6,12,18 * * *";
 
     private FindWarningService findWarningService;
     AndroidPushNotificationsService androidPushNotificationsService;
