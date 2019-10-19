@@ -14,8 +14,8 @@ import java.util.Map;
 @ConfigurationProperties()
 public class FirebaseProperties {
 
-    public static final String SERVER_KEY = "serverKey";
-    public static final String CLIENT_TOKEN = "clientToken";
+    public static final String SERVER_KEY = "serverkey";
+    public static final String CLIENT_TOKEN = "clienttoken";
 
     private final Map<String, String> firebase = new HashMap<>();
 
@@ -23,8 +23,8 @@ public class FirebaseProperties {
         return firebase;
     }
 
-    public String getValue(String value) {
-        return this.firebase.get(value);
+    public String getValue(String key) {
+        return this.firebase.get(key);
     }
 
     public String setValue(String key, String value) {
