@@ -1,7 +1,6 @@
 package org.tpokora.common.services;
 
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.scheduling.annotation.Async;
@@ -18,6 +17,11 @@ import java.util.concurrent.CompletableFuture;
 public class AndroidPushNotificationsService {
 
     private static final String FIREBASE_API_URL = "https://fcm.googleapis.com/fcm/send";
+    private static final String TO = "to";
+    private static final String DATA = "data";
+    private static final String TITLE = "title";
+    private static final String BODY = "body";
+    private static final String NOTIFICATION = "notification";
 
     private FirebaseProperties firebaseProperties;
 
@@ -38,20 +42,20 @@ public class AndroidPushNotificationsService {
     public JSONObject generatePushNotificationJSON(Notification notification) {
         JSONObject jsonObject = new JSONObject();
         if (notification.getTopic() != null) {
-            jsonObject.put("to",  "/topics/" + notification.getTopic());
+            jsonObject.put(TO,  "/topics/" + notification.getTopic());
         } else {
-            jsonObject.put("to",  firebaseProperties.getValue(FirebaseProperties.CLIENT_TOKEN));
+            jsonObject.put(TO,  firebaseProperties.getValue(FirebaseProperties.CLIENT_TOKEN));
         }
 
 
         HashMap<String, String> data = notification.getData();
         if (data != null) {
-            jsonObject.put("data", data);
+            jsonObject.put(DATA, data);
         } else {
             JSONObject notificationJson = new JSONObject();
-            notificationJson.put("title", notification.getTitle());
-            notificationJson.put("body", notification.getText());
-            jsonObject.put("notification", notificationJson);
+            notificationJson.put(TITLE, notification.getTitle());
+            notificationJson.put(BODY, notification.getText());
+            jsonObject.put(NOTIFICATION, notificationJson);
         }
 
         return jsonObject;
