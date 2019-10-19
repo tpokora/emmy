@@ -1,5 +1,7 @@
 package org.tpokora.common.model;
 
+import org.tpokora.storms.model.Warning;
+
 import java.util.HashMap;
 
 public class Notification {
@@ -41,5 +43,14 @@ public class Notification {
 
     public void setData(HashMap<String, String> data) {
         this.data = data;
+    }
+
+    public static Notification createNotificationFromWarning(Warning warning) {
+        Notification notification = new Notification();
+        notification.title = String.format("%s WARNING, Level: %d", warning.getName(), warning.getLevel());
+        notification.text = String.format("From: %s, To: %s",
+                warning.getPeriod().getFromString(),
+                warning.getPeriod().getToString());
+        return notification;
     }
 }
