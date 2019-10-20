@@ -43,6 +43,7 @@ public class MainView extends AbstractView implements RouterLayout {
         RouterLink routerLink = new RouterLink(linkText, navigationTarget);
         Tab tab = new Tab();
         tab.add(routerLink);
+        tab.setId(linkText.toLowerCase() + "-tab");
         return tab;
     }
 

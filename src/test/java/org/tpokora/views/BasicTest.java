@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -24,9 +23,9 @@ public class BasicTest {
     public static final String WELCOME_TO_EMMY_APP = "Welcome to Emmy App!";
 
     @Autowired
-    private TestProperties testProperties;
+    protected TestProperties testProperties;
 
-    private WebDriver driver;
+    protected WebDriver driver;
 
     @Before
     public void setup(){
@@ -43,14 +42,14 @@ public class BasicTest {
 
     @Test
     public void testLoginToHomePage() {
-        login(this.driver, testProperties.getUsername(), testProperties.getPassword());
+        login(testProperties.getUsername(), testProperties.getPassword());
         WebElement homeElement = this.driver.findElement(By.tagName("home-view"));
         homeElement.findElement(By.tagName("h3"));
 
         Assert.assertEquals(WELCOME_TO_EMMY_APP, homeElement.getText());
     }
 
-    protected void login(WebDriver driver, String username, String password) {
+    protected void login(String username, String password) {
         driver.navigate().to(ViewsStrings.LOGIN_URL);
         WebElement loginElement = driver.findElement(By.id("vaadinLoginUsername"));
         loginElement.findElement(By.xpath("input[@name = 'username']"));
@@ -66,7 +65,10 @@ public class BasicTest {
         loginBtn.click();
         Assert.assertNotNull(loginBtn);
 
-        String currentUrl = this.driver.getCurrentUrl();
-        Assert.assertEquals(ViewsStrings.HOME_URL, currentUrl);
+        Assert.assertEquals(ViewsStrings.HOME_URL, getCurrentUrl());
+    }
+
+    protected String getCurrentUrl() {
+        return this.driver.getCurrentUrl();
     }
 }
