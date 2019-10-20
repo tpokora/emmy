@@ -8,7 +8,6 @@ import org.tpokora.users.dao.UserRepository;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .map(UserDetailsImpl::new).get();
     }
 
-    public List<User> gettAllUsers() {
+    public List<User> getAllUsers() {
         List<User> userList = this.userRepository.findAll();
         return userList;
     }

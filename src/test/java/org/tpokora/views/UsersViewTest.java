@@ -8,12 +8,16 @@ import org.openqa.selenium.WebElement;
 public class UsersViewTest extends BasicTest {
 
     @Test
-    public void showUsersView() {
-        login(this.testProperties.getUsername(), this.testProperties.getPassword());
+    public void testShowUsersView() {
+        loginDefault();
+        navigateToUsersView();
+    }
 
+    private void navigateToUsersView() {
         WebElement usersTab = this.driver.findElement(By.id("users-tab"));
         usersTab.click();
 
-        Assert.assertEquals(ViewsStrings.USERS_URL, getCurrentUrl());
+        Assert.assertEquals(String.format("Did not redirected to %s instead %s",
+                ViewsStrings.USERS_URL, getCurrentUrl()), ViewsStrings.USERS_URL, getCurrentUrl());
     }
 }

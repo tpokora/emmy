@@ -37,9 +37,12 @@ public class UsersView extends AbstractView {
     }
 
     private void setupUsersGrid() {
-        this.grid = new Grid<>(UserRow.class);
-        this.grid.setColumns("username", "email", "role");
-        this.grid.setItems(getUserRows(this.userDetailsService.gettAllUsers()));
+        this.grid = new Grid<>();
+        this.grid.setSelectionMode(Grid.SelectionMode.MULTI);
+        this.grid.setItems(getUserRows(this.userDetailsService.getAllUsers()));
+        Grid.Column<UserRow> usernameColumn = this.grid.addColumn(UserRow::getUsername).setHeader("Username");
+        Grid.Column<UserRow> emailColumn = this.grid.addColumn(UserRow::getEmail).setHeader("Email");
+        Grid.Column<UserRow> roleColumn = this.grid.addColumn(UserRow::getRole).setHeader("Role");
     }
 
     private ArrayList<UserRow> getUserRows(List<User> userList) {
