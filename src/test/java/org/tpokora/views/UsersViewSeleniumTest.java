@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class UsersViewTest extends BasicTest {
+public class UsersViewSeleniumTest extends BasicSeleniumTest {
 
     @Test
     public void testShowUsersView() {

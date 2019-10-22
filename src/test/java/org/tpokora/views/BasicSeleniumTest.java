@@ -15,13 +15,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.tpokora.Application;
+import org.tpokora.TestApplication;
 import org.tpokora.config.properties.TestProperties;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = {TestApplication.class })
 @ContextConfiguration(classes = TestProperties.class)
-@TestPropertySource("classpath:application-test.properties")
-public class BasicTest {
+@TestPropertySource(locations = { "classpath:application-test.properties" })
+public class BasicSeleniumTest {
 
     public static final String WELCOME_TO_EMMY_APP = "Welcome to Emmy App!";
 
