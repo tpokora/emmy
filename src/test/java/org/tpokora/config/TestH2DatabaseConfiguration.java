@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@TestPropertySource("classpath:application-test.properties")
+@TestPropertySource("classpath:application-db-test.properties")
 @EnableJpaRepositories(basePackages = { "org.tpokora"})
 @EnableTransactionManagement
 public class TestH2DatabaseConfiguration {

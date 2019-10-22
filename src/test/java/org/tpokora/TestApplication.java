@@ -6,7 +6,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@TestPropertySource(locations = "classpath:application-test.properties")
+@TestPropertySource(locations = { "classpath:application-test.properties", "classpath:application-db-test.properties"})
 @SpringBootTest
 public class TestApplication {
 

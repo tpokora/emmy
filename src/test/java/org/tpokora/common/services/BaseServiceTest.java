@@ -9,7 +9,7 @@ import org.tpokora.config.TestH2DatabaseConfiguration;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestApplication.class, TestH2DatabaseConfiguration.class })
-@TestPropertySource("classpath:application-test.properties")
+@TestPropertySource(locations = { "classpath:application-test.properties", "classpath:application-db-test.properties"})
 public abstract class BaseServiceTest {
 
 }
