@@ -40,10 +40,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        http.requestCache().requestCache(new CustomRequestCache())
+        http.requestCache()
                 .and()
                 .authorizeRequests()
-                .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()
+                .requestMatchers().permitAll()
                 .anyRequest().permitAll()
                 // Configure the login page.
                 .and().formLogin().loginPage(LOGIN_URL).permitAll().defaultSuccessUrl("/home")
@@ -52,33 +52,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 // Configure logout
                 .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(
-                // Vaadin Flow static resources //
-                "/VAADIN/**",
-
-                // the standard favicon URI
-                "/favicon.ico",
-
-                // the robots exclusion standard
-                "/robots.txt",
-
-                // web application manifest //
-                "/manifest.webmanifest",
-                "/sw.js",
-                "/offline-page.html",
-
-                // (development mode) static resources //
-                "/frontend/**",
-
-                // (development mode) webjars //
-                "/webjars/**",
-
-                // (production mode) static resources //
-                "/frontend-es5/**", "/frontend-es6/**");
     }
 
     @Bean
