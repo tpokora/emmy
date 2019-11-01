@@ -41,13 +41,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http
-
                 .authorizeRequests()
-                    .anyRequest().authenticated()
+                .antMatchers("/**/*.js", "/**/*.css").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    .loginPage(LOGIN_URL).permitAll()
-                    .defaultSuccessUrl("/home")
+                .loginPage(LOGIN_URL).permitAll()
+                .defaultSuccessUrl("/home")
                 .failureUrl(LOGIN_FAILURE_URL)
 
                 // Configure logout
