@@ -13,4 +13,11 @@ public class HomeController {
         model.addAttribute("name", name);
         return "home";
     }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
+
 }

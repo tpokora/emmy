@@ -40,14 +40,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        http.requestCache()
-                .and()
+        http
+
                 .authorizeRequests()
-                .requestMatchers().permitAll()
-                .anyRequest().permitAll()
-                // Configure the login page.
-                .and().formLogin().loginPage(LOGIN_URL).permitAll().defaultSuccessUrl("/home")
-                .loginProcessingUrl(LOGIN_PROCESSING_URL)
+                    .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                    .loginPage(LOGIN_URL).permitAll()
+                    .defaultSuccessUrl("/home")
                 .failureUrl(LOGIN_FAILURE_URL)
 
                 // Configure logout
@@ -55,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
     }
