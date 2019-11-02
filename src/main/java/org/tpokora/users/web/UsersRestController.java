@@ -20,9 +20,9 @@ import java.util.List;
 @Api(value = "User controller", description = "User API")
 @RestController
 @RequestMapping(value = "/api/users")
-public class UserController {
+public class UsersRestController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UsersRestController.class);
 
     @Autowired
     UserRepository userRepository;
