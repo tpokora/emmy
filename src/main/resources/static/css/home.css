@@ -5,3 +5,7 @@ html, body, main {
 main {
     margin-top: 80px;
 }
+
+#logout-form {
+    color: #fff
+}
