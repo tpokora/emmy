@@ -1,0 +1,11 @@
+html, body, main {
+  height: 100%;
+}
+
+main {
+    margin-top: 80px;
+}
+
+#logout-form {
+    color: #fff
+}
