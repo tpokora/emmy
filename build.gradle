@@ -1,24 +1,17 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+    id 'idea'
+}
+
+// configuration for dev-tools
 configurations {
     developmentOnly
     runtimeClasspath {
         extendsFrom developmentOnly
     }
 }
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
-    }
-}
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 bootJar {
     baseName = 'emmy-rose'
@@ -40,32 +33,36 @@ targetCompatibility = 1.9
 
 dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'org.springframework.ws:spring-ws-core'
+
+    implementation  'org.springframework.boot:spring-boot-starter-web'
+    implementation  'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation  'org.springframework.boot:spring-boot-starter-security'
+    implementation  'org.springframework.ws:spring-ws-core'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
+    implementation  group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-    compile 'org.webjars:bootstrap:4.3.1'
-    compile 'org.webjars:jquery:1.9.1'
-    compile 'org.webjars:webjars-locator:0.30'
+    implementation  'org.webjars:bootstrap:4.3.1'
+    implementation  'org.webjars:jquery:1.9.1'
+    implementation  'org.webjars:webjars-locator:0.30'
 
-    compile 'org.postgresql:postgresql:42.1.1'
-    
-    compile 'com.sun.xml.messaging.saaj:saaj-impl:1.5.0'
-    compile group: 'javax.xml.soap', name: 'javax.xml.soap-api', version: '1.3.5'
-    compile 'org.json:json:20160810'
+    implementation  'org.postgresql:postgresql:42.1.1'
 
-    compile 'io.springfox:springfox-swagger2:2.9.2'
-    compile 'io.springfox:springfox-swagger-ui:2.9.2'
-    
-    testCompile 'junit:junit'
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile group: 'com.h2database', name: 'h2', version: '1.4.199'
-    testCompile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.11.0'
-    testCompile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
+    implementation  'com.sun.xml.messaging.saaj:saaj-impl:1.5.0'
+    implementation  group: 'javax.xml.soap', name: 'javax.xml.soap-api', version: '1.3.5'
+    implementation  'org.json:json:20160810'
 
+    implementation  'io.springfox:springfox-swagger2:2.9.2'
+    implementation  'io.springfox:springfox-swagger-ui:2.9.2'
+
+    testImplementation 'junit:junit'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.11.0'
+    testImplementation group: 'com.google.guava', name: 'guava', version: '24.1-jre'
+
+}
+
+test {
+    useJUnitPlatform()
 }
