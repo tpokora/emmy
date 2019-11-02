@@ -1,6 +1,7 @@
 package org.tpokora.home.views;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -14,7 +15,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.tpokora.home.views.HomeViewConstants.*;
-
 
 public class HomeViewControllerTest extends BaseViewTest {
 
@@ -38,6 +38,7 @@ public class HomeViewControllerTest extends BaseViewTest {
                 .andReturn();
     }
 
+    @Ignore
     @Test
     public void testHomePage() throws Exception {
         this.mockMvc.perform(get(HOME_VIEW_URL))
