@@ -9,7 +9,7 @@ import static org.tpokora.home.views.HomeViewConstants.*;
 @Controller
 public class HomeViewController {
 
-    @GetMapping(value = HOME_VIEW_URL, name = HOME_VIEW)
+    @GetMapping(value = { ROOT_URL, HOME_VIEW_URL }, name = HOME_VIEW)
     public String home(Model model) {
         return "home";
     }

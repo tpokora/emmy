@@ -31,19 +31,9 @@ public class HomeViewControllerTest extends BaseViewTest {
     // TODO: Fix tests
     @Test
     public void testLoginPage() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(get("/"))
+        MvcResult mvcResult = this.mockMvc.perform(get(LOGIN_VIEW_URL))
                 .andExpect(status().isOk())
                 .andExpect(view().name(LOGIN_VIEW))
-                .andDo(MockMvcResultHandlers.print())
-                .andReturn();
-    }
-
-    @Ignore
-    @Test
-    public void testHomePage() throws Exception {
-        this.mockMvc.perform(get(HOME_VIEW_URL))
-                .andExpect(status().isOk())
-                .andExpect(view().name(HOME_VIEW))
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
     }
