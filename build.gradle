@@ -58,8 +58,6 @@ dependencies {
     testImplementation 'junit:junit'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
-    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.11.0'
-    testImplementation group: 'com.google.guava', name: 'guava', version: '24.1-jre'
 
 }
 
