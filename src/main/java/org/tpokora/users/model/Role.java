@@ -1,7 +1,5 @@
 package org.tpokora.users.model;
 
-import org.tpokora.common.model.AbstractEntity;
-
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +15,10 @@ public class Role {
     private String name;
 
     public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 
     public Role(int id, String name) {

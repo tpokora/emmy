@@ -47,6 +47,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
+                <th scope="col">Roles</th>
             </tr>
             </thead>
             <tbody th:each="user : ${users}" th:remove="tag">
@@ -54,6 +55,7 @@
                 <th scope="row" th:text="${user.id}"/>
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.email}"></td>
+                <td th:text="${user.roles[0].name}"></td>
             </tr>
             </tbody>
         </table>
