@@ -9,4 +9,9 @@ public class WarningStrings {
     public final static String STORM = "Storm";
     public final static String WHIRLWIND = "Whirlwind";
     public final static String WARNINGS_DATE_FORMAT = "yyyy-MM-dd HH:mm";
+
+    /**
+     * Class is providing static constant strings for Warnings
+     */
+    private WarningStrings() {}
 }

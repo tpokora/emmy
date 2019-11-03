@@ -8,4 +8,9 @@ public class PasswordEncoderGenerator {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
     }
+
+    /**
+     * This is utility class
+     */
+    private PasswordEncoderGenerator() {}
 }
