@@ -11,12 +11,12 @@ public class HomeViewController {
 
     @GetMapping(value = { ROOT_URL, HOME_VIEW_URL }, name = HOME_VIEW)
     public String home(Model model) {
-        return "home";
+        return HOME_VIEW;
     }
 
     @GetMapping(value = LOGIN_VIEW_URL, name = LOGIN_VIEW)
     public String login(Model model) {
-        return "login";
+        return LOGIN_VIEW;
     }
 
 

@@ -38,7 +38,25 @@
 <!-- TODO: Fix issue with main element under nav bar -->
 <main role="main" class="container">
     <div class="jumbotron">
-        <h1>Users</h1>
+        <p>
+            <h2>Registered users:</h2>
+        </p>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+            </tr>
+            </thead>
+            <tbody th:each="user : ${users}" th:remove="tag">
+            <tr>
+                <th scope="row" th:text="${user.id}"/>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </main>
 </body>
