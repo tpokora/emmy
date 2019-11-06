@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.config.properties.NotificationProperties;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = { "org.tpokora" })
 @EnableScheduling
 @EnableConfigurationProperties({FirebaseProperties.class, NotificationProperties.class, StormProperties.class})
 public class Application extends SpringBootServletInitializer {
