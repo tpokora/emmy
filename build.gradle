@@ -28,8 +28,8 @@ repositories {
 }
 
 
-sourceCompatibility = 1.9
-targetCompatibility = 1.9
+sourceCompatibility = 11.0
+targetCompatibility = 11.0
 
 dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
