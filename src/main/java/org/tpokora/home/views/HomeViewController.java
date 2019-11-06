@@ -14,10 +14,4 @@ public class HomeViewController {
         return HOME_VIEW;
     }
 
-    @GetMapping(value = LOGIN_VIEW_URL, name = LOGIN_VIEW)
-    public String login(Model model) {
-        return LOGIN_VIEW;
-    }
-
-
 }
