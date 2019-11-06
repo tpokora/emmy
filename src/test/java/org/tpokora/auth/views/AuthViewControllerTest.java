@@ -1,7 +1,8 @@
-package org.tpokora.login.views;
+package org.tpokora.auth.views;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -14,16 +15,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW;
 import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW_URL;
 
-public class LoginViewControllerTest extends BaseViewTest {
+@ActiveProfiles(profiles = "test")
+public class AuthViewControllerTest extends BaseViewTest {
 
-    private LoginViewController loginViewController;
+    private AuthViewController authViewController;
 
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
-        this.loginViewController = new LoginViewController();
-        this.mockMvc = MockMvcBuilders.standaloneSetup(loginViewController).build();
+        this.authViewController = new AuthViewController();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(authViewController).build();
     }
 
     // @TODO fix tests
