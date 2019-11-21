@@ -1,7 +1,8 @@
 package org.tpokora.common.services;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PasswordEncoderGeneratorTest {
 
@@ -9,6 +10,6 @@ public class PasswordEncoderGeneratorTest {
     public void test_generateHash() {
         String password = "123456";
         String hashedPassword = PasswordEncoderGenerator.passwordEncoder(password);
-        Assert.assertEquals(60, hashedPassword.length());
+        assertEquals(60, hashedPassword.length());
     }
 }
