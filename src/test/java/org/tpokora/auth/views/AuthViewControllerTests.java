@@ -1,13 +1,15 @@
 package org.tpokora.auth.views;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.test.context.ActiveProfiles;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.tpokora.common.views.BaseViewTest;
+
+import javax.persistence.EntityManagerFactory;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -15,22 +17,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW;
 import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW_URL;
 
-@ActiveProfiles(profiles = "test")
-public class AuthViewControllerTest extends BaseViewTest {
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(AuthViewController.class)
+public class AuthViewControllerTests {
 
-    private AuthViewController authViewController;
+    @Autowired
+    protected EntityManagerFactory entityManagerFactory;
 
+    @Autowired
     private MockMvc mockMvc;
-
-    @Before
-    public void setup() {
-        this.authViewController = new AuthViewController();
-        this.mockMvc = MockMvcBuilders.standaloneSetup(authViewController).build();
-    }
 
     // @TODO fix tests
     @Test
-    public void testSignInPage() throws Exception {
+    void testSignInPage() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get(SIGNIN_VIEW_URL))
                 .andExpect(status().isOk())
                 .andExpect(view().name(SIGNIN_VIEW))
