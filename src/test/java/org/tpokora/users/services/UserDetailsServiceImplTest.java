@@ -1,9 +1,9 @@
 package org.tpokora.users.services;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
 
     private Role roleUser;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.roleUser = new Role("ROLE_USER");
         this.roleUser = this.rolesRepository.saveAndFlush(this.roleUser);
@@ -51,7 +51,7 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
 
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         this.userRepository.deleteAll();
         this.rolesRepository.deleteAll();
@@ -60,41 +60,41 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
     @Test
     public void testRolesRepositoryGetRoles() {
         List<Role> allRoles = this.rolesRepository.findAll();
-        Assert.assertFalse(allRoles.isEmpty());
+        Assertions.assertFalse(allRoles.isEmpty());
     }
 
     @Test
     public void testRolesRepositoryGetRoleByName() {
-        Assert.assertNotNull(this.rolesRepository.findByName(this.roleUser.getName()).get());
+        Assertions.assertNotNull(this.rolesRepository.findByName(this.roleUser.getName()).get());
     }
 
     @Test
     public void testUserRepositoryGetOne() {
         User checkUser = this.userRepository.getOne(userOne.getId());
-        Assert.assertEquals(userOne.getId(), checkUser.getId());
-        Assert.assertEquals(userOne.getUsername(), checkUser.getUsername());
-        Assert.assertEquals(userOne.getEmail(), checkUser.getEmail());
-        Assert.assertEquals(userOne.getRoles(), checkUser.getRoles());
-        Assert.assertEquals(userOne.getPassword(), checkUser.getPassword());
+        Assertions.assertEquals(userOne.getId(), checkUser.getId());
+        Assertions.assertEquals(userOne.getUsername(), checkUser.getUsername());
+        Assertions.assertEquals(userOne.getEmail(), checkUser.getEmail());
+        Assertions.assertEquals(userOne.getRoles(), checkUser.getRoles());
+        Assertions.assertEquals(userOne.getPassword(), checkUser.getPassword());
     }
 
     @Test
     public void testUserRepositoryFindAll() {
         List<User> allUsers = this.userRepository.findAll();
-        Assert.assertEquals(USERS_AMOUNT, allUsers.size());
+        Assertions.assertEquals(USERS_AMOUNT, allUsers.size());
     }
 
     @Test
     public void testUserDetailsServiceGetUserDetailByUsername() {
         UserDetails fetchedUserDetails = userDetailsService.loadUserByUsername(this.userOne.getUsername());
-        Assert.assertEquals(this.userOne.getUsername(), fetchedUserDetails.getUsername());
-        Assert.assertEquals(this.userOne.getPassword(), fetchedUserDetails.getPassword());
+        Assertions.assertEquals(this.userOne.getUsername(), fetchedUserDetails.getUsername());
+        Assertions.assertEquals(this.userOne.getPassword(), fetchedUserDetails.getPassword());
     }
 
     @Test
     public void testUserDetailsServiceGetAllUsers() {
         List<User> allUsers = this.userDetailsService.getAllUsers();
-        Assert.assertEquals(USERS_AMOUNT, allUsers.size());
+        Assertions.assertEquals(USERS_AMOUNT, allUsers.size());
     }
 
     @Test
@@ -103,12 +103,12 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
         String notHashedPassword = newUser.getPassword();
         User createdUser = this.userDetailsService.saveUser(newUser, this.roleUser.getName());
 
-        Assert.assertNotNull(createdUser.getId());
-        Assert.assertEquals(newUser.getUsername(), createdUser.getUsername());
-        Assert.assertEquals(newUser.getEmail(), createdUser.getEmail());
-        Assert.assertNotEquals(notHashedPassword, createdUser.getPassword());
-        Assert.assertNotNull(createdUser.getRoles());
-        Assert.assertNotNull(createdUser.getRoles().stream().filter(role -> this.roleUser.getName().equals(role.getName())).findFirst().get());
+        Assertions.assertNotNull(createdUser.getId());
+        Assertions.assertEquals(newUser.getUsername(), createdUser.getUsername());
+        Assertions.assertEquals(newUser.getEmail(), createdUser.getEmail());
+        Assertions.assertNotEquals(notHashedPassword, createdUser.getPassword());
+        Assertions.assertNotNull(createdUser.getRoles());
+        Assertions.assertNotNull(createdUser.getRoles().stream().filter(role -> this.roleUser.getName().equals(role.getName())).findFirst().get());
     }
 
     private User saveUser(User user) {
