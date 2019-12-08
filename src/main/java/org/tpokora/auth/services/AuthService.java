@@ -39,7 +39,7 @@ public class AuthService {
         return new UserDetailsImpl(newUser);
     }
 
-    public void loginUser(UserDetails userToLogin) {
+    private void loginUser(UserDetails userToLogin) {
         Authentication authentication = new UsernamePasswordAuthenticationToken(userToLogin, null, userToLogin.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
