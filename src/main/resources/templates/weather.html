@@ -39,26 +39,8 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <p>
-            <h2>Registered users:</h2>
+        <h2>Weather</h2>
         </p>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Roles</th>
-            </tr>
-            </thead>
-            <tbody th:each="user : ${users}" th:remove="tag">
-            <tr>
-                <th scope="row" th:text="${user.id}"/>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.roles[0].name}"></td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </main>
 </body>
