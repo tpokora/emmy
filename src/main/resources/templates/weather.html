@@ -41,6 +41,22 @@
         <p>
         <h2>Weather</h2>
         </p>
+        <hr />
+        <form class="form-inline" th:object="${city}" th:action="@{/weather/find-city}" method="post">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="name" class="sr-only">City</label>
+                <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="City name">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Find city</button>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="x" class="sr-only">X</label>
+                <input type="text" class="form-control" th:field="*{coordinates.x}" id="x" disabled />
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="y" class="sr-only">Y</label>
+                <input type="text" class="form-control" th:field="*{coordinates.y}" id="y" disabled />
+            </div>
+        </form>
     </div>
 </main>
 </body>
