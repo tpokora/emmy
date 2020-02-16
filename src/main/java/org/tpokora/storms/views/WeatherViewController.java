@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.tpokora.storms.model.City;
+import org.tpokora.storms.model.StormRequest;
+import org.tpokora.storms.model.StormResponse;
 import org.tpokora.storms.services.FindCityService;
+import org.tpokora.storms.services.FindStormService;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
@@ -16,22 +19,51 @@ import static org.tpokora.storms.views.WeatherViewConstants.*;
 @Controller
 public class WeatherViewController {
 
-    private FindCityService findCityService;
+    public static final String CITY = "city";
+    public static final String STORM_RESPONSE = "stormResponse";
+    public static final String STORM_REQUEST = "stormRequest";
 
-    public WeatherViewController(FindCityService findCityService) {
+    private FindCityService findCityService;
+    private FindStormService findStormService;
+
+    public WeatherViewController(FindCityService findCityService, FindStormService findStormService) {
         this.findCityService = findCityService;
+        this.findStormService = findStormService;
     }
 
     @GetMapping(value = WEATHER_VIEW_URL, name = WEATHER_VIEW)
     public String weather(Model model) {
-        model.addAttribute("city", new City());
+        initializeView(model);
         return WEATHER_VIEW;
     }
 
     @PostMapping(value = WEATHER_FIND_CITY_URL)
     public String findCity(Model model, @ModelAttribute City city) throws IOException, SOAPException {
+        initializeView(model);
         city = this.findCityService.handleResponse(this.findCityService.findCity(city.getName()));
-        model.addAttribute("city", city);
+        updateModelAttribute(model, CITY, city);
+        StormRequest stormRequest = new StormRequest();
+        stormRequest.setCoordinates(city.getCoordinates());
+        updateModelAttribute(model, STORM_REQUEST, stormRequest);
         return WEATHER_VIEW;
+    }
+
+    @PostMapping(value = WEATHER_FIND_STORM_URL)
+    public String findStorm(Model model, @ModelAttribute StormRequest stormRequest) throws IOException, SOAPException {
+        initializeView(model);
+        updateModelAttribute(model, STORM_REQUEST, stormRequest);
+        StormResponse stormResponse = this.findStormService.handleResponse(this.findStormService.checkStorm(stormRequest));
+        updateModelAttribute(model, STORM_RESPONSE, stormResponse);
+        return WEATHER_VIEW;
+    }
+
+    private void initializeView(Model model) {
+        model.addAttribute(CITY, new City());
+        model.addAttribute(STORM_REQUEST, new StormRequest());
+        model.addAttribute(STORM_RESPONSE, new StormResponse());
+    }
+
+    private void updateModelAttribute(Model model, String attributeName, Object object) {
+        model.asMap().put(attributeName, object);
     }
 }
