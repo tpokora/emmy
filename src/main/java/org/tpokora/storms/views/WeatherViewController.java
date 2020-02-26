@@ -58,6 +58,7 @@ public class WeatherViewController {
     public String findStorm(Model model, @ModelAttribute StormRequest stormRequest) throws IOException, SOAPException {
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
+        updateModelAttribute(model, COORDINATES, stormRequest.getCoordinates());
         StormResponse stormResponse = this.findStormService.handleResponse(this.findStormService.checkStorm(stormRequest));
         updateModelAttribute(model, STORM_RESPONSE, stormResponse);
         return WEATHER_VIEW;
