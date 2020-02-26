@@ -121,6 +121,37 @@
                 </div>
             </form>
         </div>
+        <hr />
+        <div>
+            <h3>Find weather warnings:</h3>
+            <form th:object="${coordinates}" th:action="@{/weather/find-warnings}" method="post">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="cityName" class="sr-only">Latitude</label>
+                        <input type="text" class="form-control" th:field="*{x}" id="warningsX">
+                        <small class="form-text text-muted">Latitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="cityName" class="sr-only">Longitude</label>
+                        <input type="text" class="form-control" th:field="*{y}" id="warningsY">
+                        <small class="form-text text-muted">Longitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Find warnings</button>
+                    </div>
+                </div>
+            </form>
+            <div th:if="${warnings.size() == 0}">
+                <p>No weather warnings</p>
+            </div>
+            <div th:unless="${warnings.size() == 0}">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="warning : ${warnings}">
+                        <span th:text="${warning.toString()}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </main>
 </body>

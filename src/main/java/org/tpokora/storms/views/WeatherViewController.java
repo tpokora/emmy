@@ -5,14 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.tpokora.storms.model.City;
-import org.tpokora.storms.model.StormRequest;
-import org.tpokora.storms.model.StormResponse;
+import org.tpokora.storms.model.*;
 import org.tpokora.storms.services.FindCityService;
 import org.tpokora.storms.services.FindStormService;
+import org.tpokora.storms.services.FindWarningService;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.tpokora.storms.views.WeatherViewConstants.*;
 
@@ -22,13 +23,17 @@ public class WeatherViewController {
     public static final String CITY = "city";
     public static final String STORM_RESPONSE = "stormResponse";
     public static final String STORM_REQUEST = "stormRequest";
+    public static final String COORDINATES = "coordinates";
+    public static final String WARNINGS = "warnings";
 
     private FindCityService findCityService;
     private FindStormService findStormService;
+    private FindWarningService findWarningService;
 
-    public WeatherViewController(FindCityService findCityService, FindStormService findStormService) {
+    public WeatherViewController(FindCityService findCityService, FindStormService findStormService, FindWarningService findWarningService) {
         this.findCityService = findCityService;
         this.findStormService = findStormService;
+        this.findWarningService = findWarningService;
     }
 
     @GetMapping(value = WEATHER_VIEW_URL, name = WEATHER_VIEW)
@@ -45,6 +50,7 @@ public class WeatherViewController {
         StormRequest stormRequest = new StormRequest();
         stormRequest.setCoordinates(city.getCoordinates());
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
+        updateModelAttribute(model, COORDINATES, city.getCoordinates());
         return WEATHER_VIEW;
     }
 
@@ -57,10 +63,21 @@ public class WeatherViewController {
         return WEATHER_VIEW;
     }
 
+    @PostMapping(value = WEATHER_FIND_WARNINGS_URL)
+    public String findWarnings(Model model, @ModelAttribute Coordinates coordinates) throws IOException, SOAPException {
+        initializeView(model);
+        updateModelAttribute(model, COORDINATES, coordinates);
+        Set<Warning> warnings = this.findWarningService.handleResponse(this.findWarningService.findWarning(coordinates));
+        updateModelAttribute(model, WARNINGS, warnings);
+        return WEATHER_VIEW;
+    }
+
     private void initializeView(Model model) {
         model.addAttribute(CITY, new City());
         model.addAttribute(STORM_REQUEST, new StormRequest());
         model.addAttribute(STORM_RESPONSE, new StormResponse());
+        model.addAttribute(COORDINATES, new Coordinates());
+        model.addAttribute(WARNINGS, new HashSet<Warning>());
     }
 
     private void updateModelAttribute(Model model, String attributeName, Object object) {
