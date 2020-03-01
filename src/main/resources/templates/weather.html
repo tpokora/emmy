@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/home.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">EmmyApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="#" tabindex="-1">Configuration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" th:href="@{/users}">Users <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/weather}" tabindex="-1">Weather</a>
+            </li>
+        </ul>
+        <form id="logout-form" class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post"
+              th:fragment="logout" sec:authorize="isAuthenticated()">
+            <span class="mr-sm-2">Logged as: <span sec:authentication="name"></span></span>
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+<!-- TODO: Fix issue with main element under nav bar -->
+<main role="main" class="container">
+    <div class="jumbotron">
+        <p>
+        <h1>Weather</h1>
+        <div th:if="${error != ''}">
+            <div th:text="${error}" class="alert alert-danger" role="alert"></div>
+        </div>
+        </p>
+        <hr/>
+        <div>
+            <h3>Find City</h3>
+            <form th:object="${city}" th:action="@{/weather/find-city}" method="post">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="cityName" class="sr-only">City</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="cityName" placeholder="City name">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Find city</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="x" class="sr-only">X</label>
+                        <input type="text" class="form-control" th:field="*{coordinates.x}" id="x" readonly/>
+                        <small class="form-text text-muted">Latitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="y" class="sr-only">Y</label>
+                        <input type="text" class="form-control" th:field="*{coordinates.y}" id="y" readonly/>
+                        <small class="form-text text-muted">Longitude</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr />
+        <div>
+            <h3>Find Storm</h3>
+            <form th:object="${stormRequest}" th:action="@{/weather/find-storm}" method="post">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="stormX" class="sr-only">X</label>
+                        <input type="text" class="form-control" th:field="*{coordinates.x}" id="stormX" />
+                        <small class="form-text text-muted">Latitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="stormY" class="sr-only">Y</label>
+                        <input type="text" class="form-control" th:field="*{coordinates.y}" id="stormY" />
+                        <small class="form-text text-muted">Longitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="distance" class="sr-only">Distance</label>
+                        <input type="text" class="form-control" th:field="*{distance}" id="distance" placeholder="Distance in km">
+                        <small class="form-text text-muted">Distance in km</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="distance" class="sr-only">Distance</label>
+                        <input type="text" class="form-control" th:field="*{time}" id="time" placeholder="Time in minutes">
+                        <small class="form-text text-muted">Time in minutes</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Find storm</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="x" class="sr-only">Amount</label>
+                        <input type="text" class="form-control" th:field="${stormResponse.amount}" id="amount" readonly/>
+                        <small id="amountHelp" class="form-text text-muted">Lightening amount</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="x" class="sr-only">Distance</label>
+                        <input type="text" class="form-control" th:field="${stormResponse.distance}" id="responseDistance" readonly/>
+                        <small class="form-text text-muted">Distance in km</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="x" class="sr-only">Direction</label>
+                        <input type="text" class="form-control" th:field="${stormResponse.direction}" id="direction" readonly/>
+                        <small id="directionHelp" class="form-text text-muted">Direction storm is moving</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="x" class="sr-only">Time</label>
+                        <input type="text" class="form-control" th:field="${stormResponse.time}" id="responseTime" readonly/>
+                        <small class="form-text text-muted">Time in minutes</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr />
+        <div>
+            <h3>Find weather warnings:</h3>
+            <form th:object="${coordinates}" th:action="@{/weather/find-warnings}" method="post">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="cityName" class="sr-only">Latitude</label>
+                        <input type="text" class="form-control" th:field="*{x}" id="warningsX">
+                        <small class="form-text text-muted">Latitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="cityName" class="sr-only">Longitude</label>
+                        <input type="text" class="form-control" th:field="*{y}" id="warningsY">
+                        <small class="form-text text-muted">Longitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Find warnings</button>
+                    </div>
+                </div>
+            </form>
+            <div th:if="${warnings.size() != 0}">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="warning : ${warnings}">
+                        <span th:text="${warning.toString()}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
