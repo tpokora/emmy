@@ -39,7 +39,10 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <p>
-        <h2>Weather</h2>
+        <h1>Weather</h1>
+        <div th:if="${error != ''}">
+            <div th:text="${error}" class="alert alert-danger" role="alert"></div>
+        </div>
         </p>
         <hr/>
         <div>
@@ -141,10 +144,7 @@
                     </div>
                 </div>
             </form>
-            <div th:if="${warnings.size() == 0}">
-                <p>No weather warnings</p>
-            </div>
-            <div th:unless="${warnings.size() == 0}">
+            <div th:if="${warnings.size() != 0}">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" th:each="warning : ${warnings}">
                         <span th:text="${warning.toString()}"></span>

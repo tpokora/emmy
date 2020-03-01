@@ -25,6 +25,7 @@ public class WeatherViewController {
     public static final String STORM_REQUEST = "stormRequest";
     public static final String COORDINATES = "coordinates";
     public static final String WARNINGS = "warnings";
+    public static final String ERROR = "error";
 
     private FindCityService findCityService;
     private FindStormService findStormService;
@@ -46,6 +47,10 @@ public class WeatherViewController {
     public String findCity(Model model, @ModelAttribute City city) throws IOException, SOAPException {
         initializeView(model);
         city = this.findCityService.handleResponse(this.findCityService.findCity(city.getName()));
+        if (city.getCoordinates().getY().equals(0.0) && city.getCoordinates().getX().equals(0.0)) {
+            setError(model, WeatherViewError.CITY_NOT_FOUND.getErrorMsg());
+            return WEATHER_VIEW;
+        }
         updateModelAttribute(model, CITY, city);
         StormRequest stormRequest = new StormRequest();
         stormRequest.setCoordinates(city.getCoordinates());
@@ -60,6 +65,10 @@ public class WeatherViewController {
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, stormRequest.getCoordinates());
         StormResponse stormResponse = this.findStormService.handleResponse(this.findStormService.checkStorm(stormRequest));
+        if (stormResponse.getAmount() == 0) {
+            setError(model, WeatherViewError.NO_STORMS.getErrorMsg());
+            return WEATHER_VIEW;
+        }
         updateModelAttribute(model, STORM_RESPONSE, stormResponse);
         return WEATHER_VIEW;
     }
@@ -69,11 +78,16 @@ public class WeatherViewController {
         initializeView(model);
         updateModelAttribute(model, COORDINATES, coordinates);
         Set<Warning> warnings = this.findWarningService.handleResponse(this.findWarningService.findWarning(coordinates));
+        if (warnings.size() == 0) {
+            setError(model, WeatherViewError.NO_WARNINGS.getErrorMsg());
+            return WEATHER_VIEW;
+        }
         updateModelAttribute(model, WARNINGS, warnings);
         return WEATHER_VIEW;
     }
 
     private void initializeView(Model model) {
+        model.addAttribute(ERROR, "");
         model.addAttribute(CITY, new City());
         model.addAttribute(STORM_REQUEST, new StormRequest());
         model.addAttribute(STORM_RESPONSE, new StormResponse());
@@ -83,5 +97,26 @@ public class WeatherViewController {
 
     private void updateModelAttribute(Model model, String attributeName, Object object) {
         model.asMap().put(attributeName, object);
+    }
+
+    private void setError(Model model, Object object) {
+        updateModelAttribute(model, ERROR, object);
+    }
+
+    public enum WeatherViewError {
+
+        CITY_NOT_FOUND("City not found"),
+        NO_STORMS("No storms found"),
+        NO_WARNINGS("No weather warnings");
+
+        WeatherViewError(String errorMsg) {
+            this.errorMsg = errorMsg;
+        }
+
+        private String errorMsg;
+
+        public String getErrorMsg() {
+            return this.errorMsg;
+        }
     }
 }
