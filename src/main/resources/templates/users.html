@@ -45,7 +45,7 @@
             <h2>Registered users:</h2>
             <input class="form-control" id="filterInput" type="text" placeholder="Search..">
         </p>
-        <table id="usersTable" class="table">
+        <table id="usersTable" class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -60,6 +60,24 @@
                 <td th:text="${user.username}"></td>
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.roles[0].name}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr/>
+        <p>
+            <h2>Roles</h2>
+        </p>
+        <table id="rolessTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Role</th>
+            </tr>
+            </thead>
+            <tbody th:each="role : ${roles}" th:remove="tag">
+            <tr>
+                <th scope="row" th:text="${role.id}"/>
+                <td th:text="${role.name}"></td>
             </tr>
             </tbody>
         </table>

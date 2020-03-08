@@ -51,4 +51,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         newUser = userRepository.saveAndFlush(newUser);
         return newUser;
     }
+
+    public List<Role> getAllRoles() {
+        List<Role> roleList = this.rolesRepository.findAll();
+        return roleList;
+    }
 }
