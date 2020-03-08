@@ -5,6 +5,9 @@
     <title>Home</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/home.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -40,8 +43,9 @@
     <div class="jumbotron">
         <p>
             <h2>Registered users:</h2>
+            <input class="form-control" id="filterInput" type="text" placeholder="Search..">
         </p>
-        <table class="table">
+        <table id="usersTable" class="table">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -61,5 +65,17 @@
         </table>
     </div>
 </main>
+
+<script>
+$(document).ready(function(){
+  $("#filterInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#usersTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
 </body>
 </html>
