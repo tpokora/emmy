@@ -10,8 +10,8 @@ import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
 
+import static org.tpokora.auth.AuthConstatns.SIGNIN_VIEW_TEMPLATE;
 import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
-import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW;
 
 @Service
 public class AuthService {
@@ -24,7 +24,7 @@ public class AuthService {
 
     public String signinView(Model model) {
         model.addAttribute("user", new User());
-        return SIGNIN_VIEW;
+        return SIGNIN_VIEW_TEMPLATE;
     }
 
     public String registerNewUserView(User user) {

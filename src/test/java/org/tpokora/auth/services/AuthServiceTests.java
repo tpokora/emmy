@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Spy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,15 +14,10 @@ import org.springframework.ui.Model;
 import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.users.dao.RolesRepository;
 import org.tpokora.users.dao.UserRepository;
-import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
-import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
 
-import java.util.Optional;
-
-import static org.mockito.Mockito.when;
-import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW;
+import static org.tpokora.auth.AuthConstatns.SIGNIN_VIEW_TEMPLATE;
 import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
 
 public class AuthServiceTests extends BaseServiceTest {
@@ -59,7 +53,7 @@ public class AuthServiceTests extends BaseServiceTest {
 
     @Test
     public void testAuthServiceSinginView() {
-        Assertions.assertEquals(SIGNIN_VIEW, this.authService.signinView(this.model));
+        Assertions.assertEquals(SIGNIN_VIEW_TEMPLATE, this.authService.signinView(this.model));
     }
 
     @Disabled("Mock AuthService.createNewUser method")

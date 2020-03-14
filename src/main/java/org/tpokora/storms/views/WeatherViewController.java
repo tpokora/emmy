@@ -40,7 +40,7 @@ public class WeatherViewController {
     @GetMapping(value = WEATHER_VIEW_URL, name = WEATHER_VIEW)
     public String weather(Model model) {
         initializeView(model);
-        return WEATHER_VIEW;
+        return WEATHER_VIEW_TEMPLATE;
     }
 
     @PostMapping(value = WEATHER_FIND_CITY_URL)
@@ -49,14 +49,14 @@ public class WeatherViewController {
         city = this.findCityService.handleResponse(this.findCityService.findCity(city.getName()));
         if (city.getCoordinates().getY().equals(0.0) && city.getCoordinates().getX().equals(0.0)) {
             setError(model, WeatherViewError.CITY_NOT_FOUND.getErrorMsg());
-            return WEATHER_VIEW;
+            return WEATHER_VIEW_TEMPLATE;
         }
         updateModelAttribute(model, CITY, city);
         StormRequest stormRequest = new StormRequest();
         stormRequest.setCoordinates(city.getCoordinates());
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, city.getCoordinates());
-        return WEATHER_VIEW;
+        return WEATHER_VIEW_TEMPLATE;
     }
 
     @PostMapping(value = WEATHER_FIND_STORM_URL)
@@ -67,10 +67,10 @@ public class WeatherViewController {
         StormResponse stormResponse = this.findStormService.handleResponse(this.findStormService.checkStorm(stormRequest));
         if (stormResponse.getAmount() == 0) {
             setError(model, WeatherViewError.NO_STORMS.getErrorMsg());
-            return WEATHER_VIEW;
+            return WEATHER_VIEW_TEMPLATE;
         }
         updateModelAttribute(model, STORM_RESPONSE, stormResponse);
-        return WEATHER_VIEW;
+        return WEATHER_VIEW_TEMPLATE;
     }
 
     @PostMapping(value = WEATHER_FIND_WARNINGS_URL)
@@ -80,10 +80,10 @@ public class WeatherViewController {
         Set<Warning> warnings = this.findWarningService.handleResponse(this.findWarningService.findWarning(coordinates));
         if (warnings.size() == 0) {
             setError(model, WeatherViewError.NO_WARNINGS.getErrorMsg());
-            return WEATHER_VIEW;
+            return WEATHER_VIEW_TEMPLATE;
         }
         updateModelAttribute(model, WARNINGS, warnings);
-        return WEATHER_VIEW;
+        return WEATHER_VIEW_TEMPLATE;
     }
 
     private void initializeView(Model model) {

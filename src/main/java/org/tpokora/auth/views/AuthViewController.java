@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.tpokora.auth.services.AuthService;
 import org.tpokora.users.model.User;
 
-import static org.tpokora.home.views.HomeViewConstants.*;
-import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW;
-import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW_URL;
+import static org.tpokora.auth.AuthConstatns.*;
 
 @Controller
 public class AuthViewController {
@@ -21,7 +19,7 @@ public class AuthViewController {
 
     @GetMapping(value = LOGIN_VIEW_URL, name = LOGIN_VIEW)
     public String login(Model model) {
-        return LOGIN_VIEW;
+        return LOGIN_VIEW_TEMPLATE;
     }
 
     @GetMapping(value = SIGNIN_VIEW_URL, name = SIGNIN_VIEW)
