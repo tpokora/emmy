@@ -3,11 +3,17 @@ package org.tpokora.auth.views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.tpokora.auth.services.AuthService;
+import org.tpokora.auth.views.forms.UserForm;
 import org.tpokora.users.model.User;
+
+import javax.validation.Valid;
 
 import static org.tpokora.auth.AuthConstatns.*;
 
@@ -28,7 +34,16 @@ public class AuthViewController {
     }
 
     @PostMapping(value = "add-user")
-    public String addUser(@ModelAttribute User user) {
-        return authService.registerNewUserView(user);
+    public String addUser(@Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(error -> addFormError(model, error));
+            return authService.signinView(model);
+        }
+        return authService.registerNewUserView(User.valueOf(userForm));
+    }
+
+    private void addFormError(Model model, ObjectError error) {
+        error.getDefaultMessage();
+        model.addAttribute(error.getCodes()[1].substring(5) + "Error", error.getDefaultMessage());
     }
 }
