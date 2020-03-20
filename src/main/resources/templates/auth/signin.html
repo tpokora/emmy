@@ -7,13 +7,22 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/login.css}"/>
 </head>
 <form class="form-signin" th:action="@{/add-user}" th:object="${user}" method="post">
-    <h1 class="h3 mb-3 font-weight-normal">Sign in:</h1>
-    <input type="text" th:field="*{username}" name="username" class="form-control" placeholder="Username" required autofocus/>
-    <small th:if="${usernameError != null}" th:text="${usernameError}" class="form-text text-muted">Bad username</small>
-    <input type="password" th:field="*{password}" name="password" class="form-control" placeholder="Password" required/>
-    <small th:if="${passwordError != null}" th:text="${passwordError}" class="form-text text-muted">Bad password</small>
-    <input type="email" th:field="*{email}" name="email" class="form-control" placeholder="Email" required>
-    <small th:if="${emailError}" th:text="${emailError}" class="form-text text-muted">Bad email</small>
+    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+    <div class="form-group">
+        <label for="usernameInput">Username</label>
+        <input type="text" th:field="*{username}" id="usernameInput" class="form-control" placeholder="Enter username" required autofocus/>
+        <small th:if="${usernameError != null}" th:text="${usernameError}" class="form-text text-danger">Bad username</small>
+    </div>
+    <div class="form-group">
+        <label for="passwordInput">Password</label>
+        <input type="password" th:field="*{password}" id="passwordInput" class="form-control" placeholder="Password" required/>
+        <small th:if="${passwordError != null}" th:text="${passwordError}" class="form-text text-danger"></small>
+    </div>
+    <div class="form-group">
+        <label for="emailInput">Email</label>
+        <input type="email" th:field="*{email}" id="emailInput" class="form-control" placeholder="Enter email" required>
+        <small th:if="${emailError}" th:text="${emailError}" class="form-text text-danger"></small>
+    </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
 </body>

@@ -6,14 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.tpokora.auth.services.AuthService;
 import org.tpokora.auth.views.forms.UserForm;
+import org.tpokora.common.utils.StringUtils;
 import org.tpokora.users.model.User;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 import static org.tpokora.auth.AuthConstatns.*;
 
@@ -43,7 +44,12 @@ public class AuthViewController {
     }
 
     private void addFormError(Model model, ObjectError error) {
+        Objects.requireNonNull(error, "Error is null!");
         error.getDefaultMessage();
-        model.addAttribute(error.getCodes()[1].substring(5) + "Error", error.getDefaultMessage());
+        model.addAttribute(formatErrorName(error.getCodes()[1].substring(5)), StringUtils.makeFirstLetterUpperCase(error.getDefaultMessage()));
+    }
+
+    private String formatErrorName(String errorName) {
+        return errorName + "Error";
     }
 }
