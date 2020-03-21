@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.tpokora.auth.services.AuthService;
 import org.tpokora.auth.views.forms.UserForm;
 import org.tpokora.common.utils.StringUtils;
@@ -20,6 +19,11 @@ import static org.tpokora.auth.AuthConstatns.*;
 
 @Controller
 public class AuthViewController {
+
+    public static final String USERNAME_ERROR = "usernameError";
+    public static final String USER_ALREADY_EXISTS = "User already exists!";
+    public static final String EMAIL_ALREADY_EXISTS = "Email already exists!";
+    public static final String EMAIL_ERROR = "emailError";
 
     @Autowired
     private AuthService authService;
@@ -35,18 +39,48 @@ public class AuthViewController {
     }
 
     @PostMapping(value = "add-user")
-    public String addUser(@Valid UserForm userForm, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+    public String addUser(@Valid UserForm userForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> addFormError(model, error));
             return authService.signinView(model);
         }
+        if(checkForUser(userForm.getUsername(), model)) {
+            return authService.signinView(model);
+        }
+        if (checkForEmail(userForm.getEmail(), model)) {
+            return authService.signinView(model);
+        }
+
         return authService.registerNewUserView(User.valueOf(userForm));
+    }
+
+    private boolean checkForEmail(String email, Model model) {
+        if (authService.checkIfEmailExists(email)) {
+            addFormError(model, EMAIL_ERROR, EMAIL_ALREADY_EXISTS);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean checkForUser(String username, Model model) {
+        if (authService.checkIfUserExists(username)) {
+            addFormError(model, USERNAME_ERROR, USER_ALREADY_EXISTS);
+            return true;
+        }
+
+        return false;
     }
 
     private void addFormError(Model model, ObjectError error) {
         Objects.requireNonNull(error, "Error is null!");
-        error.getDefaultMessage();
-        model.addAttribute(formatErrorName(error.getCodes()[1].substring(5)), StringUtils.makeFirstLetterUpperCase(error.getDefaultMessage()));
+        addFormError(model, formatErrorName(error.getCodes()[1].substring(5)), StringUtils.makeFirstLetterUpperCase(error.getDefaultMessage()));
+    }
+
+    private void addFormError(Model model, String errorName, String errorString) {
+        Objects.requireNonNull(errorName, "Error name is null!");
+        Objects.requireNonNull(errorString, "Error message is null!");
+        model.addAttribute(errorName, errorString);
     }
 
     private String formatErrorName(String errorName) {

@@ -37,6 +37,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .map(UserDetailsImpl::new).get();
     }
 
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        return Optional.ofNullable(optionalUser).orElseThrow(()->new UsernameNotFoundException("Username Not Found"))
+                .map(UserDetailsImpl::new).get();
+    }
+
     public List<User> getAllUsers() {
         List<User> userList = this.userRepository.findAll();
         return userList;

@@ -4,11 +4,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
+
+import java.util.NoSuchElementException;
 
 import static org.tpokora.auth.AuthConstatns.SIGNIN_VIEW_TEMPLATE;
 import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
@@ -37,6 +40,24 @@ public class AuthService {
         newUser = new User(newUser.getUsername(), newUser.getPassword(), newUser.getEmail());
         newUser = userDetailsService.saveUser(newUser, "USER");
         return new UserDetailsImpl(newUser);
+    }
+
+    public boolean checkIfUserExists(String username) {
+        try {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            return true;
+        } catch (NoSuchElementException | UsernameNotFoundException e) {
+            return false;
+        }
+    }
+
+    public boolean checkIfEmailExists(String email) {
+        try {
+            UserDetails userDetails = userDetailsService.loadUserByEmail(email);
+            return true;
+        } catch (NoSuchElementException | UsernameNotFoundException e) {
+            return false;
+        }
     }
 
     private void loginUser(UserDetails userToLogin) {
