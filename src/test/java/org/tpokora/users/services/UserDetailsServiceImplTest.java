@@ -111,6 +111,11 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
         Assertions.assertNotNull(createdUser.getRoles().stream().filter(role -> this.roleUser.getName().equals(role.getName())).findFirst().get());
     }
 
+    @Test
+    public void testGetAllRoles() {
+        Assertions.assertEquals(this.rolesRepository.findAll().size(), this.userDetailsService.getAllRoles().size());
+    }
+
     private User saveUser(User user) {
         return this.userRepository.saveAndFlush(user);
     }
