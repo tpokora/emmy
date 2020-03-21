@@ -42,4 +42,16 @@ public class UserTests {
 
         Assertions.assertEquals(expectedString, user.toString());
     }
+
+    @Test
+    public void testRoleToString() {
+        int id = 1;
+        String testName = "testRole";
+        Role role = new Role(testName);
+        role.setId(id);
+
+        String expectedString = String.format("Role{id=%d, name='%s'}", id, testName);
+
+        Assertions.assertEquals(expectedString, role.toString());
+    }
 }
