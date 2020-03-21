@@ -45,7 +45,7 @@ public class UserForm {
 
     public String toString() {
         return "UserForm{" +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';

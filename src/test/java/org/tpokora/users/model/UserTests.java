@@ -7,7 +7,7 @@ import org.tpokora.auth.views.forms.UserForm;
 public class UserTests {
 
     @Test
-    public void userValueOfUserForm() {
+    public void testUserValueOfUserForm() {
         UserForm userForm = new UserForm();
         userForm.setUsername("testUser");
         userForm.setPassword("testPassword");
@@ -21,9 +21,25 @@ public class UserTests {
     }
 
     @Test
-    public void userValueOfUserFormIsNull() {
+    public void testUserValueOfUserFormIsNull() {
         Assertions.assertThrows(NullPointerException.class, () -> {
             User.valueOf(null);
         });
+    }
+
+    @Test
+    public void testUserToString() {
+        int id = 1;
+        String testUser = "testUser";
+        String testEmail = "testEmail@email.com";
+        String testPassword = "testPassword";
+
+        String expectedString = String.format("User{id=%d, username='%s', password='%s', email='%s', roles=null}",
+                id, testUser, testPassword, testEmail);
+
+        User user = new User(testUser, testPassword, testEmail);
+        user.setId(id);
+
+        Assertions.assertEquals(expectedString, user.toString());
     }
 }
