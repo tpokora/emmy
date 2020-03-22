@@ -42,24 +42,22 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <p>
-            <h2>Registered users:</h2>
-            <input class="form-control" id="filterInput" type="text" placeholder="Search..">
+        <h2>Roles:</h2>
+        <input class="form-control" id="filterInput" type="text" placeholder="Search..">
         </p>
-        <table id="usersTable" class="table table-striped">
+        <h2>Roles</h2>
+        </p>
+        <table id="rolesTable" class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Roles</th>
+                <th scope="col">Role</th>
             </tr>
             </thead>
-            <tbody th:each="user : ${users}" th:remove="tag">
+            <tbody th:each="role : ${roles}" th:remove="tag">
             <tr>
-                <th scope="row" th:text="${user.id}"/>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.roles[0].name}"></td>
+                <th scope="row" th:text="${role.id}"/>
+                <td th:text="${role.name}"></td>
             </tr>
             </tbody>
         </table>
@@ -70,7 +68,7 @@
 $(document).ready(function(){
   $("#filterInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#usersTable tr").filter(function() {
+    $("#rolesTable tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });

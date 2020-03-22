@@ -1,8 +1,9 @@
-package org.tpokora.auth.views;
+package org.tpokora.users.views;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.tpokora.auth.views.forms.UserForm;
+import org.tpokora.users.views.forms.RoleForm;
 
 public class UserFormTests {
 
@@ -20,5 +21,15 @@ public class UserFormTests {
         String expectedString = String.format("UserForm{username='%s', password='%s', email='%s'}",
                 testUser, testPassword, testEmail);
         Assertions.assertEquals(expectedString, userForm.toString());
+    }
+
+    @Test
+    public void testRoleFormToString() {
+        String testName = "testRole";
+
+        RoleForm roleForm = new RoleForm(testName);
+
+        String expectedString = String.format("RoleForm{name='%s'}", testName);
+        Assertions.assertEquals(expectedString, roleForm.toString());
     }
 }
