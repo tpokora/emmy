@@ -11,6 +11,7 @@ import org.tpokora.auth.services.AuthService;
 import org.tpokora.auth.views.forms.UserForm;
 import org.tpokora.common.utils.StringUtils;
 import org.tpokora.users.model.User;
+import org.tpokora.users.views.forms.RoleForm;
 
 import javax.validation.Valid;
 import java.util.Objects;
@@ -52,6 +53,17 @@ public class AuthViewController {
         }
 
         return authService.registerNewUserView(User.valueOf(userForm));
+    }
+
+    @PostMapping(value = "add-role")
+    public String addUser(@Valid RoleForm roleForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(error -> addFormError(model, error));
+            return authService.rolesView(model);
+        }
+
+        // TODO: TEMPORARY DO NOTHING
+        return authService.rolesView(model);
     }
 
     private boolean checkForEmail(String email, Model model) {

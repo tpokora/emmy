@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
 import org.tpokora.users.services.UserDetailsServiceImpl;
+import org.tpokora.users.views.forms.RoleForm;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,7 @@ public class UsersViewController {
     public String roles(Model model) {
         Optional<List<Role>> allRoles = Optional.of(userDetailsService.getAllRoles());
         model.addAttribute("roles", allRoles.get());
+        model.addAttribute("roleForm", new RoleForm());
         return  ROLES_VIEW_TEMPLATE;
     }
 }

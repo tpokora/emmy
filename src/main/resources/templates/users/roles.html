@@ -46,6 +46,18 @@
         </p>
         <p>
         <h2>Roles:</h2>
+        <form class="form-inline" th:action="@{/add-role}" th:object="${roleForm}" method="post">
+            <div class="form-group mb-2">
+                <label for="roleNameInput" class="sr-only">Password</label>
+                <input type="text" th:field="*{name}" id="roleNameInput" class="form-control"
+                       placeholder="Enter rolename" required autofocus/>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Create Role</button>
+            <div class="form-group mb-2">
+                <small th:if="${nameError != null}" th:text="${nameError}" class="form-text text-danger">Bad role
+                    name</small>
+            </div>
+        </form>
         <input class="form-control" id="filterInput" type="text" placeholder="Search..">
         </p>
         <h2>Roles</h2>
@@ -76,6 +88,7 @@ $(document).ready(function(){
     });
   });
 });
+
 
 
 </script>

@@ -7,14 +7,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
+import org.tpokora.users.views.forms.RoleForm;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.tpokora.auth.AuthConstatns.SIGNIN_VIEW_TEMPLATE;
 import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
+import static org.tpokora.users.views.UsersViewConstants.ROLES_VIEW_TEMPLATE;
 
 @Service
 public class AuthService {
@@ -28,6 +33,13 @@ public class AuthService {
     public String signinView(Model model) {
         model.addAttribute("user", new User());
         return SIGNIN_VIEW_TEMPLATE;
+    }
+
+    public String rolesView(Model model) {
+        Optional<List<Role>> allRoles = Optional.of(userDetailsService.getAllRoles());
+        model.addAttribute("roles", allRoles.get());
+        model.addAttribute("roleForm", new RoleForm());
+        return ROLES_VIEW_TEMPLATE;
     }
 
     public String registerNewUserView(User user) {
