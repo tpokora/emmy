@@ -41,9 +41,12 @@
 <!-- TODO: Fix issue with main element under nav bar -->
 <main role="main" class="container">
     <div class="jumbotron">
+        <p sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/users/roles?admin}" tabindex="-1">Roles</a>
+        </p>
         <p>
-            <h2>Registered users:</h2>
-            <input class="form-control" id="filterInput" type="text" placeholder="Search..">
+        <h2>Registered users:</h2>
+        <input class="form-control" id="filterInput" type="text" placeholder="Search..">
         </p>
         <table id="usersTable" class="table table-striped">
             <thead>
@@ -75,6 +78,7 @@ $(document).ready(function(){
     });
   });
 });
+
 </script>
 
 </body>

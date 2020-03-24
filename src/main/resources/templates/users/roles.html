@@ -42,6 +42,9 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <p>
+            <a class="nav-link" th:href="@{/users}" tabindex="-1">Back to Users</a>
+        </p>
+        <p>
         <h2>Roles:</h2>
         <input class="form-control" id="filterInput" type="text" placeholder="Search..">
         </p>
@@ -73,6 +76,8 @@ $(document).ready(function(){
     });
   });
 });
+
+
 </script>
 
 </body>
