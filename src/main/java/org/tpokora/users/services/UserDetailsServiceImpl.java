@@ -12,6 +12,9 @@ import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
@@ -61,5 +64,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public List<Role> getAllRoles() {
         List<Role> roleList = this.rolesRepository.findAll();
         return roleList;
+    }
+
+    public Role getRole(String name) {
+        Optional<Role> role = this.rolesRepository.findByName(name);
+        return  Optional.ofNullable(role).orElseThrow(()->new EntityNotFoundException("Role Not Found"))
+                .map(Role::new).get();
+    }
+
+    public Role createRole(Role role) {
+        return this.rolesRepository.save(role);
     }
 }

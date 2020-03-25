@@ -7,23 +7,23 @@ public class RoleForm {
 
     @NotNull
     @Size(min=3, max=10)
-    private String name;
+    private String roleName;
 
     public RoleForm() { }
 
-    public RoleForm(String name) {
-        this.name = name;
+    public RoleForm(String roleName) {
+        this.roleName = roleName;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public String toString() {
-        return String.format("RoleForm{name='%s'}", this.name);
+        return String.format("RoleForm{roleName='%s'}", this.roleName);
     }
 }

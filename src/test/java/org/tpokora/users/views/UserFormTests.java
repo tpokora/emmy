@@ -29,7 +29,7 @@ public class UserFormTests {
 
         RoleForm roleForm = new RoleForm(testName);
 
-        String expectedString = String.format("RoleForm{name='%s'}", testName);
+        String expectedString = String.format("RoleForm{roleName='%s'}", testName);
         Assertions.assertEquals(expectedString, roleForm.toString());
     }
 }

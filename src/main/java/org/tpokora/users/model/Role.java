@@ -1,6 +1,9 @@
 package org.tpokora.users.model;
 
+import org.tpokora.users.views.forms.RoleForm;
+
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -30,6 +33,12 @@ public class Role {
         this.name = name;
     }
 
+    public Role(Role role) {
+        this.id = role.id;
+        this.name = role.name;
+        this.users = role.users;
+    }
+
     public int getId() {
         return id;
     }
@@ -52,6 +61,17 @@ public class Role {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public static Role valueOf(RoleForm roleForm) {
+        Objects.requireNonNull(roleForm, "RoleForm is null!");
+        return valueOf(roleForm.getRoleName());
+    }
+
+    public static Role valueOf(String roleName) {
+        Objects.requireNonNull(roleName, "roleName is null!");
+        Role role = new Role(roleName);
+        return role;
     }
 
     @Override

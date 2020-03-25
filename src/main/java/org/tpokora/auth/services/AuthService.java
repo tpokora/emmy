@@ -13,6 +13,7 @@ import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
 import org.tpokora.users.views.forms.RoleForm;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -70,6 +71,19 @@ public class AuthService {
         } catch (NoSuchElementException | UsernameNotFoundException e) {
             return false;
         }
+    }
+
+    public boolean checkIfRoleExists(String roleName) {
+        try {
+            Role role = userDetailsService.getRole(roleName);
+            return true;
+        } catch (NoSuchElementException | EntityNotFoundException e) {
+            return false;
+        }
+    }
+
+    public Role createRole(Role role) {
+        return userDetailsService.createRole(role);
     }
 
     private void loginUser(UserDetails userToLogin) {

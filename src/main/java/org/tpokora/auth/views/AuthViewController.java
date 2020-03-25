@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.tpokora.auth.services.AuthService;
 import org.tpokora.auth.views.forms.UserForm;
 import org.tpokora.common.utils.StringUtils;
+import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
 import org.tpokora.users.views.forms.RoleForm;
 
@@ -25,6 +26,8 @@ public class AuthViewController {
     public static final String USER_ALREADY_EXISTS = "User already exists!";
     public static final String EMAIL_ALREADY_EXISTS = "Email already exists!";
     public static final String EMAIL_ERROR = "emailError";
+    public static final String ROLNAME_ERROR = "roleNameError";
+    public static final String ROLNAME_ALREADY_EXISTS = "Role already exists!";
 
     @Autowired
     private AuthService authService;
@@ -61,8 +64,14 @@ public class AuthViewController {
             bindingResult.getAllErrors().forEach(error -> addFormError(model, error));
             return authService.rolesView(model);
         }
+        String roleNameUppercase = roleForm.getRoleName().toUpperCase();
+        if (checkForRole(roleNameUppercase, model)) {
+            return authService.rolesView(model);
+        }
+        roleForm.setRoleName(roleNameUppercase);
+        Role newRole = Role.valueOf(roleForm);
+        authService.createRole(newRole);
 
-        // TODO: TEMPORARY DO NOTHING
         return authService.rolesView(model);
     }
 
@@ -78,6 +87,15 @@ public class AuthViewController {
     private boolean checkForUser(String username, Model model) {
         if (authService.checkIfUserExists(username)) {
             addFormError(model, USERNAME_ERROR, USER_ALREADY_EXISTS);
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean checkForRole(String roleName, Model model) {
+        if (authService.checkIfRoleExists(roleName)) {
+            addFormError(model, ROLNAME_ERROR, ROLNAME_ALREADY_EXISTS);
             return true;
         }
 
