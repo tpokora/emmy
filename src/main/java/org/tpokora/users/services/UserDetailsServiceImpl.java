@@ -4,6 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tpokora.common.services.PasswordEncoderGenerator;
 import org.tpokora.users.dao.RolesRepository;
 import org.tpokora.users.dao.UserRepository;
@@ -11,9 +12,6 @@ import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
