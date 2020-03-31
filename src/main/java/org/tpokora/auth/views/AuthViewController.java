@@ -39,20 +39,20 @@ public class AuthViewController {
 
     @GetMapping(value = SIGNIN_VIEW_URL, name = SIGNIN_VIEW)
     public String signin(Model model) {
-        return authService.signinView(model);
+        return authService.signInView(model);
     }
 
     @PostMapping(value = "add-user")
     public String addUser(@Valid UserForm userForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> addFormError(model, error));
-            return authService.signinView(model);
+            return authService.signInView(model);
         }
         if(checkForUser(userForm.getUsername(), model)) {
-            return authService.signinView(model);
+            return authService.signInView(model);
         }
         if (checkForEmail(userForm.getEmail(), model)) {
-            return authService.signinView(model);
+            return authService.signInView(model);
         }
 
         return authService.registerNewUserView(User.valueOf(userForm));

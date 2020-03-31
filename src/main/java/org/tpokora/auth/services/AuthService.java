@@ -31,7 +31,7 @@ public class AuthService {
         this.userDetailsService = userDetailsService;
     }
 
-    public String signinView(Model model) {
+    public String signInView(Model model) {
         model.addAttribute("user", new User());
         return SIGNIN_VIEW_TEMPLATE;
     }
