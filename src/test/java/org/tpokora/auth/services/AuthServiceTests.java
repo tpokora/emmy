@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
+import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.model.UserTestUtils;
 import org.tpokora.users.services.UserDetailsServiceImpl;
 
@@ -39,17 +40,17 @@ public class AuthServiceTests extends BaseServiceTest {
     private Model model;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         this.authService = new AuthService(userDetailsService);
     }
 
     @Test
-    public void testAuthServiceIsNotNull() {
+    void testAuthServiceIsNotNull() {
         Assertions.assertNotNull(this.authService);
     }
 
     @Test
-    public void testAuthServiceCreateNewUser() {
+    void testAuthServiceCreateNewUser() {
         User newUser = UserTestUtils.createTestUser("testUser1", "testUser", "testUser@test.com");
         newUser.setId(1);
         newUser.setRoles(Sets.newHashSet(new Role("USER")));
@@ -61,7 +62,7 @@ public class AuthServiceTests extends BaseServiceTest {
     }
 
     @Test
-    public void testAuthServiceCreateRole() {
+    void testAuthServiceCreateRole() {
         Role newRole = new Role();
         newRole.setId(1);
         newRole.setName("TEST");
@@ -70,5 +71,33 @@ public class AuthServiceTests extends BaseServiceTest {
         Role createRole = this.authService.createRole(newRole);
         Assertions.assertEquals(newRole.getId(), createRole.getId());
         Assertions.assertEquals(newRole.getName(), createRole.getName());
+    }
+
+    @Test
+    void testAuthServiceCheckIfUserAndEmailExists() {
+        String testUsername = "testUser";
+        String testPassword = "testPassword";
+        String testEmail = "testUser@test.com";
+        User testUser = new User(testUsername, testPassword, testEmail);
+        UserDetails userDetails = new UserDetailsImpl(testUser);
+        Mockito.lenient().when(userDetailsService.loadUserByUsername(any())).thenReturn(userDetails);
+        Assertions.assertTrue(authService.checkIfUserExists(testUsername));
+        Mockito.lenient().when(userDetailsService.loadUserByEmail(any())).thenReturn(userDetails);
+        Assertions.assertTrue(authService.checkIfEmailExists(testEmail));
+    }
+
+    @Test
+    void testAuthServiceCheckIfRoleExists() {
+        Role role = new Role("testRole");
+
+        Mockito.lenient().when(userDetailsService.getRole(any())).thenReturn(role);
+        Assertions.assertTrue(authService.checkIfRoleExists(role.getName()));
+    }
+
+    @Test
+    void testAuthServiceCheckIfUsernameEmailRoleExists_throwException() {
+        Assertions.assertFalse(authService.checkIfUserExists("notExistingUsername"));
+        Assertions.assertFalse(authService.checkIfEmailExists("notExistingEmail"));
+        Assertions.assertFalse(authService.checkIfRoleExists("notExistingRole"));
     }
 }

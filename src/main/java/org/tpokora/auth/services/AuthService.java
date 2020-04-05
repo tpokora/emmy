@@ -27,30 +27,18 @@ public class AuthService {
     }
 
     public boolean checkIfUserExists(String username) {
-        try {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            return true;
-        } catch (NoSuchElementException | UsernameNotFoundException e) {
-            return false;
-        }
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return userDetails != null;
     }
 
     public boolean checkIfEmailExists(String email) {
-        try {
-            UserDetails userDetails = userDetailsService.loadUserByEmail(email);
-            return true;
-        } catch (NoSuchElementException | UsernameNotFoundException e) {
-            return false;
-        }
+        UserDetails userDetails = userDetailsService.loadUserByEmail(email);
+        return userDetails != null;
     }
 
     public boolean checkIfRoleExists(String roleName) {
-        try {
-            Role role = userDetailsService.getRole(roleName);
-            return true;
-        } catch (NoSuchElementException | EntityNotFoundException e) {
-            return false;
-        }
+        Role role = userDetailsService.getRole(roleName);
+        return role != null;
     }
 
     public Role createRole(Role role) {
