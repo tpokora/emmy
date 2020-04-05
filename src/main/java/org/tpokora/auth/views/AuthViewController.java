@@ -70,7 +70,7 @@ public class AuthViewController {
         }
         roleForm.setRoleName(roleNameUppercase);
         Role newRole = Role.valueOf(roleForm);
-        authViewService.createRole(newRole);
+        newRole = authViewService.createRole(newRole);
 
         return authViewService.rolesView(model);
     }

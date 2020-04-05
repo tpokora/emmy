@@ -50,8 +50,8 @@ public class AuthViewService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-    public void createRole(Role newRole) {
-        authService.createRole(newRole);
+    public Role createRole(Role newRole) {
+        return authService.createRole(newRole);
     }
 
     public boolean checkIfEmailExists(String email) {
