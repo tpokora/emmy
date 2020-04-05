@@ -51,6 +51,7 @@ public class AuthViewService {
     }
 
     public void createRole(Role newRole) {
+        authService.createRole(newRole);
     }
 
     public boolean checkIfEmailExists(String email) {
