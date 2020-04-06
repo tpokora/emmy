@@ -15,8 +15,7 @@ import javax.persistence.EntityManagerFactory;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW;
-import static org.tpokora.users.views.UsersViewConstants.SIGNIN_VIEW_URL;
+import static org.tpokora.auth.AuthConstatns.*;
 
 @Disabled
 @ExtendWith(SpringExtension.class)

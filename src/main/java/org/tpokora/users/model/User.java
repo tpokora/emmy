@@ -2,8 +2,10 @@ package org.tpokora.users.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.tpokora.auth.views.forms.UserForm;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -85,6 +87,15 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public static User valueOf(UserForm userForm) {
+        Objects.requireNonNull(userForm, "UserForm is null!");
+        User user = new User();
+        user.setUsername(userForm.getUsername());
+        user.setPassword(userForm.getPassword());
+        user.setEmail(userForm.getEmail());
+        return user;
     }
 
     @Override

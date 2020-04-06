@@ -5,6 +5,9 @@
     <title>Home</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/home.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -21,7 +24,7 @@
             <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
                 <a class="nav-link" href="#" tabindex="-1">Configuration</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link active" th:href="@{/users}">Users <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -38,10 +41,14 @@
 <!-- TODO: Fix issue with main element under nav bar -->
 <main role="main" class="container">
     <div class="jumbotron">
-        <p>
-            <h2>Registered users:</h2>
+        <p sec:authorize="hasRole('ROLE_ADMIN')">
+            <a class="nav-link" th:href="@{/users/roles?admin}" tabindex="-1">Roles</a>
         </p>
-        <table class="table">
+        <p>
+        <h2>Registered users:</h2>
+        <input class="form-control" id="filterInput" type="text" placeholder="Search..">
+        </p>
+        <table id="usersTable" class="table table-striped">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -61,5 +68,18 @@
         </table>
     </div>
 </main>
+
+<script>
+$(document).ready(function(){
+  $("#filterInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#usersTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+</script>
+
 </body>
 </html>

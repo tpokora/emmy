@@ -92,6 +92,13 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
     }
 
     @Test
+    public void testUserDetailsServiceGetUserDetailByEmail() {
+        UserDetails fetchedUserDetails = userDetailsService.loadUserByEmail(this.userOne.getEmail());
+        Assertions.assertEquals(this.userOne.getUsername(), fetchedUserDetails.getUsername());
+        Assertions.assertEquals(this.userOne.getPassword(), fetchedUserDetails.getPassword());
+    }
+
+    @Test
     public void testUserDetailsServiceGetAllUsers() {
         List<User> allUsers = this.userDetailsService.getAllUsers();
         Assertions.assertEquals(USERS_AMOUNT, allUsers.size());
@@ -109,6 +116,25 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
         Assertions.assertNotEquals(notHashedPassword, createdUser.getPassword());
         Assertions.assertNotNull(createdUser.getRoles());
         Assertions.assertNotNull(createdUser.getRoles().stream().filter(role -> this.roleUser.getName().equals(role.getName())).findFirst().get());
+    }
+
+    @Test
+    public void testGetAllRoles() {
+        Assertions.assertEquals(this.rolesRepository.findAll().size(), this.userDetailsService.getAllRoles().size());
+    }
+
+    @Test
+    public void testGetRole() {
+        Assertions.assertEquals(this.roleUser.getName(), this.userDetailsService.getRole(this.roleUser.getName()).getName());
+    }
+
+    @Test
+    public void testCreateRole() {
+        String testRoleName = "TEST_ROLE";
+        Role role = new Role(testRoleName);
+        Role newRole = this.userDetailsService.createRole(role);
+        Assertions.assertEquals(testRoleName, newRole.getName());
+
     }
 
     private User saveUser(User user) {

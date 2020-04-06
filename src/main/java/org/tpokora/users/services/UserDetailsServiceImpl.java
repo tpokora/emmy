@@ -4,6 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tpokora.common.services.PasswordEncoderGenerator;
 import org.tpokora.users.dao.RolesRepository;
 import org.tpokora.users.dao.UserRepository;
@@ -11,7 +12,7 @@ import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 
-import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +38,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .map(UserDetailsImpl::new).get();
     }
 
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        return Optional.ofNullable(optionalUser).orElseThrow(()->new UsernameNotFoundException("Username Not Found"))
+                .map(UserDetailsImpl::new).get();
+    }
+
     public List<User> getAllUsers() {
         List<User> userList = this.userRepository.findAll();
         return userList;
@@ -50,5 +57,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         newUser.setRoles(Stream.of(role).collect(Collectors.toCollection(HashSet::new)));
         newUser = userRepository.saveAndFlush(newUser);
         return newUser;
+    }
+
+    public List<Role> getAllRoles() {
+        List<Role> roleList = this.rolesRepository.findAll();
+        return roleList;
+    }
+
+    public Role getRole(String name) {
+        Optional<Role> role = this.rolesRepository.findByName(name);
+        return  Optional.ofNullable(role).orElseThrow(()->new EntityNotFoundException("Role Not Found"))
+                .map(Role::new).get();
+    }
+
+    public Role createRole(Role role) {
+        return this.rolesRepository.save(role);
     }
 }

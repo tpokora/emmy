@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/home.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">EmmyApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" href="#" tabindex="-1">Configuration</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link active" th:href="@{/users}">Users <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/weather}" tabindex="-1">Weather</a>
+            </li>
+        </ul>
+        <form id="logout-form" class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post"
+              th:fragment="logout" sec:authorize="isAuthenticated()">
+            <span class="mr-sm-2">Logged as: <span sec:authentication="name"></span></span>
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+<!-- TODO: Fix issue with main element under nav bar -->
+<main role="main" class="container">
+    <div class="jumbotron">
+        <p>
+            <a class="nav-link" th:href="@{/users}" tabindex="-1">Back to Users</a>
+        </p>
+        <p>
+        <h2>Roles:</h2>
+        <form class="form-inline" th:action="@{/add-role}" th:object="${roleForm}" method="post">
+            <div class="form-group mb-2">
+                <label for="roleNameInput" class="sr-only">Password</label>
+                <input type="text" th:field="*{roleName}" id="roleNameInput" class="form-control"
+                       placeholder="Enter rolename" required autofocus/>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Create Role</button>
+            <div class="form-group mb-2">
+                <small th:if="${roleNameError != null}" th:text="${roleNameError}" class="form-text text-danger">Bad role
+                    name</small>
+            </div>
+        </form>
+        <input class="form-control" id="filterInput" type="text" placeholder="Search..">
+        </p>
+        <h2>Roles</h2>
+        </p>
+        <table id="rolesTable" class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Role</th>
+            </tr>
+            </thead>
+            <tbody th:each="role : ${roles}" th:remove="tag">
+            <tr>
+                <th scope="row" th:text="${role.id}"/>
+                <td th:text="${role.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script>
+$(document).ready(function(){
+  $("#filterInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#rolesTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+
+
+</script>
+
+</body>
+</html>
