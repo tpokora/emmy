@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
+import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
@@ -50,20 +51,45 @@ public class AuthViewServiceTests {
     }
 
     @Test
-    void testAuthServiceSignInView() {
+    void testAuthViewServiceSignInView() {
         Assertions.assertEquals(SIGNIN_VIEW_TEMPLATE, this.authViewService.signInView(model));
     }
 
     @Test
-    public void testAuthServiceRolesView() {
+    void testAuthViewServiceRolesView() {
         Assertions.assertEquals(ROLES_VIEW_TEMPLATE, this.authViewService.rolesView(model));
     }
 
     @Disabled("Configure Spring Security for testing")
     @Test
-    public void testAuthServiceRegisterNewUserView() {
+    void testAuthViewServiceRegisterNewUserView() {
         UserDetailsImpl userDetails = new UserDetailsImpl(new User("testUser", "testUser", "test@test.test"));
         Mockito.lenient().when(this.authService.createNewUser(any())).thenReturn(userDetails);
         Assertions.assertEquals(HOME_VIEW, this.authViewService.registerNewUserView(userDetails));
+    }
+
+    @Test
+    void testAuthViewServiceCreateRole() {
+        Role role = new Role("TEST_ROLE");
+        Mockito.lenient().when(this.authService.createRole(any())).thenReturn(role);
+        Assertions.assertNotNull(authViewService.createRole(role));
+    }
+
+    @Test
+    void testAuthViewServiceCheckIfEmailExists() {
+        Mockito.lenient().when(this.authService.checkIfEmailExists(any())).thenReturn(true);
+        Assertions.assertTrue(authViewService.checkIfEmailExists("email@email.com"));
+    }
+
+    @Test
+    void testAuthViewServiceCheckIfUserExists() {
+        Mockito.lenient().when(this.authService.checkIfUserExists(any())).thenReturn(true);
+        Assertions.assertTrue(authViewService.checkIfUserExists("username"));
+    }
+
+    @Test
+    void testAuthViewServiceCheckIfRoleExists() {
+        Mockito.lenient().when(this.authService.checkIfRoleExists(any())).thenReturn(true);
+        Assertions.assertTrue(authViewService.checkIfRoleExists("TEST_ROLE"));
     }
 }
