@@ -1,15 +1,11 @@
 package org.tpokora.auth.services;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.NoSuchElementException;
 
 @Service
 public class AuthService {

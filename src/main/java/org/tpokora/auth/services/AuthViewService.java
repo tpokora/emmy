@@ -4,6 +4,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.tpokora.users.model.Role;
 import org.tpokora.users.model.User;
@@ -17,6 +18,7 @@ import static org.tpokora.auth.AuthConstatns.SIGNIN_VIEW_TEMPLATE;
 import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
 import static org.tpokora.users.views.UsersViewConstants.ROLES_VIEW_TEMPLATE;
 
+@Service
 public class AuthViewService {
 
     private UserDetailsServiceImpl userDetailsService;
