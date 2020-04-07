@@ -15,3 +15,9 @@ main {
 .jumbotron {
     background-color: #313131;
 }
+
+.btn-primary {
+    background-color: #004998;
+    border-color: #003671;
+}
+
