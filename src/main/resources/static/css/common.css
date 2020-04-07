@@ -1,5 +1,7 @@
 html, body, main {
   height: 100%;
+  background-color: #272727;
+  color: #929292;
 }
 
 main {
@@ -8,4 +10,8 @@ main {
 
 #logout-form {
     color: #fff
+}
+
+.jumbotron {
+    background-color: #313131;
 }
