@@ -12,12 +12,28 @@ main {
     color: #fff
 }
 
+
+/* ========== Bootstrap override ========== */
+
+/* Components */
 .jumbotron {
     background-color: #313131;
 }
 
+/* Controls */
 .btn-primary {
     background-color: #004998;
     border-color: #003671;
 }
 
+/* Forms */
+input.form-control, input.form-control:read-only {
+    color: #bbbbbb;
+    background-color: #505050;
+    border: 1px solid #353535;
+}
+
+input.form-control:focus {
+    color: #bbbbbb;
+    background-color: #505050;
+}
