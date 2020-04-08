@@ -10,6 +10,7 @@ import org.tpokora.users.services.UserDetailsServiceImpl;
 @Service
 public class AuthService {
 
+    private static final String USER_ROLE_NAME = "USER";
     private UserDetailsServiceImpl userDetailsService;
 
     public AuthService(UserDetailsServiceImpl userDetailsService) {
@@ -18,7 +19,7 @@ public class AuthService {
 
     public UserDetails createNewUser(User newUser) {
         newUser = new User(newUser.getUsername(), newUser.getPassword(), newUser.getEmail());
-        newUser = userDetailsService.saveUser(newUser, "USER");
+        newUser = userDetailsService.saveUser(newUser, USER_ROLE_NAME);
         return new UserDetailsImpl(newUser);
     }
 

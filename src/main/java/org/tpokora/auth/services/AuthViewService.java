@@ -12,6 +12,7 @@ import org.tpokora.users.services.UserDetailsServiceImpl;
 import org.tpokora.users.views.forms.RoleForm;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.tpokora.auth.AuthConstatns.SIGNIN_VIEW_TEMPLATE;
@@ -21,6 +22,10 @@ import static org.tpokora.users.views.UsersViewConstants.ROLES_VIEW_TEMPLATE;
 @Service
 public class AuthViewService {
 
+    private static final String USER_FOR_LOGIN_IS_NULL = "User for login is null!";
+    public static final String USER_ATTRIBUTE = "user";
+    public static final String ROLES_ATTRIBUTE = "roles";
+    public static final String ROLE_FORM_ATTRIBUTE = "roleForm";
     private UserDetailsServiceImpl userDetailsService;
     private AuthService authService;
 
@@ -30,14 +35,14 @@ public class AuthViewService {
     }
 
     public String signInView(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute(USER_ATTRIBUTE, new User());
         return SIGNIN_VIEW_TEMPLATE;
     }
 
     public String rolesView(Model model) {
         Optional<List<Role>> allRoles = Optional.of(userDetailsService.getAllRoles());
-        model.addAttribute("roles", allRoles.get());
-        model.addAttribute("roleForm", new RoleForm());
+        model.addAttribute(ROLES_ATTRIBUTE, allRoles.get());
+        model.addAttribute(ROLE_FORM_ATTRIBUTE, new RoleForm());
         return ROLES_VIEW_TEMPLATE;
     }
 
@@ -48,6 +53,7 @@ public class AuthViewService {
     }
 
     private void loginUser(UserDetails userToLogin) {
+        Objects.requireNonNull(userToLogin, USER_FOR_LOGIN_IS_NULL);
         Authentication authentication = new UsernamePasswordAuthenticationToken(userToLogin, null, userToLogin.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
