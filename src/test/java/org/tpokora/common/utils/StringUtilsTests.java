@@ -10,7 +10,7 @@ public class StringUtilsTests {
         String test = "test";
         String expectedString = "Test";
 
-        Assertions.assertEquals(expectedString, StringUtils.makeFirstLetterUpperCase(test));
+        Assertions.assertEquals(expectedString, StringUtils.makeFirstLetterUpperCase.apply(test));
     }
 
     @Test
@@ -18,7 +18,7 @@ public class StringUtilsTests {
         String test = "";
         String expectedString = "";
 
-        Assertions.assertEquals(expectedString, StringUtils.makeFirstLetterUpperCase(test));
+        Assertions.assertEquals(expectedString, StringUtils.makeFirstLetterUpperCase.apply(test));
     }
 
     @Test
@@ -26,13 +26,13 @@ public class StringUtilsTests {
         String test = "a";
         String expectedString = "A";
 
-        Assertions.assertEquals(expectedString, StringUtils.makeFirstLetterUpperCase(test));
+        Assertions.assertEquals(expectedString, StringUtils.makeFirstLetterUpperCase.apply(test));
     }
 
     @Test
     public void testStringFirstLetterUppercaseNull() {
         Assertions.assertThrows(NullPointerException.class, () -> {
-            StringUtils.makeFirstLetterUpperCase(null);
+            StringUtils.makeFirstLetterUpperCase.apply(null);
         });
     }
 }

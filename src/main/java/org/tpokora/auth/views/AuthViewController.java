@@ -107,7 +107,7 @@ public class AuthViewController {
 
     private void addFormError(Model model, ObjectError error) {
         Objects.requireNonNull(error, "Error is null!");
-        addFormError(model, formatErrorName(error.getCodes()[1].substring(5)), StringUtils.makeFirstLetterUpperCase(error.getDefaultMessage()));
+        addFormError(model, formatErrorName(error.getCodes()[1].substring(5)), StringUtils.makeFirstLetterUpperCase.apply(error.getDefaultMessage()));
     }
 
     private void addFormError(Model model, String errorName, String errorString) {
