@@ -16,6 +16,7 @@ import org.tpokora.users.views.forms.RoleForm;
 
 import javax.validation.Valid;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 
 import static org.tpokora.auth.AuthConstatns.*;
 
@@ -26,11 +27,13 @@ public class AuthViewController {
     public static final String USER_ALREADY_EXISTS = "User already exists!";
     public static final String EMAIL_ALREADY_EXISTS = "Email already exists!";
     public static final String EMAIL_ERROR = "emailError";
-    public static final String ROLNAME_ERROR = "roleNameError";
-    public static final String ROLNAME_ALREADY_EXISTS = "Role already exists!";
+    public static final String ROLE_NAME_ERROR = "roleNameError";
+    public static final String ROLE_NAME_ALREADY_EXISTS = "Role already exists!";
 
     @Autowired
     private AuthViewService authViewService;
+
+    private BiConsumer<Model, ObjectError> addFormErrorConsumer = this::addFormError;
 
     @GetMapping(value = LOGIN_VIEW_URL, name = LOGIN_VIEW)
     public String login(Model model) {
@@ -45,10 +48,10 @@ public class AuthViewController {
     @PostMapping(value = "add-user")
     public String addUser(@Valid UserForm userForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(error -> addFormError(model, error));
+            bindingResult.getAllErrors().forEach(error -> addFormErrorConsumer.accept(model, error));
             return authViewService.signInView(model);
         }
-        if(checkForUser(userForm.getUsername(), model)) {
+        if (checkForUser(userForm.getUsername(), model)) {
             return authViewService.signInView(model);
         }
         if (checkForEmail(userForm.getEmail(), model)) {
@@ -61,7 +64,7 @@ public class AuthViewController {
     @PostMapping(value = "add-role")
     public String addUser(@Valid RoleForm roleForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(error -> addFormError(model, error));
+            bindingResult.getAllErrors().forEach(error -> addFormErrorConsumer.accept(model, error));
             return authViewService.rolesView(model);
         }
         String roleNameUppercase = roleForm.getRoleName().toUpperCase();
@@ -95,7 +98,7 @@ public class AuthViewController {
 
     private boolean checkForRole(String roleName, Model model) {
         if (authViewService.checkIfRoleExists(roleName)) {
-            addFormError(model, ROLNAME_ERROR, ROLNAME_ALREADY_EXISTS);
+            addFormError(model, ROLE_NAME_ERROR, ROLE_NAME_ALREADY_EXISTS);
             return true;
         }
 
