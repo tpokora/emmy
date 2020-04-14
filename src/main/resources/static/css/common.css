@@ -26,14 +26,19 @@ main {
     border-color: #003671;
 }
 
+/* Table */
+.table {
+    color: #bbb;
+}
+
 /* Forms */
 input.form-control, input.form-control:read-only {
-    color: #bbbbbb;
+    color: #bbb;
     background-color: #505050;
     border: 1px solid #353535;
 }
 
 input.form-control:focus {
-    color: #bbbbbb;
+    color: #bbb;
     background-color: #505050;
 }
