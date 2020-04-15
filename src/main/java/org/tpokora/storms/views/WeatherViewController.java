@@ -113,7 +113,7 @@ public class WeatherViewController {
             this.errorMsg = errorMsg;
         }
 
-        private String errorMsg;
+        private final String errorMsg;
 
         public String getErrorMsg() {
             return this.errorMsg;

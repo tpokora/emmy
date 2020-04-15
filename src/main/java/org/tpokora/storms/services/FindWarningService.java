@@ -12,9 +12,8 @@ import org.tpokora.storms.model.WarningStrings;
 
 import javax.xml.soap.*;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FindWarningService extends StormService {
@@ -52,15 +51,7 @@ public class FindWarningService extends StormService {
         SOAPBody soapBody = soapMessage.getSOAPBody();
         Node response = (Node) soapBody.getElementsByTagName("ns1:ostrzezenia_pogodoweResponse").item(0);
         org.w3c.dom.Node returnElem = response.getParentElement().getElementsByTagName("return").item(0);
-        Set<Warning> warnings = new HashSet<>();
-
-//        Warning warning = new Warning();
-//        warning.setFromDay(elementValue(returnElem, "od_dnia"));
-//        warning.setToDay(elementValue(returnElem, "do_dnia"));
-
-//        warning.setCold(Integer.parseInt(elementValue(returnElem, "mroz")));
-//        warning.setColdFromDay(elementValue(returnElem, "mroz_od_dnia"));
-//        warning.setColdToDay(elementValue(returnElem, "mroz_do_dnia"));
+        List<Warning> warnings = new ArrayList<>();
 
         int coldLevel = Integer.parseInt(elementValue(returnElem, "mroz"));
         if (coldLevel > 0) {
@@ -92,10 +83,6 @@ public class FindWarningService extends StormService {
             warnings.add(heatWarning);
         }
 
-//        warning.setWind(Integer.parseInt(elementValue(returnElem, "wiatr")));
-//        warning.setWindFromDay(elementValue(returnElem, "wiatr_od_dnia"));
-//        warning.setWindToDay(elementValue(returnElem, "wiatr_do_dnia"));
-
         int windLevel = Integer.parseInt(elementValue(returnElem, "wiatr"));
         if (windLevel > 0) {
             Warning windWarning = new Warning();
@@ -111,12 +98,6 @@ public class FindWarningService extends StormService {
             warnings.add(windWarning);
         }
 
-
-//
-//        warning.setRain(Integer.parseInt(elementValue(returnElem, "opad")));
-//        warning.setRainFromDay(elementValue(returnElem, "opad_od_dnia"));
-//        warning.setRainToDay(elementValue(returnElem, "opad_do_dnia"));
-
         int rainfallLevel = Integer.parseInt(elementValue(returnElem, "opad"));
         if (rainfallLevel > 0) {
             Warning rainfallWarning = new Warning();
@@ -131,10 +112,6 @@ public class FindWarningService extends StormService {
 
             warnings.add(rainfallWarning);
         }
-//
-//        warning.setStorm(Integer.parseInt(elementValue(returnElem, "burza")));
-//        warning.setStormFromDay(elementValue(returnElem, "burza_od_dnia"));
-//        warning.setStormToDay(elementValue(returnElem, "burza_do_dnia"));
 
         int stormLevel = Integer.parseInt(elementValue(returnElem, "burza"));
         if (stormLevel > 0) {
@@ -150,9 +127,6 @@ public class FindWarningService extends StormService {
 
             warnings.add(stormWarning);
         }
-//        warning.setWhirlwind(Integer.parseInt(elementValue(returnElem, "traba")));
-//        warning.setWhirlwindFromDay(elementValue(returnElem, "traba_od_dnia"));
-//        warning.setWhirlwindToDay(elementValue(returnElem, "traba_do_dnia"));
 
         int whirlwindLevel = Integer.parseInt(elementValue(returnElem, "traba"));
         if (whirlwindLevel > 0) {
@@ -169,7 +143,9 @@ public class FindWarningService extends StormService {
             warnings.add(whirlwindWarning);
         }
 
-        return warnings;
+        return warnings.stream()
+                .sorted(Comparator.comparing(Warning::getLevel))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     private void createSOAPMessage(Coordinates coordinates, String namespace, SOAPEnvelope envelope) throws SOAPException {
