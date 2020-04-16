@@ -1,5 +1,7 @@
 package org.tpokora.auth.views;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ import static org.tpokora.auth.AuthConstatns.*;
 @Controller
 public class AuthViewController {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(AuthViewController.class);
+
     public static final String USERNAME_ERROR = "usernameError";
     public static final String USER_ALREADY_EXISTS = "User already exists!";
     public static final String EMAIL_ALREADY_EXISTS = "Email already exists!";
@@ -37,16 +41,19 @@ public class AuthViewController {
 
     @GetMapping(value = LOGIN_VIEW_URL, name = LOGIN_VIEW)
     public String login(Model model) {
+        LOGGER.info(this.getClass().getSimpleName() + " : LoginView");
         return LOGIN_VIEW_TEMPLATE;
     }
 
     @GetMapping(value = SIGNIN_VIEW_URL, name = SIGNIN_VIEW)
     public String signin(Model model) {
+        LOGGER.info(this.getClass().getSimpleName() + " : SignInView");
         return authViewService.signInView(model);
     }
 
     @PostMapping(value = "add-user")
     public String addUser(@Valid UserForm userForm, BindingResult bindingResult, Model model) {
+        LOGGER.info(this.getClass().getSimpleName() + " : Adding new user");
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> addFormErrorConsumer.accept(model, error));
             return authViewService.signInView(model);
@@ -62,7 +69,8 @@ public class AuthViewController {
     }
 
     @PostMapping(value = "add-role")
-    public String addUser(@Valid RoleForm roleForm, BindingResult bindingResult, Model model) {
+    public String addRole(@Valid RoleForm roleForm, BindingResult bindingResult, Model model) {
+        LOGGER.info("AuthViewController: Adding new role");
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> addFormErrorConsumer.accept(model, error));
             return authViewService.rolesView(model);
