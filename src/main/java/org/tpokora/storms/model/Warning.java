@@ -1,6 +1,7 @@
 package org.tpokora.storms.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Warning {
     private String name;
@@ -55,5 +56,46 @@ public class Warning {
                 ", level=" + level +
                 ", period=" + period +
                 '}';
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String name;
+        private int level;
+        protected Period period;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder level(int level) {
+            this.level = level;
+            return this;
+        }
+
+        public Builder period(Period period) {
+            this.period = period;
+            return this;
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public Warning build() {
+            Objects.requireNonNull(this.name, "Name cannot be null!");
+            Objects.requireNonNull(this.period, "Period cannot be null!");
+
+            Warning warning = new Warning();
+            warning.name = this.name;
+            warning.level = this.level;
+            warning.period = this.period;
+
+            return warning;
+        }
     }
 }

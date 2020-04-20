@@ -55,90 +55,89 @@ public class FindWarningService extends StormService {
 
         int coldLevel = Integer.parseInt(elementValue(returnElem, "mroz"));
         if (coldLevel > 0) {
-            Warning frostWarning = new Warning();
-            frostWarning.setName(WarningStrings.FROST);
-            frostWarning.setLevel(coldLevel);
-
-            Period heatPeriod = new Period(elementValue(returnElem, "mroz_od_dnia"),
+            Period coldPeriod = new Period(elementValue(returnElem, "mroz_od_dnia"),
                     elementValue(returnElem, "mroz_do_dnia"),
                     WarningStrings.WARNINGS_DATE_FORMAT);
 
-            frostWarning.setPeriod(heatPeriod);
+            Warning frostWarning = Warning.builder()
+                    .name(WarningStrings.FROST)
+                    .level(coldLevel)
+                    .period(coldPeriod)
+                    .build();
 
             warnings.add(frostWarning);
         }
 
         int heatLevel = Integer.parseInt(elementValue(returnElem, "upal"));
         if (heatLevel > 0) {
-            Warning heatWarning = new Warning();
-            heatWarning.setName(WarningStrings.HEAT);
-            heatWarning.setLevel(heatLevel);
-
             Period heatPeriod = new Period(elementValue(returnElem, "upal_od_dnia"),
                     elementValue(returnElem, "upal_do_dnia"),
                     WarningStrings.WARNINGS_DATE_FORMAT);
 
-            heatWarning.setPeriod(heatPeriod);
+            Warning heatWarning = Warning.builder()
+                    .name(WarningStrings.HEAT)
+                    .level(heatLevel)
+                    .period(heatPeriod)
+                    .build();
 
             warnings.add(heatWarning);
         }
 
         int windLevel = Integer.parseInt(elementValue(returnElem, "wiatr"));
         if (windLevel > 0) {
-            Warning windWarning = new Warning();
-            windWarning.setName(WarningStrings.WIND);
-            windWarning.setLevel(windLevel);
-
             Period windPeriod = new Period(elementValue(returnElem, "wiatr_od_dnia"),
                     elementValue(returnElem, "wiatr_do_dnia"),
                     WarningStrings.WARNINGS_DATE_FORMAT);
-
-            windWarning.setPeriod(windPeriod);
+            Warning windWarning = Warning.builder()
+                    .name(WarningStrings.WIND)
+                    .level(windLevel)
+                    .period(windPeriod)
+                    .build();
 
             warnings.add(windWarning);
         }
 
         int rainfallLevel = Integer.parseInt(elementValue(returnElem, "opad"));
         if (rainfallLevel > 0) {
-            Warning rainfallWarning = new Warning();
-            rainfallWarning.setName(WarningStrings.RAINFALL);
-            rainfallWarning.setLevel(rainfallLevel);
-
             Period rainfallPeriod = new Period(elementValue(returnElem, "opad_od_dnia"),
                     elementValue(returnElem, "opad_do_dnia"),
                     WarningStrings.WARNINGS_DATE_FORMAT);
 
-            rainfallWarning.setPeriod(rainfallPeriod);
+            Warning rainfallWarning = Warning.builder()
+                    .name(WarningStrings.RAINFALL)
+                    .level(rainfallLevel)
+                    .period(rainfallPeriod)
+                    .build();
 
             warnings.add(rainfallWarning);
         }
 
         int stormLevel = Integer.parseInt(elementValue(returnElem, "burza"));
         if (stormLevel > 0) {
-            Warning stormWarning = new Warning();
-            stormWarning.setName(WarningStrings.STORM);
-            stormWarning.setLevel(stormLevel);
-
             Period stormPeriod = new Period(elementValue(returnElem, "burza_od_dnia"),
                     elementValue(returnElem, "burza_do_dnia"),
                     WarningStrings.WARNINGS_DATE_FORMAT);
 
-            stormWarning.setPeriod(stormPeriod);
+            Warning stormWarning = Warning.builder()
+                    .name(WarningStrings.STORM)
+                    .level(stormLevel)
+                    .period(stormPeriod)
+                    .build();
 
             warnings.add(stormWarning);
         }
 
         int whirlwindLevel = Integer.parseInt(elementValue(returnElem, "traba"));
         if (whirlwindLevel > 0) {
-            Warning whirlwindWarning = new Warning();
-            whirlwindWarning.setName(WarningStrings.WHIRLWIND);
-            whirlwindWarning.setLevel(whirlwindLevel);
-
             Period whirlwindPeriod = new Period(elementValue(returnElem, "traba_od_dnia"),
                     elementValue(returnElem, "burza_do_dnia"),
                     WarningStrings.WARNINGS_DATE_FORMAT);
 
-            whirlwindWarning.setPeriod(whirlwindPeriod);
+            Warning whirlwindWarning = Warning.builder()
+                    .name(WarningStrings.WHIRLWIND)
+                    .level(whirlwindLevel)
+                    .period(whirlwindPeriod)
+                    .build();
 
             warnings.add(whirlwindWarning);
         }
