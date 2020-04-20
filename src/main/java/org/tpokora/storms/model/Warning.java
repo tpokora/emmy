@@ -68,6 +68,7 @@ public class Warning {
         protected Period period;
 
         public Builder name(String name) {
+            Objects.requireNonNull(this.name, "Name cannot be null!");
             this.name = name;
             return this;
         }
@@ -78,6 +79,7 @@ public class Warning {
         }
 
         public Builder period(Period period) {
+            Objects.requireNonNull(this.period, "Period cannot be null!");
             this.period = period;
             return this;
         }
@@ -87,9 +89,6 @@ public class Warning {
         }
 
         public Warning build() {
-            Objects.requireNonNull(this.name, "Name cannot be null!");
-            Objects.requireNonNull(this.period, "Period cannot be null!");
-
             Warning warning = new Warning();
             warning.name = this.name;
             warning.level = this.level;
