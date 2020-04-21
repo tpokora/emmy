@@ -43,14 +43,14 @@ public class WeatherViewController {
 
     @GetMapping(value = WEATHER_VIEW_URL, name = WEATHER_VIEW)
     public String weather(Model model) {
-        LOGGER.info(this.getClass().getSimpleName() + " : WeatherView");
+        LOGGER.info("WeatherView");
         initializeView(model);
         return WEATHER_VIEW_TEMPLATE;
     }
 
     @PostMapping(value = WEATHER_FIND_CITY_URL)
     public String findCity(Model model, @ModelAttribute City city) throws IOException, SOAPException {
-        LOGGER.info(this.getClass().getSimpleName() + " : Find city");
+        LOGGER.info("Find city");
         initializeView(model);
         city = this.findCityService.handleResponse(this.findCityService.findCity(city.getName()));
         if (city.getCoordinates().getY().equals(0.0) && city.getCoordinates().getX().equals(0.0)) {
@@ -67,7 +67,7 @@ public class WeatherViewController {
 
     @PostMapping(value = WEATHER_FIND_STORM_URL)
     public String findStorm(Model model, @ModelAttribute StormRequest stormRequest) throws IOException, SOAPException {
-        LOGGER.info(this.getClass().getSimpleName() + " : Find storm");
+        LOGGER.info("Find storm");
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, stormRequest.getCoordinates());
@@ -82,7 +82,7 @@ public class WeatherViewController {
 
     @PostMapping(value = WEATHER_FIND_WARNINGS_URL)
     public String findWarnings(Model model, @ModelAttribute Coordinates coordinates) throws IOException, SOAPException {
-        LOGGER.info(this.getClass().getSimpleName() + " : Find Warnings");
+        LOGGER.info("Find Warnings");
         initializeView(model);
         updateModelAttribute(model, COORDINATES, coordinates);
         Set<Warning> warnings = this.findWarningService.handleResponse(this.findWarningService.findWarning(coordinates));

@@ -1,5 +1,7 @@
 package org.tpokora.storms.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.services.SOAPService;
 import org.tpokora.config.properties.StormProperties;
@@ -11,6 +13,8 @@ import java.util.HashMap;
 
 @Service
 public class FindCityService extends StormService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(FindCityService.class);
 
     public FindCityService(StormProperties stormProperties, SOAPService soapService) {
         super(stormProperties, soapService);
@@ -25,16 +29,13 @@ public class FindCityService extends StormService {
         soapService.createSOAPHeader(soapMessage, SOAP_ACTION_SZUKAJ_BURZY);
         createSOAPMessage(city, SOAP, envelope);
 
-        System.out.println("Request SOAP Message:");
-        soapMessage.writeTo(System.out);
-        System.out.println();
-        soapMessage.saveChanges();
+        LOGGER.debug("Request SOAP Message:");
+        LOGGER.debug(printMsg(soapMessage));
 
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, URL);
 
-        System.out.println("Response SOAP Message:");
-        soapResponse.writeTo(System.out);
-        System.out.println();
+        LOGGER.debug("Response SOAP Message:");
+        LOGGER.debug(printMsg(soapResponse));
 
         return soapResponse;
     }

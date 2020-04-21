@@ -5,6 +5,13 @@ import org.springframework.stereotype.Service;
 import org.tpokora.common.services.SOAPService;
 import org.tpokora.config.properties.StormProperties;
 
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPMessage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
+
 @Service
 public class StormService {
 
@@ -32,5 +39,17 @@ public class StormService {
 
     protected String elementValue(org.w3c.dom.Node element, String name) {
         return ((ElementImpl) element).getElementsByTagName(name).item(0).getTextContent();
+    }
+
+    public String printMsg(SOAPMessage soapMessage) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            soapMessage.writeTo(output);
+            return new String(output.toByteArray());
+        } catch (SOAPException e) {
+            return "SOAP Error";
+        } catch (IOException e) {
+            return "Message read Error";
+        }
     }
 }
