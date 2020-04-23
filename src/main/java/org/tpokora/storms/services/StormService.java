@@ -10,8 +10,6 @@ import javax.xml.soap.SOAPMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
-
 @Service
 public class StormService {
 
@@ -35,7 +33,6 @@ public class StormService {
         this.stormProperties = stormProperties;
         this.soapService = soapService;
     }
-
 
     protected String elementValue(org.w3c.dom.Node element, String name) {
         return ((ElementImpl) element).getElementsByTagName(name).item(0).getTextContent();

@@ -44,7 +44,7 @@ public class StormController {
 
     @ApiOperation(value = "Find storm", notes = "Find storm by x, y coordinates and radius im km")
     @RequestMapping(value = "/find_storm/", method = RequestMethod.GET)
-    public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") Double x, @RequestParam("y") Double y,
+    public ResponseEntity<Object> getStormByCoordinates(@RequestParam("x") Double x, @RequestParam("y") Double y,
                                                        @RequestParam("radius") int radius) throws Exception {
         StormRequest stormRequest = new StormRequest();
         stormRequest.setCoordinates(new Coordinates(x, y));
@@ -61,14 +61,8 @@ public class StormController {
 
     @ApiOperation(value = "Find city", notes = "Returns coordinates of given city")
     @RequestMapping(value = "/city/", method = RequestMethod.GET)
-    public ResponseEntity<Object> getCityCordinates(@RequestParam("name") String name) throws Exception {
-        SOAPMessage stormResponse = findCityService.findCity(name);
-
-        if (checkForError(stormResponse) != null) {
-            return new ResponseEntity<>(checkForError(stormResponse), HttpStatus.OK);
-        }
-
-        City city = findCityService.handleResponse(stormResponse);
+    public ResponseEntity<Object> getCityCoordinates(@RequestParam("name") String name) throws Exception {
+        City city = findCityService.findCity(name);
         if (city.getCoordinates().getX().compareTo(0.0) == 0 && city.getCoordinates().getY().equals("0")) {
             ErrorMsg errorMsg = new ErrorMsg();
             errorMsg.setError(name + " not found");

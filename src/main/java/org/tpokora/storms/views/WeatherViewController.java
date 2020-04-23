@@ -52,7 +52,7 @@ public class WeatherViewController {
     public String findCity(Model model, @ModelAttribute City city) throws IOException, SOAPException {
         LOGGER.info("Find city");
         initializeView(model);
-        city = this.findCityService.handleResponse(this.findCityService.findCity(city.getName()));
+        city = this.findCityService.findCity(city.getName());
         if (city.getCoordinates().getY().equals(0.0) && city.getCoordinates().getX().equals(0.0)) {
             setError(model, WeatherViewError.CITY_NOT_FOUND.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;

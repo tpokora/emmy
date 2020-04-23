@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.tpokora.common.services.SOAPService;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.City;
+import org.tpokora.storms.services.processor.CityResponseSoapProcessor;
+import org.tpokora.storms.services.processor.SoapMessageProcessor;
 
 import javax.xml.soap.*;
 import java.io.IOException;
@@ -16,11 +18,14 @@ public class FindCityService extends StormService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(FindCityService.class);
 
+    private SoapMessageProcessor soapMessageProcessor;
+
     public FindCityService(StormProperties stormProperties, SOAPService soapService) {
         super(stormProperties, soapService);
+        this.soapMessageProcessor = new CityResponseSoapProcessor();
     }
 
-    public SOAPMessage findCity(String city) throws SOAPException, IOException {
+    public City findCity(String city) throws SOAPException, IOException {
         SOAPMessage soapMessage = soapService.createSOAPMessage();
         HashMap<String, String> namespaces = new HashMap<>();
         namespaces.put(SOAP, NAMESPACE);
@@ -34,21 +39,7 @@ public class FindCityService extends StormService {
 
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, URL);
 
-        LOGGER.debug("Response SOAP Message:");
-        LOGGER.debug(printMsg(soapResponse));
-
-        return soapResponse;
-    }
-
-    public City handleResponse(SOAPMessage soapMessage) throws SOAPException {
-        SOAPBody soapBody = soapMessage.getSOAPBody();
-        Node response = (Node) soapBody.getElementsByTagName("ns1:miejscowoscResponse").item(0);
-        org.w3c.dom.Node returnElem = response.getParentElement().getElementsByTagName("return").item(0);
-        Double x = Double.parseDouble(elementValue(returnElem, "x"));
-        Double y = Double.parseDouble(elementValue(returnElem, "y"));
-
-        City city = new City(x, y);
-        return city;
+        return (City) soapMessageProcessor.process(soapResponse);
     }
 
     private void createSOAPMessage(String city, String namespace, SOAPEnvelope envelope) throws SOAPException {
