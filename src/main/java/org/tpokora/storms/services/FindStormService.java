@@ -1,7 +1,7 @@
 package org.tpokora.storms.services;
 
 import org.springframework.stereotype.Service;
-import org.tpokora.common.services.SOAPService;
+import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;

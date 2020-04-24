@@ -2,6 +2,7 @@ package org.tpokora.storms.services.processor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tpokora.common.services.soap.SoapResponseMessageProcessor;
 import org.tpokora.storms.model.City;
 
 import javax.xml.soap.Node;
@@ -9,9 +10,9 @@ import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
-public class CityResponseSoapProcessor implements SoapMessageProcessor<City> {
+public class CitySoapResponseProcessor implements SoapResponseMessageProcessor<City> {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(CityResponseSoapProcessor.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(CitySoapResponseProcessor.class);
 
     public static final String NS_1_MIEJSCOWOSC_RESPONSE = "ns1:miejscowoscResponse";
     public static final String X = "x";

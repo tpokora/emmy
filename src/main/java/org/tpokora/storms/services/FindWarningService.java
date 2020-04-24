@@ -3,7 +3,7 @@ package org.tpokora.storms.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.tpokora.common.services.SOAPService;
+import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.Period;

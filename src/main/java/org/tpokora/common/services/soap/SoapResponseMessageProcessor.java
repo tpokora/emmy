@@ -1,9 +1,9 @@
-package org.tpokora.storms.services.processor;
+package org.tpokora.common.services.soap;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
-public interface SoapMessageProcessor<T> {
+public interface SoapResponseMessageProcessor<T> {
 
     public T process(SOAPMessage soapMessage) throws SOAPException;
 }
