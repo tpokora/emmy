@@ -11,7 +11,6 @@ import org.tpokora.storms.services.processor.CitySoapResponseProcessor;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
-import java.io.IOException;
 
 @Service
 public class FindCityService extends StormService {
@@ -24,7 +23,7 @@ public class FindCityService extends StormService {
         this.soapResponseMessageProcessor = new CitySoapResponseProcessor();
     }
 
-    public City findCity(String city) throws SOAPException, IOException {
+    public City findCity(String city) throws SOAPException {
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(city);
         SOAPMessage soapResponse = SOAPService.sendSOAPMessage(soapMessage, URL);
         return (City) soapResponseMessageProcessor.process(soapResponse);

@@ -23,7 +23,7 @@ public class FindStormService extends StormService {
         namespaces.put(SOAP, NAMESPACE);
         SOAPEnvelope envelope = soapService.createSOAPEnvelope(soapMessage, namespaces);
 
-        soapService.createSOAPHeader(soapMessage, SOAP_ACTION_SZUKAJ_BURZY);
+        soapService.createSOAPAction(soapMessage, SOAP_ACTION_SZUKAJ_BURZY);
         createSOAPMessage(stormRequest, SOAP, envelope);
 
         System.out.println("Request SOAP Message:");

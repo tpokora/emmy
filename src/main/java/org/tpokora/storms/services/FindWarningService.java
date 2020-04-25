@@ -30,7 +30,7 @@ public class FindWarningService extends StormService {
         namespaces.put(SOAP, NAMESPACE);
         SOAPEnvelope envelope = soapService.createSOAPEnvelope(soapMessage, namespaces);
 
-        soapService.createSOAPHeader(soapMessage, SOAP_ACTION_OSTRZEZENIA);
+        soapService.createSOAPAction(soapMessage, SOAP_ACTION_OSTRZEZENIA);
         createSOAPMessage(coordinates, SOAP, envelope);
 
         System.out.println("Request SOAP Message:");

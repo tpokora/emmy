@@ -26,10 +26,11 @@ public class CitySoapRequestProcessor implements SoapRequestMessageProcessor<Str
         namespaces.put(StormConstants.SOAP, StormConstants.NAMESPACE);
         SOAPEnvelope envelope = SOAPService.createSOAPEnvelope(soapMessage, namespaces);
 
-        SOAPService.createSOAPHeader(soapMessage, StormConstants.SOAP_ACTION_SZUKAJ_BURZY);
+        SOAPService.createSOAPAction(soapMessage, StormConstants.SOAP_ACTION_SZUKAJ_BURZY);
         createSOAPMessage(input, StormConstants.SOAP, envelope);
 
         LOGGER.debug("Request SOAP Message:");
+        LOGGER.debug(SoapMessageUtilities.soapMessageToString(soapMessage));
 
         return soapMessage;
     }

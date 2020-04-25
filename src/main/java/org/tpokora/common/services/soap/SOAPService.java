@@ -13,11 +13,10 @@ public class SOAPService {
 
     public static SOAPMessage createSOAPMessage() throws SOAPException {
         MessageFactory messageFactory = MessageFactory.newInstance();
-        SOAPMessage soapMessage = messageFactory.createMessage();
-        return soapMessage;
+        return messageFactory.createMessage();
     }
 
-    public static SOAPEnvelope createSOAPEnvelope(SOAPMessage soapMessage, HashMap<String, String> namespaces) throws SOAPException {
+    public static SOAPEnvelope createSOAPEnvelope(SOAPMessage soapMessage, Map<String, String> namespaces) throws SOAPException {
         SOAPPart soapPart = soapMessage.getSOAPPart();
         SOAPEnvelope envelope = soapPart.getEnvelope();
         for (Map.Entry entry : namespaces.entrySet()) {
@@ -34,8 +33,12 @@ public class SOAPService {
         return soapConnection.call(soapMessage, url);
     }
 
-    public static void createSOAPHeader(SOAPMessage soapMessage, String soapAction) {
+    public static void createSOAPAction(SOAPMessage soapMessage, String soapAction) {
+        createSOAPHeader(soapMessage, SOAP_ACTION, soapAction);
+    }
+
+    public static void createSOAPHeader(SOAPMessage soapMessage, String headerName, String headerValue) {
         MimeHeaders headers = soapMessage.getMimeHeaders();
-        headers.addHeader(SOAP_ACTION, soapAction);
+        headers.addHeader(headerName, headerValue);
     }
 }
