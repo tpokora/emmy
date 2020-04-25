@@ -2,9 +2,8 @@ package org.tpokora.storms;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.services.processor.CitySoapRequestProcessor;
 
@@ -30,6 +29,7 @@ public class CitySoapRequestProcessorTests {
     }
 
     @Test
+    @DisplayName("CitySoapRequestProcessor generate SOAPMessage request based on city name")
     public void testProcess() throws SOAPException {
         SOAPMessage cityMessage = citySoapRequestProcessor.process(TEST_CITY);
 

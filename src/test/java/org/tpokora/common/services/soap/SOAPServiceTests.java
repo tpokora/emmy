@@ -1,21 +1,18 @@
 package org.tpokora.common.services.soap;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.xml.soap.*;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(JUnitPlatform.class)
@@ -29,11 +26,13 @@ public class SOAPServiceTests {
     private SOAPService soapService;
 
     @Test
+    @DisplayName("SOAPService create SOAPMessage object")
     public void testSoapServiceCreateSoapMessage() throws SOAPException {
         Assertions.assertNotNull(createSoapMessage());
     }
 
     @Test
+    @DisplayName("SOAPService create SOAPEnvelope for SOAPMessage")
     public void testSoapServiceCreateSoapEnvelope() throws SOAPException {
         SOAPMessage soapMessage = createSoapMessage();
         SOAPPart soapPart = soapMessage.getSOAPPart();
@@ -45,6 +44,7 @@ public class SOAPServiceTests {
     }
 
     @Test
+    @DisplayName("SOAPService create SOAPAction for SOAPMessage")
     public void testSoapServiceCreateSoapAction() throws SOAPException {
         String soapActionHeader = "SOAPAction";
         String testAction = "testAction";
@@ -58,7 +58,7 @@ public class SOAPServiceTests {
         Assertions.assertEquals(testAction, header[0]);
     }
 
-    private SOAPMessage createSoapMessage() throws SOAPException {
+    public static SOAPMessage createSoapMessage() throws SOAPException {
         return SOAPService.createSOAPMessage();
     }
 
