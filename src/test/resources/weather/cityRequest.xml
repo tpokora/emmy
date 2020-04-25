@@ -1,0 +1,10 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:soap="http://burze.dzis.net/soap.php">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <soap:miejscowosc>
+            <soap:nazwa>testCity</soap:nazwa>
+            <soap:klucz>testKey</soap:klucz>
+        </soap:miejscowosc>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

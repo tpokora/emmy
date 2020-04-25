@@ -1,0 +1,12 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:soap="http://burze.dzis.net/soap.php">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <soap:szukaj_burzy>
+            <soap:x>11.11</soap:x>
+            <soap:y>22.22</soap:y>
+            <soap:promien>300.0</soap:promien>
+            <soap:klucz>testKey</soap:klucz>
+        </soap:szukaj_burzy>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
