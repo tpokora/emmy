@@ -50,13 +50,7 @@ public class StormController {
         stormRequest.setCoordinates(new Coordinates(x, y));
         stormRequest.setDistance(radius);
 
-        SOAPMessage stormResponse = findStormService.checkStorm(stormRequest);
-
-        if (checkForError(stormResponse) != null) {
-            return new ResponseEntity<>(checkForError(stormResponse), HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(findStormService.handleResponse(stormResponse), HttpStatus.OK);
+        return new ResponseEntity<>(findStormService.checkStorm(stormRequest), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Find city", notes = "Returns coordinates of given city")
@@ -66,7 +60,7 @@ public class StormController {
         if (city.getCoordinates().getX().compareTo(0.0) == 0 && city.getCoordinates().getY().equals("0")) {
             ErrorMsg errorMsg = new ErrorMsg();
             errorMsg.setError(name + " not found");
-            return new ResponseEntity<>(errorMsg, HttpStatus.OK);
+            return new ResponseEntity<>(errorMsg, HttpStatus.NO_CONTENT);
         }
 
         city.setName(name);

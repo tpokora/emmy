@@ -71,7 +71,7 @@ public class WeatherViewController {
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, stormRequest.getCoordinates());
-        StormResponse stormResponse = this.findStormService.handleResponse(this.findStormService.checkStorm(stormRequest));
+        StormResponse stormResponse = this.findStormService.checkStorm(stormRequest);
         if (stormResponse.getAmount() == 0) {
             setError(model, WeatherViewError.NO_STORMS.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;

@@ -5,65 +5,25 @@ import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
+import org.tpokora.storms.services.processor.StormSoapRequestProcessor;
+import org.tpokora.storms.services.processor.StormSoapResponseProcessor;
 
-import javax.xml.soap.*;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPMessage;
 import java.io.IOException;
-import java.util.HashMap;
 
 @Service
 public class FindStormService extends StormService {
 
     public FindStormService(StormProperties stormProperties, SOAPService soapService) {
         super(stormProperties, soapService);
+        soapRequestMessageProcessor = new StormSoapRequestProcessor(stormProperties);
+        soapResponseMessageProcessor = new StormSoapResponseProcessor();
     }
 
-    public SOAPMessage checkStorm(StormRequest stormRequest) throws SOAPException, IOException {
-        SOAPMessage soapMessage = soapService.createSOAPMessage();
-        HashMap<String, String> namespaces = new HashMap<>();
-        namespaces.put(SOAP, NAMESPACE);
-        SOAPEnvelope envelope = soapService.createSOAPEnvelope(soapMessage, namespaces);
-
-        soapService.createSOAPAction(soapMessage, SOAP_ACTION_SZUKAJ_BURZY);
-        createSOAPMessage(stormRequest, SOAP, envelope);
-
-        System.out.println("Request SOAP Message:");
-        soapMessage.writeTo(System.out);
-        System.out.println();
-        soapMessage.saveChanges();
-
-        SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, URL);
-
-        System.out.println("Response SOAP Message:");
-        soapResponse.writeTo(System.out);
-        System.out.println();
-
-        return soapResponse;
+    public StormResponse checkStorm(StormRequest stormRequest) throws SOAPException {
+        SOAPMessage soapMessage = soapRequestMessageProcessor.process(stormRequest);
+        SOAPMessage soapResponse = SOAPService.sendSOAPMessage(soapMessage, URL);
+        return (StormResponse) soapResponseMessageProcessor.process(soapResponse);
     }
-
-    public StormResponse handleResponse(SOAPMessage soapMessage) throws SOAPException {
-        SOAPBody soapBody = soapMessage.getSOAPBody();
-        Node response = (Node) soapBody.getElementsByTagName("ns1:szukaj_burzyResponse").item(0);
-        org.w3c.dom.Node returnElem = response.getParentElement().getElementsByTagName("return").item(0);
-        int amount = Integer.parseInt(elementValue(returnElem, "liczba"));
-        double distance = Double.parseDouble(elementValue(returnElem, "odleglosc"));
-        String direction = elementValue(returnElem, "kierunek");
-        int time = Integer.parseInt(elementValue(returnElem, "okres"));
-        StormResponse stormResponse = new StormResponse(amount, distance, direction, time);
-        return stormResponse;
-    }
-
-    private void createSOAPMessage(StormRequest storm, String namespace, SOAPEnvelope envelope) throws SOAPException {
-        SOAPBody soapBody = envelope.getBody();
-        SOAPElement findStorm = soapBody.addChildElement(METHOD_SZUKAJ_BURZY, namespace);
-        SOAPElement xElem = findStorm.addChildElement("x", namespace);
-        SOAPElement yElem = findStorm.addChildElement("y", namespace);
-        SOAPElement radiusElem = findStorm.addChildElement("promien", namespace);
-        SOAPElement keyElem = findStorm.addChildElement("klucz", namespace);
-
-        xElem.addTextNode(String.valueOf(storm.getCoordinates().getX()));
-        yElem.addTextNode(String.valueOf(storm.getCoordinates().getY()));
-        radiusElem.addTextNode(String.valueOf(storm.getDistance()));
-        keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
-    }
-
 }
