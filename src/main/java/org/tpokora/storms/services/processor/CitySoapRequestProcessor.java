@@ -9,8 +9,11 @@ import org.tpokora.storms.services.StormConstants;
 
 import javax.xml.soap.*;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CitySoapRequestProcessor implements SoapRequestMessageProcessor<String> {
+
+    private static final String CITY_INPUT_IS_NULL = "City input is null!";
 
     protected StormProperties stormProperties;
     private final Logger LOGGER = LoggerFactory.getLogger(CitySoapRequestProcessor.class);
@@ -21,6 +24,7 @@ public class CitySoapRequestProcessor implements SoapRequestMessageProcessor<Str
 
     @Override
     public SOAPMessage process(String input) throws SOAPException {
+        Objects.requireNonNull(input, CITY_INPUT_IS_NULL);
         SOAPMessage soapMessage = SOAPService.createSOAPMessage();
         HashMap<String, String> namespaces = new HashMap<>();
         namespaces.put(StormConstants.SOAP, StormConstants.NAMESPACE);
@@ -29,7 +33,7 @@ public class CitySoapRequestProcessor implements SoapRequestMessageProcessor<Str
         SOAPService.createSOAPAction(soapMessage, StormConstants.SOAP_ACTION_SZUKAJ_BURZY);
         createSOAPMessage(input, StormConstants.SOAP, envelope);
 
-        LOGGER.debug("Request SOAP Message:");
+        LOGGER.debug("City Request SOAP Message:");
         LOGGER.debug(SoapMessageUtilities.soapMessageToString(soapMessage));
 
         return soapMessage;

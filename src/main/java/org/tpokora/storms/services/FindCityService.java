@@ -11,9 +11,12 @@ import org.tpokora.storms.services.processor.CitySoapResponseProcessor;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
+import java.util.Objects;
 
 @Service
 public class FindCityService extends StormService {
+
+    private static final String CITY_NAME_IS_NULL = "City name is null!";
 
     private final Logger LOGGER = LoggerFactory.getLogger(FindCityService.class);
 
@@ -23,9 +26,12 @@ public class FindCityService extends StormService {
         this.soapResponseMessageProcessor = new CitySoapResponseProcessor();
     }
 
-    public City findCity(String city) throws SOAPException {
-        SOAPMessage soapMessage = soapRequestMessageProcessor.process(city);
+    public City findCity(String cityName) throws SOAPException {
+        Objects.requireNonNull(cityName, CITY_NAME_IS_NULL);
+        SOAPMessage soapMessage = soapRequestMessageProcessor.process(cityName);
         SOAPMessage soapResponse = SOAPService.sendSOAPMessage(soapMessage, URL);
-        return (City) soapResponseMessageProcessor.process(soapResponse);
+        City city = (City) soapResponseMessageProcessor.process(soapResponse);
+        city.setName(cityName);
+        return city;
     }
 }
