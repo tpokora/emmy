@@ -47,7 +47,7 @@ public class FindWarningService extends StormService {
         return soapResponse;
     }
 
-    public Set<Warning> handleResponse(SOAPMessage soapMessage) throws SOAPException {
+    public List<Warning> handleResponse(SOAPMessage soapMessage) throws SOAPException {
         SOAPBody soapBody = soapMessage.getSOAPBody();
         Node response = (Node) soapBody.getElementsByTagName("ns1:ostrzezenia_pogodoweResponse").item(0);
         org.w3c.dom.Node returnElem = response.getParentElement().getElementsByTagName("return").item(0);
@@ -142,9 +142,8 @@ public class FindWarningService extends StormService {
             warnings.add(whirlwindWarning);
         }
 
-        return warnings.stream()
-                .sorted(Comparator.comparing(Warning::getLevel))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+        warnings.sort(Comparator.comparing(Warning::getLevel));
+        return warnings;
     }
 
     private void createSOAPMessage(Coordinates coordinates, String namespace, SOAPEnvelope envelope) throws SOAPException {

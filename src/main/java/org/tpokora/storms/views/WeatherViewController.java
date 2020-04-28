@@ -15,6 +15,7 @@ import org.tpokora.storms.services.FindWarningService;
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.tpokora.storms.views.WeatherViewConstants.*;
@@ -85,7 +86,7 @@ public class WeatherViewController {
         LOGGER.info("Find Warnings");
         initializeView(model);
         updateModelAttribute(model, COORDINATES, coordinates);
-        Set<Warning> warnings = this.findWarningService.handleResponse(this.findWarningService.findWarning(coordinates));
+        List<Warning> warnings = this.findWarningService.handleResponse(this.findWarningService.findWarning(coordinates));
         if (warnings.size() == 0) {
             setError(model, WeatherViewError.NO_WARNINGS.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;
