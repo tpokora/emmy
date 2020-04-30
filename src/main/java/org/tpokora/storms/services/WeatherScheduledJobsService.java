@@ -14,7 +14,7 @@ import org.tpokora.storms.model.Warning;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
-import java.util.Set;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Profile("crone")
@@ -42,7 +42,7 @@ public class WeatherScheduledJobsService {
     public void checkWeatherWarningsJob() throws IOException, SOAPException {
 
         logger.info("Check for weather warnings");
-        Set<Warning> warnings = checkWeatherWarnings();
+        List<Warning> warnings = checkWeatherWarnings();
         for (Warning warning : warnings) {
             logger.info(warning.toString());
             HttpEntity<String> request = new HttpEntity<>(androidPushNotificationsService.generatePushNotificationJSON(Notification.createNotificationFromWarning(warning)).toString());
@@ -50,10 +50,10 @@ public class WeatherScheduledJobsService {
         }
     }
 
-    private Set<Warning> checkWeatherWarnings() throws IOException, SOAPException {
+    private List<Warning> checkWeatherWarnings() throws IOException, SOAPException {
         Double coordinateX = Double.parseDouble(this.notificationProperties.getValue(NotificationProperties.COORDINATE_X));
         Double coordinateY = Double.parseDouble(this.notificationProperties.getValue(NotificationProperties.COORDINATE_Y));
-        Set<Warning> warnings = findWarningService.handleResponse(findWarningService.findWarning(new Coordinates(coordinateX, coordinateY)));
+        List<Warning> warnings = findWarningService.handleResponse(findWarningService.findWarning(new Coordinates(coordinateX, coordinateY)));
         return warnings;
     }
 }

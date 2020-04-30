@@ -142,7 +142,7 @@ public class FindWarningService extends StormService {
             warnings.add(whirlwindWarning);
         }
 
-        warnings.sort(Comparator.comparing(Warning::getLevel));
+        warnings.sort(Comparator.comparingInt(Warning::getLevel));
         return warnings;
     }
 
