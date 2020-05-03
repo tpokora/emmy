@@ -9,6 +9,10 @@ import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.model.WarningStrings;
+import org.tpokora.storms.services.processor.StormSoapRequestProcessor;
+import org.tpokora.storms.services.processor.StormSoapResponseProcessor;
+import org.tpokora.storms.services.processor.WarningSoapResponseProcessor;
+import org.tpokora.storms.services.processor.WarningsSoapRequestProcessor;
 
 import javax.xml.soap.*;
 import java.io.IOException;
@@ -18,26 +22,16 @@ import java.util.stream.Collectors;
 @Service
 public class FindWarningService extends StormService {
 
-    private static final Logger logger = LoggerFactory.getLogger(FindWarningService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FindWarningService.class);
 
     public FindWarningService(StormProperties stormProperties, SOAPService soapService) {
         super(stormProperties, soapService);
+        soapRequestMessageProcessor = new WarningsSoapRequestProcessor(stormProperties);
+        soapResponseMessageProcessor = new WarningSoapResponseProcessor();
     }
 
     public SOAPMessage findWarning(Coordinates coordinates) throws SOAPException, IOException {
-        SOAPMessage soapMessage = soapService.createSOAPMessage();
-        HashMap<String, String> namespaces = new HashMap<>();
-        namespaces.put(SOAP, NAMESPACE);
-        SOAPEnvelope envelope = soapService.createSOAPEnvelope(soapMessage, namespaces);
-
-        soapService.createSOAPAction(soapMessage, SOAP_ACTION_OSTRZEZENIA);
-        createSOAPMessage(coordinates, SOAP, envelope);
-
-        System.out.println("Request SOAP Message:");
-        soapMessage.writeTo(System.out);
-        System.out.println();
-        soapMessage.saveChanges();
-
+        SOAPMessage soapMessage = soapRequestMessageProcessor.process(coordinates);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, URL);
 
         System.out.println("Response SOAP Message:");

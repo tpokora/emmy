@@ -6,23 +6,29 @@ import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.services.soap.SoapRequestMessageProcessor;
 import org.tpokora.config.properties.StormProperties;
-import org.tpokora.storms.model.StormRequest;
+import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.services.StormConstants;
 
 import javax.xml.soap.*;
 import java.util.HashMap;
+import java.util.Objects;
 
-public class StormSoapRequestProcessor implements SoapRequestMessageProcessor<StormRequest> {
+public class WarningsSoapRequestProcessor implements SoapRequestMessageProcessor<Coordinates> {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(WarningsSoapRequestProcessor.class);
+
+    public static final String COORDINATES_WARNING_IS_NULL = "Coordinates for Warnings is null!";
+    protected static final String METHOD_OSTRZEZENIA = "ostrzezenia_pogodowe";
 
     protected StormProperties stormProperties;
-    private final Logger LOGGER = LoggerFactory.getLogger(StormSoapRequestProcessor.class);
 
-    public StormSoapRequestProcessor(StormProperties stormProperties) {
+    public WarningsSoapRequestProcessor(StormProperties stormProperties) {
         this.stormProperties = stormProperties;
     }
 
     @Override
-    public SOAPMessage process(StormRequest input) throws SOAPException {
+    public SOAPMessage process(Coordinates input) throws SOAPException {
+        Objects.requireNonNull(input, COORDINATES_WARNING_IS_NULL);
         SOAPMessage soapMessage = SOAPService.createSOAPMessage();
         HashMap<String, String> namespaces = new HashMap<>();
         namespaces.put(StormConstants.SOAP, StormConstants.NAMESPACE);
@@ -31,24 +37,21 @@ public class StormSoapRequestProcessor implements SoapRequestMessageProcessor<St
         SOAPService.createSOAPAction(soapMessage, StormConstants.SOAP_ACTION_SZUKAJ_BURZY);
         createSOAPMessage(input, StormConstants.SOAP, envelope);
 
-        LOGGER.debug("Request SOAP Message:");
+        LOGGER.debug("Weather Warnings Request SOAP Message:");
         LOGGER.debug(SoapMessageUtilities.soapMessageToString(soapMessage));
 
-        soapMessage.saveChanges();
         return soapMessage;
     }
 
-    private void createSOAPMessage(StormRequest storm, String namespace, SOAPEnvelope envelope) throws SOAPException {
+    private void createSOAPMessage(Coordinates coordinates, String namespace, SOAPEnvelope envelope) throws SOAPException {
         SOAPBody soapBody = envelope.getBody();
-        SOAPElement findStorm = soapBody.addChildElement(StormConstants.METHOD_SZUKAJ_BURZY, namespace);
+        SOAPElement findStorm = soapBody.addChildElement(METHOD_OSTRZEZENIA, namespace);
         SOAPElement xElem = findStorm.addChildElement("x", namespace);
         SOAPElement yElem = findStorm.addChildElement("y", namespace);
-        SOAPElement radiusElem = findStorm.addChildElement("promien", namespace);
         SOAPElement keyElem = findStorm.addChildElement("klucz", namespace);
 
-        xElem.addTextNode(String.valueOf(storm.getCoordinates().getX()));
-        yElem.addTextNode(String.valueOf(storm.getCoordinates().getY()));
-        radiusElem.addTextNode(String.valueOf(storm.getDistance()));
+        xElem.addTextNode(String.valueOf(coordinates.getX()));
+        yElem.addTextNode(String.valueOf(coordinates.getY()));
         keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }
 }

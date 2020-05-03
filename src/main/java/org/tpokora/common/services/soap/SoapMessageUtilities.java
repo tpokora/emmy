@@ -1,4 +1,4 @@
-package org.tpokora.storms.services.processor;
+package org.tpokora.common.services.soap;
 
 import com.sun.xml.messaging.saaj.soap.impl.ElementImpl;
 import org.w3c.dom.Node;

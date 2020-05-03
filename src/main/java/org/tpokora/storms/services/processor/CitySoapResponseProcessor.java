@@ -2,6 +2,7 @@ package org.tpokora.storms.services.processor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.services.soap.SoapResponseMessageProcessor;
 import org.tpokora.storms.model.City;
 
