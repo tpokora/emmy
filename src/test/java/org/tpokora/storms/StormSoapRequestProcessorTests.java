@@ -34,7 +34,7 @@ public class StormSoapRequestProcessorTests {
         double x = 11.11;
         double y = 22.22;
         int distance = 100;
-        int time = 30;
+        int time = 15;
         stormRequest.setCoordinates(new Coordinates(x, y));
         stormRequest.setDistance(distance);
         stormRequest.setTime(time);

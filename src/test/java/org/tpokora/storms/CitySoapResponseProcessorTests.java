@@ -1,11 +1,13 @@
 package org.tpokora.storms;
 
+import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.storms.model.City;
+import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.services.processor.CitySoapResponseProcessor;
 
 import javax.xml.soap.*;
@@ -29,6 +31,7 @@ public class CitySoapResponseProcessorTests {
         City city = citySoapResponseMessageProcessor.process(soapMessageResponse);
         Assertions.assertEquals(expectedCity.getCoordinates().getX(), city.getCoordinates().getX());
         Assertions.assertEquals(expectedCity.getCoordinates().getY(), city.getCoordinates().getY());
+        Assertions.assertEquals(Strings.EMPTY, city.getName());
         Assertions.assertEquals(expectedCity.toString(), city.toString());
     }
 
