@@ -13,6 +13,8 @@ import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
+import static org.tpokora.storms.StormsTestsConstants.*;
+
 public class StormSoapRequestProcessorTests {
 
     private StormSoapRequestProcessor stormSoapRequestProcessor;
@@ -21,7 +23,7 @@ public class StormSoapRequestProcessorTests {
     @BeforeEach
     public void setup() {
         stormProperties = new StormProperties();
-        stormProperties.getStorm().put(StormsTestsConstants.KEY, StormsTestsConstants.TEST_KEY);
+        stormProperties.getStorm().put(KEY, TEST_KEY);
         stormSoapRequestProcessor = new StormSoapRequestProcessor(stormProperties);
     }
 
@@ -45,8 +47,8 @@ public class StormSoapRequestProcessorTests {
         SOAPBody soapBody = stormMessage.getSOAPBody();
 
         Assertions.assertNotNull(soapBody.getElementsByTagName("szukaj_burzy"));
-        Assertions.assertEquals(String.valueOf(stormRequest.getCoordinates().getX()), soapBody.getElementsByTagName("soap:x").item(0).getTextContent());
-        Assertions.assertEquals(String.valueOf(stormRequest.getCoordinates().getY()), soapBody.getElementsByTagName("soap:y").item(0).getTextContent());
+        Assertions.assertEquals(String.valueOf(stormRequest.getCoordinates().getX()), soapBody.getElementsByTagName(SOAP_X).item(0).getTextContent());
+        Assertions.assertEquals(String.valueOf(stormRequest.getCoordinates().getY()), soapBody.getElementsByTagName(SOAP_Y).item(0).getTextContent());
         Assertions.assertEquals(String.valueOf(stormRequest.getDistance()), soapBody.getElementsByTagName("soap:promien").item(0).getTextContent());
         Assertions.assertEquals(StormsTestsConstants.TEST_KEY, soapBody.getElementsByTagName("soap:klucz").item(0).getTextContent());
     }

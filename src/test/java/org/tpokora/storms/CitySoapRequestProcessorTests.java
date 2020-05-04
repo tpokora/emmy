@@ -10,6 +10,8 @@ import org.tpokora.storms.services.processor.CitySoapRequestProcessor;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
+import static org.tpokora.storms.StormsTestsConstants.*;
+
 public class CitySoapRequestProcessorTests {
 
     public static final String TEST_CITY = "testCity";
@@ -20,7 +22,7 @@ public class CitySoapRequestProcessorTests {
     @BeforeEach
     public void setup() {
         stormProperties = new StormProperties();
-        stormProperties.getStorm().put(StormsTestsConstants.KEY, StormsTestsConstants.TEST_KEY);
+        stormProperties.getStorm().put(KEY, TEST_KEY);
         citySoapRequestProcessor = new CitySoapRequestProcessor(stormProperties);
     }
 
@@ -29,7 +31,7 @@ public class CitySoapRequestProcessorTests {
     public void testProcess() throws SOAPException {
         SOAPMessage cityMessage = citySoapRequestProcessor.process(TEST_CITY);
 
-        Assertions.assertEquals(TEST_CITY, cityMessage.getSOAPBody().getElementsByTagName(StormsTestsConstants.SOAP_NAZWA).item(0).getTextContent());
-        Assertions.assertEquals(StormsTestsConstants.TEST_KEY, cityMessage.getSOAPBody().getElementsByTagName(StormsTestsConstants.SOAP_KLUCZ).item(0).getTextContent());
+        Assertions.assertEquals(TEST_CITY, cityMessage.getSOAPBody().getElementsByTagName(SOAP_NAZWA).item(0).getTextContent());
+        Assertions.assertEquals(TEST_KEY, cityMessage.getSOAPBody().getElementsByTagName(SOAP_KLUCZ).item(0).getTextContent());
     }
 }
