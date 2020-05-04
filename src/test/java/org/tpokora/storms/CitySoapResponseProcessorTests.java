@@ -29,6 +29,7 @@ public class CitySoapResponseProcessorTests {
         City city = citySoapResponseMessageProcessor.process(soapMessageResponse);
         Assertions.assertEquals(expectedCity.getCoordinates().getX(), city.getCoordinates().getX());
         Assertions.assertEquals(expectedCity.getCoordinates().getY(), city.getCoordinates().getY());
+        Assertions.assertEquals(expectedCity.toString(), city.toString());
     }
 
     private SOAPMessage generateSOAPResponse() throws SOAPException {

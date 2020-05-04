@@ -7,7 +7,7 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import java.util.List;
 
-public class WarningSoapResponseProcessor implements SoapResponseMessageProcessor<List<Warning>> {
+public class WarningsSoapResponseProcessor implements SoapResponseMessageProcessor<List<Warning>> {
 
     @Override
     public List<Warning> process(SOAPMessage soapMessage) throws SOAPException {

@@ -38,10 +38,10 @@ public class StormSoapRequestProcessorTests {
         stormRequest.setTime(time);
         SOAPMessage stormMessage = stormSoapRequestProcessor.process(stormRequest);
 
-        assertResponse(stormMessage, stormRequest);
+        assertRequest(stormMessage, stormRequest);
     }
 
-    private void assertResponse(SOAPMessage stormMessage, StormRequest stormRequest) throws SOAPException {
+    private void assertRequest(SOAPMessage stormMessage, StormRequest stormRequest) throws SOAPException {
         SOAPBody soapBody = stormMessage.getSOAPBody();
 
         Assertions.assertNotNull(soapBody.getElementsByTagName("szukaj_burzy"));
