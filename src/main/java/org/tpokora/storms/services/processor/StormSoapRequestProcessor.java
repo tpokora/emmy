@@ -12,6 +12,8 @@ import org.tpokora.storms.services.StormConstants;
 import javax.xml.soap.*;
 import java.util.HashMap;
 
+import static org.tpokora.storms.services.processor.StormProcessorStrings.*;
+
 public class StormSoapRequestProcessor implements SoapRequestMessageProcessor<StormRequest> {
 
     protected StormProperties stormProperties;
@@ -41,10 +43,10 @@ public class StormSoapRequestProcessor implements SoapRequestMessageProcessor<St
     private void createSOAPMessage(StormRequest storm, String namespace, SOAPEnvelope envelope) throws SOAPException {
         SOAPBody soapBody = envelope.getBody();
         SOAPElement findStorm = soapBody.addChildElement(StormConstants.METHOD_SZUKAJ_BURZY, namespace);
-        SOAPElement xElem = findStorm.addChildElement("x", namespace);
-        SOAPElement yElem = findStorm.addChildElement("y", namespace);
-        SOAPElement radiusElem = findStorm.addChildElement("promien", namespace);
-        SOAPElement keyElem = findStorm.addChildElement("klucz", namespace);
+        SOAPElement xElem = findStorm.addChildElement(X, namespace);
+        SOAPElement yElem = findStorm.addChildElement(Y, namespace);
+        SOAPElement radiusElem = findStorm.addChildElement(PROMIEN, namespace);
+        SOAPElement keyElem = findStorm.addChildElement(KLUCZ, namespace);
 
         xElem.addTextNode(String.valueOf(storm.getCoordinates().getX()));
         yElem.addTextNode(String.valueOf(storm.getCoordinates().getY()));

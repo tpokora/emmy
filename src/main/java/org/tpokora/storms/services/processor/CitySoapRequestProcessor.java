@@ -12,10 +12,11 @@ import javax.xml.soap.*;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static org.tpokora.storms.services.processor.StormProcessorStrings.*;
+
 public class CitySoapRequestProcessor implements SoapRequestMessageProcessor<String> {
 
     private static final String CITY_INPUT_IS_NULL = "City input is null!";
-
     protected StormProperties stormProperties;
     private final Logger LOGGER = LoggerFactory.getLogger(CitySoapRequestProcessor.class);
 
@@ -43,8 +44,8 @@ public class CitySoapRequestProcessor implements SoapRequestMessageProcessor<Str
     private void createSOAPMessage(String city, String namespace, SOAPEnvelope envelope) throws SOAPException {
         SOAPBody soapBody = envelope.getBody();
         SOAPElement findCity = soapBody.addChildElement(StormConstants.METHOD_MIEJSCOWOSC, namespace);
-        SOAPElement nameElem = findCity.addChildElement("nazwa", namespace);
-        SOAPElement keyElem = findCity.addChildElement("klucz", namespace);
+        SOAPElement nameElem = findCity.addChildElement(NAZWA, namespace);
+        SOAPElement keyElem = findCity.addChildElement(KLUCZ, namespace);
 
         nameElem.addTextNode(city);
         keyElem.addTextNode(stormProperties.getStorm().get(StormProperties.KEY));

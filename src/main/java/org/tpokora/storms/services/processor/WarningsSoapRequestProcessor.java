@@ -13,6 +13,8 @@ import javax.xml.soap.*;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static org.tpokora.storms.services.processor.StormProcessorStrings.*;
+
 public class WarningsSoapRequestProcessor implements SoapRequestMessageProcessor<Coordinates> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(WarningsSoapRequestProcessor.class);
@@ -46,9 +48,9 @@ public class WarningsSoapRequestProcessor implements SoapRequestMessageProcessor
     private void createSOAPMessage(Coordinates coordinates, String namespace, SOAPEnvelope envelope) throws SOAPException {
         SOAPBody soapBody = envelope.getBody();
         SOAPElement findStorm = soapBody.addChildElement(METHOD_OSTRZEZENIA, namespace);
-        SOAPElement xElem = findStorm.addChildElement("x", namespace);
-        SOAPElement yElem = findStorm.addChildElement("y", namespace);
-        SOAPElement keyElem = findStorm.addChildElement("klucz", namespace);
+        SOAPElement xElem = findStorm.addChildElement(X, namespace);
+        SOAPElement yElem = findStorm.addChildElement(Y, namespace);
+        SOAPElement keyElem = findStorm.addChildElement(KLUCZ, namespace);
 
         xElem.addTextNode(String.valueOf(coordinates.getX()));
         yElem.addTextNode(String.valueOf(coordinates.getY()));

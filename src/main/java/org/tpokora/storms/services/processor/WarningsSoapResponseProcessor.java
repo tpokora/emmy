@@ -7,6 +7,8 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import java.util.List;
 
+import static org.tpokora.storms.services.processor.StormProcessorStrings.*;
+
 public class WarningsSoapResponseProcessor implements SoapResponseMessageProcessor<List<Warning>> {
 
     @Override
