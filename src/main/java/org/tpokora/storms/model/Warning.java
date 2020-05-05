@@ -10,17 +10,6 @@ public class Warning {
 
     private Warning() {}
 
-    public Warning(String name, int level, Period period) {
-        this.name = name;
-        this.level = level;
-        this.period = period;
-    }
-
-    public Warning(String name, int level, LocalDateTime from, LocalDateTime to) {
-        this(name, level, new Period(from, to));
-    }
-
-
     public String getName() {
         return name;
     }
@@ -29,20 +18,8 @@ public class Warning {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Period getPeriod() {
         return period;
-    }
-
-    public void setPeriod(Period period) {
-        this.period = period;
     }
 
     @Override
@@ -64,7 +41,7 @@ public class Warning {
         protected Period period;
 
         public Builder name(String name) {
-            Objects.requireNonNull(this.name, "Name cannot be null!");
+            Objects.requireNonNull(name, "Name cannot be null!");
             this.name = name;
             return this;
         }
@@ -74,8 +51,15 @@ public class Warning {
             return this;
         }
 
+        public Builder period(LocalDateTime from, LocalDateTime to) {
+            Objects.requireNonNull(from, "LocalDateTime from is null!");
+            Objects.requireNonNull(to, "LocalDateTime to is null!");
+            this.period = new Period(from, to);
+            return this;
+        }
+
         public Builder period(Period period) {
-            Objects.requireNonNull(this.period, "Period cannot be null!");
+            Objects.requireNonNull(period, "Period cannot be null!");
             this.period = period;
             return this;
         }
