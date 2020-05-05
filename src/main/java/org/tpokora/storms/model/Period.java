@@ -2,17 +2,22 @@ package org.tpokora.storms.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Period {
     private LocalDateTime from;
     private LocalDateTime to;
 
     public Period(LocalDateTime from, LocalDateTime to) {
+        Objects.requireNonNull(from, "LocalDateTime from is null!");
+        Objects.requireNonNull(to, "LocalDateTime to is null!");
         this.from = from;
         this.to = to;
     }
 
     public Period(String from, String to, String dateFormat) {
+        Objects.requireNonNull(from, "String from is null!");
+        Objects.requireNonNull(to, "String to is null!");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
         this.from = LocalDateTime.parse(from, formatter);
         this.to = LocalDateTime.parse(to, formatter);
@@ -23,29 +28,15 @@ public class Period {
     }
 
     public String getFromString() {
-        if (from != null) {
-            return from.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT));
-        }
-        return null;
+        return from.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT));
     }
 
     public String getToString() {
-        if (to != null) {
-            return to.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT));
-        }
-        return null;
-    }
-
-    public void setFrom(LocalDateTime from) {
-        this.from = from;
+        return to.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT));
     }
 
     public LocalDateTime getTo() {
         return to;
-    }
-
-    public void setTo(LocalDateTime to) {
-        this.to = to;
     }
 
     @Override
