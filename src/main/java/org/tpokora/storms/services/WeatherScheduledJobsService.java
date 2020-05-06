@@ -53,7 +53,7 @@ public class WeatherScheduledJobsService {
     private List<Warning> checkWeatherWarnings() throws IOException, SOAPException {
         Double coordinateX = Double.parseDouble(this.notificationProperties.getValue(NotificationProperties.COORDINATE_X));
         Double coordinateY = Double.parseDouble(this.notificationProperties.getValue(NotificationProperties.COORDINATE_Y));
-        List<Warning> warnings = findWarningService.handleResponse(findWarningService.findWarning(new Coordinates(coordinateX, coordinateY)));
+        List<Warning> warnings = findWarningService.findWarnings(new Coordinates(coordinateX, coordinateY));
         return warnings;
     }
 }

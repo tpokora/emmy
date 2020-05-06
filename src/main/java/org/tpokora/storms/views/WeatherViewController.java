@@ -86,7 +86,7 @@ public class WeatherViewController {
         LOGGER.info("Find Warnings");
         initializeView(model);
         updateModelAttribute(model, COORDINATES, coordinates);
-        List<Warning> warnings = this.findWarningService.handleResponse(this.findWarningService.findWarning(coordinates));
+        List<Warning> warnings = this.findWarningService.findWarnings(coordinates);
         if (warnings.size() == 0) {
             setError(model, WeatherViewError.NO_WARNINGS.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;

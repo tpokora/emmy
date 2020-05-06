@@ -71,10 +71,8 @@ public class StormController {
     @RequestMapping(value = "/warnings/", method = RequestMethod.GET)
     public ResponseEntity<Object> getWarnings(@RequestParam("x") Double x, @RequestParam("y") Double y) throws Exception {
         Coordinates coordinates = new Coordinates(x, y);
-        SOAPMessage warningResponse = findWarningService.findWarning(coordinates);
-
-        List<Warning> warning = findWarningService.handleResponse(warningResponse);
-        return new ResponseEntity<>(warning, HttpStatus.OK);
+        List<Warning> warnings = findWarningService.findWarnings(coordinates);
+        return new ResponseEntity<>(warnings, HttpStatus.OK);
     }
 
     private ErrorMsg checkForError(SOAPMessage soapMessage) throws SOAPException {
