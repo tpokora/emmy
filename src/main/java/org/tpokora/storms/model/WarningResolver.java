@@ -1,10 +1,12 @@
 package org.tpokora.storms.model;
 
-public class WarningResolver {
+import org.tpokora.common.utils.Resolver;
 
-    private WarningResolver() {}
+public class WarningResolver implements Resolver<String, String> {
 
-    public static String resolve(String warningName) {
+    public WarningResolver() {}
+
+    public String resolve(String warningName) {
         if ("mroz".equals(warningName.toLowerCase())) {
             return WarningStrings.FROST;
         }

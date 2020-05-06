@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.services.soap.SoapResponseMessageProcessor;
+import org.tpokora.common.utils.Resolver;
 import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.model.WarningResolver;
@@ -22,6 +23,12 @@ import static org.tpokora.common.services.soap.SoapMessageUtilities.elementValue
 public class WarningsSoapResponseProcessor implements SoapResponseMessageProcessor<List<Warning>> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(WarningsSoapResponseProcessor.class);
+
+    private Resolver warningResolver;
+
+    public WarningsSoapResponseProcessor() {
+        warningResolver = new WarningResolver();
+    }
 
     @Override
     public List<Warning> process(SOAPMessage soapMessage) throws SOAPException {
@@ -53,7 +60,7 @@ public class WarningsSoapResponseProcessor implements SoapResponseMessageProcess
                     WarningStrings.WARNINGS_DATE_FORMAT);
 
             Warning warning = Warning.builder()
-                    .name(WarningResolver.resolve(warningName))
+                    .name((String) warningResolver.resolve(warningName))
                     .level(level)
                     .period(period)
                     .build();
