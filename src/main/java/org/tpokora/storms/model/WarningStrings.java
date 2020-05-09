@@ -2,6 +2,8 @@ package org.tpokora.storms.model;
 
 public class WarningStrings {
 
+
+
     public final static String HEAT = "Heat";
     public final static String FROST = "Frost";
     public final static String WIND = "Wind";

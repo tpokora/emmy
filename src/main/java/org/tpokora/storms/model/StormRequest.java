@@ -2,7 +2,7 @@ package org.tpokora.storms.model;
 
 public class StormRequest {
     private Coordinates coordinates;
-    private float distance;
+    private double distance;
     private int time;
 
     public StormRequest() {
@@ -19,11 +19,11 @@ public class StormRequest {
         this.coordinates = coordinates;
     }
 
-    public float getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(float distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 

@@ -2,12 +2,15 @@ package org.tpokora.storms.services;
 
 import com.sun.xml.messaging.saaj.soap.impl.ElementImpl;
 import org.springframework.stereotype.Service;
-import org.tpokora.common.services.SOAPService;
+import org.tpokora.common.services.soap.SOAPService;
+import org.tpokora.common.services.soap.SoapRequestMessageProcessor;
+import org.tpokora.common.services.soap.SoapResponseMessageProcessor;
 import org.tpokora.config.properties.StormProperties;
 
 @Service
 public class StormService {
 
+    // TODO: To be moved to StormConstants
     protected static final String SOAP = "soap";
     protected static final String NAMESPACE = "http://burze.dzis.net/soap.php";
     protected static final String URL = "http://burze.dzis.net/soap.php";
@@ -22,13 +25,14 @@ public class StormService {
 
     protected StormProperties stormProperties;
 
+    protected SoapRequestMessageProcessor soapRequestMessageProcessor;
+    protected SoapResponseMessageProcessor soapResponseMessageProcessor;
+
     protected SOAPService soapService;
 
     public StormService(StormProperties stormProperties, SOAPService soapService) {
         this.stormProperties = stormProperties;
-        this.soapService = soapService;
     }
-
 
     protected String elementValue(org.w3c.dom.Node element, String name) {
         return ((ElementImpl) element).getElementsByTagName(name).item(0).getTextContent();

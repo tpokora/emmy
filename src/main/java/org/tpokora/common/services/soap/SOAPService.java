@@ -1,4 +1,4 @@
-package org.tpokora.common.services;
+package org.tpokora.common.services.soap;
 
 import org.springframework.stereotype.Service;
 
@@ -11,13 +11,12 @@ public class SOAPService {
 
     public static final String SOAP_ACTION = "SOAPAction";
 
-    public SOAPMessage createSOAPMessage() throws SOAPException {
+    public static SOAPMessage createSOAPMessage() throws SOAPException {
         MessageFactory messageFactory = MessageFactory.newInstance();
-        SOAPMessage soapMessage = messageFactory.createMessage();
-        return soapMessage;
+        return messageFactory.createMessage();
     }
 
-    public SOAPEnvelope createSOAPEnvelope(SOAPMessage soapMessage, HashMap<String, String> namespaces) throws SOAPException {
+    public static SOAPEnvelope createSOAPEnvelope(SOAPMessage soapMessage, Map<String, String> namespaces) throws SOAPException {
         SOAPPart soapPart = soapMessage.getSOAPPart();
         SOAPEnvelope envelope = soapPart.getEnvelope();
         for (Map.Entry entry : namespaces.entrySet()) {
@@ -27,15 +26,19 @@ public class SOAPService {
         return envelope;
     }
 
-    public SOAPMessage sendSOAPMessage(SOAPMessage soapMessage, String url) throws SOAPException {
+    public static SOAPMessage sendSOAPMessage(SOAPMessage soapMessage, String url) throws SOAPException {
         SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
         SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 
         return soapConnection.call(soapMessage, url);
     }
 
-    public void createSOAPHeader(SOAPMessage soapMessage, String soapAction) {
+    public static void createSOAPAction(SOAPMessage soapMessage, String soapAction) {
+        createSOAPHeader(soapMessage, SOAP_ACTION, soapAction);
+    }
+
+    public static void createSOAPHeader(SOAPMessage soapMessage, String headerName, String headerValue) {
         MimeHeaders headers = soapMessage.getMimeHeaders();
-        headers.addHeader(SOAP_ACTION, soapAction);
+        headers.addHeader(headerName, headerValue);
     }
 }

@@ -53,4 +53,14 @@ public class Notification {
                 warning.getPeriod().getToString());
         return notification;
     }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "topic='" + topic + '\'' +
+                ", title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

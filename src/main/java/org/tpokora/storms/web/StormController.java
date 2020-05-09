@@ -23,7 +23,7 @@ import org.tpokora.storms.services.FindWarningService;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPFault;
 import javax.xml.soap.SOAPMessage;
-import java.util.Set;
+import java.util.List;
 
 
 @Api(value = "Storms", description = "Storms API")
@@ -44,35 +44,23 @@ public class StormController {
 
     @ApiOperation(value = "Find storm", notes = "Find storm by x, y coordinates and radius im km")
     @RequestMapping(value = "/find_storm/", method = RequestMethod.GET)
-    public ResponseEntity<Object> getStormByCordinates(@RequestParam("x") Double x, @RequestParam("y") Double y,
+    public ResponseEntity<Object> getStormByCoordinates(@RequestParam("x") Double x, @RequestParam("y") Double y,
                                                        @RequestParam("radius") int radius) throws Exception {
         StormRequest stormRequest = new StormRequest();
         stormRequest.setCoordinates(new Coordinates(x, y));
         stormRequest.setDistance(radius);
 
-        SOAPMessage stormResponse = findStormService.checkStorm(stormRequest);
-
-        if (checkForError(stormResponse) != null) {
-            return new ResponseEntity<>(checkForError(stormResponse), HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(findStormService.handleResponse(stormResponse), HttpStatus.OK);
+        return new ResponseEntity<>(findStormService.checkStorm(stormRequest), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Find city", notes = "Returns coordinates of given city")
     @RequestMapping(value = "/city/", method = RequestMethod.GET)
-    public ResponseEntity<Object> getCityCordinates(@RequestParam("name") String name) throws Exception {
-        SOAPMessage stormResponse = findCityService.findCity(name);
-
-        if (checkForError(stormResponse) != null) {
-            return new ResponseEntity<>(checkForError(stormResponse), HttpStatus.OK);
-        }
-
-        City city = findCityService.handleResponse(stormResponse);
+    public ResponseEntity<Object> getCityCoordinates(@RequestParam("name") String name) throws Exception {
+        City city = findCityService.findCity(name);
         if (city.getCoordinates().getX().compareTo(0.0) == 0 && city.getCoordinates().getY().equals("0")) {
             ErrorMsg errorMsg = new ErrorMsg();
             errorMsg.setError(name + " not found");
-            return new ResponseEntity<>(errorMsg, HttpStatus.OK);
+            return new ResponseEntity<>(errorMsg, HttpStatus.NO_CONTENT);
         }
 
         city.setName(name);
@@ -83,10 +71,8 @@ public class StormController {
     @RequestMapping(value = "/warnings/", method = RequestMethod.GET)
     public ResponseEntity<Object> getWarnings(@RequestParam("x") Double x, @RequestParam("y") Double y) throws Exception {
         Coordinates coordinates = new Coordinates(x, y);
-        SOAPMessage warningResponse = findWarningService.findWarning(coordinates);
-
-        Set<Warning> warning = findWarningService.handleResponse(warningResponse);
-        return new ResponseEntity<>(warning, HttpStatus.OK);
+        List<Warning> warnings = findWarningService.findWarnings(coordinates);
+        return new ResponseEntity<>(warnings, HttpStatus.OK);
     }
 
     private ErrorMsg checkForError(SOAPMessage soapMessage) throws SOAPException {
