@@ -92,6 +92,18 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
     }
 
     @Test
+    public void testUserDetailsServiceGetNotExistingUserDetailByUsername_expectedNull() {
+        UserDetails fetchedUserDetails = userDetailsService.loadUserByUsername("notExistingUser");
+        Assertions.assertNull(fetchedUserDetails);
+    }
+
+    @Test
+    public void testUserDetailsServiceGetNotExistingUserDetailByEmail_expectedNull() {
+        UserDetails fetchedUserDetails = userDetailsService.loadUserByEmail("notExistingUserEmail");
+        Assertions.assertNull(fetchedUserDetails);
+    }
+
+    @Test
     public void testUserDetailsServiceGetUserDetailByEmail() {
         UserDetails fetchedUserDetails = userDetailsService.loadUserByEmail(this.userOne.getEmail());
         Assertions.assertEquals(this.userOne.getUsername(), fetchedUserDetails.getUsername());

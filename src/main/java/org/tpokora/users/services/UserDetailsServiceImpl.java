@@ -1,5 +1,7 @@
 package org.tpokora.users.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +25,8 @@ import java.util.stream.Stream;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+
     private UserRepository userRepository;
     private RolesRepository rolesRepository;
 
@@ -32,16 +36,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
-        return Optional.ofNullable(optionalUser).orElseThrow(()->new UsernameNotFoundException("Username Not Found"))
-                .map(UserDetailsImpl::new).get();
+        return optionalUser.map(UserDetailsImpl::new).orElseGet(() -> {
+            LOGGER.debug("User Not Found");
+            return null;
+        });
     }
 
-    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByEmail(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
-        return Optional.ofNullable(optionalUser).orElseThrow(()->new UsernameNotFoundException("Username Not Found"))
-                .map(UserDetailsImpl::new).get();
+        return optionalUser.map(UserDetailsImpl::new).orElseGet(() -> {
+            LOGGER.debug("User Not Found");
+            return null;
+        });
     }
 
     public List<User> getAllUsers() {
