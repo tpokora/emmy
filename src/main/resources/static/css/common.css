@@ -42,3 +42,7 @@ input.form-control:focus {
     color: #bbb;
     background-color: #505050;
 }
+
+.dark-background {
+    background-color: #313131;
+}

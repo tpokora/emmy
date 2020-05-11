@@ -143,8 +143,14 @@
             </form>
             <div th:if="${warnings.size() != 0}">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" th:each="warning : ${warnings}">
-                        <span th:text="${warning.toString()}"></span>
+                    <li class="list-group-item dark-background" th:each="warning : ${warnings}">
+                        <div class="alert" th:classappend="${warning.level > 1} ? alert-danger : alert-warning" role="alert">
+                            <h4 class="alert-heading">Warning : <span th:text="${warning.name}"></span></h4>
+                            <p>Level : <span th:text="${warning.level}"></span></p>
+                            <hr>
+                            <p class="mb-0">From : <span th:text="${warning.period.from}"></span></p>
+                            <p class="mb-0">To : <span th:text="${warning.period.to}"></span></p>
+                        </div>
                     </li>
                 </ul>
             </div>
