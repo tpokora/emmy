@@ -16,7 +16,7 @@ public class HomeViewController {
 
     @GetMapping(value = { SLASH, HOME_VIEW_URL }, name = HOME_VIEW)
     public String home(Model model) {
-        LOGGER.info("HomeView");
+        LOGGER.info("=> HomeView");
         return HOME_VIEW;
     }
 

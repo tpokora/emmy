@@ -27,7 +27,7 @@ public class UsersViewController {
 
     @GetMapping(value = USERS_VIEW_URL, name = USERS_VIEW)
     public String users(Model model) {
-        LOGGER.info("UsersView");
+        LOGGER.info("=> UsersView");
         Optional<List<User>> allUsers = Optional.of(userDetailsService.getAllUsers());
         model.addAttribute("users", allUsers.get());
         return USERS_VIEW_TEMPLATE;
@@ -36,7 +36,7 @@ public class UsersViewController {
     @Secured("ADMIN")
     @GetMapping(value = ROLES_VIEW_URL, name = ROLES_VIEW, params = "admin")
     public String roles(Model model) {
-        LOGGER.info("RolesView");
+        LOGGER.info("=> RolesView");
         Optional<List<Role>> allRoles = Optional.of(userDetailsService.getAllRoles());
         model.addAttribute("roles", allRoles.get());
         model.addAttribute("roleForm", new RoleForm());

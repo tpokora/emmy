@@ -39,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
         return optionalUser.map(UserDetailsImpl::new).orElseGet(() -> {
-            LOGGER.debug("User Not Found");
+            LOGGER.debug("==> User Not Found");
             return null;
         });
     }
@@ -47,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByEmail(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         return optionalUser.map(UserDetailsImpl::new).orElseGet(() -> {
-            LOGGER.debug("User Not Found");
+            LOGGER.debug("==> User Not Found");
             return null;
         });
     }
