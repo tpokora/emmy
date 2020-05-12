@@ -44,17 +44,18 @@ public class WeatherViewController {
 
     @GetMapping(value = WEATHER_VIEW_URL, name = WEATHER_VIEW)
     public String weather(Model model) {
-        LOGGER.info("WeatherView");
+        LOGGER.info("=> WeatherView");
         initializeView(model);
         return WEATHER_VIEW_TEMPLATE;
     }
 
     @PostMapping(value = WEATHER_FIND_CITY_URL)
     public String findCity(Model model, @ModelAttribute City city) throws IOException, SOAPException {
-        LOGGER.info("Find city");
+        LOGGER.info("=> Find city");
         initializeView(model);
         city = this.findCityService.findCity(city.getName());
         if (city.getCoordinates().getY().equals(0.0) && city.getCoordinates().getX().equals(0.0)) {
+            LOGGER.info("=> City {} not found", city.getName());
             setError(model, WeatherViewError.CITY_NOT_FOUND.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;
         }
@@ -68,12 +69,13 @@ public class WeatherViewController {
 
     @PostMapping(value = WEATHER_FIND_STORM_URL)
     public String findStorm(Model model, @ModelAttribute StormRequest stormRequest) throws IOException, SOAPException {
-        LOGGER.info("Find storm");
+        LOGGER.info("=> Find storm");
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, stormRequest.getCoordinates());
         StormResponse stormResponse = this.findStormService.checkStorm(stormRequest);
         if (stormResponse.getAmount() == 0) {
+            LOGGER.info("=> Storm not found");
             setError(model, WeatherViewError.NO_STORMS.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;
         }
@@ -83,11 +85,12 @@ public class WeatherViewController {
 
     @PostMapping(value = WEATHER_FIND_WARNINGS_URL)
     public String findWarnings(Model model, @ModelAttribute Coordinates coordinates) throws IOException, SOAPException {
-        LOGGER.info("Find Warnings");
+        LOGGER.info("=> Find Warnings");
         initializeView(model);
         updateModelAttribute(model, COORDINATES, coordinates);
         List<Warning> warnings = this.findWarningService.findWarnings(coordinates);
         if (warnings.size() == 0) {
+            LOGGER.info("=> Warnings not found");
             setError(model, WeatherViewError.NO_WARNINGS.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;
         }
