@@ -28,7 +28,7 @@ public class FindStormService extends StormService {
     public StormResponse checkStorm(StormRequest stormRequest) throws SOAPException {
         LOGGER.info("==> Find Storm : {}", stormRequest);
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(stormRequest);
-        SOAPMessage soapResponse = SOAPService.sendSOAPMessage(soapMessage, URL);
+        SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, URL);
         StormResponse stormResponse = (StormResponse) soapResponseMessageProcessor.process(soapResponse);
         LOGGER.info("==> {}", stormResponse);
         return stormResponse;

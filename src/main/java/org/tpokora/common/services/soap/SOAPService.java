@@ -26,7 +26,7 @@ public class SOAPService {
         return envelope;
     }
 
-    public static SOAPMessage sendSOAPMessage(SOAPMessage soapMessage, String url) throws SOAPException {
+    public SOAPMessage sendSOAPMessage(SOAPMessage soapMessage, String url) throws SOAPException {
         SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
         SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 
