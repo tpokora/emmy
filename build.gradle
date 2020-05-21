@@ -14,8 +14,8 @@ configurations {
 }
 
 bootJar {
-    baseName = 'emmy-rose'
-    version = '0.1.0'
+    archivesBaseName = 'emmy-rose'
+    archiveVersion = '0.1.0'
 }
 
 bootRun {
