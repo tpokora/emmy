@@ -1,6 +1,5 @@
 package org.tpokora.storms.services;
 
-import com.sun.xml.messaging.saaj.soap.impl.ElementImpl;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapRequestMessageProcessor;
@@ -32,9 +31,6 @@ public class StormService {
 
     public StormService(StormProperties stormProperties, SOAPService soapService) {
         this.stormProperties = stormProperties;
-    }
-
-    protected String elementValue(org.w3c.dom.Node element, String name) {
-        return ((ElementImpl) element).getElementsByTagName(name).item(0).getTextContent();
+        this.soapService = soapService;
     }
 }
