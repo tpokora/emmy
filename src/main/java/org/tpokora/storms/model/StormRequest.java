@@ -11,6 +11,12 @@ public class StormRequest {
         this.time = 0;
     }
 
+    public StormRequest(Coordinates coordinates, double distance, int time) {
+        this.coordinates = coordinates;
+        this.distance = distance;
+        this.time = time;
+    }
+
     public Coordinates getCoordinates() {
         return coordinates;
     }

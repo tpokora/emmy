@@ -51,6 +51,6 @@ public class StormSoapRequestProcessor implements SoapRequestMessageProcessor<St
         xElem.addTextNode(String.valueOf(storm.getCoordinates().getX()));
         yElem.addTextNode(String.valueOf(storm.getCoordinates().getY()));
         radiusElem.addTextNode(String.valueOf(storm.getDistance()));
-        keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
+        keyElem.addTextNode(stormProperties.getStorm().get(StormProperties.KEY));
     }
 }
