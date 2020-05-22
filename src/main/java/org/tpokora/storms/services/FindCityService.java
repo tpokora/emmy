@@ -30,7 +30,7 @@ public class FindCityService extends StormService {
         Objects.requireNonNull(cityName, CITY_NAME_IS_NULL);
         LOGGER.info("==> {}", cityName);
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(cityName);
-        SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, URL);
+        SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
         City city = (City) soapResponseMessageProcessor.process(soapResponse);
         city.setName(cityName);
         LOGGER.info("==> {}", city);
