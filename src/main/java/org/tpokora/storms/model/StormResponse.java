@@ -1,16 +1,22 @@
 package org.tpokora.storms.model;
 
+import org.tpokora.common.utils.DateUtils;
+
+import java.time.LocalDateTime;
+
 public class StormResponse {
     private int amount;
     private double distance;
     private String direction;
     private int time;
+    private LocalDateTime timestamp;
 
     public StormResponse() {
         this.amount = 0;
         this.distance = 0.0;
         this.direction = "";
         this.time = 0;
+        this.timestamp = LocalDateTime.now();
     }
 
     public StormResponse(int amount, double distance, String direction, int time) {
@@ -18,6 +24,7 @@ public class StormResponse {
         this.distance = distance;
         this.direction = direction;
         this.time = time;
+        this.timestamp = LocalDateTime.now();
     }
 
     public int getAmount() {
@@ -52,6 +59,14 @@ public class StormResponse {
         this.time = time;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "StormResponse{" +
@@ -59,6 +74,7 @@ public class StormResponse {
                 ", distance=" + distance +
                 ", direction='" + direction + '\'' +
                 ", time=" + time +
+                ", timestamp=" + DateUtils.parseDateToString(timestamp) +
                 '}';
     }
 }
