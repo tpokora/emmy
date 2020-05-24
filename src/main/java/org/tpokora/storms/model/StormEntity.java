@@ -8,27 +8,57 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="STORM")
-public class StormEntity extends StormResponse {
+public class StormEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private int id;
+
+    @Column(name = "CITY_NAME", nullable = false)
     private String cityName;
+
+    @Column(name = "X", nullable = false)
     private String x;
+
+    @Column(name = "Y", nullable = false)
     private String y;
+
+    @Column(name = "AMOUNT", nullable = false)
+    protected int amount;
+
+    @Column(name = "DISTANCE", nullable = false)
+    protected double distance;
+
+    @Column(name = "DIRECTION", nullable = false)
+    protected String direction;
+
+    @Column(name = "TIME", nullable = false)
+    protected int time;
+
+    @Column(name = "TIMESTAMP", nullable = false)
+    protected LocalDateTime timestamp;
 
     public StormEntity() {
     }
 
     public StormEntity(String cityName, String x, String y, int amount, double distance, String direction, int time) {
-        super(amount, distance, direction, time);
-        initializeFields(id, cityName, x, y);
+        initializeFields(cityName, x, y, amount, distance, direction, time, LocalDateTime.now());
+    }
+
+    private void initializeFields(String cityName, String x, String y, int amount, double distance, String direction, int time, LocalDateTime timestamp) {
+        this.cityName = cityName;
+        this.x = x;
+        this.y = y;
+        this.amount = amount;
+        this.distance = distance;
+        this.direction = direction;
+        this.time = time;
+        this.timestamp = timestamp;
     }
 
     public StormEntity(String cityName, String x, String y, StormResponse stormResponse) {
-        super(stormResponse.getAmount(), stormResponse.getDistance(), stormResponse.getDirection(), stormResponse.getTime());
-        initializeFields(id, cityName, x, y);
+        initializeFields(cityName, x, y, stormResponse.getAmount(), stormResponse.getDistance(), stormResponse.getDirection(), stormResponse.getTime(), LocalDateTime.now());
     }
 
     public int getId() {
@@ -61,14 +91,6 @@ public class StormEntity extends StormResponse {
 
     public void setY(String y) {
         this.y = y;
-    }
-
-    private void initializeFields(int id, String cityName, String x, String y) {
-        this.id = id;
-        this.cityName = cityName;
-        this.x = x;
-        this.y = y;
-        timestamp = LocalDateTime.now();
     }
     
     public static Builder builder() {
