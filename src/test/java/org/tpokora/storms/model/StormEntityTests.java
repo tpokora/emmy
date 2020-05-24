@@ -17,6 +17,7 @@ public class StormEntityTests {
     public static final String TEST_CITY = "TestCity";
     public static final String X = "10.10";
     public static final String Y = "11.11";
+    public static final int ID = 100;
     private StormResponse stormResponse;
     private StormEntity stormEntity;
 
@@ -29,6 +30,7 @@ public class StormEntityTests {
         stormResponse.setDistance(DISTANCE);
         stormResponse.setAmount(AMOUNT);
         stormEntity = StormEntity.builder()
+                .id(ID)
                 .cityName(TEST_CITY)
                 .x(X)
                 .y(Y)
@@ -44,7 +46,8 @@ public class StormEntityTests {
     @Test
     public void testStormEntity() {
         String expectedString = "StormEntity{" +
-                "cityName='" + TEST_CITY + '\'' +
+                "id=" + ID +
+                ", cityName='" + TEST_CITY + '\'' +
                 ", x='" + X + '\'' +
                 ", y='" + Y + '\'' +
                 ", amount=" + AMOUNT +

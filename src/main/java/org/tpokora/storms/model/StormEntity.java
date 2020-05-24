@@ -3,11 +3,17 @@ package org.tpokora.storms.model;
 
 import org.tpokora.common.utils.DateUtils;
 
-import java.text.DecimalFormat;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name="STORM")
 public class StormEntity extends StormResponse {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private int id;
     private String cityName;
     private String x;
     private String y;
@@ -17,12 +23,20 @@ public class StormEntity extends StormResponse {
 
     public StormEntity(String cityName, String x, String y, int amount, double distance, String direction, int time) {
         super(amount, distance, direction, time);
-        initializeFields(cityName, x, y);
+        initializeFields(id, cityName, x, y);
     }
 
     public StormEntity(String cityName, String x, String y, StormResponse stormResponse) {
         super(stormResponse.getAmount(), stormResponse.getDistance(), stormResponse.getDirection(), stormResponse.getTime());
-        initializeFields(cityName, x, y);
+        initializeFields(id, cityName, x, y);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCityName() {
@@ -49,7 +63,8 @@ public class StormEntity extends StormResponse {
         this.y = y;
     }
 
-    private void initializeFields(String cityName, String x, String y) {
+    private void initializeFields(int id, String cityName, String x, String y) {
+        this.id = id;
         this.cityName = cityName;
         this.x = x;
         this.y = y;
@@ -61,6 +76,7 @@ public class StormEntity extends StormResponse {
     }
 
     public static final class Builder {
+        private int id;
         private String cityName;
         private String x;
         private String y;
@@ -68,10 +84,15 @@ public class StormEntity extends StormResponse {
         private double distance;
         private String direction;
         private int time;
-        protected LocalDateTime timestamp;
+        private LocalDateTime timestamp = LocalDateTime.now();
 
         public Builder cityName(String cityName) {
             this.cityName = cityName;
+            return this;
+        }
+
+        public Builder id(int id) {
+            this.id = id;
             return this;
         }
 
@@ -112,6 +133,7 @@ public class StormEntity extends StormResponse {
         
         public StormEntity build() {
             StormEntity stormEntity = new StormEntity();
+            stormEntity.id = this.id;
             stormEntity.cityName = this.cityName;
             stormEntity.x = this.x;
             stormEntity.y = this.y;
@@ -128,7 +150,8 @@ public class StormEntity extends StormResponse {
     @Override
     public String toString() {
         return "StormEntity{" +
-                "cityName='" + cityName + '\'' +
+                "id=" + id +
+                ", cityName='" + cityName + '\'' +
                 ", x='" + x + '\'' +
                 ", y='" + y + '\'' +
                 ", amount=" + amount +
