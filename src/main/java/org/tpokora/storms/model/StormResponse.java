@@ -5,11 +5,11 @@ import org.tpokora.common.utils.DateUtils;
 import java.time.LocalDateTime;
 
 public class StormResponse {
-    private int amount;
-    private double distance;
-    private String direction;
-    private int time;
-    private LocalDateTime timestamp;
+    protected int amount;
+    protected double distance;
+    protected String direction;
+    protected int time;
+    protected LocalDateTime timestamp;
 
     public StormResponse() {
         this.amount = 0;
