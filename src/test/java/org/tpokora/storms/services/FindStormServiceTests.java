@@ -1,16 +1,19 @@
 package org.tpokora.storms.services;
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.dao.StormsRepository;
 import org.tpokora.storms.model.Coordinates;
+import org.tpokora.storms.model.StormEntity;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 
@@ -26,8 +29,12 @@ import static org.mockito.ArgumentMatchers.anyString;
 public class FindStormServiceTests extends StormServicesTests {
 
     public static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.now();
+    private StormEntity STORM_ENTITY;
     private StormRequest stormRequest;
     private StormResponse expectedStormResponse;
+
+    @Mock
+    private StormsRepository stormsRepository;
 
     @InjectMocks
     private FindStormService findStormService;
@@ -37,6 +44,16 @@ public class FindStormServiceTests extends StormServicesTests {
         stormRequest = new StormRequest(new Coordinates(11.11, 22.22), 100, 15);
         expectedStormResponse = new StormResponse(10, 100, "E", 15);
         expectedStormResponse.setTimestamp(LOCAL_DATE_TIME);
+        STORM_ENTITY = StormEntity.builder()
+                .id(1)
+                .amount(10)
+                .x(String.format("%.2f", 10.10))
+                .y(String.format("%.2f", 22.22))
+                .distance(111)
+                .direction("E")
+                .time(10)
+                .timestamp(LocalDateTime.now())
+                .build();
     }
 
     @Test
@@ -44,6 +61,7 @@ public class FindStormServiceTests extends StormServicesTests {
         SOAPMessage response = generateStormResponse(expectedStormResponse);
         Mockito.when(stormProperties.getStorm()).thenReturn(Map.of(StormProperties.KEY, STORM_TEST_KEY));
         Mockito.when(soapService.sendSOAPMessage(any(), anyString())).thenReturn(response);
+        Mockito.when(stormsRepository.saveAndFlush(any())).thenReturn(STORM_ENTITY);
         StormResponse stormResponse = findStormService.checkStorm(stormRequest);
         stormResponse.setTimestamp(LOCAL_DATE_TIME);
         Assert.assertEquals(expectedStormResponse.getAmount(), stormResponse.getAmount());

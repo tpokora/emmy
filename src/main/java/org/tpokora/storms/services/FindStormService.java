@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.dao.StormsRepository;
+import org.tpokora.storms.model.StormEntity;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 import org.tpokora.storms.services.processor.StormSoapRequestProcessor;
@@ -13,6 +14,7 @@ import org.tpokora.storms.services.processor.StormSoapResponseProcessor;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
+import java.util.List;
 
 @Service
 public class FindStormService extends StormService {
@@ -32,7 +34,35 @@ public class FindStormService extends StormService {
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(stormRequest);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
         StormResponse stormResponse = (StormResponse) soapResponseMessageProcessor.process(soapResponse);
+        if (stormResponse!= null) {
+            saveStormResponse(stormRequest, stormResponse);
+        }
         LOGGER.info("==> {}", stormResponse);
         return stormResponse;
+    }
+
+    public StormEntity saveStormResponse(StormRequest stormRequest, StormResponse stormResponse) {
+        LOGGER.debug("==> Saving StormResponse to DB");
+        if (stormResponse.getAmount() == 0) {
+            LOGGER.debug("==> Nothing to Save");
+            return null;
+        }
+        StormEntity stormEntity = StormEntity.builder()
+                .amount(stormResponse.getAmount())
+                .x(String.format("%.2f", stormRequest.getCoordinates().getX()))
+                .y(String.format("%.2f", stormRequest.getCoordinates().getY()))
+                .direction(stormResponse.getDirection())
+                .distance(stormResponse.getDistance())
+                .time(stormResponse.getTime())
+                .timestamp(stormResponse.getTimestamp())
+                .build();
+        List<StormEntity> stormEntityList = stormsRepository.findAll();
+        if (stormEntityList.isEmpty()) {
+            StormEntity savedStormEntity = stormsRepository.saveAndFlush(stormEntity);
+            LOGGER.debug("{}", savedStormEntity.toString());
+            return savedStormEntity;
+        }
+
+        return stormEntity;
     }
 }
