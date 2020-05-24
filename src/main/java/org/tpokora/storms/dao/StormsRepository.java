@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface StormsRepository extends JpaRepository<StormEntity, Integer> {
 
-//    @Query("select s from StormEntity where s.x = :x and s.y = :y")
-//    List<StormEntity> getStormEntitiesByCoordinatesSortByDate(@Param("x") String x, @Param("y") String y);
+    @Query("SELECT s from StormEntity s WHERE s.x = :x AND s.y = :y ORDER BY s.timestamp DESC")
+    List<StormEntity> getStormEntitiesByCoordinatesSortByDate(@Param("x") String x, @Param("y") String y);
 }

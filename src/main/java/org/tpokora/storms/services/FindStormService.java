@@ -34,7 +34,7 @@ public class FindStormService extends StormService {
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(stormRequest);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
         StormResponse stormResponse = (StormResponse) soapResponseMessageProcessor.process(soapResponse);
-        if (stormResponse!= null) {
+        if (stormResponse != null) {
             saveStormResponse(stormRequest, stormResponse);
         }
         LOGGER.info("==> {}", stormResponse);
@@ -56,7 +56,8 @@ public class FindStormService extends StormService {
                 .time(stormResponse.getTime())
                 .timestamp(stormResponse.getTimestamp())
                 .build();
-        List<StormEntity> stormEntityList = stormsRepository.findAll();
+        List<StormEntity> stormEntityList = stormsRepository
+                .getStormEntitiesByCoordinatesSortByDate(stormEntity.getX(), stormEntity.getY());
         if (stormEntityList.isEmpty()) {
             StormEntity savedStormEntity = stormsRepository.saveAndFlush(stormEntity);
             LOGGER.debug("{}", savedStormEntity.toString());
