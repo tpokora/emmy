@@ -7,13 +7,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.config.properties.StormProperties;
+import org.tpokora.storms.dao.StormsRepository;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -22,6 +25,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @ExtendWith(MockitoExtension.class)
 public class FindStormServiceTests extends StormServicesTests {
 
+    public static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.now();
     private StormRequest stormRequest;
     private StormResponse expectedStormResponse;
 
@@ -32,6 +36,7 @@ public class FindStormServiceTests extends StormServicesTests {
     public void setup() {
         stormRequest = new StormRequest(new Coordinates(11.11, 22.22), 100, 15);
         expectedStormResponse = new StormResponse(10, 100, "E", 15);
+        expectedStormResponse.setTimestamp(LOCAL_DATE_TIME);
     }
 
     @Test
@@ -40,6 +45,7 @@ public class FindStormServiceTests extends StormServicesTests {
         Mockito.when(stormProperties.getStorm()).thenReturn(Map.of(StormProperties.KEY, STORM_TEST_KEY));
         Mockito.when(soapService.sendSOAPMessage(any(), anyString())).thenReturn(response);
         StormResponse stormResponse = findStormService.checkStorm(stormRequest);
+        stormResponse.setTimestamp(LOCAL_DATE_TIME);
         Assert.assertEquals(expectedStormResponse.getAmount(), stormResponse.getAmount());
         Assert.assertEquals(expectedStormResponse.getTime(), stormResponse.getTime());
         Assert.assertEquals(expectedStormResponse.getDirection(), stormResponse.getDirection());

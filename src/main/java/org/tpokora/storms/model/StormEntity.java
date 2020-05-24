@@ -15,9 +15,6 @@ public class StormEntity {
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "CITY_NAME", nullable = false)
-    private String cityName;
-
     @Column(name = "X", nullable = false)
     private String x;
 
@@ -42,12 +39,11 @@ public class StormEntity {
     public StormEntity() {
     }
 
-    public StormEntity(String cityName, String x, String y, int amount, double distance, String direction, int time) {
-        initializeFields(cityName, x, y, amount, distance, direction, time, LocalDateTime.now());
+    public StormEntity(String x, String y, int amount, double distance, String direction, int time) {
+        initializeFields(x, y, amount, distance, direction, time, LocalDateTime.now());
     }
 
-    private void initializeFields(String cityName, String x, String y, int amount, double distance, String direction, int time, LocalDateTime timestamp) {
-        this.cityName = cityName;
+    private void initializeFields(String x, String y, int amount, double distance, String direction, int time, LocalDateTime timestamp) {
         this.x = x;
         this.y = y;
         this.amount = amount;
@@ -58,7 +54,7 @@ public class StormEntity {
     }
 
     public StormEntity(String cityName, String x, String y, StormResponse stormResponse) {
-        initializeFields(cityName, x, y, stormResponse.getAmount(), stormResponse.getDistance(), stormResponse.getDirection(), stormResponse.getTime(), LocalDateTime.now());
+        initializeFields(x, y, stormResponse.getAmount(), stormResponse.getDistance(), stormResponse.getDirection(), stormResponse.getTime(), LocalDateTime.now());
     }
 
     public int getId() {
@@ -67,14 +63,6 @@ public class StormEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
     }
 
     public String getX() {
@@ -92,14 +80,33 @@ public class StormEntity {
     public void setY(String y) {
         this.y = y;
     }
-    
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
 
     public static final class Builder {
         private int id;
-        private String cityName;
         private String x;
         private String y;
         private int amount;
@@ -107,11 +114,6 @@ public class StormEntity {
         private String direction;
         private int time;
         private LocalDateTime timestamp = LocalDateTime.now();
-
-        public Builder cityName(String cityName) {
-            this.cityName = cityName;
-            return this;
-        }
 
         public Builder id(int id) {
             this.id = id;
@@ -156,7 +158,6 @@ public class StormEntity {
         public StormEntity build() {
             StormEntity stormEntity = new StormEntity();
             stormEntity.id = this.id;
-            stormEntity.cityName = this.cityName;
             stormEntity.x = this.x;
             stormEntity.y = this.y;
             stormEntity.amount = this.amount;
@@ -173,7 +174,6 @@ public class StormEntity {
     public String toString() {
         return "StormEntity{" +
                 "id=" + id +
-                ", cityName='" + cityName + '\'' +
                 ", x='" + x + '\'' +
                 ", y='" + y + '\'' +
                 ", amount=" + amount +

@@ -31,7 +31,6 @@ public class StormEntityTests {
         stormResponse.setAmount(AMOUNT);
         stormEntity = StormEntity.builder()
                 .id(ID)
-                .cityName(TEST_CITY)
                 .x(X)
                 .y(Y)
                 .amount(AMOUNT)
@@ -47,7 +46,6 @@ public class StormEntityTests {
     public void testStormEntity() {
         String expectedString = "StormEntity{" +
                 "id=" + ID +
-                ", cityName='" + TEST_CITY + '\'' +
                 ", x='" + X + '\'' +
                 ", y='" + Y + '\'' +
                 ", amount=" + AMOUNT +

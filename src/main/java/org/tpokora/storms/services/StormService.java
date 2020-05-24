@@ -1,13 +1,11 @@
 package org.tpokora.storms.services;
 
-import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapRequestMessageProcessor;
 import org.tpokora.common.services.soap.SoapResponseMessageProcessor;
 import org.tpokora.config.properties.StormProperties;
 
-@Service
-public class StormService {
+public abstract class StormService {
 
     protected StormProperties stormProperties;
 
