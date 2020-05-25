@@ -57,4 +57,26 @@ public class StormEntityTests {
 
         Assertions.assertEquals(expectedString, stormEntity.toString());
     }
+
+    @Test
+    public void testStormEntitySettersAndGetters() {
+        StormEntity stormEntity = new StormEntity();
+        stormEntity.setId(ID);
+        stormEntity.setX(X);
+        stormEntity.setY(Y);
+        stormEntity.setAmount(AMOUNT);
+        stormEntity.setDistance(DISTANCE);
+        stormEntity.setDirection(DIRECTION);
+        stormEntity.setTime(TIME);
+        stormEntity.setTimestamp(TIMESTAMP);
+
+        Assertions.assertEquals(ID, stormEntity.getId());
+        Assertions.assertEquals(X, stormEntity.getX());
+        Assertions.assertEquals(Y, stormEntity.getY());
+        Assertions.assertEquals(AMOUNT, stormEntity.getAmount());
+        Assertions.assertEquals(DISTANCE, stormEntity.getDistance());
+        Assertions.assertEquals(DIRECTION, stormEntity.getDirection());
+        Assertions.assertEquals(TIME, stormEntity.getTime());
+        Assertions.assertEquals(TIMESTAMP, stormEntity.getTimestamp());
+    }
 }

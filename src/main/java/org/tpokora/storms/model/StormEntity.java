@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="STORM")
+@Table(name = "STORM")
 public class StormEntity {
 
     @Id
@@ -22,39 +22,21 @@ public class StormEntity {
     private String y;
 
     @Column(name = "AMOUNT", nullable = false)
-    protected int amount;
+    private int amount;
 
     @Column(name = "DISTANCE", nullable = false)
-    protected double distance;
+    private double distance;
 
     @Column(name = "DIRECTION", nullable = false)
-    protected String direction;
+    private String direction;
 
     @Column(name = "TIME", nullable = false)
-    protected int time;
+    private int time;
 
     @Column(name = "TIMESTAMP", nullable = false)
-    protected LocalDateTime timestamp;
+    private LocalDateTime timestamp;
 
     public StormEntity() {
-    }
-
-    public StormEntity(String x, String y, int amount, double distance, String direction, int time) {
-        initializeFields(x, y, amount, distance, direction, time, LocalDateTime.now());
-    }
-
-    private void initializeFields(String x, String y, int amount, double distance, String direction, int time, LocalDateTime timestamp) {
-        this.x = x;
-        this.y = y;
-        this.amount = amount;
-        this.distance = distance;
-        this.direction = direction;
-        this.time = time;
-        this.timestamp = timestamp;
-    }
-
-    public StormEntity(String cityName, String x, String y, StormResponse stormResponse) {
-        initializeFields(x, y, stormResponse.getAmount(), stormResponse.getDistance(), stormResponse.getDirection(), stormResponse.getTime(), LocalDateTime.now());
     }
 
     public int getId() {
@@ -85,20 +67,40 @@ public class StormEntity {
         return amount;
     }
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     public double getDistance() {
         return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public String getDirection() {
         return direction;
     }
 
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
     public int getTime() {
         return time;
     }
 
+    public void setTime(int time) {
+        this.time = time;
+    }
+
     public LocalDateTime getTimestamp() {
         return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public static Builder builder() {
@@ -134,27 +136,27 @@ public class StormEntity {
             this.amount = amount;
             return this;
         }
-        
+
         public Builder distance(double distance) {
             this.distance = distance;
             return this;
         }
-        
+
         public Builder direction(String direction) {
             this.direction = direction;
             return this;
         }
-        
+
         public Builder time(int time) {
             this.time = time;
             return this;
         }
-        
+
         public Builder timestamp(LocalDateTime timestamp) {
             this.timestamp = timestamp;
             return this;
         }
-        
+
         public StormEntity build() {
             StormEntity stormEntity = new StormEntity();
             stormEntity.id = this.id;
@@ -165,7 +167,7 @@ public class StormEntity {
             stormEntity.direction = this.direction;
             stormEntity.time = this.time;
             stormEntity.timestamp = this.timestamp;
-            
+
             return stormEntity;
         }
     }
