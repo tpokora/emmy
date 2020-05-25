@@ -5,6 +5,7 @@ import org.tpokora.common.utils.DateUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "STORM")
@@ -123,11 +124,13 @@ public class StormEntity {
         }
 
         public Builder x(String x) {
+            Objects.requireNonNull(x, "X can't be null!!");
             this.x = x;
             return this;
         }
 
         public Builder y(String y) {
+            Objects.requireNonNull(y, "Y can't be null!!");
             this.y = y;
             return this;
         }
@@ -143,6 +146,7 @@ public class StormEntity {
         }
 
         public Builder direction(String direction) {
+            Objects.requireNonNull(direction, "Direction can't be null!!");
             this.direction = direction;
             return this;
         }
@@ -153,6 +157,7 @@ public class StormEntity {
         }
 
         public Builder timestamp(LocalDateTime timestamp) {
+            Objects.requireNonNull(timestamp, "Timestamp can't be null!!");
             this.timestamp = timestamp;
             return this;
         }
