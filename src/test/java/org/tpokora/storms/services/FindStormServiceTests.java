@@ -61,7 +61,6 @@ public class FindStormServiceTests extends StormServicesTests {
         SOAPMessage response = generateStormResponse(expectedStormResponse);
         Mockito.when(stormProperties.getStorm()).thenReturn(Map.of(StormProperties.KEY, STORM_TEST_KEY));
         Mockito.when(soapService.sendSOAPMessage(any(), anyString())).thenReturn(response);
-        Mockito.when(stormsRepository.saveAndFlush(any())).thenReturn(STORM_ENTITY);
         StormResponse stormResponse = findStormService.checkStorm(stormRequest);
         stormResponse.setTimestamp(LOCAL_DATE_TIME);
         Assert.assertEquals(expectedStormResponse.getAmount(), stormResponse.getAmount());

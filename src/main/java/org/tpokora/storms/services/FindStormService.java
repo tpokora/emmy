@@ -14,7 +14,9 @@ import org.tpokora.storms.services.processor.StormSoapResponseProcessor;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
+import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FindStormService extends StormService {
@@ -47,7 +49,27 @@ public class FindStormService extends StormService {
             LOGGER.debug("==> Nothing to Save");
             return null;
         }
-        StormEntity stormEntity = StormEntity.builder()
+        StormEntity stormEntity = generatorStormEntity(stormRequest, stormResponse);
+        Optional<StormEntity> stormEntityOptional =
+                stormsRepository.findFirstByXAndYOrderByTimestampDesc(stormEntity.getX(), stormEntity.getY());
+        if (stormEntityOptional.isPresent()) {
+            StormEntity stormEntityFromDB = stormEntityOptional.get();
+            if (getMinuteDifference(stormEntity, stormEntityFromDB) > 15) {
+                StormEntity savedStormEntity = stormsRepository.saveAndFlush(stormEntity);
+                LOGGER.debug("{}", savedStormEntity.toString());
+                return savedStormEntity;
+            }
+        }
+        LOGGER.debug("==> Nothing to Save");
+        return stormEntity;
+    }
+
+    private long getMinuteDifference(StormEntity stormEntity, StormEntity stormEntityFromDB) {
+        return Duration.between(stormEntityFromDB.getTimestamp(), stormEntity.getTimestamp()).getSeconds() / 60;
+    }
+
+    private StormEntity generatorStormEntity(StormRequest stormRequest, StormResponse stormResponse) {
+        return StormEntity.builder()
                 .amount(stormResponse.getAmount())
                 .x(String.format("%.2f", stormRequest.getCoordinates().getX()))
                 .y(String.format("%.2f", stormRequest.getCoordinates().getY()))
@@ -56,14 +78,5 @@ public class FindStormService extends StormService {
                 .time(stormResponse.getTime())
                 .timestamp(stormResponse.getTimestamp())
                 .build();
-        List<StormEntity> stormEntityList = stormsRepository
-                .getStormEntitiesByCoordinatesSortByDate(stormEntity.getX(), stormEntity.getY());
-        if (stormEntityList.isEmpty()) {
-            StormEntity savedStormEntity = stormsRepository.saveAndFlush(stormEntity);
-            LOGGER.debug("{}", savedStormEntity.toString());
-            return savedStormEntity;
-        }
-
-        return stormEntity;
     }
 }
