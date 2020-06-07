@@ -10,6 +10,8 @@ import org.tpokora.storms.model.StormResponse;
 import javax.xml.soap.*;
 import java.util.HashMap;
 
+import static org.tpokora.storms.services.processor.StormProcessorStrings.*;
+
 public class StormSoapResponseProcessorTests {
 
     private StormSoapResponseProcessor stormSoapResponseProcessor;
@@ -37,15 +39,15 @@ public class StormSoapResponseProcessorTests {
         SOAPMessage soapMessage = SOAPService.createSOAPMessage();
         SOAPEnvelope soapEnvelope = SOAPService.createSOAPEnvelope(soapMessage, new HashMap<>());
         SOAPBody soapBody = soapEnvelope.getBody();
-        SOAPElement szukaj_burzyResponse = soapBody.addChildElement("ns1:szukaj_burzyResponse");
-        SOAPElement returnElement = szukaj_burzyResponse.addChildElement("return");
-        SOAPElement liczba = returnElement.addChildElement("liczba");
+        SOAPElement szukaj_burzyResponse = soapBody.addChildElement(NS_1_SZUKAJ_BURZY_RESPONSE);
+        SOAPElement returnElement = szukaj_burzyResponse.addChildElement(RETURN);
+        SOAPElement liczba = returnElement.addChildElement(LICZBA);
         liczba.addTextNode("11");
-        SOAPElement odleglosc = returnElement.addChildElement("odleglosc");
+        SOAPElement odleglosc = returnElement.addChildElement(ODLEGLOSC);
         odleglosc.addTextNode("117.4");
-        SOAPElement kierunek = returnElement.addChildElement("kierunek");
+        SOAPElement kierunek = returnElement.addChildElement(KIERUNEK);
         kierunek.addTextNode("E");
-        SOAPElement okres = returnElement.addChildElement("okres");
+        SOAPElement okres = returnElement.addChildElement(OKRES);
         okres.addTextNode("15");
 
         return soapMessage;

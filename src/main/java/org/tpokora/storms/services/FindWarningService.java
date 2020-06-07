@@ -6,15 +6,14 @@ import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.Coordinates;
-import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
-import org.tpokora.storms.model.WarningStrings;
-import org.tpokora.storms.services.processor.WarningsSoapResponseProcessor;
 import org.tpokora.storms.services.processor.WarningsSoapRequestProcessor;
+import org.tpokora.storms.services.processor.WarningsSoapResponseProcessor;
 
-import javax.xml.soap.*;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPMessage;
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 @Service
 public class FindWarningService extends StormService {
@@ -27,7 +26,7 @@ public class FindWarningService extends StormService {
         soapResponseMessageProcessor = new WarningsSoapResponseProcessor();
     }
 
-    public List<Warning> findWarnings(Coordinates coordinates) throws SOAPException, IOException {
+    public List<Warning> findWarnings(Coordinates coordinates) throws SOAPException {
         LOGGER.info("==> Find Warnings : {}", coordinates);
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(coordinates);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
