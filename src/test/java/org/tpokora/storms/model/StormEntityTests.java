@@ -14,21 +14,13 @@ public class StormEntityTests {
     public static final double DISTANCE = 100;
     public static final LocalDateTime TIMESTAMP = LocalDateTime.now();
     public static final int AMOUNT = 20;
-    public static final String TEST_CITY = "TestCity";
     public static final String X = "10.10";
     public static final String Y = "11.11";
     public static final int ID = 100;
-    private StormResponse stormResponse;
     private StormEntity stormEntity;
 
     @BeforeEach
     public void setup() {
-        stormResponse = new StormResponse();
-        stormResponse.setTime(TIME);
-        stormResponse.setDirection(DIRECTION);
-        stormResponse.setTimestamp(TIMESTAMP);
-        stormResponse.setDistance(DISTANCE);
-        stormResponse.setAmount(AMOUNT);
         stormEntity = StormEntity.builder()
                 .id(ID)
                 .x(X)
