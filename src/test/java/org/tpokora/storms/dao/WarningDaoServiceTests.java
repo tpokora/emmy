@@ -1,8 +1,6 @@
 package org.tpokora.storms.dao;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.storms.model.WarningEntity;
@@ -29,9 +27,23 @@ public class WarningDaoServiceTests extends BaseServiceTest {
         WARNING_ENTITY.setEnd(LocalDateTime.now().plusDays(2));
     }
 
+    @AfterEach
+    public void teardown() {
+        warningRepository.deleteAll();
+    }
+
     @Test
     public void testSaveWarningEntity() {
         WarningEntity savedWarningEntity = warningDaoService.save(WARNING_ENTITY);
         Assertions.assertEquals(WARNING_ENTITY.toString(), savedWarningEntity.toString());
+    }
+
+    @Test
+    public void testGetWarningEntity() {
+        WarningEntity savedWarningEntity = warningDaoService.save(WARNING_ENTITY);
+        Assertions.assertEquals(WARNING_ENTITY.toString(), savedWarningEntity.toString());
+
+        WarningEntity warningEntity = warningDaoService.getById(1);
+        Assertions.assertEquals(savedWarningEntity.toString(), warningEntity.toString());
     }
 }

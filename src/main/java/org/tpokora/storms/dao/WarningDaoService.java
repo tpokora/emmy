@@ -20,4 +20,7 @@ public class WarningDaoService {
         return warningsRepository.save(warningEntity);
     }
 
+    public WarningEntity getById(int id) {
+        return warningsRepository.getOne(id);
+    }
 }
