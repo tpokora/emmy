@@ -1,28 +1,35 @@
 package org.tpokora.storms.dao;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.tpokora.common.services.BaseServiceTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.storms.model.WarningEntity;
 import org.tpokora.storms.model.WarningStrings;
 
 import java.time.LocalDateTime;
 
-public class WarningDaoServiceTests extends BaseServiceTest {
+import static org.mockito.ArgumentMatchers.any;
 
-    @Autowired
+@ExtendWith(MockitoExtension.class)
+public class WarningDaoServiceMockitoTests {
+
+    @Mock
     private WarningRepository warningRepository;
 
+    @InjectMocks
     private WarningDaoService warningDaoService;
-
-    private WarningEntity WARNING_ENTITY;
+    private WarningEntity WARNING_ENTITY = new WarningEntity();
 
     @BeforeEach
     public void setup() {
-        warningDaoService = new WarningDaoService(warningRepository);
         WARNING_ENTITY = new WarningEntity();
+        WARNING_ENTITY.setId(1);
         WARNING_ENTITY.setName(WarningStrings.FROST);
         WARNING_ENTITY.setLevel(1);
         WARNING_ENTITY.setStart(LocalDateTime.now());
@@ -31,6 +38,7 @@ public class WarningDaoServiceTests extends BaseServiceTest {
 
     @Test
     public void testSaveWarningEntity() {
+        Mockito.when(warningRepository.save(any())).thenReturn(WARNING_ENTITY);
         WarningEntity savedWarningEntity = warningDaoService.save(WARNING_ENTITY);
         Assertions.assertEquals(WARNING_ENTITY.toString(), savedWarningEntity.toString());
     }

@@ -19,11 +19,11 @@ public class WarningEntity {
     @Column(name = "LEVEL", nullable = false)
     private int level;
 
-    @Column(name = "TO", nullable = false)
-    private LocalDateTime to;
+    @Column(name = "END", nullable = false)
+    private LocalDateTime end;
 
-    @Column(name = "FROM", nullable = false)
-    private LocalDateTime from;
+    @Column(name = "START", nullable = false)
+    private LocalDateTime start;
 
     public WarningEntity() {}
 
@@ -51,28 +51,28 @@ public class WarningEntity {
         this.level = level;
     }
 
-    public LocalDateTime getTo() {
-        return to;
+    public LocalDateTime getEnd() {
+        return end;
     }
 
-    public void setTo(LocalDateTime to) {
-        this.to = to;
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
     }
 
-    public LocalDateTime getFrom() {
-        return from;
+    public LocalDateTime getStart() {
+        return start;
     }
 
-    public void setFrom(LocalDateTime from) {
-        this.from = from;
+    public void setStart(LocalDateTime start) {
+        this.start = start;
     }
 
     public static WarningEntity valueOf(Warning warning) {
         WarningEntity warningEntity = new WarningEntity();
         warningEntity.setName(warning.getName());
         warningEntity.setLevel(warning.getLevel());
-        warningEntity.setFrom(warning.getPeriod().getFrom());
-        warningEntity.setTo(warning.getPeriod().getTo());
+        warningEntity.setStart(warning.getPeriod().getFrom());
+        warningEntity.setEnd(warning.getPeriod().getTo());
         return warningEntity;
     }
 
@@ -82,8 +82,8 @@ public class WarningEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", level=" + level +
-                ", to=" + to.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
-                ", from=" + from.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
+                ", start=" + start.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
+                ", end=" + end.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
                 '}';
     }
 }

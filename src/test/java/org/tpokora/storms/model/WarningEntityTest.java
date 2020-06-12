@@ -28,15 +28,15 @@ public class WarningEntityTest {
         Assertions.assertEquals(1, warningEntity.getId());
         Assertions.assertEquals(warning.getName(), warningEntity.getName());
         Assertions.assertEquals(warning.getLevel(), warningEntity.getLevel());
-        Assertions.assertEquals(warning.getPeriod().getFrom(), warningEntity.getFrom());
-        Assertions.assertEquals(warning.getPeriod().getTo(), warningEntity.getTo());
+        Assertions.assertEquals(warning.getPeriod().getFrom(), warningEntity.getStart());
+        Assertions.assertEquals(warning.getPeriod().getTo(), warningEntity.getEnd());
 
         String expectedWarningString = "WarningEntity{" +
                 "id=" + warningEntity.getId() +
                 ", name='" + warningEntity.getName() + '\'' +
                 ", level=" + warningEntity.getLevel() +
-                ", to=" + warningEntity.getTo().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
-                ", from=" + warningEntity.getFrom().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
+                ", start=" + warningEntity.getStart().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
+                ", end=" + warningEntity.getEnd().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
                 '}';
 
         Assertions.assertEquals(expectedWarningString, warningEntity.toString());
