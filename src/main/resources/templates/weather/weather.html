@@ -69,8 +69,8 @@
             </form>
         </div>
         <div class="container" th:if="${coordinates.x != 0.0 && coordinates.y != 0.0}">
-            <div class="row"><strong class="text-success">=> Latitude: <span th:text="${coordinates.x}"></span></strong></div>
-            <div class="row"><strong class="text-success">=> Longitude: <span th:text="${coordinates.y}"></span></strong></div>
+            <div class="row"><strong class="text-success">=> Longitude: <span th:text="${coordinates.x}"></span></strong></div>
+            <div class="row"><strong class="text-success">=> Latitude: <span th:text="${coordinates.y}"></span></strong></div>
         </div>
         <hr />
         <div>
@@ -80,12 +80,12 @@
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="stormX" class="sr-only">X</label>
                         <input type="text" class="form-control" th:field="*{coordinates.x}" id="stormX" />
-                        <small class="form-text text-muted">Latitude</small>
+                        <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="stormY" class="sr-only">Y</label>
                         <input type="text" class="form-control" th:field="*{coordinates.y}" id="stormY" />
-                        <small class="form-text text-muted">Longitude</small>
+                        <small class="form-text text-muted">Latitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="distance" class="sr-only">Distance</label>
@@ -137,14 +137,14 @@
             <form th:object="${coordinates}" th:action="@{/weather/find-warnings}" method="post">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">Latitude</label>
+                        <label for="cityName" class="sr-only">Longitude</label>
                         <input type="text" class="form-control" th:field="*{x}" id="warningsX">
-                        <small class="form-text text-muted">Latitude</small>
+                        <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">Longitude</label>
+                        <label for="cityName" class="sr-only">Latitude</label>
                         <input type="text" class="form-control" th:field="*{y}" id="warningsY">
-                        <small class="form-text text-muted">Longitude</small>
+                        <small class="form-text text-muted">Latitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <button type="submit" class="btn btn-primary mb-2">Find warnings</button>
