@@ -3,6 +3,7 @@ package org.tpokora.storms.dao;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.common.services.BaseServiceTest;
+import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.WarningEntity;
 import org.tpokora.storms.model.WarningStrings;
 
@@ -18,12 +19,16 @@ public class WarningDaoServiceTests extends BaseServiceTest {
 
     private WarningDaoService warningDaoService;
 
+    private Coordinates coordinates;
     private WarningEntity WARNING_ENTITY;
 
     @BeforeEach
     public void setup() {
         warningDaoService = new WarningDaoService(warningRepository);
+        coordinates = new Coordinates(11.11, 22.22);
         WARNING_ENTITY = new WarningEntity();
+        WARNING_ENTITY.setLongitude(coordinates.getX());
+        WARNING_ENTITY.setLatitude(coordinates.getY());
         WARNING_ENTITY.setName(WarningStrings.FROST);
         WARNING_ENTITY.setLevel(1);
         WARNING_ENTITY.setStart(LocalDateTime.now());
@@ -79,7 +84,7 @@ public class WarningDaoServiceTests extends BaseServiceTest {
 
         Assertions.assertEquals(warningEntityList.size(), savedWarningEntities.size());
         Assertions.assertEquals(warningEntityList.size(), warningDaoService.getAll().size());
-        Assertions.assertEquals(warningEntityList, savedWarningEntities);
+        Assertions.assertEquals(warningEntityList.toString(), savedWarningEntities.toString());
 
     }
 

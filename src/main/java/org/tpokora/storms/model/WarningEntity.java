@@ -13,6 +13,12 @@ public class WarningEntity {
     @Column(name = "ID")
     private int id;
 
+    @Column(name = "LONGITUDE", nullable = false)
+    private double longitude;
+
+    @Column(name = "LATITUDE", nullable = false)
+    private double latitude;
+
     @Column(name = "NAME", nullable = false)
     private String name;
 
@@ -37,6 +43,27 @@ public class WarningEntity {
 
     public String getName() {
         return name;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void addCoordinates(Coordinates coordinates) {
+        this.setLongitude(coordinates.getX());
+        this.setLatitude(coordinates.getY());
     }
 
     public void setName(String name) {
@@ -81,6 +108,8 @@ public class WarningEntity {
     public static WarningEntity valueOf(WarningEntity warningEntity) {
         WarningEntity newWarningEntity = new WarningEntity();
         newWarningEntity.setName(warningEntity.getName());
+        newWarningEntity.setLongitude(warningEntity.getLongitude());
+        newWarningEntity.setLatitude(warningEntity.getLatitude());
         newWarningEntity.setLevel(warningEntity.getLevel());
         newWarningEntity.setStart(warningEntity.getStart());
         newWarningEntity.setEnd(warningEntity.getEnd());
@@ -91,6 +120,8 @@ public class WarningEntity {
     public String toString() {
         return "WarningEntity{" +
                 "id=" + id +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
                 ", name='" + name + '\'' +
                 ", level=" + level +
                 ", start=" + start.format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +

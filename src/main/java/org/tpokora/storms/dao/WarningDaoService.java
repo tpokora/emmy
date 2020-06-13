@@ -45,7 +45,8 @@ public class WarningDaoService {
     }
 
     public Optional<WarningEntity> getSameWarning(WarningEntity warningEntity) {
-        return warningsRepository.findSameWarning(warningEntity.getName(),
-                warningEntity.getLevel(), warningEntity.getStart(), warningEntity.getEnd());
+        return warningsRepository.findSameWarning(warningEntity.getLongitude(), warningEntity.getLatitude(),
+                warningEntity.getName(), warningEntity.getLevel(),
+                warningEntity.getStart(), warningEntity.getEnd());
     }
 }

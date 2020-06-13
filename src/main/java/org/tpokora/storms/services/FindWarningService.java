@@ -37,12 +37,14 @@ public class FindWarningService extends StormService {
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(coordinates);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
         List<Warning> warnings = (List<Warning>) soapResponseMessageProcessor.process(soapResponse);
-        warningDaoService.saveAll(createWarningEntityList(warnings));
+        warningDaoService.saveAll(createWarningEntityList(warnings, coordinates));
         LOGGER.info("==> {}", warnings);
         return warnings;
     }
 
-    private List<WarningEntity> createWarningEntityList(List<Warning> warningList) {
-        return warningList.stream().map(WarningEntity::valueOf).collect(Collectors.toList());
+    private List<WarningEntity> createWarningEntityList(List<Warning> warningList, Coordinates coordinates) {
+        List<WarningEntity> warningEntityList = warningList.stream().map(WarningEntity::valueOf).collect(Collectors.toList());
+        warningEntityList.forEach(warningEntity -> warningEntity.addCoordinates(coordinates));
+        return warningEntityList;
     }
 }
