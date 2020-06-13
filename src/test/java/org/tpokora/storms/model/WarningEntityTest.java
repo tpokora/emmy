@@ -3,6 +3,7 @@ package org.tpokora.storms.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.tpokora.common.utils.DateUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,8 +29,8 @@ public class WarningEntityTest {
         Assertions.assertEquals(1, warningEntity.getId());
         Assertions.assertEquals(warning.getName(), warningEntity.getName());
         Assertions.assertEquals(warning.getLevel(), warningEntity.getLevel());
-        Assertions.assertEquals(warning.getPeriod().getFrom(), warningEntity.getStart());
-        Assertions.assertEquals(warning.getPeriod().getTo(), warningEntity.getEnd());
+        Assertions.assertEquals(DateUtils.parseDateToString(warning.getPeriod().getFrom()), DateUtils.parseDateToString(warningEntity.getStart()));
+        Assertions.assertEquals(DateUtils.parseDateToString(warning.getPeriod().getTo()), DateUtils.parseDateToString(warningEntity.getEnd()));
 
         String expectedWarningString = "WarningEntity{" +
                 "id=" + warningEntity.getId() +

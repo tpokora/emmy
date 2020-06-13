@@ -13,6 +13,7 @@ import org.tpokora.storms.model.WarningEntity;
 import org.tpokora.storms.model.WarningStrings;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -39,7 +40,7 @@ public class WarningDaoServiceMockitoTests {
     @Test
     public void testSaveWarningEntity() {
         Mockito.when(warningRepository.save(any())).thenReturn(WARNING_ENTITY);
-        WarningEntity savedWarningEntity = warningDaoService.save(WARNING_ENTITY);
-        Assertions.assertEquals(WARNING_ENTITY.toString(), savedWarningEntity.toString());
+        Optional<WarningEntity> savedWarningEntity = warningDaoService.save(WARNING_ENTITY);
+        Assertions.assertEquals(WARNING_ENTITY.toString(), savedWarningEntity.get().toString());
     }
 }

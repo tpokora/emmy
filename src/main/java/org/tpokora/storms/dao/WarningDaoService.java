@@ -19,12 +19,15 @@ public class WarningDaoService {
         this.warningsRepository = warningsRepository;
     }
 
-    public WarningEntity save(WarningEntity warningEntity) {
-        return warningsRepository.save(warningEntity);
+    public Optional<WarningEntity> save(WarningEntity warningEntity) {
+        if (getSameWarning(warningEntity).isEmpty()) {
+            return Optional.of(warningsRepository.save(warningEntity));
+        }
+        return Optional.empty();
     }
 
-    public WarningEntity getById(int id) {
-        return warningsRepository.getOne(id);
+    public Optional<WarningEntity> getById(int id) {
+        return Optional.of(warningsRepository.getOne(id));
     }
 
     public List<WarningEntity> getAll() {
