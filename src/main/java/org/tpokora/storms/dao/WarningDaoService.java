@@ -23,7 +23,7 @@ public class WarningDaoService {
     public Optional<WarningEntity> save(WarningEntity warningEntity) {
         if (getSameWarning(warningEntity).isEmpty()) {
             Optional<WarningEntity> savedWarningEntity = Optional.of(warningsRepository.save(warningEntity));
-            savedWarningEntity.ifPresent(entity -> LOGGER.info("=> Saved: {}", entity));
+            savedWarningEntity.ifPresent(entity -> LOGGER.info("==> Saved: {}", entity));
             return savedWarningEntity;
         }
         return Optional.empty();
