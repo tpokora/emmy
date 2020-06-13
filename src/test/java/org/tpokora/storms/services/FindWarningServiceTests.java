@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.config.properties.StormProperties;
+import org.tpokora.storms.dao.WarningDaoService;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
@@ -35,11 +37,14 @@ public class FindWarningServiceTests extends StormServicesTests {
     public static final Period PERIOD = new Period(TODAY, TOMORROW);
     private static final WarningResolver warningResolver = new WarningResolver();
 
+    @Mock
+    private WarningDaoService warningDaoService;
+
     @InjectMocks
     private FindWarningService findWarningService;
 
     @Test
-    public void testFindWarning() throws IOException, SOAPException {
+    public void testFindWarning() throws SOAPException {
         List<Warning> expectedWarnings = fillWarnings();
         SOAPMessage response = generateWarningsResponse(expectedWarnings);
         Coordinates coordinates = new Coordinates(11.11, 22.22);
