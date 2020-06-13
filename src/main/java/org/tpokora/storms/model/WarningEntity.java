@@ -25,10 +25,10 @@ public class WarningEntity {
     @Column(name = "LEVEL", nullable = false)
     private int level;
 
-    @Column(name = "END", nullable = false)
+    @Column(name = "WARNING_END", nullable = false)
     private LocalDateTime end;
 
-    @Column(name = "START", nullable = false)
+    @Column(name = "WARNING_START", nullable = false)
     private LocalDateTime start;
 
     public WarningEntity() {}
