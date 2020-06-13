@@ -33,7 +33,6 @@ public class WarningDaoService {
         warningEntityList.forEach(this::save);
         List<Integer> ids = warningEntityList.stream().map(WarningEntity::getId).collect(Collectors.toList());
         List<WarningEntity> warningEntitiesById = warningsRepository.findAllById(ids);
-        LOGGER.info("=> Saved: {}", warningEntitiesById);
         return warningEntitiesById;
     }
 
