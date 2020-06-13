@@ -22,7 +22,9 @@ public class WarningDaoService {
 
     public Optional<WarningEntity> save(WarningEntity warningEntity) {
         if (getSameWarning(warningEntity).isEmpty()) {
-            return Optional.of(warningsRepository.save(warningEntity));
+            Optional<WarningEntity> savedWarningEntity = Optional.of(warningsRepository.save(warningEntity));
+            savedWarningEntity.ifPresent(entity -> LOGGER.info("=> Saved: {}", entity));
+            return savedWarningEntity;
         }
         return Optional.empty();
     }
@@ -31,6 +33,7 @@ public class WarningDaoService {
         warningEntityList.forEach(this::save);
         List<Integer> ids = warningEntityList.stream().map(WarningEntity::getId).collect(Collectors.toList());
         List<WarningEntity> warningEntitiesById = warningsRepository.findAllById(ids);
+        LOGGER.info("=> Saved: {}", warningEntitiesById);
         return warningEntitiesById;
     }
 
