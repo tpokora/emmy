@@ -12,7 +12,6 @@ import org.tpokora.storms.services.processor.WarningsSoapResponseProcessor;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
-import java.io.IOException;
 import java.util.List;
 
 @Service

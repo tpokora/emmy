@@ -7,6 +7,8 @@ import org.tpokora.storms.model.WarningEntity;
 import org.tpokora.storms.model.WarningStrings;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class WarningDaoServiceTests extends BaseServiceTest {
@@ -63,6 +65,32 @@ public class WarningDaoServiceTests extends BaseServiceTest {
         warningDaoService.save(firstWarningEntity);
         warningDaoService.save(secondWarningEntity);
 
+        Assertions.assertEquals(1, warningDaoService.getAll().size());
+
+    }
+
+    @Test
+    public void testSaveWarningEntityList() {
+        WarningEntity firstWarningEntity = WarningEntity.valueOf(WARNING_ENTITY);
+        WarningEntity secondWarningEntity = WarningEntity.valueOf(WARNING_ENTITY);
+        secondWarningEntity.setName(WarningStrings.HEAT);
+        List<WarningEntity> warningEntityList = Arrays.asList(firstWarningEntity, secondWarningEntity);
+        List<WarningEntity> savedWarningEntities = warningDaoService.saveAll(warningEntityList);
+
+        Assertions.assertEquals(warningEntityList.size(), savedWarningEntities.size());
+        Assertions.assertEquals(warningEntityList.size(), warningDaoService.getAll().size());
+        Assertions.assertEquals(warningEntityList, savedWarningEntities);
+
+    }
+
+    @Test
+    public void testSaveWarningEntityListWithOneDuplicate() {
+        WarningEntity firstWarningEntity = WarningEntity.valueOf(WARNING_ENTITY);
+        WarningEntity secondWarningEntity = WarningEntity.valueOf(WARNING_ENTITY);
+        List<WarningEntity> warningEntityList = Arrays.asList(firstWarningEntity, secondWarningEntity);
+        List<WarningEntity> savedWarningEntities = warningDaoService.saveAll(warningEntityList);
+
+        Assertions.assertEquals(1, savedWarningEntities.size());
         Assertions.assertEquals(1, warningDaoService.getAll().size());
 
     }
