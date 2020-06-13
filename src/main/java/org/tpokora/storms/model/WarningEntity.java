@@ -56,6 +56,7 @@ public class WarningEntity {
     }
 
     public void setEnd(LocalDateTime end) {
+        end = end.minusNanos(end.getNano());
         this.end = end;
     }
 
@@ -64,6 +65,7 @@ public class WarningEntity {
     }
 
     public void setStart(LocalDateTime start) {
+        start = start.minusNanos(start.getNano());
         this.start = start;
     }
 
@@ -74,6 +76,15 @@ public class WarningEntity {
         warningEntity.setStart(warning.getPeriod().getFrom());
         warningEntity.setEnd(warning.getPeriod().getTo());
         return warningEntity;
+    }
+
+    public static WarningEntity valueOf(WarningEntity warningEntity) {
+        WarningEntity newWarningEntity = new WarningEntity();
+        newWarningEntity.setName(warningEntity.getName());
+        newWarningEntity.setLevel(warningEntity.getLevel());
+        newWarningEntity.setStart(warningEntity.getStart());
+        newWarningEntity.setEnd(warningEntity.getEnd());
+        return newWarningEntity;
     }
 
     @Override

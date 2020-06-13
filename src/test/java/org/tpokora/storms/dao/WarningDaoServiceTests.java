@@ -46,4 +46,24 @@ public class WarningDaoServiceTests extends BaseServiceTest {
         WarningEntity warningEntity = warningDaoService.getById(1);
         Assertions.assertEquals(savedWarningEntity.toString(), warningEntity.toString());
     }
+
+    @Test
+    public void testFindTheSameWarningEntity() {
+        WarningEntity savedWarningEntity = warningDaoService.save(WARNING_ENTITY);
+        Assertions.assertTrue(warningDaoService.getSameWarning(WARNING_ENTITY).isPresent());
+    }
+
+    @Disabled
+    @Test
+    public void testSaveWarningEntityWithTheSameValues() {
+        WarningEntity firstWarningEntity = WarningEntity.valueOf(WARNING_ENTITY);
+        WarningEntity secondWarningEntity = WarningEntity.valueOf(WARNING_ENTITY);
+        Assertions.assertEquals(firstWarningEntity.toString(), secondWarningEntity.toString());
+
+        firstWarningEntity = warningDaoService.save(firstWarningEntity);
+        secondWarningEntity = warningDaoService.save(secondWarningEntity);
+
+        Assertions.assertEquals(1, warningDaoService.getAll().size());
+
+    }
 }
