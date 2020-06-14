@@ -16,11 +16,11 @@ public class StormEntity {
     @Column(name = "ID")
     private int id;
 
-    @Column(name = "X", nullable = false)
-    private String x;
+    @Column(name = "LONGITUDE", nullable = false)
+    private String longitude;
 
-    @Column(name = "Y", nullable = false)
-    private String y;
+    @Column(name = "LATITUDE", nullable = false)
+    private String latitude;
 
     @Column(name = "AMOUNT", nullable = false)
     private int amount;
@@ -48,20 +48,20 @@ public class StormEntity {
         this.id = id;
     }
 
-    public String getX() {
-        return x;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setX(String x) {
-        this.x = x;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
-    public String getY() {
-        return y;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setY(String y) {
-        this.y = y;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
     public int getAmount() {
@@ -165,8 +165,8 @@ public class StormEntity {
         public StormEntity build() {
             StormEntity stormEntity = new StormEntity();
             stormEntity.id = this.id;
-            stormEntity.x = this.x;
-            stormEntity.y = this.y;
+            stormEntity.longitude = this.x;
+            stormEntity.latitude = this.y;
             stormEntity.amount = this.amount;
             stormEntity.distance = this.distance;
             stormEntity.direction = this.direction;
@@ -181,8 +181,8 @@ public class StormEntity {
     public String toString() {
         return "StormEntity{" +
                 "id=" + id +
-                ", x='" + x + '\'' +
-                ", y='" + y + '\'' +
+                ", x='" + longitude + '\'' +
+                ", y='" + latitude + '\'' +
                 ", amount=" + amount +
                 ", distance=" + distance +
                 ", direction='" + direction + '\'' +
