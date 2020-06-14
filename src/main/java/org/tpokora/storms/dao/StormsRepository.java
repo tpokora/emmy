@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface StormsRepository extends JpaRepository<StormEntity, Integer> {
 
-    Optional<StormEntity> findFirstByXAndYOrderByTimestampDesc(String x, String y);
+    Optional<StormEntity> findFirstByLongitudeAndLatitudeOrderByTimestampDesc(String longitude, String latitude);
 }

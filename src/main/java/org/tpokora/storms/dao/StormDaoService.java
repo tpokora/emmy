@@ -32,7 +32,7 @@ public class StormDaoService {
         }
         StormEntity stormEntity = generatorStormEntity(stormRequest, stormResponse);
         Optional<StormEntity> stormEntityOptional =
-                stormsRepository.findFirstByXAndYOrderByTimestampDesc(stormEntity.getLongitude(), stormEntity.getLatitude());
+                stormsRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(stormEntity.getLongitude(), stormEntity.getLatitude());
         if (stormEntityOptional.isPresent()) {
             StormEntity stormEntityFromDB = stormEntityOptional.get();
             if (getMinuteDifference(stormEntity, stormEntityFromDB) > 15) {

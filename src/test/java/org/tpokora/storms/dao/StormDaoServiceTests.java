@@ -98,7 +98,7 @@ public class StormDaoServiceTests {
                 .time(10)
                 .timestamp(LocalDateTime.now().minusMinutes(30))
                 .build();
-        Mockito.when(stormsRepository.findFirstByXAndYOrderByTimestampDesc(anyString(), anyString()))
+        Mockito.when(stormsRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(anyString(), anyString()))
                 .thenReturn(Optional.of(mockedStormEntityFromDB));
         Mockito.when(stormsRepository.saveAndFlush(any())).thenReturn(mockedStormEntity);
         StormEntity stormEntity = stormDaoService.saveStormResponse(STORM_REQUEST, STORM_RESPONSE);
