@@ -8,6 +8,7 @@ import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,6 +21,10 @@ public class StormDaoService {
 
     public StormDaoService(StormsRepository stormsRepository) {
         this.stormsRepository = stormsRepository;
+    }
+
+    public List<StormEntity> findAllByCoordinates(double longitude, double latitude) {
+        return stormsRepository.findAllByLongitudeAndLatitudeOrderByTimestampDesc(longitude, latitude);
     }
 
     public StormEntity saveStormResponse(StormRequest stormRequest, StormResponse stormResponse) {
@@ -62,8 +67,8 @@ public class StormDaoService {
         Objects.requireNonNull(stormResponse, "StormResponse can't be null!");
         return StormEntity.builder()
                 .amount(stormResponse.getAmount())
-                .x(String.format("%.2f", stormRequest.getCoordinates().getX()))
-                .y(String.format("%.2f", stormRequest.getCoordinates().getY()))
+                .longitude(stormRequest.getCoordinates().getX())
+                .latitude(stormRequest.getCoordinates().getY())
                 .direction(stormResponse.getDirection())
                 .distance(stormResponse.getDistance())
                 .time(stormResponse.getTime())

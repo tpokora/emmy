@@ -17,10 +17,10 @@ public class StormEntity {
     private int id;
 
     @Column(name = "LONGITUDE", nullable = false)
-    private String longitude;
+    private double longitude;
 
     @Column(name = "LATITUDE", nullable = false)
-    private String latitude;
+    private double latitude;
 
     @Column(name = "AMOUNT", nullable = false)
     private int amount;
@@ -48,19 +48,19 @@ public class StormEntity {
         this.id = id;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -110,8 +110,8 @@ public class StormEntity {
 
     public static final class Builder {
         private int id;
-        private String x;
-        private String y;
+        private double longitude;
+        private double latitude;
         private int amount;
         private double distance;
         private String direction;
@@ -123,15 +123,15 @@ public class StormEntity {
             return this;
         }
 
-        public Builder x(String x) {
-            Objects.requireNonNull(x, "X can't be null!!");
-            this.x = x;
+        public Builder longitude(double longitude) {
+            Objects.requireNonNull(longitude, "Longitude can't be null!!");
+            this.longitude = longitude;
             return this;
         }
 
-        public Builder y(String y) {
-            Objects.requireNonNull(y, "Y can't be null!!");
-            this.y = y;
+        public Builder latitude(double latitude) {
+            Objects.requireNonNull(latitude, "Latitude can't be null!!");
+            this.latitude = latitude;
             return this;
         }
 
@@ -165,8 +165,8 @@ public class StormEntity {
         public StormEntity build() {
             StormEntity stormEntity = new StormEntity();
             stormEntity.id = this.id;
-            stormEntity.longitude = this.x;
-            stormEntity.latitude = this.y;
+            stormEntity.longitude = this.longitude;
+            stormEntity.latitude = this.latitude;
             stormEntity.amount = this.amount;
             stormEntity.distance = this.distance;
             stormEntity.direction = this.direction;
@@ -181,8 +181,8 @@ public class StormEntity {
     public String toString() {
         return "StormEntity{" +
                 "id=" + id +
-                ", x='" + longitude + '\'' +
-                ", y='" + latitude + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
                 ", amount=" + amount +
                 ", distance=" + distance +
                 ", direction='" + direction + '\'' +

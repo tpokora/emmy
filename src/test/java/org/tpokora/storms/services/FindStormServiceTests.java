@@ -27,7 +27,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 public class FindStormServiceTests extends StormServicesTests {
 
     public static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.now();
-    private StormEntity STORM_ENTITY;
     private StormRequest stormRequest;
     private StormResponse expectedStormResponse;
 
@@ -42,16 +41,6 @@ public class FindStormServiceTests extends StormServicesTests {
         stormRequest = new StormRequest(new Coordinates(11.11, 22.22), 100, 15);
         expectedStormResponse = new StormResponse(10, 100, "E", 15);
         expectedStormResponse.setTimestamp(LOCAL_DATE_TIME);
-        STORM_ENTITY = StormEntity.builder()
-                .id(1)
-                .amount(10)
-                .x(String.format("%.2f", 10.10))
-                .y(String.format("%.2f", 22.22))
-                .distance(111)
-                .direction("E")
-                .time(10)
-                .timestamp(LocalDateTime.now())
-                .build();
     }
 
     @Test
