@@ -54,19 +54,23 @@
                         <button type="submit" class="btn btn-primary mb-2">Find city</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="x" class="sr-only">X</label>
-                        <input type="text" class="form-control" th:field="*{coordinates.x}" id="x" readonly/>
-                        <small class="form-text text-muted">Latitude</small>
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="y" class="sr-only">Y</label>
-                        <input type="text" class="form-control" th:field="*{coordinates.y}" id="y" readonly/>
-                        <small class="form-text text-muted">Longitude</small>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="form-group mx-sm-3 mb-2">-->
+<!--                        <label for="x" class="sr-only">X</label>-->
+<!--                        <input type="text" class="form-control" th:field="*{coordinates.x}" id="x" readonly/>-->
+<!--                        <small class="form-text text-muted">Latitude</small>-->
+<!--                    </div>-->
+<!--                    <div class="form-group mx-sm-3 mb-2">-->
+<!--                        <label for="y" class="sr-only">Y</label>-->
+<!--                        <input type="text" class="form-control" th:field="*{coordinates.y}" id="y" readonly/>-->
+<!--                        <small class="form-text text-muted">Longitude</small>-->
+<!--                    </div>-->
+<!--                </div>-->
             </form>
+        </div>
+        <div class="container" th:if="${coordinates.x != 0.0 && coordinates.y != 0.0}">
+            <div class="row"><strong class="text-success">=> Longitude: <span th:text="${coordinates.x}"></span></strong></div>
+            <div class="row"><strong class="text-success">=> Latitude: <span th:text="${coordinates.y}"></span></strong></div>
         </div>
         <hr />
         <div>
@@ -76,12 +80,12 @@
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="stormX" class="sr-only">X</label>
                         <input type="text" class="form-control" th:field="*{coordinates.x}" id="stormX" />
-                        <small class="form-text text-muted">Latitude</small>
+                        <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="stormY" class="sr-only">Y</label>
                         <input type="text" class="form-control" th:field="*{coordinates.y}" id="stormY" />
-                        <small class="form-text text-muted">Longitude</small>
+                        <small class="form-text text-muted">Latitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="distance" class="sr-only">Distance</label>
@@ -97,29 +101,35 @@
                         <button type="submit" class="btn btn-primary mb-2">Find storm</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="x" class="sr-only">Amount</label>
-                        <input type="text" class="form-control" th:field="${stormResponse.amount}" id="amount" readonly/>
-                        <small id="amountHelp" class="form-text text-muted">Lightening amount</small>
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="x" class="sr-only">Distance</label>
-                        <input type="text" class="form-control" th:field="${stormResponse.distance}" id="responseDistance" readonly/>
-                        <small class="form-text text-muted">Distance in km</small>
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="x" class="sr-only">Direction</label>
-                        <input type="text" class="form-control" th:field="${stormResponse.direction}" id="direction" readonly/>
-                        <small id="directionHelp" class="form-text text-muted">Direction storm is moving</small>
-                    </div>
-                    <div class="form-group mx-sm-3 mb-2">
-                        <label for="x" class="sr-only">Time</label>
-                        <input type="text" class="form-control" th:field="${stormResponse.time}" id="responseTime" readonly/>
-                        <small class="form-text text-muted">Time in minutes</small>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="form-group mx-sm-3 mb-2">-->
+<!--                        <label for="x" class="sr-only">Amount</label>-->
+<!--                        <input type="text" class="form-control" th:field="${stormResponse.amount}" id="amount" readonly/>-->
+<!--                        <small id="amountHelp" class="form-text text-muted">Lightening amount</small>-->
+<!--                    </div>-->
+<!--                    <div class="form-group mx-sm-3 mb-2">-->
+<!--                        <label for="x" class="sr-only">Distance</label>-->
+<!--                        <input type="text" class="form-control" th:field="${stormResponse.distance}" id="responseDistance" readonly/>-->
+<!--                        <small class="form-text text-muted">Distance in km</small>-->
+<!--                    </div>-->
+<!--                    <div class="form-group mx-sm-3 mb-2">-->
+<!--                        <label for="x" class="sr-only">Direction</label>-->
+<!--                        <input type="text" class="form-control" th:field="${stormResponse.direction}" id="direction" readonly/>-->
+<!--                        <small id="directionHelp" class="form-text text-muted">Direction storm is moving</small>-->
+<!--                    </div>-->
+<!--                    <div class="form-group mx-sm-3 mb-2">-->
+<!--                        <label for="x" class="sr-only">Time</label>-->
+<!--                        <input type="text" class="form-control" th:field="${stormResponse.time}" id="responseTime" readonly/>-->
+<!--                        <small class="form-text text-muted">Time in minutes</small>-->
+<!--                    </div>-->
+<!--                </div>-->
             </form>
+        </div>
+        <div class="container" th:if="${stormResponse.direction != '' && stormResponse.amount != 0}">
+            <div class="row"><strong class="text-success">=> Amount: <span th:text="${stormResponse.amount}"></span></strong></div>
+            <div class="row"><strong class="text-success">=> Distance: <span th:text="${stormResponse.distance}"></span></strong></div>
+            <div class="row"><strong class="text-success">=> Direction: <span th:text="${stormResponse.direction}"></span></strong></div>
+            <div class="row"><strong class="text-success">=> Time: <span th:text="${stormResponse.time}"></span></strong></div>
         </div>
         <hr />
         <div>
@@ -127,14 +137,14 @@
             <form th:object="${coordinates}" th:action="@{/weather/find-warnings}" method="post">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">Latitude</label>
+                        <label for="cityName" class="sr-only">Longitude</label>
                         <input type="text" class="form-control" th:field="*{x}" id="warningsX">
-                        <small class="form-text text-muted">Latitude</small>
+                        <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">Longitude</label>
+                        <label for="cityName" class="sr-only">Latitude</label>
                         <input type="text" class="form-control" th:field="*{y}" id="warningsY">
-                        <small class="form-text text-muted">Longitude</small>
+                        <small class="form-text text-muted">Latitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <button type="submit" class="btn btn-primary mb-2">Find warnings</button>

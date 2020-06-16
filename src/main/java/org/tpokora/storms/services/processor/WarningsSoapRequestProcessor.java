@@ -54,6 +54,6 @@ public class WarningsSoapRequestProcessor implements SoapRequestMessageProcessor
 
         xElem.addTextNode(String.valueOf(coordinates.getX()));
         yElem.addTextNode(String.valueOf(coordinates.getY()));
-        keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
+        keyElem.addTextNode(stormProperties.getStorm().get(StormProperties.KEY));
     }
 }
