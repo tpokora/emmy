@@ -15,11 +15,12 @@ import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyDouble;
 
 @ExtendWith(MockitoExtension.class)
 public class StormDaoServiceTests {
@@ -29,6 +30,7 @@ public class StormDaoServiceTests {
 
     @Mock
     private StormsRepository stormsRepository;
+
     @InjectMocks
     private StormDaoService stormDaoService;
 
@@ -37,7 +39,6 @@ public class StormDaoServiceTests {
         STORM_REQUEST.setTime(10);
         STORM_REQUEST.setCoordinates(new Coordinates(11.11, 22.22));
         STORM_REQUEST.setDistance(10);
-
         STORM_RESPONSE.setTimestamp(LocalDateTime.now());
         STORM_RESPONSE.setTime(STORM_REQUEST.getTime());
         STORM_RESPONSE.setAmount(10);
@@ -49,6 +50,27 @@ public class StormDaoServiceTests {
     public void testNullObjectsShouldThrowNullPointerException() {
         assertThrows(NullPointerException.class,
                 () -> stormDaoService.saveStormResponse(null, null));
+    }
+
+    @Test
+    public void testFindAllByCoordinates() {
+        StormEntity stormEntity = StormEntity.builder()
+                .longitude(STORM_REQUEST.getCoordinates().getX())
+                .latitude(STORM_REQUEST.getCoordinates().getY())
+                .amount(STORM_RESPONSE.getAmount())
+                .time(STORM_RESPONSE.getAmount())
+                .distance(STORM_RESPONSE.getDistance())
+                .direction(STORM_RESPONSE.getDirection())
+                .timestamp(STORM_RESPONSE.getTimestamp())
+                .build();
+        Mockito.when(stormsRepository.saveAndFlush(any())).thenReturn(stormEntity);
+        StormEntity stormEntity1 = stormDaoService.saveStormResponse(STORM_REQUEST, STORM_RESPONSE);
+        StormEntity stormEntity2 = stormDaoService.saveStormResponse(STORM_REQUEST, STORM_RESPONSE);
+        Mockito.when(stormsRepository.findAllByLongitudeAndLatitudeOrderByTimestampDesc(anyDouble(), anyDouble()))
+                .thenReturn(Arrays.asList(stormEntity1, stormEntity2));
+        Assertions.assertEquals(2,
+                stormDaoService.findAllByCoordinates(
+                        stormEntity.getLongitude(), stormEntity.getLatitude()).size());
     }
 
     @Test
@@ -64,8 +86,8 @@ public class StormDaoServiceTests {
         StormEntity mockedStormEntity = StormEntity.builder()
                 .id(1)
                 .amount(STORM_RESPONSE.getAmount())
-                .x(String.format("%.2f", STORM_REQUEST.getCoordinates().getX()))
-                .y(String.format("%.2f", STORM_REQUEST.getCoordinates().getY()))
+                .longitude(STORM_REQUEST.getCoordinates().getX())
+                .latitude(STORM_REQUEST.getCoordinates().getY())
                 .distance(10)
                 .direction("E")
                 .time(10)
@@ -81,8 +103,8 @@ public class StormDaoServiceTests {
         StormEntity mockedStormEntity = StormEntity.builder()
                 .id(1)
                 .amount(STORM_RESPONSE.getAmount())
-                .x(String.format("%.2f", STORM_REQUEST.getCoordinates().getX()))
-                .y(String.format("%.2f", STORM_REQUEST.getCoordinates().getY()))
+                .longitude(STORM_REQUEST.getCoordinates().getX())
+                .latitude(STORM_REQUEST.getCoordinates().getY())
                 .distance(10)
                 .direction("E")
                 .time(10)
@@ -91,14 +113,14 @@ public class StormDaoServiceTests {
         StormEntity mockedStormEntityFromDB = StormEntity.builder()
                 .id(2)
                 .amount(STORM_RESPONSE.getAmount())
-                .x(String.format("%.2f", STORM_REQUEST.getCoordinates().getX()))
-                .y(String.format("%.2f", STORM_REQUEST.getCoordinates().getY()))
+                .longitude(STORM_REQUEST.getCoordinates().getX())
+                .latitude(STORM_REQUEST.getCoordinates().getY())
                 .distance(10)
                 .direction("E")
                 .time(10)
                 .timestamp(LocalDateTime.now().minusMinutes(30))
                 .build();
-        Mockito.when(stormsRepository.findFirstByXAndYOrderByTimestampDesc(anyString(), anyString()))
+        Mockito.when(stormsRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(anyDouble(), anyDouble()))
                 .thenReturn(Optional.of(mockedStormEntityFromDB));
         Mockito.when(stormsRepository.saveAndFlush(any())).thenReturn(mockedStormEntity);
         StormEntity stormEntity = stormDaoService.saveStormResponse(STORM_REQUEST, STORM_RESPONSE);

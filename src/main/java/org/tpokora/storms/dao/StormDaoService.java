@@ -8,6 +8,7 @@ import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.model.StormResponse;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -22,6 +23,10 @@ public class StormDaoService {
         this.stormsRepository = stormsRepository;
     }
 
+    public List<StormEntity> findAllByCoordinates(double longitude, double latitude) {
+        return stormsRepository.findAllByLongitudeAndLatitudeOrderByTimestampDesc(longitude, latitude);
+    }
+
     public StormEntity saveStormResponse(StormRequest stormRequest, StormResponse stormResponse) {
         Objects.requireNonNull(stormRequest, "StormRequest can't be null!");
         Objects.requireNonNull(stormResponse, "StormResponse can't be null!");
@@ -32,7 +37,7 @@ public class StormDaoService {
         }
         StormEntity stormEntity = generatorStormEntity(stormRequest, stormResponse);
         Optional<StormEntity> stormEntityOptional =
-                stormsRepository.findFirstByXAndYOrderByTimestampDesc(stormEntity.getX(), stormEntity.getY());
+                stormsRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(stormEntity.getLongitude(), stormEntity.getLatitude());
         if (stormEntityOptional.isPresent()) {
             StormEntity stormEntityFromDB = stormEntityOptional.get();
             if (getMinuteDifference(stormEntity, stormEntityFromDB) > 15) {
@@ -62,8 +67,8 @@ public class StormDaoService {
         Objects.requireNonNull(stormResponse, "StormResponse can't be null!");
         return StormEntity.builder()
                 .amount(stormResponse.getAmount())
-                .x(String.format("%.2f", stormRequest.getCoordinates().getX()))
-                .y(String.format("%.2f", stormRequest.getCoordinates().getY()))
+                .longitude(stormRequest.getCoordinates().getX())
+                .latitude(stormRequest.getCoordinates().getY())
                 .direction(stormResponse.getDirection())
                 .distance(stormResponse.getDistance())
                 .time(stormResponse.getTime())

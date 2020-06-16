@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.tpokora.common.services.soap.SoapMessageUtilities.elementValue;
+import static org.tpokora.storms.services.processor.StormProcessorStrings.NS_1_OSTRZEZENIA_POGODOWE_RESPONSE;
 
 public class WarningsSoapResponseProcessor implements SoapResponseMessageProcessor<List<Warning>> {
 
@@ -35,7 +36,7 @@ public class WarningsSoapResponseProcessor implements SoapResponseMessageProcess
         LOGGER.debug("Process SOAP Warnings Response");
         LOGGER.debug(SoapMessageUtilities.soapMessageToString(soapMessage));
         SOAPBody soapBody = soapMessage.getSOAPBody();
-        Node response = (Node) soapBody.getElementsByTagName("ns1:ostrzezenia_pogodoweResponse").item(0);
+        Node response = (Node) soapBody.getElementsByTagName(NS_1_OSTRZEZENIA_POGODOWE_RESPONSE).item(0);
         org.w3c.dom.Node returnElem = response.getParentElement().getElementsByTagName("return").item(0);
         List<Warning> warnings = new ArrayList<>();
 
