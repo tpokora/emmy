@@ -72,8 +72,8 @@
             </form>
         </div>
         <div class="container" th:if="${coordinates.x != 0.0 && coordinates.y != 0.0}">
-            <div class="row text-success">=> Longitude: <b class="value" th:text=" ${coordinates.x}"></b></div>
-            <div class="row text-success">=> Latitude: <b class="value" th:text=" ${coordinates.y}"></b></div>
+            <div class="row text-success">>> Longitude: <b class="value" th:text=" ${coordinates.x}"></b></div>
+            <div class="row text-success">>> Latitude: <b class="value" th:text=" ${coordinates.y}"></b></div>
         </div>
         <hr />
         <div>
@@ -129,8 +129,8 @@
             </form>
         </div>
         <div class="container" th:if="${stormResponse.direction != '' && stormResponse.amount != 0}">
-            <div class="row text-success">=> Lightning strikes amount: <b class="value" th:text="${stormResponse.amount}"></b> in radius: <b class="value" th:text="${stormRequest.distance}"></b> km in last: <b class="value" th:text="${stormResponse.time}"></b> minutes</div>
-            <div class="row text-success">=> Closest lightening strike: <b class="value" th:text="${stormResponse.distance}"></b> km in direction: <b class="value" th:text="${stormResponse.direction}"></b></div>
+            <div class="row text-success">>> Lightning strikes amount: <b class="value" th:text="${stormResponse.amount}"></b> in radius: <b class="value" th:text="${stormRequest.distance}"></b> km in last: <b class="value" th:text="${stormResponse.time}"></b> minutes</div>
+            <div class="row text-success">>> Closest lightening strike: <b class="value" th:text="${stormResponse.distance}"></b> km in direction: <b class="value" th:text="${stormResponse.direction}"></b></div>
         </div>
         <hr />
         <div>
