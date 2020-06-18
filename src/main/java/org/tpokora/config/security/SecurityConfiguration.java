@@ -24,6 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_FAILURE_URL = "/login?error";
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_SUCCESS_URL = "/login?logout";
+    public static final String HOME = "/home";
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -42,16 +43,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/**/*.js", "/**/*.css").permitAll()
-                .antMatchers("/signin", "/add-user", "/api/**").permitAll()
+                .antMatchers("/", HOME, "/weather/**", "/signin", "/add-user", "/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage(LOGIN_URL).permitAll()
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl(HOME)
                 .failureUrl(LOGIN_FAILURE_URL)
 
                 // Configure logout
-                .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
+                .and().logout().logoutSuccessUrl(HOME);
     }
 
     @Bean

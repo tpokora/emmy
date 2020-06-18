@@ -33,6 +33,9 @@
             <span class="mr-sm-2">Logged as: <span sec:authentication="name"></span></span>
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
         </form>
+        <div class="form-inline my-2 my-lg-0" sec:authorize="!isAuthenticated()">
+            <a class="nav-link" th:href="@{/login}" tabindex="-1">Login</a>
+        </div>
     </div>
 </nav>
 <!-- TODO: Fix issue with main element under nav bar -->
