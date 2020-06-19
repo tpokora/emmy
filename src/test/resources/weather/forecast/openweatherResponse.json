@@ -1,0 +1,42 @@
+{
+  "coord": {
+    "lon": 22.22,
+    "lat": 11.11
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 28.55,
+    "feels_like": 29.04,
+    "temp_min": 28.55,
+    "temp_max": 28.55,
+    "pressure": 1012,
+    "humidity": 56,
+    "sea_level": 1012,
+    "grnd_level": 957
+  },
+  "wind": {
+    "speed": 3.85,
+    "deg": 220
+  },
+  "clouds": {
+    "all": 10
+  },
+  "dt": 1592597748,
+  "sys": {
+    "country": "CF",
+    "sunrise": 1592539758,
+    "sunset": 1592585745
+  },
+  "timezone": 3600,
+  "id": 236178,
+  "name": "Vakaga Prefecture",
+  "cod": 200
+}
