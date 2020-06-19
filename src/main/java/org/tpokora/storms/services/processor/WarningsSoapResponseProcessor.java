@@ -3,8 +3,8 @@ package org.tpokora.storms.services.processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
-import org.tpokora.common.services.soap.SoapResponseMessageProcessor;
-import org.tpokora.common.utils.Resolver;
+import org.tpokora.common.services.soap.ISoapResponseMessageProcessor;
+import org.tpokora.common.utils.IResolver;
 import org.tpokora.storms.model.Period;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.model.WarningResolver;
@@ -21,11 +21,11 @@ import java.util.List;
 import static org.tpokora.common.services.soap.SoapMessageUtilities.elementValue;
 import static org.tpokora.storms.services.processor.StormProcessorStrings.NS_1_OSTRZEZENIA_POGODOWE_RESPONSE;
 
-public class WarningsSoapResponseProcessor implements SoapResponseMessageProcessor<List<Warning>> {
+public class WarningsSoapResponseProcessor implements ISoapResponseMessageProcessor<List<Warning>> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(WarningsSoapResponseProcessor.class);
 
-    private Resolver warningResolver;
+    private IResolver warningResolver;
 
     public WarningsSoapResponseProcessor() {
         warningResolver = new WarningResolver();

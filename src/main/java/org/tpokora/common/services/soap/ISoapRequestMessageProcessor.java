@@ -3,7 +3,7 @@ package org.tpokora.common.services.soap;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
-public interface SoapResponseMessageProcessor<T> {
+public interface ISoapRequestMessageProcessor<T> {
 
-    public T process(SOAPMessage soapMessage) throws SOAPException;
+    public SOAPMessage process(T input) throws SOAPException;
 }

@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
-import org.tpokora.common.services.soap.SoapRequestMessageProcessor;
+import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.StormRequest;
 import org.tpokora.storms.services.StormConstants;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 import static org.tpokora.storms.services.processor.StormProcessorStrings.*;
 
-public class StormSoapRequestProcessor implements SoapRequestMessageProcessor<StormRequest> {
+public class StormSoapRequestProcessor implements ISoapRequestMessageProcessor<StormRequest> {
 
     protected StormProperties stormProperties;
     private final Logger LOGGER = LoggerFactory.getLogger(StormSoapRequestProcessor.class);

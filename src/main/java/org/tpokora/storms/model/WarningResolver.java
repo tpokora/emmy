@@ -1,8 +1,8 @@
 package org.tpokora.storms.model;
 
-import org.tpokora.common.utils.Resolver;
+import org.tpokora.common.utils.IResolver;
 
-public class WarningResolver implements Resolver<String, String> {
+public class WarningResolver implements IResolver<String, String> {
 
     public WarningResolver() {}
 

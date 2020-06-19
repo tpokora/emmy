@@ -14,9 +14,9 @@ public class WarningDaoService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(WarningDaoService.class);
 
-    private WarningRepository warningsRepository;
+    private IWarningRepository warningsRepository;
 
-    public WarningDaoService(WarningRepository warningsRepository) {
+    public WarningDaoService(IWarningRepository warningsRepository) {
         this.warningsRepository = warningsRepository;
     }
 

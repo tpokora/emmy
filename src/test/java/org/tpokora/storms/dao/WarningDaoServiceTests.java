@@ -15,7 +15,7 @@ import java.util.Optional;
 public class WarningDaoServiceTests extends BaseServiceTest {
 
     @Autowired
-    private WarningRepository warningRepository;
+    private IWarningRepository warningRepository;
 
     private WarningDaoService warningDaoService;
 

@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.any;
 public class WarningDaoServiceMockitoTests {
 
     @Mock
-    private WarningRepository warningRepository;
+    private IWarningRepository warningRepository;
 
     @InjectMocks
     private WarningDaoService warningDaoService;

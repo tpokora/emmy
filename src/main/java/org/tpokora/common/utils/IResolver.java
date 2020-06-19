@@ -1,6 +1,6 @@
 package org.tpokora.common.utils;
 
-public interface Resolver<I, O> {
+public interface IResolver<I, O> {
 
     public O resolve(I input);
 }

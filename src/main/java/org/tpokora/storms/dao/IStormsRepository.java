@@ -6,7 +6,7 @@ import org.tpokora.storms.model.StormEntity;
 import java.util.List;
 import java.util.Optional;
 
-public interface StormsRepository extends JpaRepository<StormEntity, Integer> {
+public interface IStormsRepository extends JpaRepository<StormEntity, Integer> {
 
     Optional<StormEntity> findFirstByLongitudeAndLatitudeOrderByTimestampDesc(double longitude, double latitude);
 

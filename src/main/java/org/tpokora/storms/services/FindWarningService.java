@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.dao.WarningDaoService;
-import org.tpokora.storms.dao.WarningRepository;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.model.Warning;
 import org.tpokora.storms.model.WarningEntity;

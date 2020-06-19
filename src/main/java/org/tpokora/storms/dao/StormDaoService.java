@@ -17,9 +17,9 @@ public class StormDaoService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(StormDaoService.class);
 
-    private StormsRepository stormsRepository;
+    private IStormsRepository stormsRepository;
 
-    public StormDaoService(StormsRepository stormsRepository) {
+    public StormDaoService(IStormsRepository stormsRepository) {
         this.stormsRepository = stormsRepository;
     }
 

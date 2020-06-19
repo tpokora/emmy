@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
-import org.tpokora.common.services.soap.SoapRequestMessageProcessor;
+import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.model.Coordinates;
 import org.tpokora.storms.services.StormConstants;
@@ -15,7 +15,7 @@ import java.util.Objects;
 
 import static org.tpokora.storms.services.processor.StormProcessorStrings.*;
 
-public class WarningsSoapRequestProcessor implements SoapRequestMessageProcessor<Coordinates> {
+public class WarningsSoapRequestProcessor implements ISoapRequestMessageProcessor<Coordinates> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(WarningsSoapRequestProcessor.class);
 

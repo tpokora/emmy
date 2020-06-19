@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
-import org.tpokora.common.services.soap.SoapRequestMessageProcessor;
+import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
 import org.tpokora.config.properties.StormProperties;
 import org.tpokora.storms.services.StormConstants;
 
@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import static org.tpokora.storms.services.processor.StormProcessorStrings.*;
 
-public class CitySoapRequestProcessor implements SoapRequestMessageProcessor<String> {
+public class CitySoapRequestProcessor implements ISoapRequestMessageProcessor<String> {
 
     private static final String CITY_INPUT_IS_NULL = "City input is null!";
     protected StormProperties stormProperties;

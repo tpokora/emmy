@@ -29,7 +29,7 @@ public class StormDaoServiceTests {
     public static final StormResponse STORM_RESPONSE = new StormResponse();
 
     @Mock
-    private StormsRepository stormsRepository;
+    private IStormsRepository stormsRepository;
 
     @InjectMocks
     private StormDaoService stormDaoService;
