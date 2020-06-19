@@ -31,5 +31,7 @@ class OpenWeatherForecastMapperTest {
         Assertions.assertEquals(forecast.getPressure(), 1012);
         Assertions.assertEquals(forecast.getHumidity(), 56);
         Assertions.assertEquals(forecast.getWind(), 3.85);
+        Assertions.assertEquals(forecast.getLongitude(), 22.22);
+        Assertions.assertEquals(forecast.getLatitude(), 11.11);
     }
 }

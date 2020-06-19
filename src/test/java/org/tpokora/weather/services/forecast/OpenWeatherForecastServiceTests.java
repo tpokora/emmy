@@ -1,5 +1,6 @@
 package org.tpokora.weather.services.forecast;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ public class OpenWeatherForecastServiceTests {
         this.forecastService = new ForecastService(new RestTemplateBuilder());
     }
 
+    @Ignore
     @Test
     public void testGetForecast() {
         Optional<Forecast> forecast = forecastService.getForecast(LONGITUDE, LATITUDE);
