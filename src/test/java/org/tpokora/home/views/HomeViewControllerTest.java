@@ -1,20 +1,25 @@
 package org.tpokora.home.views;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.tpokora.common.views.BasicViewControllerTest;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 class HomeViewControllerTest extends BasicViewControllerTest {
 
 
+    public static final String HOME_MESSAGE = "Welcome to Emmy App!";
+    public static final String HOME_URL = "http://localhost:8080/home";
+
     @Test
-    public void testHome() throws Exception {
-        mockMvc.perform(get("/home")).andDo(print()).andExpect(status().isOk()).andExpect(content().string("Welcome to Emmy App!"));
+    public void testHome() {
+        TestRestTemplate testRestTemplate = new TestRestTemplate();
+        ResponseEntity<String> stringResponseEntity = testRestTemplate.getForEntity(HOME_URL, String.class);
+        Assertions.assertEquals(HttpStatus.OK, stringResponseEntity.getStatusCode());
+        Assertions.assertEquals(HOME_MESSAGE, stringResponseEntity.getBody().contains(HOME_MESSAGE));
     }
 
 }

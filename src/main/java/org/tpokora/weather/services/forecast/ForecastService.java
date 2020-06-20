@@ -26,7 +26,7 @@ public class ForecastService implements IForecastService {
 
     private Logger LOGGER = LoggerFactory.getLogger(ForecastService.class);
 
-    private final RestTemplate restTemplate;
+    private RestTemplate restTemplate;
     private IForecastMapper iForecastMapper;
     private OpenWeatherProperties openWeatherProperties;
 
