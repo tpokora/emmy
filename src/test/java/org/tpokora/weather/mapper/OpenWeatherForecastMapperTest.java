@@ -33,5 +33,12 @@ class OpenWeatherForecastMapperTest {
         Assertions.assertEquals(forecast.getWind(), 3.85);
         Assertions.assertEquals(forecast.getLongitude(), 22.22);
         Assertions.assertEquals(forecast.getLatitude(), 11.11);
+
+        String expectedForecastString =
+                String.format("Forecast{name='%s', description='%s', temp=%s, feelTemp=%s, minTemp=%s, maxTemp=%s, pressure=%d, humidity=%d, wind=%s, longitude=%s, latitude=%s}",
+                        forecast.getName(), forecast.getDescription(), forecast.getTemp(), forecast.getFeelTemp(),
+                        forecast.getMinTemp(), forecast.getMaxTemp(), forecast.getPressure(), forecast.getHumidity(),
+                        forecast.getWind(), forecast.getLongitude(), forecast.getLatitude());
+        Assertions.assertEquals(expectedForecastString, forecast.toString());
     }
 }
