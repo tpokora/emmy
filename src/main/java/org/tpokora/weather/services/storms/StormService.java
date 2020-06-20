@@ -1,4 +1,4 @@
-package org.tpokora.weather.services;
+package org.tpokora.weather.services.storms;
 
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;

@@ -1,10 +1,11 @@
-package org.tpokora.weather.services;
+package org.tpokora.weather.services.storms;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.config.properties.StormProperties;
+import org.tpokora.weather.common.StormConstants;
 import org.tpokora.weather.dao.WarningDaoService;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.Warning;

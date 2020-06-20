@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.tpokora.weather.model.*;
-import org.tpokora.weather.services.FindCityService;
-import org.tpokora.weather.services.FindStormService;
-import org.tpokora.weather.services.FindWarningService;
+import org.tpokora.weather.services.storms.FindCityService;
+import org.tpokora.weather.services.storms.FindStormService;
+import org.tpokora.weather.services.storms.FindWarningService;
 
 import javax.xml.soap.SOAPException;
 import java.io.IOException;

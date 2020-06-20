@@ -1,5 +1,7 @@
 package org.tpokora.weather.model;
 
+import org.tpokora.weather.common.WarningStrings;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;

@@ -8,7 +8,7 @@ import org.tpokora.common.utils.IResolver;
 import org.tpokora.weather.model.Period;
 import org.tpokora.weather.model.Warning;
 import org.tpokora.weather.model.WarningResolver;
-import org.tpokora.weather.model.WarningStrings;
+import org.tpokora.weather.common.WarningStrings;
 
 import javax.xml.soap.Node;
 import javax.xml.soap.SOAPBody;

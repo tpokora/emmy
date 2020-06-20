@@ -1,4 +1,4 @@
-package org.tpokora.weather.services;
+package org.tpokora.weather.services.storms;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,7 @@
 package org.tpokora.weather.model;
 
 import org.tpokora.common.utils.IResolver;
+import org.tpokora.weather.common.WarningStrings;
 
 public class WarningResolver implements IResolver<String, String> {
 

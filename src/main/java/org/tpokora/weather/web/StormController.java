@@ -16,9 +16,9 @@ import org.tpokora.weather.model.City;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.StormRequest;
 import org.tpokora.weather.model.Warning;
-import org.tpokora.weather.services.FindCityService;
-import org.tpokora.weather.services.FindStormService;
-import org.tpokora.weather.services.FindWarningService;
+import org.tpokora.weather.services.storms.FindCityService;
+import org.tpokora.weather.services.storms.FindStormService;
+import org.tpokora.weather.services.storms.FindWarningService;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPFault;

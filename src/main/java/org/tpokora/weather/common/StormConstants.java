@@ -1,4 +1,4 @@
-package org.tpokora.weather.services;
+package org.tpokora.weather.common;
 
 public class StormConstants {
     

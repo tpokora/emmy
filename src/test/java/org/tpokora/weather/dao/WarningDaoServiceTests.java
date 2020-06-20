@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.WarningEntity;
-import org.tpokora.weather.model.WarningStrings;
+import org.tpokora.weather.common.WarningStrings;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

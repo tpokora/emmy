@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.utils.DateUtils;
+import org.tpokora.weather.common.WarningStrings;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

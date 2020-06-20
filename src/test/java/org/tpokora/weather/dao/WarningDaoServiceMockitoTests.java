@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.WarningEntity;
-import org.tpokora.weather.model.WarningStrings;
+import org.tpokora.weather.common.WarningStrings;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

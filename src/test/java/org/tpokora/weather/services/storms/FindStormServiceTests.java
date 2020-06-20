@@ -1,4 +1,4 @@
-package org.tpokora.weather.services;
+package org.tpokora.weather.services.storms;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
