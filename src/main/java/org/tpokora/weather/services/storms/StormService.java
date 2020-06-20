@@ -3,7 +3,7 @@ package org.tpokora.weather.services.storms;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
 import org.tpokora.common.services.soap.ISoapResponseMessageProcessor;
-import org.tpokora.config.properties.StormProperties;
+import org.tpokora.weather.properties.StormProperties;
 
 public abstract class StormService {
 

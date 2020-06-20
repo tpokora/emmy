@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.tpokora.config.properties.StormProperties;
+import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.dao.StormDaoService;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.StormRequest;

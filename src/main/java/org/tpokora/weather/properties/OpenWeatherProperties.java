@@ -13,6 +13,7 @@ import java.util.Map;
 public class OpenWeatherProperties {
 
     public static final String HOST = "host";
+    public static final String ID = "id";
     public static final String KEY = "key";
 
     private final Map<String, String> openweather = new HashMap<>();

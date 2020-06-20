@@ -2,7 +2,7 @@ package org.tpokora.weather.services.storms;
 
 import org.mockito.Mock;
 import org.tpokora.common.services.soap.SOAPService;
-import org.tpokora.config.properties.StormProperties;
+import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.common.StormConstants;
 import org.tpokora.weather.model.City;
 import org.tpokora.weather.model.StormResponse;

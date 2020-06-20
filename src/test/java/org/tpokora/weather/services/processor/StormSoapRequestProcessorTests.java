@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.tpokora.config.properties.StormProperties;
+import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.StormsTestsConstants;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.StormRequest;

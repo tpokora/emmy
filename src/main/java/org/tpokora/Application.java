@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.tpokora.config.properties.FirebaseProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.tpokora.config.properties.StormProperties;
+import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.config.properties.NotificationProperties;
 
 @SpringBootApplication(scanBasePackages = { "org.tpokora" })

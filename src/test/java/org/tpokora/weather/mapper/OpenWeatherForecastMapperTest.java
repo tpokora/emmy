@@ -41,4 +41,11 @@ class OpenWeatherForecastMapperTest {
                         forecast.getWind(), forecast.getLongitude(), forecast.getLatitude());
         Assertions.assertEquals(expectedForecastString, forecast.toString());
     }
+
+    @Test
+    public void testMap_failureParsingJson() {
+        String invalidJson = "invalidJson";
+        Forecast forecast = openWeatherForecastMapper.map(invalidJson);
+        Assertions.assertNull(forecast);
+    }
 }
