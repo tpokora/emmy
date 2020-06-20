@@ -19,7 +19,7 @@ class OpenWeatherForecastMapperTest {
     }
 
     @Test
-    void testMap() throws JsonProcessingException {
+    void testMap() {
         Forecast forecast = openWeatherForecastMapper.map(openWeatherStringResponse);
         Assertions.assertNotNull(forecast);
         Assertions.assertEquals(forecast.getName(), "Clear");

@@ -3,9 +3,13 @@ package org.tpokora.weather.mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tpokora.weather.model.Forecast;
 
 public class OpenWeatherForecastMapper implements IForecastMapper {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(OpenWeatherForecastMapper.class);
 
     public static final String WEATHER = "weather";
     public static final String MAIN = "main";
@@ -23,9 +27,16 @@ public class OpenWeatherForecastMapper implements IForecastMapper {
     public static final String SPEED = "speed";
 
     @Override
-    public Forecast map(String json) throws JsonProcessingException {
+    public Forecast map(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode = objectMapper.readTree(json);
+        JsonNode rootNode;
+        try {
+            rootNode = objectMapper.readTree(json);
+        } catch (JsonProcessingException e) {
+            LOGGER.error("Error parsing JSON: {}", json);
+            LOGGER.error(e.getMessage());
+            return null;
+        }
 
         Forecast forecast = new Forecast();
         setWeather(forecast, rootNode);
