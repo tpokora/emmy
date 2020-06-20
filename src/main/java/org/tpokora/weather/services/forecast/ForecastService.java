@@ -32,8 +32,8 @@ public class ForecastService implements IForecastService {
 
     public static final String URL = "https://community-open-weather-map.p.rapidapi.com/weather?id={id}&lon={lon}&lat={lat}&&units=metric";
 
-    public ForecastService(RestTemplateBuilder restTemplateBuilder, OpenWeatherProperties openWeatherProperties) {
-        this.restTemplate = restTemplateBuilder.build();
+    public ForecastService(RestTemplate restTemplate, OpenWeatherProperties openWeatherProperties) {
+        this.restTemplate = restTemplate;
         iForecastMapper = new OpenWeatherForecastMapper();
         this.openWeatherProperties = openWeatherProperties;
 
