@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.weather.mapper.IForecastMapper;
 import org.tpokora.weather.mapper.OpenWeatherForecastMapper;
+import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.Forecast;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
@@ -53,6 +54,10 @@ public class ForecastService implements IForecastService {
         }
 
         return Optional.empty();
+    }
+
+    public Optional<Forecast> getForecast(Coordinates coordinates) {
+        return getForecast(coordinates.getX(), coordinates.getY());
     }
 
     private HttpHeaders setupHeaders() {

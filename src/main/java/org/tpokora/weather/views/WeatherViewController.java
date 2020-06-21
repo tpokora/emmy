@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.tpokora.weather.model.*;
+import org.tpokora.weather.services.forecast.ForecastService;
 import org.tpokora.weather.services.storms.FindCityService;
 import org.tpokora.weather.services.storms.FindStormService;
 import org.tpokora.weather.services.storms.FindWarningService;
@@ -16,6 +17,7 @@ import javax.xml.soap.SOAPException;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import static org.tpokora.weather.views.WeatherViewConstants.*;
 
@@ -34,11 +36,14 @@ public class WeatherViewController {
     private FindCityService findCityService;
     private FindStormService findStormService;
     private FindWarningService findWarningService;
+    private ForecastService forecastService;
 
-    public WeatherViewController(FindCityService findCityService, FindStormService findStormService, FindWarningService findWarningService) {
+    public WeatherViewController(FindCityService findCityService, FindStormService findStormService,
+                                 FindWarningService findWarningService, ForecastService forecastService) {
         this.findCityService = findCityService;
         this.findStormService = findStormService;
         this.findWarningService = findWarningService;
+        this.forecastService = forecastService;
     }
 
     @GetMapping(value = WEATHER_VIEW_URL, name = WEATHER_VIEW)
@@ -49,7 +54,7 @@ public class WeatherViewController {
     }
 
     @PostMapping(value = WEATHER_FIND_CITY_URL)
-    public String findCity(Model model, @ModelAttribute City city) throws IOException, SOAPException {
+    public String findCity(Model model, @ModelAttribute City city) throws SOAPException {
         LOGGER.info("=> Find city");
         initializeView(model);
         city = this.findCityService.findCity(city.getName());
@@ -66,8 +71,22 @@ public class WeatherViewController {
         return WEATHER_VIEW_TEMPLATE;
     }
 
+    @PostMapping(value = WEATHER_FIND_FORECAST_URL)
+    public String findForecast(Model model, @ModelAttribute Coordinates coordinates) {
+        LOGGER.info("=> Find forecast");
+        initializeView(model);
+        Optional<Forecast> forecast = forecastService.getForecast(coordinates);
+        if (forecast.isPresent()) {
+            model.addAttribute("forecast", forecast.get());
+            updateModelAttribute(model, COORDINATES, coordinates);
+            return WEATHER_VIEW_TEMPLATE;
+        }
+
+        return WEATHER_VIEW_TEMPLATE;
+    }
+
     @PostMapping(value = WEATHER_FIND_STORM_URL)
-    public String findStorm(Model model, @ModelAttribute StormRequest stormRequest) throws IOException, SOAPException {
+    public String findStorm(Model model, @ModelAttribute StormRequest stormRequest) throws SOAPException {
         LOGGER.info("=> Find storm");
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
@@ -83,7 +102,7 @@ public class WeatherViewController {
     }
 
     @PostMapping(value = WEATHER_FIND_WARNINGS_URL)
-    public String findWarnings(Model model, @ModelAttribute Coordinates coordinates) throws IOException, SOAPException {
+    public String findWarnings(Model model, @ModelAttribute Coordinates coordinates) throws SOAPException {
         LOGGER.info("=> Find Warnings");
         initializeView(model);
         updateModelAttribute(model, COORDINATES, coordinates);

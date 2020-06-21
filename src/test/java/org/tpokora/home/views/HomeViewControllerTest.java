@@ -19,7 +19,7 @@ class HomeViewControllerTest extends BasicViewControllerTest {
         TestRestTemplate testRestTemplate = new TestRestTemplate();
         ResponseEntity<String> stringResponseEntity = testRestTemplate.getForEntity(HOME_URL, String.class);
         Assertions.assertEquals(HttpStatus.OK, stringResponseEntity.getStatusCode());
-        Assertions.assertEquals(HOME_MESSAGE, stringResponseEntity.getBody().contains(HOME_MESSAGE));
+        Assertions.assertTrue(stringResponseEntity.getBody().contains(HOME_MESSAGE));
     }
 
 }
