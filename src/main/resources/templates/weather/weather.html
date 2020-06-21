@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </form>
-            <div th:if="${forecast != null}">
+            <div class="container" th:if="${forecast != null}">
                 <div class="row text-success">>> Forecast: <b class="value" th:text="${forecast.name}"></b>, <b class="value" th:text="${forecast.description}"></b></div>
                 <div class="row text-success">>> Temperature: <b class="value" th:text="${forecast.temp}"></b>, feels like: <b class="value" th:text="${forecast.feelTemp}"></b></div>
                 <div class="row text-success">>> Minimum temperature: <b class="value" th:text="${forecast.minTemp}"></b>, Maximum temperature: <b class="value" th:text="${forecast.maxTemp}"></b></div>
