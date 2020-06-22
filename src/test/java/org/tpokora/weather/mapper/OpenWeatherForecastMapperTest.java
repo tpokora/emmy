@@ -1,11 +1,13 @@
 package org.tpokora.weather.mapper;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.weather.model.Forecast;
+
+import java.time.LocalDateTime;
 
 class OpenWeatherForecastMapperTest {
 
@@ -34,11 +36,16 @@ class OpenWeatherForecastMapperTest {
         Assertions.assertEquals(forecast.getLongitude(), 22.22);
         Assertions.assertEquals(forecast.getLatitude(), 11.11);
 
+        forecast.setId(1);
+        LocalDateTime now = LocalDateTime.now();
+        now = now.minusNanos(now.getNano());
+        forecast.setTimestamp(now);
         String expectedForecastString =
-                String.format("Forecast{name='%s', description='%s', temp=%s, feelTemp=%s, minTemp=%s, maxTemp=%s, pressure=%d, humidity=%d, wind=%s, longitude=%s, latitude=%s}",
-                        forecast.getName(), forecast.getDescription(), forecast.getTemp(), forecast.getFeelTemp(),
-                        forecast.getMinTemp(), forecast.getMaxTemp(), forecast.getPressure(), forecast.getHumidity(),
-                        forecast.getWind(), forecast.getLongitude(), forecast.getLatitude());
+                String.format("Forecast{id=%d, name='%s', description='%s', temp=%s, feelTemp=%s, minTemp=%s, maxTemp=%s, pressure=%d, humidity=%d, wind=%s, longitude=%s, latitude=%s, timestamp=%s}",
+                        forecast.getId(), forecast.getName(), forecast.getDescription(), forecast.getTemp(),
+                        forecast.getFeelTemp(), forecast.getMinTemp(), forecast.getMaxTemp(), forecast.getPressure(),
+                        forecast.getHumidity(), forecast.getWind(), forecast.getLongitude(), forecast.getLatitude(),
+                        DateUtils.parseDateToString(forecast.getTimestamp()));
         Assertions.assertEquals(expectedForecastString, forecast.toString());
     }
 

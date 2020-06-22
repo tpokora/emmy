@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyDouble;
 
 @ExtendWith(MockitoExtension.class)
-public class StormDaoServiceTests {
+public class StormDaoServiceMockitoTest {
 
     public static final StormRequest STORM_REQUEST = new StormRequest();
     public static final StormResponse STORM_RESPONSE = new StormResponse();

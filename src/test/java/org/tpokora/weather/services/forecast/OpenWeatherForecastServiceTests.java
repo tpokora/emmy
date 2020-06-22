@@ -19,6 +19,7 @@ import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.Forecast;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -56,6 +57,7 @@ public class OpenWeatherForecastServiceTests {
         Mockito.when(restTemplate.exchange(
                 anyString(), any(HttpMethod.class), any(HttpEntity.class), (Class<String>) any(), anyMap())
         ).thenReturn(stringResponseEntity);
+        Mockito.when(forecastDaoService.saveForecast(any())).thenReturn(createForecast());
         Optional<Forecast> forecast = forecastService.getForecast(LONGITUDE, LATITUDE);
         Assertions.assertTrue(forecast.isPresent());
 
@@ -73,4 +75,26 @@ public class OpenWeatherForecastServiceTests {
         Optional<Forecast> forecast = forecastService.getForecast(LONGITUDE, LATITUDE);
         Assertions.assertTrue(forecast.isEmpty());
     }
+
+    private Forecast createForecast() {
+        Forecast forecast = new Forecast();
+
+        forecast.setId(1);
+        forecast.setName("testName");
+        forecast.setName("testDescription");
+        forecast.setTemp(1.1);
+        forecast.setFeelTemp(1.2);
+        forecast.setMinTemp(0.9);
+        forecast.setMaxTemp(2.9);
+        forecast.setPressure(1000);
+        forecast.setHumidity(10);
+        forecast.setWind(10.1);
+        forecast.setLongitude(11.11);
+        forecast.setLatitude(22.11);
+        LocalDateTime now = LocalDateTime.now();
+        now = now.minusNanos(now.getNano());
+        forecast.setTimestamp(now);
+        return forecast;
+    }
 }
+

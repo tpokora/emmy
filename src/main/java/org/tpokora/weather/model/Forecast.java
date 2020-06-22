@@ -1,5 +1,7 @@
 package org.tpokora.weather.model;
 
+import org.tpokora.common.utils.DateUtils;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -167,7 +169,7 @@ public class Forecast {
                 ", wind=" + wind +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + DateUtils.parseDateToString(timestamp) +
                 '}';
     }
 }
