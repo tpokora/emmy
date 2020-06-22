@@ -33,10 +33,10 @@ public class WeatherViewController {
     public static final String WARNINGS = "warnings";
     public static final String ERROR = "error";
 
-    private FindCityService findCityService;
-    private FindStormService findStormService;
-    private FindWarningService findWarningService;
-    private ForecastService forecastService;
+    private final FindCityService findCityService;
+    private final FindStormService findStormService;
+    private final FindWarningService findWarningService;
+    private final ForecastService forecastService;
 
     public WeatherViewController(FindCityService findCityService, FindStormService findStormService,
                                  FindWarningService findWarningService, ForecastService forecastService) {
@@ -54,10 +54,14 @@ public class WeatherViewController {
     }
 
     @PostMapping(value = WEATHER_FIND_CITY_URL)
-    public String findCity(Model model, @ModelAttribute City city) throws SOAPException {
-        LOGGER.info("=> Find city");
+    public String findCity(Model model, @ModelAttribute City city) {
+        LOGGER.info("=> Find city: {}", city.getName());
         initializeView(model);
-        city = this.findCityService.findCity(city.getName());
+        try {
+            city = this.findCityService.findCity(city.getName());
+        } catch (Exception e) {
+            return searchError(model, e);
+        }
         if (city.getCoordinates().getY().equals(0.0) && city.getCoordinates().getX().equals(0.0)) {
             LOGGER.info("=> City {} not found", city.getName());
             setError(model, WeatherViewError.CITY_NOT_FOUND.getErrorMsg());
@@ -91,7 +95,12 @@ public class WeatherViewController {
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, stormRequest.getCoordinates());
-        StormResponse stormResponse = this.findStormService.checkStorm(stormRequest);
+        StormResponse stormResponse = null;
+        try {
+            stormResponse = this.findStormService.checkStorm(stormRequest);
+        } catch (Exception e) {
+            return searchError(model, e);
+        }
         if (stormResponse.getAmount() == 0) {
             LOGGER.info("=> Storm not found");
             setError(model, WeatherViewError.NO_STORMS.getErrorMsg());
@@ -106,7 +115,12 @@ public class WeatherViewController {
         LOGGER.info("=> Find Warnings");
         initializeView(model);
         updateModelAttribute(model, COORDINATES, coordinates);
-        List<Warning> warnings = this.findWarningService.findWarnings(coordinates);
+        List<Warning> warnings = null;
+        try {
+            warnings = this.findWarningService.findWarnings(coordinates);
+        } catch (Exception e) {
+            return searchError(model, e);
+        }
         if (warnings.size() == 0) {
             LOGGER.info("=> Warnings not found");
             setError(model, WeatherViewError.NO_WARNINGS.getErrorMsg());
@@ -133,11 +147,20 @@ public class WeatherViewController {
         updateModelAttribute(model, ERROR, object);
     }
 
+
+    private String searchError(Model model, Exception e) {
+        LOGGER.error("=> Connection error");
+        LOGGER.error(e.getMessage());
+        setError(model, WeatherViewError.CONNECTION_ERROR.getErrorMsg());
+        return WEATHER_VIEW_TEMPLATE;
+    }
+
     public enum WeatherViewError {
 
         CITY_NOT_FOUND("City not found"),
         NO_STORMS("No storms found"),
-        NO_WARNINGS("No weather warnings");
+        NO_WARNINGS("No weather warnings"),
+        CONNECTION_ERROR("Connection error");
 
         WeatherViewError(String errorMsg) {
             this.errorMsg = errorMsg;
