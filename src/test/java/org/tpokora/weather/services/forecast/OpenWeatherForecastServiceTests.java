@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.utils.FileReaderUtils;
+import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.Forecast;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
@@ -53,6 +54,9 @@ public class OpenWeatherForecastServiceTests {
         ).thenReturn(stringResponseEntity);
         Optional<Forecast> forecast = forecastService.getForecast(LONGITUDE, LATITUDE);
         Assertions.assertTrue(forecast.isPresent());
+
+        Optional<Forecast> forecastByCoordinates = forecastService.getForecast(new Coordinates(LONGITUDE, LATITUDE));
+        Assertions.assertTrue(forecastByCoordinates.isPresent());
     }
 
     @Test
