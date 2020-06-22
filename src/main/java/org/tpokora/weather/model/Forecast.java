@@ -1,20 +1,60 @@
 package org.tpokora.weather.model;
 
-import java.io.Serializable;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
-public class Forecast implements Serializable {
+@Entity
+@Table(name = "FORECAST")
+public class Forecast {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private int id;
+
+    @Column(name = "NAME", nullable = false)
     private String name;
+
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
+
+    @Column(name = "TEMP", nullable = false)
     private double temp;
+
+    @Column(name = "FEELTEMP", nullable = false)
     private double feelTemp;
+
+    @Column(name = "MINTEMP", nullable = false)
     private double minTemp;
+
+    @Column(name = "MAXTEMP", nullable = false)
     private double maxTemp;
+
+    @Column(name = "PRESSURE", nullable = false)
     private int pressure;
+
+    @Column(name = "HUMIDITY", nullable = false)
     private int humidity;
+
+    @Column(name = "WIND", nullable = false)
     private double wind;
+
+    @Column(name = "LONGITUDE", nullable = false)
     private double longitude;
+
+    @Column(name = "LATITUDE", nullable = false)
     private double latitude;
+
+    @Column(name = "TIMESTAMP", nullable = false)
+    private LocalDateTime timestamp;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -104,10 +144,19 @@ public class Forecast implements Serializable {
         this.latitude = latitude;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "Forecast{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", temp=" + temp +
                 ", feelTemp=" + feelTemp +
@@ -118,6 +167,7 @@ public class Forecast implements Serializable {
                 ", wind=" + wind +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }

@@ -1,0 +1,55 @@
+package org.tpokora.weather.dao;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.model.StormEntity;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@Service
+public class ForecastDaoService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(ForecastDaoService.class);
+
+    private final IForecastRepository forecastRepository;
+
+    public ForecastDaoService(IForecastRepository forecastRepository) {
+        this.forecastRepository = forecastRepository;
+    }
+
+    public List<Forecast> findAllByCoordinates(double longitude, double latitude) {
+        return forecastRepository.findAllByLongitudeAndLatitudeOrderByTimestampDesc(longitude, latitude);
+    }
+
+    public Forecast saveForecast(Forecast forecast) {
+        Objects.requireNonNull(forecast, "Forecast can't be null!");
+        forecast.setTimestamp(getLocalDateTimeWithoutNanos());
+        Optional<Forecast> latestForecast = forecastRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(forecast.getLongitude(), forecast.getLatitude());
+        LOGGER.info("==> Saving Forecast to DB");
+        if (latestForecast.isPresent()) {
+            if (getMinuteDifference(forecast, latestForecast.get()) > 60) {
+                return forecastRepository.save(forecast);
+            }
+        } else {
+            return forecastRepository.save(forecast);
+        }
+
+        return forecast;
+    }
+
+    private long getMinuteDifference(Forecast forecast, Forecast secondForecast) {
+        return Duration.between(secondForecast.getTimestamp(), forecast.getTimestamp()).getSeconds() / 60;
+    }
+
+    private LocalDateTime getLocalDateTimeWithoutNanos() {
+        LocalDateTime now = LocalDateTime.now();
+        now = now.minusNanos(now.getNano());
+        return now;
+    }
+}

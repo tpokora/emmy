@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.utils.FileReaderUtils;
+import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.Forecast;
 import org.tpokora.weather.properties.OpenWeatherProperties;
@@ -33,6 +34,9 @@ public class OpenWeatherForecastServiceTests {
 
     @Mock
     private RestTemplate restTemplate;
+
+    @Mock
+    private ForecastDaoService forecastDaoService;
 
     @InjectMocks
     private ForecastService forecastService;
