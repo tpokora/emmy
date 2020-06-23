@@ -3,6 +3,7 @@ package org.tpokora.weather.dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.Forecast;
 import org.tpokora.weather.model.StormEntity;
 
@@ -29,11 +30,11 @@ public class ForecastDaoService {
 
     public Forecast saveForecast(Forecast forecast) {
         Objects.requireNonNull(forecast, "Forecast can't be null!");
-        forecast.setTimestamp(getLocalDateTimeWithoutNanos());
+        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
         Optional<Forecast> latestForecast = forecastRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(forecast.getLongitude(), forecast.getLatitude());
         LOGGER.info("==> Saving Forecast to DB");
         if (latestForecast.isPresent()) {
-            if (getMinuteDifference(forecast, latestForecast.get()) > 60) {
+            if (DateUtils.getMinuteDifference(forecast.getTimestamp(), latestForecast.get().getTimestamp()) > 60) {
                 return forecastRepository.save(forecast);
             }
         } else {
@@ -43,13 +44,4 @@ public class ForecastDaoService {
         return forecast;
     }
 
-    private long getMinuteDifference(Forecast forecast, Forecast secondForecast) {
-        return Duration.between(secondForecast.getTimestamp(), forecast.getTimestamp()).getSeconds() / 60;
-    }
-
-    private LocalDateTime getLocalDateTimeWithoutNanos() {
-        LocalDateTime now = LocalDateTime.now();
-        now = now.minusNanos(now.getNano());
-        return now;
-    }
 }

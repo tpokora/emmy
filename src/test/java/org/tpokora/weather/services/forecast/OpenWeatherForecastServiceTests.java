@@ -13,6 +13,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.weather.model.Coordinates;
@@ -91,9 +92,7 @@ public class OpenWeatherForecastServiceTests {
         forecast.setWind(10.1);
         forecast.setLongitude(11.11);
         forecast.setLatitude(22.11);
-        LocalDateTime now = LocalDateTime.now();
-        now = now.minusNanos(now.getNano());
-        forecast.setTimestamp(now);
+        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
         return forecast;
     }
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.common.services.BaseServiceTest;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.Forecast;
 
 import java.time.LocalDateTime;
@@ -51,9 +52,7 @@ public class ForecastDaoServiceTest extends BaseServiceTest {
         forecast.setWind(10.1);
         forecast.setLongitude(11.11);
         forecast.setLatitude(22.11);
-        LocalDateTime now = LocalDateTime.now();
-        now = now.minusNanos(now.getNano());
-        forecast.setTimestamp(now);
+        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
         return forecast;
     }
 

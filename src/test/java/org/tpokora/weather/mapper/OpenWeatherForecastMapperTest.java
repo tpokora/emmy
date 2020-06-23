@@ -37,9 +37,7 @@ class OpenWeatherForecastMapperTest {
         Assertions.assertEquals(forecast.getLatitude(), 11.11);
 
         forecast.setId(1);
-        LocalDateTime now = LocalDateTime.now();
-        now = now.minusNanos(now.getNano());
-        forecast.setTimestamp(now);
+        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
         String expectedForecastString =
                 String.format("Forecast{id=%d, name='%s', description='%s', temp=%s, feelTemp=%s, minTemp=%s, maxTemp=%s, pressure=%d, humidity=%d, wind=%s, longitude=%s, latitude=%s, timestamp=%s}",
                         forecast.getId(), forecast.getName(), forecast.getDescription(), forecast.getTemp(),

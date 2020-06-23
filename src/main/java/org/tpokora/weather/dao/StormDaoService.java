@@ -3,6 +3,7 @@ package org.tpokora.weather.dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.StormEntity;
 import org.tpokora.weather.model.StormRequest;
 import org.tpokora.weather.model.StormResponse;
@@ -40,7 +41,7 @@ public class StormDaoService {
                 stormsRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(stormEntity.getLongitude(), stormEntity.getLatitude());
         if (stormEntityOptional.isPresent()) {
             StormEntity stormEntityFromDB = stormEntityOptional.get();
-            if (getMinuteDifference(stormEntity, stormEntityFromDB) > 15) {
+            if (DateUtils.getMinuteDifference(stormEntity.getTimestamp(), stormEntityFromDB.getTimestamp()) > 15) {
                 return saveStormEntity(stormEntity);
             }
         } else {
@@ -54,12 +55,6 @@ public class StormDaoService {
         StormEntity savedStormEntity = stormsRepository.saveAndFlush(stormEntity);
         LOGGER.info("{}", savedStormEntity.toString());
         return savedStormEntity;
-    }
-
-    private long getMinuteDifference(StormEntity stormEntity, StormEntity stormEntityFromDB) {
-        Objects.requireNonNull(stormEntity, "StormEntity can't be null!");
-        Objects.requireNonNull(stormEntityFromDB, "stormEntityFromDB can't be null!");
-        return Duration.between(stormEntityFromDB.getTimestamp(), stormEntity.getTimestamp()).getSeconds() / 60;
     }
 
     private StormEntity generatorStormEntity(StormRequest stormRequest, StormResponse stormResponse) {

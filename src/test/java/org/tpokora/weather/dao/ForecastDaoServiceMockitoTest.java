@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.Forecast;
 
 import java.time.LocalDateTime;
@@ -48,9 +49,7 @@ class ForecastDaoServiceMockitoTest {
         forecast.setWind(10.1);
         forecast.setLongitude(11.11);
         forecast.setLatitude(22.11);
-        LocalDateTime now = LocalDateTime.now();
-        now = now.minusNanos(now.getNano());
-        forecast.setTimestamp(now);
+        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
         return forecast;
     }
 }
