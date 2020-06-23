@@ -35,6 +35,13 @@ public class ForecastDaoServiceTest extends BaseServiceTest {
 
         allByCoordinates = forecastDaoService.findAllByCoordinates(firstForecast.getLongitude(), firstForecast.getLatitude());
         Assertions.assertEquals(1, allByCoordinates.size());
+
+        LocalDateTime newTimestamp = secondForecast.getTimestamp();
+        newTimestamp = newTimestamp.plusMinutes(65);
+        secondForecast.setTimestamp(newTimestamp);
+        forecastDaoService.saveForecast(secondForecast);
+        allByCoordinates = forecastDaoService.findAllByCoordinates(firstForecast.getLongitude(), firstForecast.getLatitude());
+        Assertions.assertEquals(2, allByCoordinates.size());
     }
 
     private Forecast createForecast() {

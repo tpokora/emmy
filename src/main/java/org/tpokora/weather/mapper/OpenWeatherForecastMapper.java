@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.Forecast;
 
 public class OpenWeatherForecastMapper implements IForecastMapper {
@@ -72,5 +73,6 @@ public class OpenWeatherForecastMapper implements IForecastMapper {
         forecast.setHumidity(main.get(HUMIDITY).asInt());
         JsonNode wind = rootNode.get(WIND);
         forecast.setWind(wind.get(SPEED).asDouble());
+        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
     }
 }

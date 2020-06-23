@@ -30,7 +30,6 @@ public class ForecastDaoService {
 
     public Forecast saveForecast(Forecast forecast) {
         Objects.requireNonNull(forecast, "Forecast can't be null!");
-        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
         Optional<Forecast> latestForecast = forecastRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(forecast.getLongitude(), forecast.getLatitude());
         LOGGER.info("==> Saving Forecast to DB");
         if (latestForecast.isPresent()) {
