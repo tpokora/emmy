@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.Forecast;
 
+import java.util.Optional;
+
 public class OpenWeatherForecastMapper implements IForecastMapper {
 
     private final Logger LOGGER = LoggerFactory.getLogger(OpenWeatherForecastMapper.class);
@@ -43,6 +45,7 @@ public class OpenWeatherForecastMapper implements IForecastMapper {
         setWeather(forecast, rootNode);
         setCoordinates(forecast, rootNode);
         setTemperature(forecast, rootNode);
+        setRain(forecast, rootNode);
         setOther(forecast, rootNode);
         return forecast;
     }
@@ -65,6 +68,18 @@ public class OpenWeatherForecastMapper implements IForecastMapper {
         forecast.setFeelTemp(main.get(FEELS_LIKE).asDouble());
         forecast.setMinTemp(main.get(TEMP_MIN).asDouble());
         forecast.setMaxTemp(main.get(TEMP_MAX).asDouble());
+    }
+
+    private void setRain(Forecast forecast, JsonNode rootNode) {
+        Optional<JsonNode> rain = Optional.ofNullable(rootNode.get("rain"));
+        if (rain.isPresent()) {
+            Optional<JsonNode> rain1hOptional = Optional.ofNullable(rain.get().get("1h"));
+            rain1hOptional.ifPresent(value -> forecast.setRain1h(value.asDouble()));
+            Optional<JsonNode> rain3hOptional = Optional.ofNullable(rain.get().get("3h"));
+            rain3hOptional.ifPresent(value -> forecast.setRain3h(value.asDouble()));
+        }
+
+
     }
 
     private void setOther(Forecast forecast, JsonNode rootNode) {

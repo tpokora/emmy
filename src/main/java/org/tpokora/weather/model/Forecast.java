@@ -41,6 +41,12 @@ public class Forecast {
     @Column(name = "WIND", nullable = false)
     private double wind;
 
+    @Column(name = "RAIN1H")
+    private double rain1h;
+
+    @Column(name = "RAIN3H")
+    private double rain3h;
+
     @Column(name = "LONGITUDE", nullable = false)
     private double longitude;
 
@@ -130,6 +136,22 @@ public class Forecast {
         this.wind = wind;
     }
 
+    public double getRain1h() {
+        return rain1h;
+    }
+
+    public void setRain1h(double rain1h) {
+        this.rain1h = rain1h;
+    }
+
+    public double getRain3h() {
+        return rain3h;
+    }
+
+    public void setRain3h(double rain3h) {
+        this.rain3h = rain3h;
+    }
+
     public double getLongitude() {
         return longitude;
     }
@@ -167,6 +189,8 @@ public class Forecast {
                 ", pressure=" + pressure +
                 ", humidity=" + humidity +
                 ", wind=" + wind +
+                ", rain1h=" + rain1h +
+                ", rain3h=" + rain3h +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", timestamp=" + DateUtils.parseDateToString(timestamp) +

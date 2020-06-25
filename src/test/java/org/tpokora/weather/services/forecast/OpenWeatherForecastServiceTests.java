@@ -20,7 +20,6 @@ import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.Forecast;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.*;

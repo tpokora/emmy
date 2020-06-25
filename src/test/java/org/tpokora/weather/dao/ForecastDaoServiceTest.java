@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.utils.ForecastTestsHelper;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,12 +26,12 @@ public class ForecastDaoServiceTest extends BaseServiceTest {
 
     @Test
     public void testSaveForecast() {
-        Forecast firstForecast = createForecast();
+        Forecast firstForecast = ForecastTestsHelper.createForecast();
         forecastDaoService.saveForecast(firstForecast);
         List<Forecast> allByCoordinates = forecastDaoService.findAllByCoordinates(firstForecast.getLongitude(), firstForecast.getLatitude());
         Assertions.assertEquals(1, allByCoordinates.size());
 
-        Forecast secondForecast = createForecast();
+        Forecast secondForecast = ForecastTestsHelper.createForecast();
         forecastDaoService.saveForecast(secondForecast);
 
         allByCoordinates = forecastDaoService.findAllByCoordinates(firstForecast.getLongitude(), firstForecast.getLatitude());
@@ -43,25 +44,5 @@ public class ForecastDaoServiceTest extends BaseServiceTest {
         allByCoordinates = forecastDaoService.findAllByCoordinates(firstForecast.getLongitude(), firstForecast.getLatitude());
         Assertions.assertEquals(2, allByCoordinates.size());
     }
-
-    private Forecast createForecast() {
-        Forecast forecast = new Forecast();
-
-        forecast.setId(0);
-        forecast.setName("testName");
-        forecast.setDescription("testDescription");
-        forecast.setTemp(1.1);
-        forecast.setFeelTemp(1.2);
-        forecast.setMinTemp(0.9);
-        forecast.setMaxTemp(2.9);
-        forecast.setPressure(1000);
-        forecast.setHumidity(10);
-        forecast.setWind(10.1);
-        forecast.setLongitude(11.11);
-        forecast.setLatitude(22.11);
-        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
-        return forecast;
-    }
-
 
 }

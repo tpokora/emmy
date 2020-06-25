@@ -1,7 +1,6 @@
 package org.tpokora.weather.dao;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,8 +9,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.utils.ForecastTestsHelper;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,28 +27,9 @@ class ForecastDaoServiceMockitoTest {
 
     @Test
     void findAllByCoordinates() {
-        Forecast forecast = createForecast();
+        Forecast forecast = ForecastTestsHelper.createForecast();
         Mockito.when(forecastRepository.findAllByLongitudeAndLatitudeOrderByTimestampDesc(anyDouble(), anyDouble())).thenReturn(Collections.singletonList(forecast));
         List<Forecast> allByCoordinates = forecastDaoService.findAllByCoordinates(forecast.getLongitude(), forecast.getLatitude());
         Assertions.assertFalse(allByCoordinates.isEmpty());
-    }
-
-    private Forecast createForecast() {
-        Forecast forecast = new Forecast();
-
-        forecast.setId(1);
-        forecast.setName("testName");
-        forecast.setDescription("testDescription");
-        forecast.setTemp(1.1);
-        forecast.setFeelTemp(1.2);
-        forecast.setMinTemp(0.9);
-        forecast.setMaxTemp(2.9);
-        forecast.setPressure(1000);
-        forecast.setHumidity(10);
-        forecast.setWind(10.1);
-        forecast.setLongitude(11.11);
-        forecast.setLatitude(22.11);
-        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
-        return forecast;
     }
 }

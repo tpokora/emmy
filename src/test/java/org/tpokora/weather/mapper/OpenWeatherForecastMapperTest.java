@@ -7,8 +7,6 @@ import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.weather.model.Forecast;
 
-import java.time.LocalDateTime;
-
 class OpenWeatherForecastMapperTest {
 
     private OpenWeatherForecastMapper openWeatherForecastMapper;
@@ -33,16 +31,19 @@ class OpenWeatherForecastMapperTest {
         Assertions.assertEquals(forecast.getPressure(), 1012);
         Assertions.assertEquals(forecast.getHumidity(), 56);
         Assertions.assertEquals(forecast.getWind(), 3.85);
+        Assertions.assertEquals(forecast.getRain1h(), 0.27);
+        Assertions.assertEquals(forecast.getRain3h(), 1.2);
         Assertions.assertEquals(forecast.getLongitude(), 22.22);
         Assertions.assertEquals(forecast.getLatitude(), 11.11);
 
         forecast.setId(1);
         forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
         String expectedForecastString =
-                String.format("Forecast{id=%d, name='%s', description='%s', temp=%s, feelTemp=%s, minTemp=%s, maxTemp=%s, pressure=%d, humidity=%d, wind=%s, longitude=%s, latitude=%s, timestamp=%s}",
+                String.format("Forecast{id=%d, name='%s', description='%s', temp=%s, feelTemp=%s, minTemp=%s, maxTemp=%s, pressure=%d, humidity=%d, wind=%s, rain1h=%s, rain3h=%s, longitude=%s, latitude=%s, timestamp=%s}",
                         forecast.getId(), forecast.getName(), forecast.getDescription(), forecast.getTemp(),
                         forecast.getFeelTemp(), forecast.getMinTemp(), forecast.getMaxTemp(), forecast.getPressure(),
-                        forecast.getHumidity(), forecast.getWind(), forecast.getLongitude(), forecast.getLatitude(),
+                        forecast.getHumidity(), forecast.getWind(), forecast.getRain1h(), forecast.getRain3h(),
+                        forecast.getLongitude(), forecast.getLatitude(),
                         DateUtils.parseDateToString(forecast.getTimestamp()));
         Assertions.assertEquals(expectedForecastString, forecast.toString());
     }
