@@ -22,4 +22,11 @@ public class OpenWeatherProperties {
         return openweather;
     }
 
+    public String getValue(String key) {
+        return this.openweather.get(key);
+    }
+
+    public String setValue(String key, String value) {
+        return this.openweather.put(key, value);
+    }
 }

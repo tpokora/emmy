@@ -65,14 +65,14 @@ public class ForecastService implements IForecastService {
 
     private HttpHeaders setupHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set(X_RAPID_API_HOST, openWeatherProperties.getOpenweather().get(OpenWeatherProperties.HOST));
-        httpHeaders.set(X_RAPID_API_KEY, openWeatherProperties.getOpenweather().get(OpenWeatherProperties.KEY));
+        httpHeaders.set(X_RAPID_API_HOST, openWeatherProperties.getValue(OpenWeatherProperties.HOST));
+        httpHeaders.set(X_RAPID_API_KEY, openWeatherProperties.getValue(OpenWeatherProperties.KEY));
 
         return httpHeaders;
     }
 
     private Map<String, ? extends Number> getUriVariables(double longitude, double latitude) {
-        return Map.of(ID, Integer.parseInt(openWeatherProperties.getOpenweather().get(OpenWeatherProperties.ID)),
+        return Map.of(ID, Integer.parseInt(openWeatherProperties.getValue(OpenWeatherProperties.ID)),
                 LON, longitude, LAT, latitude);
     }
 }

@@ -54,6 +54,6 @@ public class WarningsSoapRequestProcessor implements ISoapRequestMessageProcesso
 
         xElem.addTextNode(String.valueOf(coordinates.getX()));
         yElem.addTextNode(String.valueOf(coordinates.getY()));
-        keyElem.addTextNode(stormProperties.getStorm().get(StormProperties.KEY));
+        keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }
 }

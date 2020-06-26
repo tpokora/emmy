@@ -34,7 +34,7 @@ public class FindCityServiceTests extends StormServicesTests {
     @Test
     public void testFindCity() throws SOAPException {
         SOAPMessage response = generateCityResponse(EXPECTED_CITY);
-        Mockito.when(stormProperties.getStorm()).thenReturn(Map.of(StormProperties.KEY, STORM_TEST_KEY));
+        Mockito.when(stormProperties.getValue(StormProperties.KEY)).thenReturn(STORM_TEST_KEY);
         Mockito.when(soapService.sendSOAPMessage(any(), anyString())).thenReturn(response);
         City city = findCityService.findCity(TEST_CITY);
         Assert.assertEquals(EXPECTED_CITY.getName(), city.getName());

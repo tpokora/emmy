@@ -20,4 +20,11 @@ public class StormProperties {
         return storm;
     }
 
+    public String getValue(String key) {
+        return this.storm.get(key);
+    }
+
+    public String setValue(String key, String value) {
+        return this.storm.put(key, value);
+    }
 }

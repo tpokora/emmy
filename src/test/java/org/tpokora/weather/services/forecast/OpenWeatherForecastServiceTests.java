@@ -45,9 +45,9 @@ public class OpenWeatherForecastServiceTests {
     @BeforeEach
     public void setup()
     {
-        Mockito.when(openWeatherProperties.getOpenweather().get(OpenWeatherProperties.HOST)).thenReturn("testHost");
-        Mockito.when(openWeatherProperties.getOpenweather().get(OpenWeatherProperties.KEY)).thenReturn("testKey");
-        Mockito.when(openWeatherProperties.getOpenweather().get(OpenWeatherProperties.ID)).thenReturn("123");
+        Mockito.when(openWeatherProperties.getValue(OpenWeatherProperties.HOST)).thenReturn("testHost");
+        Mockito.when(openWeatherProperties.getValue(OpenWeatherProperties.KEY)).thenReturn("testKey");
+        Mockito.when(openWeatherProperties.getValue(OpenWeatherProperties.ID)).thenReturn("123");
     }
 
     @Test

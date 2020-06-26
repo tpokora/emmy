@@ -45,7 +45,7 @@ public class FindWarningServiceTests extends StormServicesTests {
         List<Warning> expectedWarnings = fillWarnings();
         SOAPMessage response = generateWarningsResponse(expectedWarnings);
         Coordinates coordinates = new Coordinates(11.11, 22.22);
-        Mockito.when(stormProperties.getStorm()).thenReturn(Map.of(StormProperties.KEY, STORM_TEST_KEY));
+        Mockito.when(stormProperties.getValue(StormProperties.KEY)).thenReturn(STORM_TEST_KEY);
         Mockito.when(soapService.sendSOAPMessage(any(), anyString())).thenReturn(response);
         List<Warning> warnings = findWarningService.findWarnings(coordinates);
         Assertions.assertFalse(warnings.isEmpty());

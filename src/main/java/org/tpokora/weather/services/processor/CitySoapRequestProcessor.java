@@ -48,6 +48,6 @@ public class CitySoapRequestProcessor implements ISoapRequestMessageProcessor<St
         SOAPElement keyElem = findCity.addChildElement(KLUCZ, namespace);
 
         nameElem.addTextNode(city);
-        keyElem.addTextNode(stormProperties.getStorm().get(StormProperties.KEY));
+        keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }
 }
