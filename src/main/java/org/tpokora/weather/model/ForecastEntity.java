@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "FORECAST")
-public class Forecast {
+public class ForecastEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -178,7 +178,7 @@ public class Forecast {
 
     @Override
     public String toString() {
-        return "Forecast{" +
+        return "ForecastEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

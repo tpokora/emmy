@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.utils.DateUtils;
-import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.model.ForecastEntity;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,23 +21,23 @@ public class ForecastDaoService {
         this.forecastRepository = forecastRepository;
     }
 
-    public List<Forecast> findAllByCoordinates(double longitude, double latitude) {
+    public List<ForecastEntity> findAllByCoordinates(double longitude, double latitude) {
         return forecastRepository.findAllByLongitudeAndLatitudeOrderByTimestampDesc(longitude, latitude);
     }
 
-    public Forecast saveForecast(Forecast forecast) {
-        Objects.requireNonNull(forecast, "Forecast can't be null!");
-        Optional<Forecast> latestForecast = forecastRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(forecast.getLongitude(), forecast.getLatitude());
+    public ForecastEntity saveForecast(ForecastEntity forecastEntity) {
+        Objects.requireNonNull(forecastEntity, "Forecast can't be null!");
+        Optional<ForecastEntity> latestForecast = forecastRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(forecastEntity.getLongitude(), forecastEntity.getLatitude());
         LOGGER.info("==> Saving Forecast to DB");
         if (latestForecast.isPresent()) {
-            if (DateUtils.getMinuteDifference(forecast.getTimestamp(), latestForecast.get().getTimestamp()) > 60) {
-                return forecastRepository.save(forecast);
+            if (DateUtils.getMinuteDifference(forecastEntity.getTimestamp(), latestForecast.get().getTimestamp()) > 60) {
+                return forecastRepository.save(forecastEntity);
             }
         } else {
-            return forecastRepository.save(forecast);
+            return forecastRepository.save(forecastEntity);
         }
 
-        return forecast;
+        return forecastEntity;
     }
 
 }

@@ -17,7 +17,7 @@ import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.model.ForecastEntity;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
 import java.util.Optional;
@@ -58,10 +58,10 @@ public class OpenWeatherForecastServiceTests {
                 anyString(), any(HttpMethod.class), any(HttpEntity.class), (Class<String>) any(), anyMap())
         ).thenReturn(stringResponseEntity);
         Mockito.when(forecastDaoService.saveForecast(any())).thenReturn(createForecast());
-        Optional<Forecast> forecast = forecastService.getForecast(LONGITUDE, LATITUDE);
+        Optional<ForecastEntity> forecast = forecastService.getForecast(LONGITUDE, LATITUDE);
         Assertions.assertTrue(forecast.isPresent());
 
-        Optional<Forecast> forecastByCoordinates = forecastService.getForecast(new Coordinates(LONGITUDE, LATITUDE));
+        Optional<ForecastEntity> forecastByCoordinates = forecastService.getForecast(new Coordinates(LONGITUDE, LATITUDE));
         Assertions.assertTrue(forecastByCoordinates.isPresent());
     }
 
@@ -72,27 +72,27 @@ public class OpenWeatherForecastServiceTests {
         Mockito.when(restTemplate.exchange(
                 anyString(), any(HttpMethod.class), any(HttpEntity.class), (Class<String>) any(), anyMap())
         ).thenReturn(stringResponseEntity);
-        Optional<Forecast> forecast = forecastService.getForecast(LONGITUDE, LATITUDE);
+        Optional<ForecastEntity> forecast = forecastService.getForecast(LONGITUDE, LATITUDE);
         Assertions.assertTrue(forecast.isEmpty());
     }
 
-    private Forecast createForecast() {
-        Forecast forecast = new Forecast();
+    private ForecastEntity createForecast() {
+        ForecastEntity forecastEntity = new ForecastEntity();
 
-        forecast.setId(1);
-        forecast.setName("testName");
-        forecast.setName("testDescription");
-        forecast.setTemp(1.1);
-        forecast.setFeelTemp(1.2);
-        forecast.setMinTemp(0.9);
-        forecast.setMaxTemp(2.9);
-        forecast.setPressure(1000);
-        forecast.setHumidity(10);
-        forecast.setWind(10.1);
-        forecast.setLongitude(11.11);
-        forecast.setLatitude(22.11);
-        forecast.setTimestamp(DateUtils.getCurrentLocalDateTime());
-        return forecast;
+        forecastEntity.setId(1);
+        forecastEntity.setName("testName");
+        forecastEntity.setName("testDescription");
+        forecastEntity.setTemp(1.1);
+        forecastEntity.setFeelTemp(1.2);
+        forecastEntity.setMinTemp(0.9);
+        forecastEntity.setMaxTemp(2.9);
+        forecastEntity.setPressure(1000);
+        forecastEntity.setHumidity(10);
+        forecastEntity.setWind(10.1);
+        forecastEntity.setLongitude(11.11);
+        forecastEntity.setLatitude(22.11);
+        forecastEntity.setTimestamp(DateUtils.getCurrentLocalDateTime());
+        return forecastEntity;
     }
 }
 

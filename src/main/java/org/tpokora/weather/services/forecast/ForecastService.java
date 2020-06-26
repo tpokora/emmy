@@ -10,7 +10,7 @@ import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.weather.mapper.IForecastMapper;
 import org.tpokora.weather.mapper.OpenWeatherForecastMapper;
 import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.model.ForecastEntity;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
 import java.util.Map;
@@ -43,7 +43,7 @@ public class ForecastService implements IForecastService {
     }
 
     @Override
-    public Optional<Forecast> getForecast(double longitude, double latitude) {
+    public Optional<ForecastEntity> getForecast(double longitude, double latitude) {
         LOGGER.info("==> Find forecast longitude: {}, latitude: {}", longitude, latitude);
         HttpEntity request = new HttpEntity(setupHeaders());
 
@@ -51,15 +51,15 @@ public class ForecastService implements IForecastService {
                 this.restTemplate.exchange(URL, HttpMethod.GET, request, String.class, getUriVariables(longitude, latitude));
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             String forecastString = responseEntity.getBody();
-            Forecast forecast = iForecastMapper.map(forecastString);
-            forecast = forecastDaoService.saveForecast(forecast);
-            return Optional.of(forecast);
+            ForecastEntity forecastEntity = iForecastMapper.map(forecastString);
+            forecastEntity = forecastDaoService.saveForecast(forecastEntity);
+            return Optional.of(forecastEntity);
         }
 
         return Optional.empty();
     }
 
-    public Optional<Forecast> getForecast(Coordinates coordinates) {
+    public Optional<ForecastEntity> getForecast(Coordinates coordinates) {
         return getForecast(coordinates.getX(), coordinates.getY());
     }
 

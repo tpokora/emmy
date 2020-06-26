@@ -7,8 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.tpokora.common.utils.DateUtils;
-import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.model.ForecastEntity;
 import org.tpokora.weather.utils.ForecastTestsHelper;
 
 import java.util.Collections;
@@ -17,7 +16,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyDouble;
 
 @ExtendWith(MockitoExtension.class)
-class ForecastDaoServiceMockitoTest {
+class ForecastEntityDaoServiceMockitoTest {
 
     @Mock
     private IForecastRepository forecastRepository;
@@ -27,9 +26,9 @@ class ForecastDaoServiceMockitoTest {
 
     @Test
     void findAllByCoordinates() {
-        Forecast forecast = ForecastTestsHelper.createForecast();
-        Mockito.when(forecastRepository.findAllByLongitudeAndLatitudeOrderByTimestampDesc(anyDouble(), anyDouble())).thenReturn(Collections.singletonList(forecast));
-        List<Forecast> allByCoordinates = forecastDaoService.findAllByCoordinates(forecast.getLongitude(), forecast.getLatitude());
+        ForecastEntity forecastEntity = ForecastTestsHelper.createForecast();
+        Mockito.when(forecastRepository.findAllByLongitudeAndLatitudeOrderByTimestampDesc(anyDouble(), anyDouble())).thenReturn(Collections.singletonList(forecastEntity));
+        List<ForecastEntity> allByCoordinates = forecastDaoService.findAllByCoordinates(forecastEntity.getLongitude(), forecastEntity.getLatitude());
         Assertions.assertFalse(allByCoordinates.isEmpty());
     }
 }

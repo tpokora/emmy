@@ -1,8 +1,8 @@
 package org.tpokora.weather.mapper;
 
-import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.model.ForecastEntity;
 
 public interface IForecastMapper {
 
-    public Forecast map(String json);
+    public ForecastEntity map(String json);
 }

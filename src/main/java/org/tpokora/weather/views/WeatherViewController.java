@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.tpokora.weather.model.*;
-import org.tpokora.weather.model.Forecast;
+import org.tpokora.weather.model.ForecastEntity;
 import org.tpokora.weather.services.forecast.ForecastService;
 import org.tpokora.weather.services.storms.FindCityService;
 import org.tpokora.weather.services.storms.FindStormService;
@@ -79,7 +79,7 @@ public class WeatherViewController {
     public String findForecast(Model model, @ModelAttribute Coordinates coordinates) {
         LOGGER.info("=> Find forecast");
         initializeView(model);
-        Optional<Forecast> forecast = forecastService.getForecast(coordinates);
+        Optional<ForecastEntity> forecast = forecastService.getForecast(coordinates);
         if (forecast.isPresent()) {
             model.addAttribute("forecast", forecast.get());
             updateModelAttribute(model, COORDINATES, coordinates);
