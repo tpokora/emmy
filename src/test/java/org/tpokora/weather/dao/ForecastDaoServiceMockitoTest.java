@@ -16,7 +16,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyDouble;
 
 @ExtendWith(MockitoExtension.class)
-class ForecastEntityDaoServiceMockitoTest {
+class ForecastDaoServiceMockitoTest {
 
     @Mock
     private IForecastRepository forecastRepository;

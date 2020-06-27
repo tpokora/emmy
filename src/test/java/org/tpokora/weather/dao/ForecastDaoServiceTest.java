@@ -11,7 +11,7 @@ import org.tpokora.weather.utils.ForecastTestsHelper;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class ForecastEntityDaoServiceTest extends BaseServiceTest {
+public class ForecastDaoServiceTest extends BaseServiceTest {
 
     @Autowired
     private IForecastRepository forecastRepository;
