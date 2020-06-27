@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.tpokora.weather.model.*;
 import org.tpokora.weather.model.ForecastEntity;
 import org.tpokora.weather.services.forecast.ForecastService;
@@ -76,21 +77,20 @@ public class WeatherViewController {
     }
 
     @PostMapping(value = WEATHER_FIND_FORECAST_URL)
-    public String findForecast(Model model, @ModelAttribute Coordinates coordinates) {
-        LOGGER.info("=> Find forecast");
-        initializeView(model);
-        Optional<ForecastEntity> forecast = forecastService.getForecast(coordinates);
-        if (forecast.isPresent()) {
-            model.addAttribute("forecast", forecast.get());
-            updateModelAttribute(model, COORDINATES, coordinates);
-            return WEATHER_VIEW_TEMPLATE;
-        }
+    public String findForecastPost(Model model, @ModelAttribute Coordinates coordinates) {
+        return handleForecastRequest(model, coordinates);
+    }
 
-        return WEATHER_VIEW_TEMPLATE;
+    @GetMapping(value = WEATHER_FIND_FORECAST_URL)
+    public String findForecastGet(Model model,
+                                  @RequestParam("longitude") double longitude,
+                                  @RequestParam("latitude") double latitude) {
+
+        return handleForecastRequest(model, new Coordinates(longitude, latitude));
     }
 
     @PostMapping(value = WEATHER_FIND_STORM_URL)
-    public String findStorm(Model model, @ModelAttribute StormRequest stormRequest) throws SOAPException {
+    public String findStorm(Model model, @ModelAttribute StormRequest stormRequest) {
         LOGGER.info("=> Find storm");
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
@@ -111,7 +111,7 @@ public class WeatherViewController {
     }
 
     @PostMapping(value = WEATHER_FIND_WARNINGS_URL)
-    public String findWarnings(Model model, @ModelAttribute Coordinates coordinates) throws SOAPException {
+    public String findWarnings(Model model, @ModelAttribute Coordinates coordinates) {
         LOGGER.info("=> Find Warnings");
         initializeView(model);
         updateModelAttribute(model, COORDINATES, coordinates);
@@ -127,6 +127,19 @@ public class WeatherViewController {
             return WEATHER_VIEW_TEMPLATE;
         }
         updateModelAttribute(model, WARNINGS, warnings);
+        return WEATHER_VIEW_TEMPLATE;
+    }
+
+    private String handleForecastRequest(Model model, @ModelAttribute Coordinates coordinates) {
+        LOGGER.info("=> Find forecast");
+        initializeView(model);
+        Optional<ForecastEntity> forecast = forecastService.getForecast(coordinates);
+        if (forecast.isPresent()) {
+            model.addAttribute("forecast", forecast.get());
+            updateModelAttribute(model, COORDINATES, coordinates);
+            return WEATHER_VIEW_TEMPLATE;
+        }
+
         return WEATHER_VIEW_TEMPLATE;
     }
 
@@ -146,7 +159,6 @@ public class WeatherViewController {
     private void setError(Model model, Object object) {
         updateModelAttribute(model, ERROR, object);
     }
-
 
     private String searchError(Model model, Exception e) {
         LOGGER.error("=> Connection error");
