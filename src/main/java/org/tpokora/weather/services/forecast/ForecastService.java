@@ -60,7 +60,7 @@ public class ForecastService implements IForecastService {
     }
 
     public Optional<ForecastEntity> getForecast(Coordinates coordinates) {
-        return getForecast(coordinates.getX(), coordinates.getY());
+        return getForecast(coordinates.getLongitude(), coordinates.getLatitude());
     }
 
     private HttpHeaders setupHeaders() {

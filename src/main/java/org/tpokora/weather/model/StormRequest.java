@@ -17,6 +17,13 @@ public class StormRequest {
         this.time = time;
     }
 
+    public StormRequest(double longitude, double latitude, double distance, int time) {
+        this.coordinates = new Coordinates(longitude, latitude);
+        this.distance = distance;
+        this.time = time;
+    }
+
+
     public Coordinates getCoordinates() {
         return coordinates;
     }
@@ -41,11 +48,27 @@ public class StormRequest {
         this.time = time;
     }
 
+    public void setLongitude(double longitude) {
+        this.coordinates.setLongitude(longitude);
+    }
+
+    public double getLongitude() {
+        return this.coordinates.getLongitude();
+    }
+
+    public void setLatitude(double latitude) {
+        this.coordinates.setLongitude(latitude);
+    }
+
+    public double getLatitude() {
+        return this.coordinates.getLatitude();
+    }
+
     @Override
     public String toString() {
         return "StormRequest{" +
-                "x=" + coordinates.getX() +
-                ", y=" + coordinates.getY() +
+                "x=" + coordinates.getLongitude() +
+                ", y=" + coordinates.getLatitude() +
                 ", distance=" + distance +
                 ", time=" + time +
                 '}';

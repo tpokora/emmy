@@ -32,9 +32,9 @@ abstract public class StormServicesTests {
         SOAPElement response = soapBody.addChildElement(StormProcessorStrings.NS_1_MIEJSCOWOSC_RESPONSE);
         SOAPElement returnElem = response.addChildElement(RETURN);
         SOAPElement xElem = returnElem.addChildElement(X);
-        xElem.setTextContent(String.valueOf(city.getCoordinates().getX()));
+        xElem.setTextContent(String.valueOf(city.getCoordinates().getLongitude()));
         SOAPElement yElem = returnElem.addChildElement(Y);
-        yElem.setTextContent(String.valueOf(city.getCoordinates().getY()));
+        yElem.setTextContent(String.valueOf(city.getCoordinates().getLatitude()));
         return soapMessage;
     }
 

@@ -27,8 +27,8 @@ public class CitySoapResponseProcessorTests {
     public void testProcess() throws SOAPException {
         City expectedCity = new City(11.11, 22.22);
         City city = citySoapResponseMessageProcessor.process(soapMessageResponse);
-        Assertions.assertEquals(expectedCity.getCoordinates().getX(), city.getCoordinates().getX());
-        Assertions.assertEquals(expectedCity.getCoordinates().getY(), city.getCoordinates().getY());
+        Assertions.assertEquals(expectedCity.getCoordinates().getLongitude(), city.getCoordinates().getLongitude());
+        Assertions.assertEquals(expectedCity.getCoordinates().getLatitude(), city.getCoordinates().getLatitude());
         Assertions.assertEquals(Strings.EMPTY, city.getName());
         Assertions.assertEquals(expectedCity.toString(), city.toString());
     }

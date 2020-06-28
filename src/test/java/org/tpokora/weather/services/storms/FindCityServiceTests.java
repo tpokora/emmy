@@ -12,7 +12,6 @@ import org.tpokora.weather.model.City;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
-import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -38,8 +37,8 @@ public class FindCityServiceTests extends StormServicesTests {
         Mockito.when(soapService.sendSOAPMessage(any(), anyString())).thenReturn(response);
         City city = findCityService.findCity(TEST_CITY);
         Assert.assertEquals(EXPECTED_CITY.getName(), city.getName());
-        Assert.assertEquals(EXPECTED_CITY.getCoordinates().getX(), city.getCoordinates().getX());
-        Assert.assertEquals(EXPECTED_CITY.getCoordinates().getY(), city.getCoordinates().getY());
+        Assert.assertEquals(EXPECTED_CITY.getCoordinates().getLongitude(), city.getCoordinates().getLongitude());
+        Assert.assertEquals(EXPECTED_CITY.getCoordinates().getLatitude(), city.getCoordinates().getLatitude());
         Assert.assertEquals(EXPECTED_CITY.toString(), city.toString());
     }
 }

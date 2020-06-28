@@ -11,8 +11,8 @@ public class City {
 
     public City(Double x, Double y) {
         this.coordinates = new Coordinates();
-        this.coordinates.setX(x);
-        this.coordinates.setY(y);
+        this.coordinates.setLongitude(x);
+        this.coordinates.setLatitude(y);
         this.name = "";
     }
 

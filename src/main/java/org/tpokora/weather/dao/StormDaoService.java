@@ -8,7 +8,6 @@ import org.tpokora.weather.model.StormEntity;
 import org.tpokora.weather.model.StormRequest;
 import org.tpokora.weather.model.StormResponse;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -62,8 +61,8 @@ public class StormDaoService {
         Objects.requireNonNull(stormResponse, "StormResponse can't be null!");
         return StormEntity.builder()
                 .amount(stormResponse.getAmount())
-                .longitude(stormRequest.getCoordinates().getX())
-                .latitude(stormRequest.getCoordinates().getY())
+                .longitude(stormRequest.getCoordinates().getLongitude())
+                .latitude(stormRequest.getCoordinates().getLatitude())
                 .direction(stormResponse.getDirection())
                 .distance(stormResponse.getDistance())
                 .time(stormResponse.getTime())

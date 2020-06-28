@@ -35,8 +35,8 @@ public class WarningDaoServiceMockitoTests {
         coordinates = new Coordinates(11.11, 22.22);
         WARNING_ENTITY = new WarningEntity();
         WARNING_ENTITY.setId(1);
-        WARNING_ENTITY.setLongitude(coordinates.getX());
-        WARNING_ENTITY.setLatitude(coordinates.getY());
+        WARNING_ENTITY.setLongitude(coordinates.getLongitude());
+        WARNING_ENTITY.setLatitude(coordinates.getLatitude());
         WARNING_ENTITY.setName(WarningStrings.FROST);
         WARNING_ENTITY.setLevel(1);
         WARNING_ENTITY.setStart(LocalDateTime.now());

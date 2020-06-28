@@ -3,6 +3,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <title>Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/common.css}"/>
 </head>
@@ -47,7 +48,7 @@
         <hr/>
         <div>
             <h3>Find City</h3>
-            <form th:object="${city}" th:action="@{/weather/find-city}" method="post">
+            <form th:object="${city}" th:action="@{/weather/find-city}" method="get">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="cityName" class="sr-only">City</label>
@@ -59,23 +60,23 @@
                 </div>
             </form>
         </div>
-        <div class="container" th:if="${coordinates.x != 0.0 && coordinates.y != 0.0}">
-            <div class="row text-success">>> Longitude: <b class="value" th:text=" ${coordinates.x}"></b></div>
-            <div class="row text-success">>> Latitude: <b class="value" th:text=" ${coordinates.y}"></b></div>
+        <div class="container" th:if="${coordinates.longitude != 0.0 && coordinates.latitude != 0.0}">
+            <div class="row text-success">>> Longitude: <b class="value" th:text=" ${coordinates.longitude}"></b></div>
+            <div class="row text-success">>> Latitude: <b class="value" th:text=" ${coordinates.latitude}"></b></div>
         </div>
         <hr />
         <div>
             <h3>Forecast:</h3>
-            <form th:object="${coordinates}" th:action="@{/weather/find-forecast}" method="post">
+            <form th:object="${coordinates}" th:action="@{/weather/find-forecast}" method="get">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="cityName" class="sr-only">Longitude</label>
-                        <input type="text" class="form-control" th:field="*{x}" id="forecastLon">
+                        <input type="text" class="form-control" th:field="*{longitude}" id="forecastLon">
                         <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="cityName" class="sr-only">Latitude</label>
-                        <input type="text" class="form-control" th:field="*{y}" id="forecastLat">
+                        <input type="text" class="form-control" th:field="*{latitude}" id="forecastLat">
                         <small class="form-text text-muted">Latitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
@@ -94,16 +95,16 @@
         <hr />
         <div>
             <h3>Find Storm</h3>
-            <form th:object="${stormRequest}" th:action="@{/weather/find-storm}" method="post">
+            <form th:object="${stormRequest}" th:action="@{/weather/find-storm}" method="get">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="stormX" class="sr-only">X</label>
-                        <input type="text" class="form-control" th:field="*{coordinates.x}" id="stormX" />
+                        <label for="stormLon" class="sr-only">Longitude</label>
+                        <input type="text" class="form-control" th:field="*{longitude}" id="stormLon" />
                         <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="stormY" class="sr-only">Y</label>
-                        <input type="text" class="form-control" th:field="*{coordinates.y}" id="stormY" />
+                        <label for="stormLat" class="sr-only">Latitude</label>
+                        <input type="text" class="form-control" th:field="*{latitude}" id="stormLat" />
                         <small class="form-text text-muted">Latitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
@@ -133,12 +134,12 @@
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="cityName" class="sr-only">Longitude</label>
-                        <input type="text" class="form-control" th:field="*{x}" id="warningsX">
+                        <input type="text" class="form-control" th:field="*{longitude}" id="warningsLon">
                         <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="cityName" class="sr-only">Latitude</label>
-                        <input type="text" class="form-control" th:field="*{y}" id="warningsY">
+                        <input type="text" class="form-control" th:field="*{latitude}" id="warningsLat">
                         <small class="form-text text-muted">Latitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
@@ -163,4 +164,21 @@
     </div>
 </main>
 </body>
+<script>
+                $('#forecastBtn').click(function() {
+                    var longitude = document.getElementById("forecastLon").value;
+                    var latitude = document.getElementById("forecastLat").value;
+                    console.log("Longitude: " + longitude);
+                    console.log("Latitude: " + latitude);
+                    $.ajax({
+                        url: "http://localhost:8080/weather/api/getForecast?longitude=" + longitude + "&latitude=" + latitude,
+                        success : function(response) {
+                                console.log(response);
+                        },
+                        error : function() {
+                            console.log("Connection Error");
+                        }
+                    });
+                });
+</script>
 </html>

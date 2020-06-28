@@ -52,8 +52,8 @@ public class WarningsSoapRequestProcessor implements ISoapRequestMessageProcesso
         SOAPElement yElem = findStorm.addChildElement(Y, namespace);
         SOAPElement keyElem = findStorm.addChildElement(KLUCZ, namespace);
 
-        xElem.addTextNode(String.valueOf(coordinates.getX()));
-        yElem.addTextNode(String.valueOf(coordinates.getY()));
+        xElem.addTextNode(String.valueOf(coordinates.getLongitude()));
+        yElem.addTextNode(String.valueOf(coordinates.getLatitude()));
         keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }
 }

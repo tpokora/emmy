@@ -64,8 +64,8 @@ public class WarningEntity {
     }
 
     public void addCoordinates(Coordinates coordinates) {
-        this.setLongitude(coordinates.getX());
-        this.setLatitude(coordinates.getY());
+        this.setLongitude(coordinates.getLongitude());
+        this.setLatitude(coordinates.getLatitude());
     }
 
     public void setName(String name) {

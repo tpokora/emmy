@@ -16,8 +16,8 @@ public class StormRequestTests {
 
 
         String expectedStormRequestString = String.format("StormRequest{x=%s, y=%s, distance=%s, time=%d}",
-                stormRequest.getCoordinates().getX(),
-                stormRequest.getCoordinates().getY(),
+                stormRequest.getCoordinates().getLongitude(),
+                stormRequest.getCoordinates().getLatitude(),
                 stormRequest.getDistance(),
                 stormRequest.getTime());
         Assertions.assertEquals(expectedStormRequestString, stormRequest.toString());

@@ -2,40 +2,40 @@ package org.tpokora.weather.model;
 
 public class Coordinates {
     
-    private Double x;
-    private Double y;
+    private Double longitude;
+    private Double latitude;
     
     public Coordinates() {
-        this.setX(0.0);
-        this.setY(0.0);
+        this.setLongitude(0.0);
+        this.setLatitude(0.0);
     }
 
-    public Coordinates(Double x, Double y) {
-        this.x = x;
-        this.y = y;
+    public Coordinates(Double longitude, Double latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
-    public Double getX() {
-        return x;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setX(Double x) {
-        this.x = x;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
-    public Double getY() {
-        return y;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setY(Double y) {
-        this.y = y;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     @Override
     public String toString() {
         return "Coordinates{" +
-                "x=" + x +
-                ", y=" + y +
+                "longitude=" + longitude +
+                ", latitude=" + latitude +
                 '}';
     }
 }

@@ -30,13 +30,13 @@ public class WarningEntityTest {
     public void testWarningEntity() {
         warningEntity = WarningEntity.valueOf(warning);
         warningEntity.setId(1);
-        warningEntity.setLatitude(coordinates.getY());
-        warningEntity.setLongitude(coordinates.getX());
+        warningEntity.setLatitude(coordinates.getLatitude());
+        warningEntity.setLongitude(coordinates.getLongitude());
         Assertions.assertEquals(1, warningEntity.getId());
         Assertions.assertEquals(warning.getName(), warningEntity.getName());
         Assertions.assertEquals(warning.getLevel(), warningEntity.getLevel());
-        Assertions.assertEquals(coordinates.getX(), warningEntity.getLongitude());
-        Assertions.assertEquals(coordinates.getY(), warningEntity.getLatitude());
+        Assertions.assertEquals(coordinates.getLongitude(), warningEntity.getLongitude());
+        Assertions.assertEquals(coordinates.getLatitude(), warningEntity.getLatitude());
         Assertions.assertEquals(DateUtils.parseDateToString(warning.getPeriod().getFrom()), DateUtils.parseDateToString(warningEntity.getStart()));
         Assertions.assertEquals(DateUtils.parseDateToString(warning.getPeriod().getTo()), DateUtils.parseDateToString(warningEntity.getEnd()));
 
