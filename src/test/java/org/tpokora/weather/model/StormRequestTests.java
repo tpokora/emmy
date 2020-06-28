@@ -15,9 +15,20 @@ public class StormRequestTests {
         stormRequest.setTime(15);
 
 
-        String expectedStormRequestString = String.format("StormRequest{x=%s, y=%s, distance=%s, time=%d}",
+        String expectedStormRequestString = String.format("StormRequest{longitude=%s, latitude=%s, distance=%s, time=%d}",
                 stormRequest.getCoordinates().getLongitude(),
                 stormRequest.getCoordinates().getLatitude(),
+                stormRequest.getDistance(),
+                stormRequest.getTime());
+        Assertions.assertEquals(expectedStormRequestString, stormRequest.toString());
+
+        stormRequest = new StormRequest(0, 0, 12, 1);
+        stormRequest.setLongitude(11.22);
+        stormRequest.setLatitude(22.11);
+
+        expectedStormRequestString = String.format("StormRequest{longitude=%s, latitude=%s, distance=%s, time=%d}",
+                stormRequest.getLongitude(),
+                stormRequest.getLatitude(),
                 stormRequest.getDistance(),
                 stormRequest.getTime());
         Assertions.assertEquals(expectedStormRequestString, stormRequest.toString());

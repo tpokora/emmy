@@ -67,8 +67,8 @@ public class StormRequest {
     @Override
     public String toString() {
         return "StormRequest{" +
-                "x=" + coordinates.getLongitude() +
-                ", y=" + coordinates.getLatitude() +
+                "longitude=" + coordinates.getLongitude() +
+                ", latitude=" + coordinates.getLatitude() +
                 ", distance=" + distance +
                 ", time=" + time +
                 '}';
