@@ -120,6 +120,9 @@ public class WeatherViewController {
         initializeView(model);
         Coordinates coordinates = new Coordinates(longitude, latitude);
         updateModelAttribute(model, COORDINATES, coordinates);
+        StormRequest stormRequest = new StormRequest();
+        stormRequest.setCoordinates(coordinates);
+        updateModelAttribute(model, STORM_REQUEST, stormRequest);
         List<Warning> warnings;
         try {
             warnings = this.findWarningService.findWarnings(coordinates);
