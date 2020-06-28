@@ -130,7 +130,7 @@
         <hr />
         <div>
             <h3>Find weather warnings:</h3>
-            <form th:object="${coordinates}" th:action="@{/weather/find-warnings}" method="post">
+            <form th:object="${coordinates}" th:action="@{/weather/find-warnings}" method="get">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="cityName" class="sr-only">Longitude</label>
