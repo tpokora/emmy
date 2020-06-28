@@ -4,11 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestTemplate;
 import org.tpokora.config.properties.FirebaseProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.tpokora.config.properties.StormProperties;
+import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.config.properties.NotificationProperties;
 
 @SpringBootApplication(scanBasePackages = { "org.tpokora" })
@@ -18,8 +20,15 @@ import org.tpokora.config.properties.NotificationProperties;
 @EnableConfigurationProperties({FirebaseProperties.class, NotificationProperties.class, StormProperties.class})
 public class Application extends SpringBootServletInitializer {
 
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
+
 
 }

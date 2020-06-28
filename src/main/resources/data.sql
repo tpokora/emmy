@@ -1,5 +1,0 @@
-INSERT INTO role(role_id, name) VALUES (1, 'ADMIN');
-INSERT INTO role(role_id, name) VALUES (2, 'USER');
-
-ALTER TABLE storm RENAME x TO LONGITUDE;
-ALTER TABLE storm RENAME y TO LATITUDE;
