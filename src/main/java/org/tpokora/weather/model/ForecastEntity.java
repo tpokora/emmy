@@ -14,6 +14,9 @@ public class ForecastEntity {
     @Column(name = "ID")
     private int id;
 
+    @Column(name = "LOCATION")
+    private String location;
+
     @Column(name = "NAME", nullable = false)
     private String name;
 
@@ -62,6 +65,14 @@ public class ForecastEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getName() {
@@ -180,6 +191,7 @@ public class ForecastEntity {
     public String toString() {
         return "ForecastEntity{" +
                 "id=" + id +
+                ", location='" + location + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", temp=" + temp +
@@ -193,7 +205,7 @@ public class ForecastEntity {
                 ", rain3h=" + rain3h +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
-                ", timestamp=" + DateUtils.parseDateToString(timestamp) +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }

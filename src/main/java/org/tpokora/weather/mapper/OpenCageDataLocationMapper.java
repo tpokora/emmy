@@ -33,7 +33,17 @@ public class OpenCageDataLocationMapper implements IJSONMapper<City> {
     private void setName(City city, JsonNode rootNode) {
         JsonNode results = rootNode.get("results").get(0);
         JsonNode components = results.get("components");
-        city.setName(components.get("hamlet").asText());
+        String name = getName(components);
+        city.setName(name);
+    }
+
+    private String getName(JsonNode components) {
+        JsonNode name = components.get("city");
+        if (name == null) {
+            name = components.get("hamlet");
+        }
+
+        return name != null ? name.asText() : "";
     }
 
     private void setCoordinates(City city, JsonNode rootNode) {

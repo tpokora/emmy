@@ -6,11 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tpokora.weather.model.*;
 import org.tpokora.weather.model.ForecastEntity;
 import org.tpokora.weather.services.forecast.ForecastService;
+import org.tpokora.weather.services.location.OpenCageDataLocationService;
 import org.tpokora.weather.services.storms.FindCityService;
 import org.tpokora.weather.services.storms.FindStormService;
 import org.tpokora.weather.services.storms.FindWarningService;
@@ -34,6 +34,7 @@ public class WeatherViewController {
     public static final String WARNINGS = "warnings";
     public static final String ERROR = "error";
 
+    private final OpenCageDataLocationService openCageDataLocationService;
     private final FindCityService findCityService;
     private final FindStormService findStormService;
     private final FindWarningService findWarningService;
@@ -41,8 +42,9 @@ public class WeatherViewController {
 
     private ForecastEntity forecast;
 
-    public WeatherViewController(FindCityService findCityService, FindStormService findStormService,
+    public WeatherViewController(OpenCageDataLocationService openCageDataLocationService, FindCityService findCityService, FindStormService findStormService,
                                  FindWarningService findWarningService, ForecastService forecastService) {
+        this.openCageDataLocationService = openCageDataLocationService;
         this.findCityService = findCityService;
         this.findStormService = findStormService;
         this.findWarningService = findWarningService;
@@ -60,12 +62,13 @@ public class WeatherViewController {
     public String findCity(Model model, @RequestParam("name") String name) {
         LOGGER.info("=> Find city: {}", name);
         initializeView(model);
-        City city;
+        Optional<City> optionalCity;
         try {
-            city = this.findCityService.findCity(name);
+            optionalCity = this.openCageDataLocationService.getCityCoordinatesByName(name);
         } catch (Exception e) {
             return searchError(model, e);
         }
+        City city = optionalCity.get();
         if (city.getCoordinates().getLatitude().equals(0.0) && city.getCoordinates().getLongitude().equals(0.0)) {
             LOGGER.info("=> City {} not found", city.getName());
             setError(model, WeatherViewError.CITY_NOT_FOUND.getErrorMsg());

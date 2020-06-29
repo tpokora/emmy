@@ -83,6 +83,7 @@ public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
     }
 
     private void setOther(ForecastEntity forecastEntity, JsonNode rootNode) {
+        forecastEntity.setLocation(rootNode.get("name").asText());
         JsonNode main = rootNode.get(MAIN);
         forecastEntity.setPressure(main.get(PRESSURE).asInt());
         forecastEntity.setHumidity(main.get(HUMIDITY).asInt());
