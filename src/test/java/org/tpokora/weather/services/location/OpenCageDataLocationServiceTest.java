@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.weather.model.City;
+import org.tpokora.weather.model.ForecastEntity;
 import org.tpokora.weather.properties.OpenCageDataProperties;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
@@ -52,5 +53,16 @@ class OpenCageDataLocationServiceTest {
         ).thenReturn(stringResponseEntity);
         Optional<City> cityCoordinatesByName = openCageDataLocationService.getCityCoordinatesByName("Warszawa");
         Assertions.assertTrue(cityCoordinatesByName.isPresent());
+    }
+
+    @Test
+    public void testGetForecast_fail() {
+        String fileToString = FileReaderUtils.fileToString("weather/location/opencageDataResponse.json");
+        ResponseEntity<String> stringResponseEntity = new ResponseEntity<>(fileToString, null, HttpStatus.BAD_REQUEST);
+        Mockito.when(restTemplate.exchange(
+                anyString(), any(HttpMethod.class), any(HttpEntity.class), (Class<String>) any(), anyMap())
+        ).thenReturn(stringResponseEntity);
+        Optional<City> city = openCageDataLocationService.getCityCoordinatesByName("Warszawa");
+        Assertions.assertTrue(city.isEmpty());
     }
 }
