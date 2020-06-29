@@ -9,10 +9,10 @@ public class City {
         this.name = "";
     }
 
-    public City(Double x, Double y) {
+    public City(Double longitude, Double latitude) {
         this.coordinates = new Coordinates();
-        this.coordinates.setLongitude(x);
-        this.coordinates.setLatitude(y);
+        this.coordinates.setLongitude(longitude);
+        this.coordinates.setLatitude(latitude);
         this.name = "";
     }
 

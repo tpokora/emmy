@@ -7,7 +7,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.weather.dao.ForecastDaoService;
-import org.tpokora.weather.mapper.IForecastMapper;
+import org.tpokora.weather.mapper.IJSONMapper;
 import org.tpokora.weather.mapper.OpenWeatherForecastMapper;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.ForecastEntity;
@@ -28,7 +28,7 @@ public class ForecastService implements IForecastService {
     private final Logger LOGGER = LoggerFactory.getLogger(ForecastService.class);
 
     private final RestTemplate restTemplate;
-    private final IForecastMapper iForecastMapper;
+    private final IJSONMapper IJSONMapper;
     private final OpenWeatherProperties openWeatherProperties;
     private final ForecastDaoService forecastDaoService;
 
@@ -36,7 +36,7 @@ public class ForecastService implements IForecastService {
 
     public ForecastService(RestTemplate restTemplate, OpenWeatherProperties openWeatherProperties, ForecastDaoService forecastDaoService) {
         this.restTemplate = restTemplate;
-        iForecastMapper = new OpenWeatherForecastMapper();
+        IJSONMapper = new OpenWeatherForecastMapper();
         this.openWeatherProperties = openWeatherProperties;
         this.forecastDaoService = forecastDaoService;
 
@@ -51,7 +51,7 @@ public class ForecastService implements IForecastService {
                 this.restTemplate.exchange(URL, HttpMethod.GET, request, String.class, getUriVariables(longitude, latitude));
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             String forecastString = responseEntity.getBody();
-            ForecastEntity forecastEntity = iForecastMapper.map(forecastString);
+            ForecastEntity forecastEntity = (ForecastEntity) IJSONMapper.map(forecastString);
             forecastEntity = forecastDaoService.saveForecast(forecastEntity);
             return Optional.of(forecastEntity);
         }

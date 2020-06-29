@@ -10,7 +10,7 @@ import org.tpokora.weather.model.ForecastEntity;
 
 import java.util.Optional;
 
-public class OpenWeatherForecastMapper implements IForecastMapper {
+public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(OpenWeatherForecastMapper.class);
 
