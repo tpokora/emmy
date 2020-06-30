@@ -53,14 +53,14 @@ public class WeatherViewController {
 
     @GetMapping(value = WEATHER_VIEW_URL, name = WEATHER_VIEW)
     public String weather(Model model) {
-        LOGGER.info("=> WeatherView");
+        LOGGER.info(">> WeatherView");
         initializeView(model);
         return WEATHER_VIEW_TEMPLATE;
     }
 
     @GetMapping(value = WEATHER_FIND_LOCATION_URL)
     public String findCity(Model model, @RequestParam("name") String name) {
-        LOGGER.info("=> Find city: {}", name);
+        LOGGER.info(">> Find city: {}", name);
         initializeView(model);
         Optional<Location> optionalCity;
         try {
@@ -70,7 +70,7 @@ public class WeatherViewController {
         }
         Location location = optionalCity.get();
         if (location.getCoordinates().getLatitude().equals(0.0) && location.getCoordinates().getLongitude().equals(0.0)) {
-            LOGGER.info("=> City {} not found", location.getName());
+            LOGGER.info(">> City {} not found", location.getName());
             setError(model, WeatherViewError.CITY_NOT_FOUND.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;
         }
@@ -96,7 +96,7 @@ public class WeatherViewController {
                             @RequestParam("distance") double distance,
                             @RequestParam("time") int time) {
         StormRequest stormRequest = new StormRequest(new Coordinates(longitude, latitude), distance, time);
-        LOGGER.info("=> Find storm: {}", stormRequest.toString());
+        LOGGER.info(">> Find storm: {}", stormRequest.toString());
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, stormRequest.getCoordinates());
@@ -107,7 +107,7 @@ public class WeatherViewController {
             return searchError(model, e);
         }
         if (stormResponse.getAmount() == 0) {
-            LOGGER.info("=> Storm not found");
+            LOGGER.info(">> Storm not found");
             setError(model, WeatherViewError.NO_STORMS.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;
         }
@@ -119,7 +119,7 @@ public class WeatherViewController {
     public String findWarnings(Model model,
                                @RequestParam("longitude") double longitude,
                                @RequestParam("latitude") double latitude) {
-        LOGGER.info("=> Find Warnings");
+        LOGGER.info(">> Find Warnings");
         initializeView(model);
         Coordinates coordinates = new Coordinates(longitude, latitude);
         updateModelAttribute(model, COORDINATES, coordinates);
@@ -133,7 +133,7 @@ public class WeatherViewController {
             return searchError(model, e);
         }
         if (warnings.size() == 0) {
-            LOGGER.info("=> Warnings not found");
+            LOGGER.info(">> Warnings not found");
             setError(model, WeatherViewError.NO_WARNINGS.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;
         }
@@ -142,7 +142,7 @@ public class WeatherViewController {
     }
 
     private String handleForecastRequest(Model model, @ModelAttribute Coordinates coordinates) {
-        LOGGER.info("=> Find forecast");
+        LOGGER.info(">> Find forecast");
         initializeView(model);
         Optional<ForecastEntity> forecastOptional = forecastService.getForecast(coordinates);
         if (forecastOptional.isPresent()) {
@@ -175,7 +175,7 @@ public class WeatherViewController {
     }
 
     private String searchError(Model model, Exception e) {
-        LOGGER.error("=> Connection error");
+        LOGGER.error(">> Connection error");
         LOGGER.error(e.getMessage());
         setError(model, WeatherViewError.CONNECTION_ERROR.getErrorMsg());
         return WEATHER_VIEW_TEMPLATE;

@@ -30,9 +30,9 @@ public class StormDaoService {
     public StormEntity saveStormResponse(StormRequest stormRequest, StormResponse stormResponse) {
         Objects.requireNonNull(stormRequest, "StormRequest can't be null!");
         Objects.requireNonNull(stormResponse, "StormResponse can't be null!");
-        LOGGER.info("==> Saving StormResponse to DB");
+        LOGGER.info(">>> Saving StormResponse to DB");
         if (stormResponse.getAmount() == 0) {
-            LOGGER.info("==> Nothing to Save");
+            LOGGER.info(">>> Nothing to Save");
             return null;
         }
         StormEntity stormEntity = generatorStormEntity(stormRequest, stormResponse);
@@ -46,7 +46,7 @@ public class StormDaoService {
         } else {
             return saveStormEntity(stormEntity);
         }
-        LOGGER.info("==> Nothing to Save");
+        LOGGER.info(">>> Nothing to Save");
         return stormEntity;
     }
 

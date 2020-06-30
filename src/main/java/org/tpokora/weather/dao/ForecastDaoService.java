@@ -28,7 +28,7 @@ public class ForecastDaoService {
     public ForecastEntity saveForecast(ForecastEntity forecastEntity) {
         Objects.requireNonNull(forecastEntity, "Forecast can't be null!");
         Optional<ForecastEntity> latestForecast = forecastRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(forecastEntity.getLongitude(), forecastEntity.getLatitude());
-        LOGGER.info("==> Saving Forecast to DB");
+        LOGGER.info(">>> Saving Forecast to DB");
         if (latestForecast.isPresent()) {
             if (DateUtils.getMinuteDifference(forecastEntity.getTimestamp(), latestForecast.get().getTimestamp()) > 60) {
                 return forecastRepository.save(forecastEntity);

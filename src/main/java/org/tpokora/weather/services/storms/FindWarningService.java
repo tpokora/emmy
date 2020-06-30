@@ -33,12 +33,12 @@ public class FindWarningService extends StormService {
     }
 
     public List<Warning> findWarnings(Coordinates coordinates) throws SOAPException {
-        LOGGER.info("==> Find Warnings : {}", coordinates);
+        LOGGER.info(">>> Find Warnings : {}", coordinates);
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(coordinates);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
         List<Warning> warnings = (List<Warning>) soapResponseMessageProcessor.process(soapResponse);
         warningDaoService.saveAll(createWarningEntityList(warnings, coordinates));
-        LOGGER.info("==> {}", warnings);
+        LOGGER.info(">>> {}", warnings);
         return warnings;
     }
 

@@ -30,11 +30,11 @@ public class FindStormService extends StormService {
     }
 
     public StormResponse checkStorm(StormRequest stormRequest) throws SOAPException {
-        LOGGER.info("==> Find Storm : {}", stormRequest);
+        LOGGER.info(">>> Find Storm : {}", stormRequest);
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(stormRequest);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
         StormResponse stormResponse = (StormResponse) soapResponseMessageProcessor.process(soapResponse);
-        LOGGER.info("==> {}", stormResponse);
+        LOGGER.info(">>> {}", stormResponse);
         stormDaoService.saveStormResponse(stormRequest, stormResponse);
         return stormResponse;
     }

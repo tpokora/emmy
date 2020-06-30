@@ -29,12 +29,12 @@ public class FindCityService extends StormService {
 
     public Location findCity(String cityName) throws SOAPException {
         Objects.requireNonNull(cityName, CITY_NAME_IS_NULL);
-        LOGGER.info("==> {}", cityName);
+        LOGGER.info(">>> {}", cityName);
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(cityName);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
         Location location = (Location) soapResponseMessageProcessor.process(soapResponse);
         location.setName(cityName);
-        LOGGER.info("==> {}", location);
+        LOGGER.info(">>> {}", location);
         return location;
     }
 }

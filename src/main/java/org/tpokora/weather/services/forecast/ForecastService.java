@@ -44,7 +44,7 @@ public class ForecastService implements IForecastService {
 
     @Override
     public Optional<ForecastEntity> getForecast(double longitude, double latitude) {
-        LOGGER.info("==> Find forecast longitude: {}, latitude: {}", longitude, latitude);
+        LOGGER.info(">>> Find forecast longitude: {}, latitude: {}", longitude, latitude);
         HttpEntity request = new HttpEntity(setupHeaders());
 
         ResponseEntity<String> responseEntity =

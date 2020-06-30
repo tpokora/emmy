@@ -31,7 +31,7 @@ public class WeatherAPIController {
 
     @GetMapping(value = "/getForecast", produces = "application/json")
     public ResponseEntity<ForecastEntity> getForecast(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
-        LOGGER.info("=> Find forecast, Longitude: {}, Latitude: {}", longitude, latitude);
+        LOGGER.info(">> Find forecast, Longitude: {}, Latitude: {}", longitude, latitude);
         Optional<ForecastEntity> forecastEntity = forecastService.getForecast(longitude, latitude);
         if (forecastEntity.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -41,7 +41,7 @@ public class WeatherAPIController {
 
     @GetMapping(value = "/getArchiveForecasts", produces = "application/json")
     public ResponseEntity<List<ForecastEntity>> getForecasts(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
-        LOGGER.info("=> Find archived forecast, Longitude: {}, Latitude: {}", longitude, latitude);
+        LOGGER.info(">> Find archived forecast, Longitude: {}, Latitude: {}", longitude, latitude);
         return new ResponseEntity<>(forecastDaoService.findAllByCoordinates(longitude, latitude), HttpStatus.OK);
     }
 

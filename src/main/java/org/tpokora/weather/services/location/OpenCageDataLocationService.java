@@ -35,7 +35,7 @@ public class OpenCageDataLocationService implements ILocationService {
 
     @Override
     public Optional<Location> getLocationCoordinatesByName(String name) {
-        LOGGER.info("==> Find Coordinates by location name: {}", name);
+        LOGGER.info(">>> Find Coordinates by location name: {}", name);
         HttpEntity request = new HttpEntity(setupHeaders());
 
         ResponseEntity<String> responseEntity =
