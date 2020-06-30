@@ -4,10 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.utils.FileReaderUtils;
-import org.tpokora.weather.model.City;
-import org.tpokora.weather.model.ForecastEntity;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.tpokora.weather.model.Location;
 
 class OpenCageDataLocationMapperTest {
 
@@ -22,17 +19,17 @@ class OpenCageDataLocationMapperTest {
 
     @Test
     void testMap() {
-        City expectedCity = new City(16.3655487, 52.695614);
-        expectedCity.setName("Warszawa");
-        City city = openCageDataLocationMapper.map(openCageDataLocationStringResponse);
-        Assertions.assertEquals(expectedCity.toString(), city.toString());
+        Location expectedLocation = new Location(16.3655487, 52.695614);
+        expectedLocation.setName("Warszawa");
+        Location location = openCageDataLocationMapper.map(openCageDataLocationStringResponse);
+        Assertions.assertEquals(expectedLocation.toString(), location.toString());
 
     }
 
     @Test
     public void testMap_failureParsingJson() {
         String invalidJson = "invalidJson";
-        City city = openCageDataLocationMapper.map(invalidJson);
-        Assertions.assertNull(city);
+        Location location = openCageDataLocationMapper.map(invalidJson);
+        Assertions.assertNull(location);
     }
 }

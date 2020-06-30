@@ -4,7 +4,7 @@ import org.mockito.Mock;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.common.StormConstants;
-import org.tpokora.weather.model.City;
+import org.tpokora.weather.model.Location;
 import org.tpokora.weather.model.StormResponse;
 import org.tpokora.weather.model.Warning;
 import org.tpokora.weather.services.processor.StormProcessorStrings;
@@ -25,16 +25,16 @@ abstract public class StormServicesTests {
     @Mock
     protected StormProperties stormProperties;
 
-    public SOAPMessage generateCityResponse(City city) throws SOAPException {
+    public SOAPMessage generateCityResponse(Location location) throws SOAPException {
         SOAPMessage soapMessage = SOAPService.createSOAPMessage();
         SOAPEnvelope envelope = generateSOAPEnvelope(soapMessage);
         SOAPBody soapBody = envelope.getBody();
         SOAPElement response = soapBody.addChildElement(StormProcessorStrings.NS_1_MIEJSCOWOSC_RESPONSE);
         SOAPElement returnElem = response.addChildElement(RETURN);
         SOAPElement xElem = returnElem.addChildElement(X);
-        xElem.setTextContent(String.valueOf(city.getCoordinates().getLongitude()));
+        xElem.setTextContent(String.valueOf(location.getCoordinates().getLongitude()));
         SOAPElement yElem = returnElem.addChildElement(Y);
-        yElem.setTextContent(String.valueOf(city.getCoordinates().getLatitude()));
+        yElem.setTextContent(String.valueOf(location.getCoordinates().getLatitude()));
         return soapMessage;
     }
 

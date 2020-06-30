@@ -3,18 +3,17 @@ package org.tpokora.weather.mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.xml.bind.api.ErrorListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tpokora.weather.model.City;
+import org.tpokora.weather.model.Location;
 import org.tpokora.weather.model.Coordinates;
 
-public class OpenCageDataLocationMapper implements IJSONMapper<City> {
+public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenCageDataLocationMapper.class);
 
     @Override
-    public City map(String json) {
+    public Location map(String json) {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode;
         try {
@@ -24,17 +23,17 @@ public class OpenCageDataLocationMapper implements IJSONMapper<City> {
             LOGGER.error(e.getMessage());
             return null;
         }
-        City city = new City();
-        setName(city, rootNode);
-        setCoordinates(city, rootNode);
-        return city;
+        Location location = new Location();
+        setName(location, rootNode);
+        setCoordinates(location, rootNode);
+        return location;
     }
 
-    private void setName(City city, JsonNode rootNode) {
+    private void setName(Location location, JsonNode rootNode) {
         JsonNode results = rootNode.get("results").get(0);
         JsonNode components = results.get("components");
         String name = getName(components);
-        city.setName(name);
+        location.setName(name);
     }
 
     private String getName(JsonNode components) {
@@ -46,10 +45,10 @@ public class OpenCageDataLocationMapper implements IJSONMapper<City> {
         return name != null ? name.asText() : "";
     }
 
-    private void setCoordinates(City city, JsonNode rootNode) {
+    private void setCoordinates(Location location, JsonNode rootNode) {
         JsonNode results = rootNode.get("results").get(0);
         JsonNode geometry = results.get("geometry");
         Coordinates coordinates = new Coordinates(geometry.get("lng").asDouble(), geometry.get("lat").asDouble());
-        city.setCoordinates(coordinates);
+        location.setCoordinates(coordinates);
     }
 }

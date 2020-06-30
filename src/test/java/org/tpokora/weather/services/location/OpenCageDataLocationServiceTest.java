@@ -16,14 +16,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.utils.FileReaderUtils;
-import org.tpokora.weather.model.City;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.Location;
 import org.tpokora.weather.properties.OpenCageDataProperties;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,7 +49,7 @@ class OpenCageDataLocationServiceTest {
         Mockito.when(restTemplate.exchange(
                 anyString(), any(HttpMethod.class), any(HttpEntity.class), (Class<String>) any(), anyMap())
         ).thenReturn(stringResponseEntity);
-        Optional<City> cityCoordinatesByName = openCageDataLocationService.getCityCoordinatesByName("Warszawa");
+        Optional<Location> cityCoordinatesByName = openCageDataLocationService.getLocationCoordinatesByName("Warszawa");
         Assertions.assertTrue(cityCoordinatesByName.isPresent());
     }
 
@@ -62,7 +60,7 @@ class OpenCageDataLocationServiceTest {
         Mockito.when(restTemplate.exchange(
                 anyString(), any(HttpMethod.class), any(HttpEntity.class), (Class<String>) any(), anyMap())
         ).thenReturn(stringResponseEntity);
-        Optional<City> city = openCageDataLocationService.getCityCoordinatesByName("Warszawa");
+        Optional<Location> city = openCageDataLocationService.getLocationCoordinatesByName("Warszawa");
         Assertions.assertTrue(city.isEmpty());
     }
 }

@@ -26,7 +26,7 @@ public class WeatherViewController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(WeatherViewController.class);
 
-    public static final String CITY = "city";
+    public static final String LOCATION = "location";
     public static final String STORM_RESPONSE = "stormResponse";
     public static final String STORM_REQUEST = "stormRequest";
     public static final String COORDINATES = "coordinates";
@@ -58,27 +58,27 @@ public class WeatherViewController {
         return WEATHER_VIEW_TEMPLATE;
     }
 
-    @GetMapping(value = WEATHER_FIND_CITY_URL)
+    @GetMapping(value = WEATHER_FIND_LOCATION_URL)
     public String findCity(Model model, @RequestParam("name") String name) {
         LOGGER.info("=> Find city: {}", name);
         initializeView(model);
-        Optional<City> optionalCity;
+        Optional<Location> optionalCity;
         try {
-            optionalCity = this.openCageDataLocationService.getCityCoordinatesByName(name);
+            optionalCity = this.openCageDataLocationService.getLocationCoordinatesByName(name);
         } catch (Exception e) {
             return searchError(model, e);
         }
-        City city = optionalCity.get();
-        if (city.getCoordinates().getLatitude().equals(0.0) && city.getCoordinates().getLongitude().equals(0.0)) {
-            LOGGER.info("=> City {} not found", city.getName());
+        Location location = optionalCity.get();
+        if (location.getCoordinates().getLatitude().equals(0.0) && location.getCoordinates().getLongitude().equals(0.0)) {
+            LOGGER.info("=> City {} not found", location.getName());
             setError(model, WeatherViewError.CITY_NOT_FOUND.getErrorMsg());
             return WEATHER_VIEW_TEMPLATE;
         }
-        updateModelAttribute(model, CITY, city);
+        updateModelAttribute(model, LOCATION, location);
         StormRequest stormRequest = new StormRequest();
-        stormRequest.setCoordinates(city.getCoordinates());
+        stormRequest.setCoordinates(location.getCoordinates());
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
-        updateModelAttribute(model, COORDINATES, city.getCoordinates());
+        updateModelAttribute(model, COORDINATES, location.getCoordinates());
         return WEATHER_VIEW_TEMPLATE;
     }
 
@@ -158,8 +158,8 @@ public class WeatherViewController {
 
     private void initializeView(Model model) {
         model.addAttribute(ERROR, "");
-        model.addAttribute(CITY, new City());
-        model.addAttribute(STORM_REQUEST, new StormRequest());
+        model.addAttribute(LOCATION, new Location());
+        model.addAttribute(STORM_REQUEST, new StormRequest(new Coordinates(), 25, 15));
         model.addAttribute(STORM_RESPONSE, new StormResponse());
         model.addAttribute(COORDINATES, new Coordinates());
         model.addAttribute(WARNINGS, new HashSet<Warning>());

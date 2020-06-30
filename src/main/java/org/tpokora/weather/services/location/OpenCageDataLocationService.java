@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.weather.mapper.IJSONMapper;
 import org.tpokora.weather.mapper.OpenCageDataLocationMapper;
-import org.tpokora.weather.model.City;
+import org.tpokora.weather.model.Location;
 import org.tpokora.weather.properties.OpenCageDataProperties;
 
 import java.util.Map;
@@ -34,16 +34,16 @@ public class OpenCageDataLocationService implements ILocationService {
     }
 
     @Override
-    public Optional<City> getCityCoordinatesByName(String name) {
-        LOGGER.info("==> Find Coordinates by city name: {}", name);
+    public Optional<Location> getLocationCoordinatesByName(String name) {
+        LOGGER.info("==> Find Coordinates by location name: {}", name);
         HttpEntity request = new HttpEntity(setupHeaders());
 
         ResponseEntity<String> responseEntity =
                 this.restTemplate.exchange(URL, HttpMethod.GET, request, String.class, getUriVariables(name));
         if(responseEntity.getStatusCode() == HttpStatus.OK) {
             String response = responseEntity.getBody();
-            City city = (City) IJSONMapper.map(response);
-            return Optional.of(city);
+            Location location = (Location) IJSONMapper.map(response);
+            return Optional.of(location);
         }
 
         return Optional.empty();

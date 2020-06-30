@@ -1,15 +1,15 @@
 package org.tpokora.weather.model;
 
-public class City {
+public class Location {
     private String name;
     private Coordinates coordinates;
 
-    public City() {
+    public Location() {
         this.coordinates = new Coordinates();
         this.name = "";
     }
 
-    public City(Double longitude, Double latitude) {
+    public Location(Double longitude, Double latitude) {
         this.coordinates = new Coordinates();
         this.coordinates.setLongitude(longitude);
         this.coordinates.setLatitude(latitude);
@@ -34,7 +34,7 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
+        return "Location{" +
                 "name='" + name + '\'' +
                 ", coordinates=" + coordinates +
                 '}';

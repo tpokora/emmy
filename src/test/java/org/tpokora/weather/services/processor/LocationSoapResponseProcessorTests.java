@@ -6,31 +6,31 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.services.soap.SOAPService;
-import org.tpokora.weather.model.City;
+import org.tpokora.weather.model.Location;
 
 import javax.xml.soap.*;
 import java.util.HashMap;
 
-public class CitySoapResponseProcessorTests {
+public class LocationSoapResponseProcessorTests {
 
-    private CitySoapResponseProcessor citySoapResponseMessageProcessor;
+    private LocationSoapResponseProcessor citySoapResponseMessageProcessor;
     private SOAPMessage soapMessageResponse;
 
     @BeforeEach
     public void setup() throws SOAPException {
-        citySoapResponseMessageProcessor = new CitySoapResponseProcessor();
+        citySoapResponseMessageProcessor = new LocationSoapResponseProcessor();
         soapMessageResponse = generateSOAPResponse();
     }
 
     @Test
     @DisplayName("CitySoapResponseProcessor generate City object based on coordinates from SOAPMessage response")
     public void testProcess() throws SOAPException {
-        City expectedCity = new City(11.11, 22.22);
-        City city = citySoapResponseMessageProcessor.process(soapMessageResponse);
-        Assertions.assertEquals(expectedCity.getCoordinates().getLongitude(), city.getCoordinates().getLongitude());
-        Assertions.assertEquals(expectedCity.getCoordinates().getLatitude(), city.getCoordinates().getLatitude());
-        Assertions.assertEquals(Strings.EMPTY, city.getName());
-        Assertions.assertEquals(expectedCity.toString(), city.toString());
+        Location expectedLocation = new Location(11.11, 22.22);
+        Location location = citySoapResponseMessageProcessor.process(soapMessageResponse);
+        Assertions.assertEquals(expectedLocation.getCoordinates().getLongitude(), location.getCoordinates().getLongitude());
+        Assertions.assertEquals(expectedLocation.getCoordinates().getLatitude(), location.getCoordinates().getLatitude());
+        Assertions.assertEquals(Strings.EMPTY, location.getName());
+        Assertions.assertEquals(expectedLocation.toString(), location.toString());
     }
 
     private SOAPMessage generateSOAPResponse() throws SOAPException {
