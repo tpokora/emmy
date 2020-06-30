@@ -13,5 +13,8 @@ class CoordinatesConverterTest {
         double expectedDMS = 19.49;
 
         Assertions.assertEquals(expectedDMS, CoordinatesConverter.convertDecimalDegreeToDM(decimalDegree));
+
+        Assertions.assertEquals(0.0, CoordinatesConverter.convertDecimalDegreeToDM(0.0));
+        Assertions.assertEquals(19.0, CoordinatesConverter.convertDecimalDegreeToDM(19.0));
     }
 }

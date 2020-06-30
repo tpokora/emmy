@@ -10,9 +10,7 @@ public class Location {
     }
 
     public Location(Double longitude, Double latitude) {
-        this.coordinates = new Coordinates();
-        this.coordinates.setLongitude(longitude);
-        this.coordinates.setLatitude(latitude);
+        this.coordinates = new Coordinates(longitude, latitude);
         this.name = "";
     }
 
