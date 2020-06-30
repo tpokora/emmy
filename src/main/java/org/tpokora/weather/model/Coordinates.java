@@ -18,7 +18,7 @@ public class Coordinates {
         this.longitude = longitude;
         this.latitude = latitude;
         this.longitudeDM = CoordinatesConverter.convertDecimalDegreeToDM(this.longitude);
-        this.latitudeDM = CoordinatesConverter.convertDecimalDegreeToDM(this.longitude);
+        this.latitudeDM = CoordinatesConverter.convertDecimalDegreeToDM(this.latitude);
     }
 
     public Double getLongitude() {
@@ -35,6 +35,14 @@ public class Coordinates {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public Double getLongitudeDM() {
+        return longitudeDM;
+    }
+
+    public Double getLatitudeDM() {
+        return latitudeDM;
     }
 
     @Override

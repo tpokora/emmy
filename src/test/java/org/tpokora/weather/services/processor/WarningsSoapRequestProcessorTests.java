@@ -31,8 +31,8 @@ public class WarningsSoapRequestProcessorTests {
         Coordinates coordinates = new Coordinates(11.11, 22.22);
         SOAPMessage soapMessage = warningsSoapRequestProcessor.process(coordinates);
 
-        Assertions.assertEquals(String.valueOf(coordinates.getLongitude()), soapMessage.getSOAPBody().getElementsByTagName(SOAP_X).item(0).getTextContent());
-        Assertions.assertEquals(String.valueOf(coordinates.getLatitude()), soapMessage.getSOAPBody().getElementsByTagName(SOAP_Y).item(0).getTextContent());
+        Assertions.assertEquals(String.valueOf(coordinates.getLongitudeDM()), soapMessage.getSOAPBody().getElementsByTagName(SOAP_X).item(0).getTextContent());
+        Assertions.assertEquals(String.valueOf(coordinates.getLatitudeDM()), soapMessage.getSOAPBody().getElementsByTagName(SOAP_Y).item(0).getTextContent());
         Assertions.assertEquals(TEST_KEY, soapMessage.getSOAPBody().getElementsByTagName(StormsTestsConstants.SOAP_KLUCZ).item(0).getTextContent());
     }
 }

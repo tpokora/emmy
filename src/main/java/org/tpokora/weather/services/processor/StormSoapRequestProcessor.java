@@ -50,8 +50,8 @@ public class StormSoapRequestProcessor implements ISoapRequestMessageProcessor<S
         SOAPElement radiusElem = findStorm.addChildElement(PROMIEN, namespace);
         SOAPElement keyElem = findStorm.addChildElement(KLUCZ, namespace);
 
-        xElem.addTextNode(StringUtils.formatDouble(storm.getCoordinates().getLongitude()));
-        yElem.addTextNode(StringUtils.formatDouble(storm.getCoordinates().getLatitude()));
+        xElem.addTextNode(StringUtils.formatDouble(storm.getCoordinates().getLongitudeDM()));
+        yElem.addTextNode(StringUtils.formatDouble(storm.getCoordinates().getLatitudeDM()));
         radiusElem.addTextNode(String.valueOf(storm.getDistance()));
         keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }

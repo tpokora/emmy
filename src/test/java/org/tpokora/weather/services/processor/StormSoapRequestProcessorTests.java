@@ -47,8 +47,8 @@ public class StormSoapRequestProcessorTests {
         SOAPBody soapBody = stormMessage.getSOAPBody();
 
         Assertions.assertNotNull(soapBody.getElementsByTagName("szukaj_burzy"));
-        Assertions.assertEquals(String.valueOf(stormRequest.getCoordinates().getLongitude()), soapBody.getElementsByTagName(SOAP_X).item(0).getTextContent());
-        Assertions.assertEquals(String.valueOf(stormRequest.getCoordinates().getLatitude()), soapBody.getElementsByTagName(SOAP_Y).item(0).getTextContent());
+        Assertions.assertEquals(String.valueOf(stormRequest.getCoordinates().getLongitudeDM()), soapBody.getElementsByTagName(SOAP_X).item(0).getTextContent());
+        Assertions.assertEquals(String.valueOf(stormRequest.getCoordinates().getLatitudeDM()), soapBody.getElementsByTagName(SOAP_Y).item(0).getTextContent());
         Assertions.assertEquals(String.valueOf(stormRequest.getDistance()), soapBody.getElementsByTagName("soap:promien").item(0).getTextContent());
         Assertions.assertEquals(StormsTestsConstants.TEST_KEY, soapBody.getElementsByTagName("soap:klucz").item(0).getTextContent());
     }
