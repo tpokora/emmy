@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.utils.DateUtils;
+import org.tpokora.weather.common.CoordinatesConverter;
 import org.tpokora.weather.model.StormEntity;
 import org.tpokora.weather.model.StormRequest;
 import org.tpokora.weather.model.StormResponse;
@@ -63,6 +64,8 @@ public class StormDaoService {
                 .amount(stormResponse.getAmount())
                 .longitude(stormRequest.getCoordinates().getLongitude())
                 .latitude(stormRequest.getCoordinates().getLatitude())
+                .longitudeDM(stormRequest.getCoordinates().getLongitudeDM())
+                .latitudeDM(stormRequest.getCoordinates().getLatitudeDM())
                 .direction(stormResponse.getDirection())
                 .distance(stormResponse.getDistance())
                 .time(stormResponse.getTime())

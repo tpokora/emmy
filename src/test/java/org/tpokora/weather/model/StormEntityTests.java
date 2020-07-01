@@ -16,6 +16,8 @@ public class StormEntityTests {
     public static final int AMOUNT = 20;
     public static final double LONGITUDE = 10.10;
     public static final double LATITUDE = 11.11;
+    public static final double LONGITUDE_DM = 10.101010;
+    public static final double LATITUDE_DM = 11.111111;
     public static final int ID = 100;
     private StormEntity stormEntity;
 
@@ -25,6 +27,8 @@ public class StormEntityTests {
                 .id(ID)
                 .longitude(LONGITUDE)
                 .latitude(LATITUDE)
+                .longitudeDM(LONGITUDE_DM)
+                .latitudeDM(LATITUDE_DM)
                 .amount(AMOUNT)
                 .distance(DISTANCE)
                 .direction(DIRECTION)
@@ -40,6 +44,8 @@ public class StormEntityTests {
                 "id=" + ID +
                 ", longitude=" + LONGITUDE +
                 ", latitude=" + LATITUDE +
+                ", longitudeDM=" + LONGITUDE_DM +
+                ", latitudeDM=" + LATITUDE_DM +
                 ", amount=" + AMOUNT +
                 ", distance=" + DISTANCE +
                 ", direction='" + DIRECTION + '\'' +
@@ -56,6 +62,8 @@ public class StormEntityTests {
         stormEntity.setId(ID);
         stormEntity.setLongitude(LONGITUDE);
         stormEntity.setLatitude(LATITUDE);
+        stormEntity.setLongitudeDM(LONGITUDE_DM);
+        stormEntity.setLatitudeDM(LATITUDE_DM);
         stormEntity.setAmount(AMOUNT);
         stormEntity.setDistance(DISTANCE);
         stormEntity.setDirection(DIRECTION);
@@ -65,6 +73,8 @@ public class StormEntityTests {
         Assertions.assertEquals(ID, stormEntity.getId());
         Assertions.assertEquals(LONGITUDE, stormEntity.getLongitude());
         Assertions.assertEquals(LATITUDE, stormEntity.getLatitude());
+        Assertions.assertEquals(LONGITUDE_DM, stormEntity.getLongitudeDM());
+        Assertions.assertEquals(LATITUDE_DM, stormEntity.getLatitudeDM());
         Assertions.assertEquals(AMOUNT, stormEntity.getAmount());
         Assertions.assertEquals(DISTANCE, stormEntity.getDistance());
         Assertions.assertEquals(DIRECTION, stormEntity.getDirection());

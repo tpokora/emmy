@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.tpokora.weather.common.CoordinatesConverter;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.StormEntity;
 import org.tpokora.weather.model.StormRequest;
@@ -57,6 +58,8 @@ public class StormDaoServiceMockitoTest {
         StormEntity stormEntity = StormEntity.builder()
                 .longitude(STORM_REQUEST.getCoordinates().getLongitude())
                 .latitude(STORM_REQUEST.getCoordinates().getLatitude())
+                .longitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLongitude()))
+                .latitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLatitude()))
                 .amount(STORM_RESPONSE.getAmount())
                 .time(STORM_RESPONSE.getAmount())
                 .distance(STORM_RESPONSE.getDistance())
@@ -88,6 +91,8 @@ public class StormDaoServiceMockitoTest {
                 .amount(STORM_RESPONSE.getAmount())
                 .longitude(STORM_REQUEST.getCoordinates().getLongitude())
                 .latitude(STORM_REQUEST.getCoordinates().getLatitude())
+                .longitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLongitude()))
+                .latitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLatitude()))
                 .distance(10)
                 .direction("E")
                 .time(10)
@@ -105,6 +110,8 @@ public class StormDaoServiceMockitoTest {
                 .amount(STORM_RESPONSE.getAmount())
                 .longitude(STORM_REQUEST.getCoordinates().getLongitude())
                 .latitude(STORM_REQUEST.getCoordinates().getLatitude())
+                .longitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLongitude()))
+                .latitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLatitude()))
                 .distance(10)
                 .direction("E")
                 .time(10)
@@ -115,6 +122,8 @@ public class StormDaoServiceMockitoTest {
                 .amount(STORM_RESPONSE.getAmount())
                 .longitude(STORM_REQUEST.getCoordinates().getLongitude())
                 .latitude(STORM_REQUEST.getCoordinates().getLatitude())
+                .longitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLongitude()))
+                .latitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLatitude()))
                 .distance(10)
                 .direction("E")
                 .time(10)
@@ -134,6 +143,8 @@ public class StormDaoServiceMockitoTest {
                 .amount(STORM_RESPONSE.getAmount())
                 .longitude(STORM_REQUEST.getCoordinates().getLongitude())
                 .latitude(STORM_REQUEST.getCoordinates().getLatitude())
+                .longitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLongitude()))
+                .latitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLatitude()))
                 .distance(10)
                 .direction("E")
                 .time(10)
@@ -153,6 +164,8 @@ public class StormDaoServiceMockitoTest {
                 .amount(STORM_RESPONSE.getAmount())
                 .longitude(STORM_REQUEST.getCoordinates().getLongitude())
                 .latitude(STORM_REQUEST.getCoordinates().getLatitude())
+                .longitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLongitude()))
+                .latitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLatitude()))
                 .distance(10)
                 .direction("E")
                 .time(10)
@@ -163,6 +176,8 @@ public class StormDaoServiceMockitoTest {
                 .amount(STORM_RESPONSE.getAmount())
                 .longitude(STORM_REQUEST.getCoordinates().getLongitude())
                 .latitude(STORM_REQUEST.getCoordinates().getLatitude())
+                .longitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLongitude()))
+                .latitudeDM(CoordinatesConverter.convertDecimalDegreeToDM(STORM_REQUEST.getCoordinates().getLatitude()))
                 .distance(10)
                 .direction("E")
                 .time(10)
