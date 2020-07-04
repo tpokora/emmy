@@ -5,15 +5,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.model.ForecastEntity;
 
 import java.util.Optional;
 
-@Component
-@Qualifier("openWeatherForecastMapper")
 public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(OpenWeatherForecastMapper.class);

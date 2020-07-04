@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.weather.dao.ForecastDaoService;
-import org.tpokora.weather.mapper.OpenWeatherForecastMapper;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.ForecastEntity;
 import org.tpokora.weather.properties.OpenWeatherProperties;
@@ -40,12 +39,12 @@ public class OpenWeatherForecastServiceTests {
     @Mock
     private ForecastDaoService forecastDaoService;
 
+    @InjectMocks
     private ForecastService forecastService;
 
     @BeforeEach
     public void setup()
     {
-        forecastService = new ForecastService(restTemplate, openWeatherProperties, forecastDaoService, new OpenWeatherForecastMapper());
         Mockito.when(openWeatherProperties.getValue(OpenWeatherProperties.HOST)).thenReturn("testHost");
         Mockito.when(openWeatherProperties.getValue(OpenWeatherProperties.KEY)).thenReturn("testKey");
         Mockito.when(openWeatherProperties.getValue(OpenWeatherProperties.ID)).thenReturn("123");

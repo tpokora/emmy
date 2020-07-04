@@ -2,7 +2,6 @@ package org.tpokora.weather.services.location;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -24,16 +23,14 @@ public class OpenCageDataLocationService implements ILocationService {
     private final Logger LOGGER = LoggerFactory.getLogger(OpenCageDataLocationService.class);
 
     private  RestTemplate restTemplate;
-
-    @Qualifier("openCageLocationMapper")
     private IJSONMapper IJSONMapper;
     private OpenCageDataProperties openCageDataProperties;
     private String URL = "https://api.opencagedata.com/geocode/v1/json?key={key}&q={q}&limit={limit}&min_confidence={min}";
 
-    public OpenCageDataLocationService(RestTemplate restTemplate, OpenCageDataProperties openCageDataProperties, IJSONMapper IJSONMapper) {
+    public OpenCageDataLocationService(RestTemplate restTemplate, OpenCageDataProperties openCageDataProperties) {
         this.restTemplate = restTemplate;
         this.openCageDataProperties = openCageDataProperties;
-        this.IJSONMapper = IJSONMapper;
+        IJSONMapper = new OpenCageDataLocationMapper();
     }
 
     @Override
