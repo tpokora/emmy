@@ -3,7 +3,6 @@ package org.tpokora.config.properties;
 public enum PropertiesEnum {
 
     FIREBASE("firebase"),
-    NOTIFICATIONS("notifications"),
     STORM("storm");
 
     private String value;
