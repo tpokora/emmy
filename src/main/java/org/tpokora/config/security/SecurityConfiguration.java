@@ -14,6 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.tpokora.users.dao.UserRepository;
 
+import static org.tpokora.config.security.SecurityMatchers.*;
+import static org.tpokora.console.web.ConsoleViewConstants.CONSOLE_VIEW_URL;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -42,8 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/**/*.js", "/**/*.css").permitAll()
-                .antMatchers("/", HOME, "/weather/**", "/signin", "/add-user", "/api/**").permitAll()
+                .antMatchers(STATIC_FILES_MATCHERS).permitAll()
+                .antMatchers(ALL_ACCESS_MATCHERS).permitAll()
+                .antMatchers(ADMIN_ONLY_MATCHERS).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
