@@ -38,8 +38,25 @@
 <!-- TODO: Fix issue with main element under nav bar -->
 <main role="main" class="container">
     <div class="jumbotron">
-        <h1>Admin page!</h1>
+        <h1>Console panel</h1>
+            <div>
+            <ul class="nav nav-tabs" id="consoleTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="app-tab" data-toggle="tab" href="#app" role="tab" aria-controls="app" aria-selected="true">App config</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="weather-tab" data-toggle="tab" href="#weather" role="tab" aria-controls="weather" aria-selected="false">Weather</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="consoleTabContent">
+                <div class="tab-pane fade show active" id="app" role="tabpanel" aria-labelledby="app-tab">App</div>
+                <div class="tab-pane fade" id="weather" role="tabpanel" aria-labelledby="weather-tab">Weather</div>
+            </div>
+        </div>
     </div>
 </main>
+<script th:src="@{webjars/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>
