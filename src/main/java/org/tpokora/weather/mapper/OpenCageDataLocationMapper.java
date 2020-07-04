@@ -5,9 +5,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.tpokora.weather.model.Location;
 import org.tpokora.weather.model.Coordinates;
 
+@Component
+@Qualifier("openCageLocationMapper")
 public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenCageDataLocationMapper.class);
