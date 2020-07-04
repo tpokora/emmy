@@ -14,19 +14,19 @@ import java.util.Objects;
 
 import static org.tpokora.weather.services.processor.StormProcessorStrings.*;
 
-public class CitySoapRequestProcessor implements ISoapRequestMessageProcessor<String> {
+public class LocationSoapRequestProcessor implements ISoapRequestMessageProcessor<String> {
 
-    private static final String CITY_INPUT_IS_NULL = "City input is null!";
+    private static final String LOCATION_INPUT_IS_NULL = "Location input is null!";
     protected StormProperties stormProperties;
-    private final Logger LOGGER = LoggerFactory.getLogger(CitySoapRequestProcessor.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(LocationSoapRequestProcessor.class);
 
-    public CitySoapRequestProcessor(StormProperties stormProperties) {
+    public LocationSoapRequestProcessor(StormProperties stormProperties) {
         this.stormProperties = stormProperties;
     }
 
     @Override
     public SOAPMessage process(String input) throws SOAPException {
-        Objects.requireNonNull(input, CITY_INPUT_IS_NULL);
+        Objects.requireNonNull(input, LOCATION_INPUT_IS_NULL);
         SOAPMessage soapMessage = SOAPService.createSOAPMessage();
         HashMap<String, String> namespaces = new HashMap<>();
         namespaces.put(StormConstants.SOAP, StormConstants.NAMESPACE);
@@ -35,19 +35,19 @@ public class CitySoapRequestProcessor implements ISoapRequestMessageProcessor<St
         SOAPService.createSOAPAction(soapMessage, StormConstants.SOAP_ACTION_SZUKAJ_BURZY);
         createSOAPMessage(input, StormConstants.SOAP, envelope);
 
-        LOGGER.debug("City Request SOAP Message:");
+        LOGGER.debug("Location Request SOAP Message:");
         LOGGER.debug(SoapMessageUtilities.soapMessageToString(soapMessage));
 
         return soapMessage;
     }
 
-    private void createSOAPMessage(String city, String namespace, SOAPEnvelope envelope) throws SOAPException {
+    private void createSOAPMessage(String location, String namespace, SOAPEnvelope envelope) throws SOAPException {
         SOAPBody soapBody = envelope.getBody();
         SOAPElement findCity = soapBody.addChildElement(StormConstants.METHOD_MIEJSCOWOSC, namespace);
         SOAPElement nameElem = findCity.addChildElement(NAZWA, namespace);
         SOAPElement keyElem = findCity.addChildElement(KLUCZ, namespace);
 
-        nameElem.addTextNode(city);
+        nameElem.addTextNode(location);
         keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }
 }

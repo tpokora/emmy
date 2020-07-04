@@ -2,12 +2,13 @@ package org.tpokora.weather.services.processor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
-import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
-import org.tpokora.weather.properties.StormProperties;
-import org.tpokora.weather.model.Coordinates;
+import org.tpokora.common.utils.StringUtils;
 import org.tpokora.weather.common.StormConstants;
+import org.tpokora.weather.model.Coordinates;
+import org.tpokora.weather.properties.StormProperties;
 
 import javax.xml.soap.*;
 import java.util.HashMap;
@@ -52,8 +53,8 @@ public class WarningsSoapRequestProcessor implements ISoapRequestMessageProcesso
         SOAPElement yElem = findStorm.addChildElement(Y, namespace);
         SOAPElement keyElem = findStorm.addChildElement(KLUCZ, namespace);
 
-        xElem.addTextNode(String.valueOf(coordinates.getLongitude()));
-        yElem.addTextNode(String.valueOf(coordinates.getLatitude()));
+        xElem.addTextNode(StringUtils.formatDouble(coordinates.getLongitudeDM()));
+        yElem.addTextNode(StringUtils.formatDouble(coordinates.getLatitudeDM()));
         keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }
 }

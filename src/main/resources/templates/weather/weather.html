@@ -47,15 +47,15 @@
         </p>
         <hr/>
         <div>
-            <h3>Find City</h3>
-            <form th:object="${city}" th:action="@{/weather/find-city}" method="get">
+            <h3>Find Location</h3>
+            <form th:object="${location}" th:action="@{/weather/find-location}" method="get">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">City</label>
-                        <input type="text" class="form-control" th:field="*{name}" id="cityName" placeholder="City name">
+                        <label for="locationName" class="sr-only">City</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="locationName" placeholder="Location name">
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <button type="submit" class="btn btn-primary mb-2">Find city</button>
+                        <button type="submit" class="btn btn-primary mb-2">Find location</button>
                     </div>
                 </div>
             </form>
@@ -70,12 +70,12 @@
             <form th:object="${coordinates}" th:action="@{/weather/find-forecast}" method="get">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">Longitude</label>
+                        <label for="locationName" class="sr-only">Longitude</label>
                         <input type="text" class="form-control" th:field="*{longitude}" id="forecastLon">
                         <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">Latitude</label>
+                        <label for="locationName" class="sr-only">Latitude</label>
                         <input type="text" class="form-control" th:field="*{latitude}" id="forecastLat">
                         <small class="form-text text-muted">Latitude</small>
                     </div>
@@ -86,6 +86,7 @@
             </form>
             <div class="container" th:if="${forecast != null}">
                 <div class="row text-success">>> Forecast: <b class="value" th:text="${forecast.name}"></b>, <b class="value" th:text="${forecast.description}"></b></div>
+                <div class="row text-success">>> Location: <b class="value" th:text="${forecast.location}"></b></div>
                 <div class="row text-success">>> Temperature: <b class="value" th:text="${forecast.temp}"></b> C, feels like: <b class="value" th:text="${forecast.feelTemp}"></b> C</div>
                 <div class="row text-success">>> Minimum temperature: <b class="value" th:text="${forecast.minTemp}"></b> C, Maximum temperature: <b class="value" th:text="${forecast.maxTemp}"></b> C</div>
                 <div class="row text-success">>> Rain in 1h: <b class="value" th:text="${forecast.rain1h}"></b> mm, Rain in 3h: <b class="value" th:text="${forecast.rain3h}"></b> mm</div>
@@ -133,12 +134,12 @@
             <form th:object="${coordinates}" th:action="@{/weather/find-warnings}" method="get">
                 <div class="row">
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">Longitude</label>
+                        <label for="locationName" class="sr-only">Longitude</label>
                         <input type="text" class="form-control" th:field="*{longitude}" id="warningsLon">
                         <small class="form-text text-muted">Longitude</small>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <label for="cityName" class="sr-only">Latitude</label>
+                        <label for="locationName" class="sr-only">Latitude</label>
                         <input type="text" class="form-control" th:field="*{latitude}" id="warningsLat">
                         <small class="form-text text-muted">Latitude</small>
                     </div>

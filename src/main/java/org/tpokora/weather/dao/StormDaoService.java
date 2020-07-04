@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.utils.DateUtils;
+import org.tpokora.weather.common.CoordinatesConverter;
 import org.tpokora.weather.model.StormEntity;
 import org.tpokora.weather.model.StormRequest;
 import org.tpokora.weather.model.StormResponse;
@@ -30,9 +31,9 @@ public class StormDaoService {
     public StormEntity saveStormResponse(StormRequest stormRequest, StormResponse stormResponse) {
         Objects.requireNonNull(stormRequest, "StormRequest can't be null!");
         Objects.requireNonNull(stormResponse, "StormResponse can't be null!");
-        LOGGER.info("==> Saving StormResponse to DB");
+        LOGGER.info(">>> Saving StormResponse to DB");
         if (stormResponse.getAmount() == 0) {
-            LOGGER.info("==> Nothing to Save");
+            LOGGER.info(">>> Nothing to Save");
             return null;
         }
         StormEntity stormEntity = generatorStormEntity(stormRequest, stormResponse);
@@ -46,7 +47,7 @@ public class StormDaoService {
         } else {
             return saveStormEntity(stormEntity);
         }
-        LOGGER.info("==> Nothing to Save");
+        LOGGER.info(">>> Nothing to Save");
         return stormEntity;
     }
 
@@ -63,6 +64,8 @@ public class StormDaoService {
                 .amount(stormResponse.getAmount())
                 .longitude(stormRequest.getCoordinates().getLongitude())
                 .latitude(stormRequest.getCoordinates().getLatitude())
+                .longitudeDM(stormRequest.getCoordinates().getLongitudeDM())
+                .latitudeDM(stormRequest.getCoordinates().getLatitudeDM())
                 .direction(stormResponse.getDirection())
                 .distance(stormResponse.getDistance())
                 .time(stormResponse.getTime())

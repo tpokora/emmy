@@ -1,18 +1,16 @@
 package org.tpokora.weather.model;
 
-public class City {
+public class Location {
     private String name;
     private Coordinates coordinates;
 
-    public City() {
+    public Location() {
         this.coordinates = new Coordinates();
         this.name = "";
     }
 
-    public City(Double x, Double y) {
-        this.coordinates = new Coordinates();
-        this.coordinates.setLongitude(x);
-        this.coordinates.setLatitude(y);
+    public Location(Double longitude, Double latitude) {
+        this.coordinates = new Coordinates(longitude, latitude);
         this.name = "";
     }
 
@@ -34,7 +32,7 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
+        return "Location{" +
                 "name='" + name + '\'' +
                 ", coordinates=" + coordinates +
                 '}';

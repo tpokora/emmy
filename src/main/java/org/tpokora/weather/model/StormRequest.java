@@ -64,11 +64,18 @@ public class StormRequest {
         return this.coordinates.getLatitude();
     }
 
+    public double getLongitudeDM() {
+        return this.coordinates.getLongitudeDM();
+    }
+
+    public double getLatitudeDM() {
+        return this.coordinates.getLatitudeDM();
+    }
+
     @Override
     public String toString() {
         return "StormRequest{" +
-                "longitude=" + coordinates.getLongitude() +
-                ", latitude=" + coordinates.getLatitude() +
+                "coordinates=" + coordinates +
                 ", distance=" + distance +
                 ", time=" + time +
                 '}';

@@ -1,9 +1,13 @@
 package org.tpokora.weather.model;
 
+import org.tpokora.weather.common.CoordinatesConverter;
+
 public class Coordinates {
     
     private Double longitude;
     private Double latitude;
+    private Double longitudeDM;
+    private Double latitudeDM;
     
     public Coordinates() {
         this.setLongitude(0.0);
@@ -13,6 +17,8 @@ public class Coordinates {
     public Coordinates(Double longitude, Double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
+        this.longitudeDM = CoordinatesConverter.convertDecimalDegreeToDM(this.longitude);
+        this.latitudeDM = CoordinatesConverter.convertDecimalDegreeToDM(this.latitude);
     }
 
     public Double getLongitude() {
@@ -31,11 +37,21 @@ public class Coordinates {
         this.latitude = latitude;
     }
 
+    public Double getLongitudeDM() {
+        return longitudeDM;
+    }
+
+    public Double getLatitudeDM() {
+        return latitudeDM;
+    }
+
     @Override
     public String toString() {
         return "Coordinates{" +
                 "longitude=" + longitude +
                 ", latitude=" + latitude +
+                ", longitudeDM=" + longitudeDM +
+                ", latitudeDM=" + latitudeDM +
                 '}';
     }
 }

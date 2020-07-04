@@ -7,6 +7,8 @@ import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.weather.model.ForecastEntity;
 
+import java.time.LocalDateTime;
+
 class OpenWeatherForecastMapperTest {
 
     private OpenWeatherForecastMapper openWeatherForecastMapper;
@@ -22,29 +24,32 @@ class OpenWeatherForecastMapperTest {
     void testMap() {
         ForecastEntity forecastEntity = openWeatherForecastMapper.map(openWeatherStringResponse);
         Assertions.assertNotNull(forecastEntity);
-        Assertions.assertEquals(forecastEntity.getName(), "Clear");
-        Assertions.assertEquals(forecastEntity.getDescription(), "clear sky");
-        Assertions.assertEquals(forecastEntity.getTemp(), 28.55);
-        Assertions.assertEquals(forecastEntity.getFeelTemp(), 29.04);
-        Assertions.assertEquals(forecastEntity.getMinTemp(), 28.55);
-        Assertions.assertEquals(forecastEntity.getMaxTemp(), 28.55);
-        Assertions.assertEquals(forecastEntity.getPressure(), 1012);
-        Assertions.assertEquals(forecastEntity.getHumidity(), 56);
-        Assertions.assertEquals(forecastEntity.getWind(), 3.85);
-        Assertions.assertEquals(forecastEntity.getRain1h(), 0.27);
-        Assertions.assertEquals(forecastEntity.getRain3h(), 1.2);
-        Assertions.assertEquals(forecastEntity.getLongitude(), 22.22);
-        Assertions.assertEquals(forecastEntity.getLatitude(), 11.11);
+        Assertions.assertEquals("Vakaga Prefecture", forecastEntity.getLocation());
+        Assertions.assertEquals("Clear", forecastEntity.getName());
+        Assertions.assertEquals("clear sky", forecastEntity.getDescription());
+        Assertions.assertEquals(28.55, forecastEntity.getTemp());
+        Assertions.assertEquals(29.04, forecastEntity.getFeelTemp());
+        Assertions.assertEquals(28.55, forecastEntity.getMinTemp());
+        Assertions.assertEquals(28.55, forecastEntity.getMaxTemp());
+        Assertions.assertEquals(1012, forecastEntity.getPressure());
+        Assertions.assertEquals(56, forecastEntity.getHumidity());
+        Assertions.assertEquals(3.85, forecastEntity.getWind());
+        Assertions.assertEquals(0.27, forecastEntity.getRain1h());
+        Assertions.assertEquals(1.2, forecastEntity.getRain3h());
+        Assertions.assertEquals(22.22, forecastEntity.getLongitude());
+        Assertions.assertEquals(11.11, forecastEntity.getLatitude());
 
         forecastEntity.setId(1);
-        forecastEntity.setTimestamp(DateUtils.getCurrentLocalDateTime());
+        LocalDateTime currentLocalDateTime = DateUtils.getCurrentLocalDateTime();
+        forecastEntity.setTimestamp(currentLocalDateTime);
         String expectedForecastString =
-                String.format("ForecastEntity{id=%d, name='%s', description='%s', temp=%s, feelTemp=%s, minTemp=%s, maxTemp=%s, pressure=%d, humidity=%d, wind=%s, rain1h=%s, rain3h=%s, longitude=%s, latitude=%s, timestamp=%s}",
-                        forecastEntity.getId(), forecastEntity.getName(), forecastEntity.getDescription(), forecastEntity.getTemp(),
-                        forecastEntity.getFeelTemp(), forecastEntity.getMinTemp(), forecastEntity.getMaxTemp(), forecastEntity.getPressure(),
-                        forecastEntity.getHumidity(), forecastEntity.getWind(), forecastEntity.getRain1h(), forecastEntity.getRain3h(),
-                        forecastEntity.getLongitude(), forecastEntity.getLatitude(),
-                        DateUtils.parseDateToString(forecastEntity.getTimestamp()));
+                String.format("ForecastEntity{id=%d, location='%s', name='%s', description='%s', temp=%s, feelTemp=%s, minTemp=%s, maxTemp=%s, pressure=%d, humidity=%d, wind=%s, rain1h=%s, rain3h=%s, longitude=%s, latitude=%s, timestamp=%s}",
+                        forecastEntity.getId(), forecastEntity.getLocation(), forecastEntity.getName(),
+                        forecastEntity.getDescription(), forecastEntity.getTemp(), forecastEntity.getFeelTemp(),
+                        forecastEntity.getMinTemp(), forecastEntity.getMaxTemp(), forecastEntity.getPressure(),
+                        forecastEntity.getHumidity(), forecastEntity.getWind(), forecastEntity.getRain1h(),
+                        forecastEntity.getRain3h(), forecastEntity.getLongitude(), forecastEntity.getLatitude(),
+                        currentLocalDateTime);
         Assertions.assertEquals(expectedForecastString, forecastEntity.toString());
     }
 

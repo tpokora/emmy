@@ -10,7 +10,7 @@ import org.tpokora.weather.model.ForecastEntity;
 
 import java.util.Optional;
 
-public class OpenWeatherForecastMapper implements IForecastMapper {
+public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(OpenWeatherForecastMapper.class);
 
@@ -83,6 +83,7 @@ public class OpenWeatherForecastMapper implements IForecastMapper {
     }
 
     private void setOther(ForecastEntity forecastEntity, JsonNode rootNode) {
+        forecastEntity.setLocation(rootNode.get("name").asText());
         JsonNode main = rootNode.get(MAIN);
         forecastEntity.setPressure(main.get(PRESSURE).asInt());
         forecastEntity.setHumidity(main.get(HUMIDITY).asInt());

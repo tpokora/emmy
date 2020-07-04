@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.common.StormConstants;
-import org.tpokora.weather.model.City;
-import org.tpokora.weather.services.processor.CitySoapRequestProcessor;
-import org.tpokora.weather.services.processor.CitySoapResponseProcessor;
+import org.tpokora.weather.model.Location;
+import org.tpokora.weather.services.processor.LocationSoapRequestProcessor;
+import org.tpokora.weather.services.processor.LocationSoapResponseProcessor;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
@@ -23,18 +23,18 @@ public class FindCityService extends StormService {
 
     public FindCityService(StormProperties stormProperties, SOAPService soapService) {
         super(stormProperties, soapService);
-        this.soapRequestMessageProcessor = new CitySoapRequestProcessor(stormProperties);
-        this.soapResponseMessageProcessor = new CitySoapResponseProcessor();
+        this.soapRequestMessageProcessor = new LocationSoapRequestProcessor(stormProperties);
+        this.soapResponseMessageProcessor = new LocationSoapResponseProcessor();
     }
 
-    public City findCity(String cityName) throws SOAPException {
+    public Location findCity(String cityName) throws SOAPException {
         Objects.requireNonNull(cityName, CITY_NAME_IS_NULL);
-        LOGGER.info("==> {}", cityName);
+        LOGGER.info(">>> {}", cityName);
         SOAPMessage soapMessage = soapRequestMessageProcessor.process(cityName);
         SOAPMessage soapResponse = soapService.sendSOAPMessage(soapMessage, StormConstants.URL);
-        City city = (City) soapResponseMessageProcessor.process(soapResponse);
-        city.setName(cityName);
-        LOGGER.info("==> {}", city);
-        return city;
+        Location location = (Location) soapResponseMessageProcessor.process(soapResponse);
+        location.setName(cityName);
+        LOGGER.info(">>> {}", location);
+        return location;
     }
 }

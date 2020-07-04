@@ -22,6 +22,12 @@ public class StormEntity {
     @Column(name = "LATITUDE", nullable = false)
     private double latitude;
 
+    @Column(name = "LONGITUDE_DM")
+    private double longitudeDM;
+
+    @Column(name = "LATITUDE_DM")
+    private double latitudeDM;
+
     @Column(name = "AMOUNT", nullable = false)
     private int amount;
 
@@ -62,6 +68,22 @@ public class StormEntity {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public double getLongitudeDM() {
+        return longitudeDM;
+    }
+
+    public void setLongitudeDM(double longitudeDM) {
+        this.longitudeDM = longitudeDM;
+    }
+
+    public double getLatitudeDM() {
+        return latitudeDM;
+    }
+
+    public void setLatitudeDM(double latitudeDM) {
+        this.latitudeDM = latitudeDM;
     }
 
     public int getAmount() {
@@ -112,6 +134,8 @@ public class StormEntity {
         private int id;
         private double longitude;
         private double latitude;
+        private double longitudeDM;
+        private double latitudeDM;
         private int amount;
         private double distance;
         private String direction;
@@ -132,6 +156,16 @@ public class StormEntity {
         public Builder latitude(double latitude) {
             Objects.requireNonNull(latitude, "Latitude can't be null!!");
             this.latitude = latitude;
+            return this;
+        }
+
+        public Builder longitudeDM(double longitudeDM) {
+            this.longitudeDM = longitudeDM;
+            return this;
+        }
+
+        public Builder latitudeDM(double latitudeDM) {
+            this.latitudeDM = latitudeDM;
             return this;
         }
 
@@ -167,6 +201,8 @@ public class StormEntity {
             stormEntity.id = this.id;
             stormEntity.longitude = this.longitude;
             stormEntity.latitude = this.latitude;
+            stormEntity.longitudeDM = this.longitudeDM;
+            stormEntity.latitudeDM = this.latitudeDM;
             stormEntity.amount = this.amount;
             stormEntity.distance = this.distance;
             stormEntity.direction = this.direction;
@@ -183,11 +219,13 @@ public class StormEntity {
                 "id=" + id +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
+                ", longitudeDM=" + longitudeDM +
+                ", latitudeDM=" + latitudeDM +
                 ", amount=" + amount +
                 ", distance=" + distance +
                 ", direction='" + direction + '\'' +
                 ", time=" + time +
-                ", timestamp=" + DateUtils.parseDateToString(timestamp) +
+                ", timestamp=" +  DateUtils.parseDateToString(timestamp) +
                 '}';
     }
 }

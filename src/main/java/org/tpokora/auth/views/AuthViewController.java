@@ -41,19 +41,19 @@ public class AuthViewController {
 
     @GetMapping(value = LOGIN_VIEW_URL, name = LOGIN_VIEW)
     public String login(Model model) {
-        LOGGER.info("=> LoginView");
+        LOGGER.info(">> LoginView");
         return LOGIN_VIEW_TEMPLATE;
     }
 
     @GetMapping(value = SIGNIN_VIEW_URL, name = SIGNIN_VIEW)
     public String signin(Model model) {
-        LOGGER.info("=> SignInView");
+        LOGGER.info(">> SignInView");
         return authViewService.signInView(model);
     }
 
     @PostMapping(value = "add-user")
     public String addUser(@Valid UserForm userForm, BindingResult bindingResult, Model model) {
-        LOGGER.info(" => Adding new user");
+        LOGGER.info(">> Adding new user");
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> addFormErrorConsumer.accept(model, error));
             return authViewService.signInView(model);
@@ -70,7 +70,7 @@ public class AuthViewController {
 
     @PostMapping(value = "add-role")
     public String addRole(@Valid RoleForm roleForm, BindingResult bindingResult, Model model) {
-        LOGGER.info("=> Adding new role");
+        LOGGER.info(">> Adding new role");
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(error -> addFormErrorConsumer.accept(model, error));
             return authViewService.rolesView(model);

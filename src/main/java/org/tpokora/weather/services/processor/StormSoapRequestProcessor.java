@@ -5,11 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
+import org.tpokora.common.utils.StringUtils;
 import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.model.StormRequest;
 import org.tpokora.weather.common.StormConstants;
 
 import javax.xml.soap.*;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import static org.tpokora.weather.services.processor.StormProcessorStrings.*;
@@ -48,8 +50,8 @@ public class StormSoapRequestProcessor implements ISoapRequestMessageProcessor<S
         SOAPElement radiusElem = findStorm.addChildElement(PROMIEN, namespace);
         SOAPElement keyElem = findStorm.addChildElement(KLUCZ, namespace);
 
-        xElem.addTextNode(String.valueOf(storm.getCoordinates().getLongitude()));
-        yElem.addTextNode(String.valueOf(storm.getCoordinates().getLatitude()));
+        xElem.addTextNode(StringUtils.formatDouble(storm.getCoordinates().getLongitudeDM()));
+        yElem.addTextNode(StringUtils.formatDouble(storm.getCoordinates().getLatitudeDM()));
         radiusElem.addTextNode(String.valueOf(storm.getDistance()));
         keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
     }

@@ -3,7 +3,7 @@ package org.tpokora.common.utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class StringUtilsTests {
+public class StringUtilsTest {
 
     @Test
     public void testStringFirstLetterUppercase() {
@@ -34,5 +34,11 @@ public class StringUtilsTests {
         Assertions.assertThrows(NullPointerException.class, () -> {
             StringUtils.makeFirstLetterUpperCase.apply(null);
         });
+    }
+
+    @Test
+    public void testFormatDouble() {
+        double number = 1.2345;
+        Assertions.assertEquals("1.23", StringUtils.formatDouble(number));
     }
 }
