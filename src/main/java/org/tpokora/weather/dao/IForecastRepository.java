@@ -2,7 +2,7 @@ package org.tpokora.weather.dao;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 
 import java.util.List;
 import java.util.Optional;

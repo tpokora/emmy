@@ -1,4 +1,4 @@
-package org.tpokora.weather.model;
+package org.tpokora.weather.model.entity;
 
 import org.tpokora.common.utils.DateUtils;
 

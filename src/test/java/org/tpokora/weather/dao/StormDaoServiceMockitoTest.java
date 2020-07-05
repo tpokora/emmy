@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.weather.common.CoordinatesConverter;
 import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.StormEntity;
+import org.tpokora.weather.model.entity.StormEntity;
 import org.tpokora.weather.model.StormRequest;
 import org.tpokora.weather.model.StormResponse;
 

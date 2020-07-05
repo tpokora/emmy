@@ -1,7 +1,7 @@
 package org.tpokora.weather.utils;
 
 import org.tpokora.common.utils.DateUtils;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 
 public class ForecastTestsHelper {
 

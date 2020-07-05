@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 
 import java.time.LocalDateTime;
 

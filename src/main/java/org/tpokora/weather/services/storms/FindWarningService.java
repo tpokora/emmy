@@ -9,7 +9,7 @@ import org.tpokora.weather.common.StormConstants;
 import org.tpokora.weather.dao.WarningDaoService;
 import org.tpokora.weather.model.Coordinates;
 import org.tpokora.weather.model.Warning;
-import org.tpokora.weather.model.WarningEntity;
+import org.tpokora.weather.model.entity.WarningEntity;
 import org.tpokora.weather.services.processor.WarningsSoapRequestProcessor;
 import org.tpokora.weather.services.processor.WarningsSoapResponseProcessor;
 

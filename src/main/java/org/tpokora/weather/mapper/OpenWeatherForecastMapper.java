@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.common.utils.DateUtils;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package org.tpokora.weather.services.forecast;
 
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 
 import java.util.Optional;
 

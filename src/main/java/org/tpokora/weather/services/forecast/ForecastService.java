@@ -10,7 +10,7 @@ import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.weather.mapper.IJSONMapper;
 import org.tpokora.weather.mapper.OpenWeatherForecastMapper;
 import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
 import java.util.Map;

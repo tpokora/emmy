@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.common.services.BaseServiceTest;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 import org.tpokora.weather.utils.ForecastTestsHelper;
 
 import java.time.LocalDateTime;

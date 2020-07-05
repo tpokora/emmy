@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.tpokora.weather.dao.ForecastDaoService;
-import org.tpokora.weather.model.*;
+import org.tpokora.weather.model.entity.ForecastEntity;
 import org.tpokora.weather.services.forecast.ForecastService;
 
 import java.util.List;

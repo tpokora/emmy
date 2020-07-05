@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tpokora.weather.model.*;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 import org.tpokora.weather.services.forecast.ForecastService;
 import org.tpokora.weather.services.location.OpenCageDataLocationService;
 import org.tpokora.weather.services.storms.FindCityService;

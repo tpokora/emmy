@@ -17,7 +17,7 @@ import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.ForecastEntity;
+import org.tpokora.weather.model.entity.ForecastEntity;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
 import java.util.Optional;

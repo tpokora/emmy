@@ -3,7 +3,7 @@ package org.tpokora.weather.dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.tpokora.weather.model.WarningEntity;
+import org.tpokora.weather.model.entity.WarningEntity;
 
 import java.util.List;
 import java.util.Optional;

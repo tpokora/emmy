@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.WarningEntity;
+import org.tpokora.weather.model.entity.WarningEntity;
 import org.tpokora.weather.common.WarningStrings;
 
 import java.time.LocalDateTime;

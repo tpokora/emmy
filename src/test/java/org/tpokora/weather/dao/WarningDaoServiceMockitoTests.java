@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.WarningEntity;
+import org.tpokora.weather.model.entity.WarningEntity;
 import org.tpokora.weather.common.WarningStrings;
 
 import java.time.LocalDateTime;

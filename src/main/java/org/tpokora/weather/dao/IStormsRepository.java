@@ -1,7 +1,7 @@
 package org.tpokora.weather.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.tpokora.weather.model.StormEntity;
+import org.tpokora.weather.model.entity.StormEntity;
 
 import java.util.List;
 import java.util.Optional;
