@@ -33,6 +33,7 @@ class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
     void testSave() {
         MonitoredCoordinatesEntity monitoredCoordinatesEntity = new MonitoredCoordinatesEntity();
         monitoredCoordinatesEntity.setUser(USER);
+        monitoredCoordinatesEntity.setLocationName("TestLocation");
         monitoredCoordinatesEntity.setLongitude(11.1111);
         monitoredCoordinatesEntity.setLongitudeDM(11.23);
         monitoredCoordinatesEntity.setLatitude(22.2222);
@@ -40,6 +41,7 @@ class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
 
         MonitoredCoordinatesEntity saved = monitoredCoordinatesDaoService.save(monitoredCoordinatesEntity);
         Assertions.assertNotNull(saved);
+        Assertions.assertEquals(monitoredCoordinatesEntity.getLocationName(), saved.getLocationName());
         Assertions.assertEquals(monitoredCoordinatesEntity.getLongitude(), saved.getLongitude());
         Assertions.assertEquals(monitoredCoordinatesEntity.getLongitudeDM(), saved.getLongitudeDM());
         Assertions.assertEquals(monitoredCoordinatesEntity.getLatitude(), saved.getLatitude());

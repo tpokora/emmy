@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Table(name = "MONITORED_COORDINATES")
 public class MonitoredCoordinatesEntity extends AbstractEntity {
 
+    @Column(name = "LOCATION_NAME")
+    private String locationName;
     @Column(name = "LONGITUDE", nullable = false)
     private Double longitude;
     @Column(name = "LATITUDE", nullable = false)
@@ -21,6 +23,14 @@ public class MonitoredCoordinatesEntity extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
 
     public Double getLongitude() {
         return longitude;
@@ -66,6 +76,7 @@ public class MonitoredCoordinatesEntity extends AbstractEntity {
     public String toString() {
         return "MonitoredCoordinatesEntity{" +
                 "id=" + id +
+                ", locationName='" + locationName + '\'' +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
                 ", longitudeDM=" + longitudeDM +
