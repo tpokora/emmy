@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Api(value = "Weather", description = "Storms API")
+@Api(value = "Weather")
 @RestController
-@RequestMapping(value = "/weather/api/")
+@RequestMapping(value = "/api/weather")
 public class WeatherAPIController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherAPIController.class);

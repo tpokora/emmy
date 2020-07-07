@@ -1,0 +1,47 @@
+package org.tpokora.weather.web;
+
+import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.tpokora.weather.model.Location;
+import org.tpokora.weather.properties.OpenCageDataProperties;
+import org.tpokora.weather.services.location.ILocationService;
+import org.tpokora.weather.services.location.OpenCageDataLocationService;
+
+import java.util.Optional;
+
+@Api(value = "Location")
+@RestController
+@RequestMapping(value = "/api/location")
+public class LocationAPIController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LocationAPIController.class);
+
+    private RestTemplate restTemplate;
+    private OpenCageDataProperties openCageDataProperties;
+    private ILocationService locationService;
+
+    public LocationAPIController(RestTemplate restTemplate, OpenCageDataProperties openCageDataProperties) {
+        this.restTemplate = restTemplate;
+        locationService = new OpenCageDataLocationService(restTemplate, openCageDataProperties);
+        this.openCageDataProperties = new OpenCageDataProperties();
+    }
+
+    @GetMapping(value = "/getLocation", produces = "application/json")
+    public ResponseEntity<Location> getLocationCoordinates(@RequestParam("name") String name) {
+        LOGGER.info(">> Find location by name: {}", name);
+        Optional<Location> optionalLocation = locationService.getLocationCoordinatesByName(name);
+        if (optionalLocation.isPresent()) {
+            return new ResponseEntity<>(optionalLocation.get(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}
