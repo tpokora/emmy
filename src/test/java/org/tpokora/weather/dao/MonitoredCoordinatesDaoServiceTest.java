@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.users.dao.UserRepository;
 import org.tpokora.users.model.User;
@@ -47,6 +48,30 @@ class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
         Assertions.assertEquals(monitoredCoordinatesEntity.getLatitude(), saved.getLatitude());
         Assertions.assertEquals(monitoredCoordinatesEntity.getLatitudeDM(), saved.getLatitudeDM());
         Assertions.assertEquals(monitoredCoordinatesEntity.getUser().getId(), saved.getUser().getId());
+    }
+
+    @Test
+    void testSaveTheSameCoordinates_fails() {
+        MonitoredCoordinatesEntity monitoredCoordinatesEntity = new MonitoredCoordinatesEntity();
+        monitoredCoordinatesEntity.setUser(USER);
+        monitoredCoordinatesEntity.setLocationName("TestLocation");
+        monitoredCoordinatesEntity.setLongitude(11.1111);
+        monitoredCoordinatesEntity.setLongitudeDM(11.23);
+        monitoredCoordinatesEntity.setLatitude(22.2222);
+        monitoredCoordinatesEntity.setLatitudeDM(22.23);
+
+        MonitoredCoordinatesEntity saved = monitoredCoordinatesDaoService.save(monitoredCoordinatesEntity);
+        Assertions.assertNotNull(saved);
+
+        MonitoredCoordinatesEntity theSameEntity = new MonitoredCoordinatesEntity();
+        theSameEntity.setUser(USER);
+        theSameEntity.setLocationName("TestLocation");
+        theSameEntity.setLongitude(11.1111);
+        theSameEntity.setLongitudeDM(11.23);
+        theSameEntity.setLatitude(22.2222);
+        theSameEntity.setLatitudeDM(22.23);
+        MonitoredCoordinatesEntity notSaved = monitoredCoordinatesDaoService.save(theSameEntity);
+        Assertions.assertNull(notSaved);
     }
 
     @Test

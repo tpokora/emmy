@@ -2,11 +2,15 @@ package org.tpokora.weather.model.entity;
 
 import org.tpokora.common.model.AbstractEntity;
 import org.tpokora.users.model.User;
+import org.tpokora.weather.model.Location;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "MONITORED_COORDINATES")
+@Table(name = "MONITORED_COORDINATES",
+    uniqueConstraints =
+        @UniqueConstraint(columnNames = { "LONGITUDE", "LATITUDE", "user_id"})
+)
 public class MonitoredCoordinatesEntity extends AbstractEntity {
 
     @Column(name = "LOCATION_NAME")
@@ -23,6 +27,17 @@ public class MonitoredCoordinatesEntity extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public MonitoredCoordinatesEntity() {}
+
+    public MonitoredCoordinatesEntity(Location location, User user) {
+        locationName = location.getName();
+        longitude = location.getCoordinates().getLongitude();
+        latitude = location.getCoordinates().getLatitude();
+        longitudeDM = location.getCoordinates().getLongitudeDM();
+        latitudeDM = location.getCoordinates().getLatitudeDM();
+        this.user = user;
+    }
 
     public String getLocationName() {
         return locationName;

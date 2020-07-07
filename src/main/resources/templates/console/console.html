@@ -49,8 +49,31 @@
                 </li>
             </ul>
             <div class="tab-content" id="consoleTabContent">
-                <div class="tab-pane fade show active" id="app" role="tabpanel" aria-labelledby="app-tab">App</div>
-                <div class="tab-pane fade" id="weather" role="tabpanel" aria-labelledby="weather-tab">Weather</div>
+                <div class="tab-pane fade show active" id="app" role="tabpanel" aria-labelledby="app-tab">
+                    <div class="jumbotron">
+                        Admin Panel Home
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="weather" role="tabpanel" aria-labelledby="weather-tab">
+                    <div class="jumbotron">
+                        Weather panel
+                        <hr />
+                        <div>
+                            <h3>Find Location</h3>
+                            <form th:object="${addLocationForm}" th:action="@{/console/addLocation}" method="post">
+                                <div class="row">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <label for="locationName" class="sr-only">Name</label>
+                                        <input type="text" class="form-control" th:field="*{locationName}" id="locationName" placeholder="Location name">
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <button type="submit" class="btn btn-primary mb-2">Add Location</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

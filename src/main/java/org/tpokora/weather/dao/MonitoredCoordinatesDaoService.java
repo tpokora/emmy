@@ -2,6 +2,7 @@ package org.tpokora.weather.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.tpokora.users.model.User;
 import org.tpokora.weather.model.entity.MonitoredCoordinatesEntity;
@@ -21,7 +22,12 @@ public class MonitoredCoordinatesDaoService {
 
     public MonitoredCoordinatesEntity save(MonitoredCoordinatesEntity monitoredCoordinatesEntity) {
         LOGGER.info(">>> Saving {}", monitoredCoordinatesEntity.toString());
-        return monitoredCoordinatesRepository.saveAndFlush(monitoredCoordinatesEntity);
+        try {
+            return monitoredCoordinatesRepository.saveAndFlush(monitoredCoordinatesEntity);
+        } catch (DataIntegrityViolationException e) {
+            LOGGER.info(">>> Error saving to DB");
+            return null;
+        }
     }
 
     public List<MonitoredCoordinatesEntity> findByUser(User user) {
