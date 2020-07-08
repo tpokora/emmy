@@ -7,5 +7,5 @@ public class ConsoleViewConstants {
     public static final String CONSOLE_VIEW = "console";
     public static final String CONSOLE_VIEW_URL = SLASH + CONSOLE_VIEW;
 
-    public static final String CONSOLE_VIEW_TEMPLATE = CONSOLE_VIEW_URL + CONSOLE_VIEW_URL;
+    public static final String CONSOLE_VIEW_TEMPLATE = CONSOLE_VIEW + SLASH + CONSOLE_VIEW;
 }
