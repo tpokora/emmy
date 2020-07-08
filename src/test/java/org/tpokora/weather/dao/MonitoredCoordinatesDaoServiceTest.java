@@ -1,5 +1,6 @@
 package org.tpokora.weather.dao;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,12 @@ class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
         monitoredCoordinatesDaoService = new MonitoredCoordinatesDaoService(monitoredCoordinatesRepository);
         USER = new User();
         userRepository.save(USER);
+    }
+
+    @AfterEach
+    void tearDown() {
+        List<MonitoredCoordinatesEntity> all = monitoredCoordinatesDaoService.getAll();
+        all.forEach(entity -> monitoredCoordinatesDaoService.deleteById(entity.getId()));
     }
 
     @Test
@@ -115,5 +122,27 @@ class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
 
         monitoredCoordinatesDaoServiceByUser = monitoredCoordinatesDaoService.findByUser(USER);
         Assertions.assertTrue(monitoredCoordinatesDaoServiceByUser.isEmpty());
+    }
+
+    @Test
+    public void testGetAll() {
+        MonitoredCoordinatesEntity monitoredCoordinatesEntity = new MonitoredCoordinatesEntity();
+        monitoredCoordinatesEntity.setUser(USER);
+        monitoredCoordinatesEntity.setLongitude(11.1111);
+        monitoredCoordinatesEntity.setLongitudeDM(11.23);
+        monitoredCoordinatesEntity.setLatitude(22.2222);
+        monitoredCoordinatesEntity.setLatitudeDM(22.23);
+        monitoredCoordinatesDaoService.save(monitoredCoordinatesEntity);
+
+        MonitoredCoordinatesEntity secondMonitoredCoordinatesEntity = new MonitoredCoordinatesEntity();
+        secondMonitoredCoordinatesEntity.setUser(USER);
+        secondMonitoredCoordinatesEntity.setLongitude(11.2222);
+        secondMonitoredCoordinatesEntity.setLongitudeDM(11.5555);
+        secondMonitoredCoordinatesEntity.setLatitude(22.2222);
+        secondMonitoredCoordinatesEntity.setLatitudeDM(22.23);
+        monitoredCoordinatesDaoService.save(secondMonitoredCoordinatesEntity);
+
+        Assertions.assertEquals(2, monitoredCoordinatesDaoService.getAll().size());
+
     }
 }

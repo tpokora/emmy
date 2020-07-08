@@ -48,6 +48,7 @@ public class ConsoleViewController {
     public String home(Model model) {
         LOGGER.info(">> Console");
         model.addAttribute("addLocationForm", new AddLocationForm());
+        model.addAttribute("monitoredCoords", monitoredCoordinatesDaoService.getAll());
         getUserDetails();
         return CONSOLE_VIEW_TEMPLATE;
     }

@@ -39,4 +39,9 @@ public class MonitoredCoordinatesDaoService {
         LOGGER.info(">>> Delete MonitoredCoordinatesEntity with id: {}", id);
         monitoredCoordinatesRepository.deleteById(id);
     }
+
+    public List<MonitoredCoordinatesEntity> getAll() {
+        LOGGER.info(">>> Looking for all MonitoredCoordinatesEntity");
+        return monitoredCoordinatesRepository.findAll();
+    }
 }

@@ -9,6 +9,23 @@ import org.tpokora.weather.model.Location;
 public class MonitoredCoordinatesEntityTest {
 
     @Test
+    public void testMonitoredCoordinatesEntity() {
+        MonitoredCoordinatesEntity monitoredCoordinatesEntity = new MonitoredCoordinatesEntity();
+        monitoredCoordinatesEntity.setId(1);
+        monitoredCoordinatesEntity.setLocationName("testLocation");
+        monitoredCoordinatesEntity.setLongitudeDM(11.23);
+        monitoredCoordinatesEntity.setLatitudeDM(11.25);
+        monitoredCoordinatesEntity.setLongitude(11.11);
+        monitoredCoordinatesEntity.setLatitude(11.22);
+
+        String expectedString = String.format(
+                "MonitoredCoordinatesEntity{id=%d, locationName='%s', longitude=%s, latitude=%s, longitudeDM=%s, latitudeDM=%s, user=null}",
+                monitoredCoordinatesEntity.getId(), monitoredCoordinatesEntity.getLocationName(), monitoredCoordinatesEntity.getLongitude(),
+                monitoredCoordinatesEntity.getLatitude(), monitoredCoordinatesEntity.getLongitudeDM(), monitoredCoordinatesEntity.getLatitudeDM());
+        Assertions.assertEquals(expectedString, monitoredCoordinatesEntity.toString());
+    }
+
+    @Test
     public void testMonitoredCoordinatesEntityWithLocationAndUser() {
         Coordinates coordinates = new Coordinates();
         coordinates.setLatitude(11.11);

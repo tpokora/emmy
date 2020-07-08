@@ -71,6 +71,12 @@
                                     </div>
                                 </div>
                             </form>
+                            <hr />
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item dark-list-group-item" th:each="coord : ${monitoredCoords}">
+                                    <span th:text="${coord.locationName}"></span>:<span th:text="${coord.longitude}"></span>, <span th:text="${coord.latitude}"></span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
