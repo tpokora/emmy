@@ -32,7 +32,7 @@ public class MonitorCoordinatesScheduler {
         this.findWarningService = findWarningService;
     }
 
-    @Scheduled(cron = "0 0 0/4 * * ?")
+    @Scheduled(cron = "0 0 0,4,8,12,16,20 * * *")
     public void monitorCoordinates() {
         LOGGER.info(">>> Check All Coordinates");
         List<MonitoredCoordinatesEntity> monitoredCoordinatesDaoServiceAll = monitoredCoordinatesDaoService.getAll();
