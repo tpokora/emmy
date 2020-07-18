@@ -12,7 +12,20 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <h1>Welcome, <span th:text="${user.username}"></span></h1>
+        <button type="button" class="btn btn-primary" data-toggle="username-modal" data-target=".bs-example-modal-sm">Change username</button>
+
+        <!-- Change username modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    Change username:
+                </div>
+            </div>
+        </div>
     </div>
 </main>
+<script th:src="@{webjars/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{webjars/popper.js/1.14.3/umd/popper.min.js}"></script>
+<script th:src="@{webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>
