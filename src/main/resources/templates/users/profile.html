@@ -12,14 +12,16 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <h1>Welcome, <span th:text="${user.username}"></span></h1>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeUsernameModal">Change username</button>
-
-        <!-- Change username modal -->
-        <div id="changeUsernameModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="changeUsernameModalLabel">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    Change username:
-                </div>
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#changeUsernameCollapse" aria-expanded="false" aria-controls="changeUsernameCollapse">Change Username</a>
+        <div class="collapse" id="changeUsernameCollapse">
+            <div class="profile-collapse">
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="newUsername" class="sr-only">New Username</label>
+                        <input type="text" class="form-control" id="newUsername" placeholder="New Username ...">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Save</button>
+                </form>
             </div>
         </div>
     </div>
