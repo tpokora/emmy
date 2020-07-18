@@ -36,6 +36,7 @@ def mockitoVersion = '3.3.0'
 
 def bootstrapVersion = '4.5.0'
 def jqueryVersion = '3.5.0'
+def popperVersion = '1.16.0'
 
 dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -50,6 +51,7 @@ dependencies {
 
     implementation group: 'org.webjars', name: 'bootstrap', version: "${bootstrapVersion}"
     implementation group: 'org.webjars', name: 'jquery', version: "${jqueryVersion}"
+    implementation group: 'org.webjars', name: 'popper.js', version: "${popperVersion}"
     implementation 'org.webjars:webjars-locator:0.30'
 
     implementation 'org.postgresql:postgresql:42.1.1'
