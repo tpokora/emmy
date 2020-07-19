@@ -15,13 +15,37 @@
         <div th:if="${error != null}">
             <div th:text="${error}" class="alert alert-danger" role="alert"></div>
         </div>
-        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#changeUsernameCollapse" aria-expanded="false" aria-controls="changeUsernameCollapse">Change Username</a>
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#changeUsernameCollapse" aria-expanded="false" aria-controls="changeUsernameCollapse">Change username</a>
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#changeEmailCollapse" aria-expanded="false" aria-controls="changeEmailCollapse">Change email</a>
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#changePasswordCollapse" aria-expanded="false" aria-controls="changePasswordCollapse">Change password</a>
         <div class="collapse" id="changeUsernameCollapse">
             <div class="profile-collapse">
                 <form class="form-inline" th:action="@{/users/profile/changeUsername}" th:object="${modifyUserForm}" method="post">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="newUsername" class="sr-only">New Username</label>
-                        <input type="text" th:field="*{username}" class="form-control" id="newUsername" placeholder="New Username ...">
+                        <input type="text" th:field="*{username}" class="form-control" id="newUsername" placeholder="New username ...">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Save</button>
+                </form>
+            </div>
+        </div>
+        <div class="collapse" id="changeEmailCollapse">
+            <div class="profile-collapse">
+                <form class="form-inline" th:action="@{/users/profile/changeEmail}" th:object="${modifyUserForm}" method="post">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="newEmail" class="sr-only">New email</label>
+                        <input type="text" th:field="*{email}" class="form-control" id="newEmail" placeholder="New email ...">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Save</button>
+                </form>
+            </div>
+        </div>
+        <div class="collapse" id="changePasswordCollapse">
+            <div class="profile-collapse">
+                <form class="form-inline" th:action="@{/users/profile/changePassword}" th:object="${modifyUserForm}" method="post">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="newPassword" class="sr-only">New password</label>
+                        <input type="text" th:field="*{password}" class="form-control" id="newPassword" placeholder="New password ...">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Save</button>
                 </form>
