@@ -16,6 +16,8 @@ public class UsersViewConstants {
     public static final String PROFILE_VIEW_URL = USERS_VIEW_URL + SLASH + PROFILE_VIEW;
     public static final String PROFILE_VIEW_TEMPLATE =  USERS_VIEW + SLASH + PROFILE_VIEW;
 
+    public static final String PROFILE_CHANGE_USERNAME = USERS_VIEW_URL + SLASH + PROFILE_VIEW + "/changeUsername";
+
     /**
      * Class is providing static constant strings for HomeViewController
      */

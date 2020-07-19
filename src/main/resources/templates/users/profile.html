@@ -12,13 +12,16 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <h1>Welcome, <span th:text="${user.username}"></span></h1>
+        <div th:if="${error != null}">
+            <div th:text="${error}" class="alert alert-danger" role="alert"></div>
+        </div>
         <a class="btn btn-primary" role="button" data-toggle="collapse" href="#changeUsernameCollapse" aria-expanded="false" aria-controls="changeUsernameCollapse">Change Username</a>
         <div class="collapse" id="changeUsernameCollapse">
             <div class="profile-collapse">
-                <form class="form-inline">
+                <form class="form-inline" th:action="@{/users/profile/changeUsername}" th:object="${modifyUserForm}" method="post">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="newUsername" class="sr-only">New Username</label>
-                        <input type="text" class="form-control" id="newUsername" placeholder="New Username ...">
+                        <input type="text" th:field="*{username}" class="form-control" id="newUsername" placeholder="New Username ...">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Save</button>
                 </form>
