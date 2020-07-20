@@ -35,9 +35,8 @@ public class UserViewController {
     public String myProfile(Model model) {
         LOGGER.info(">> Profile Page");
         getUserDetails();
-        if (userDetails == null) {
-            return HOME_VIEW_URL;
-        }
+        if (checkIfLogged()) return HOME_VIEW_URL;
+
         model.addAttribute("user", userDetails);
         model.addAttribute("modifyUserForm", new ModifyUserForm());
         model.addAttribute("error", null);
@@ -48,9 +47,7 @@ public class UserViewController {
     public String changeUsername(Model model, @ModelAttribute ModifyUserForm modifyUserForm) {
         LOGGER.info(">> Profile Page, changing username...");
         getUserDetails();
-        if (userDetails == null) {
-            return HOME_VIEW_URL;
-        }
+        if (checkIfLogged()) return HOME_VIEW_URL;
         if (userDetailsService.loadUserByUsername(modifyUserForm.getUsername()) != null) {
             model.addAttribute("user", userDetails);
             model.addAttribute("error", "Username already exists!");
@@ -62,9 +59,7 @@ public class UserViewController {
             LOGGER.info(">> Error changing username: {}", e.getLocalizedMessage());
             return PROFILE_VIEW_TEMPLATE;
         }
-        userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(modifyUserForm.getUsername());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        relogUser(modifyUserForm.getUsername());
         return "redirect:/" + PROFILE_VIEW_TEMPLATE;
     }
 
@@ -72,9 +67,8 @@ public class UserViewController {
     public String changeEmail(Model model, @ModelAttribute ModifyUserForm modifyUserForm) {
         LOGGER.info(">> Profile Page, changing email...");
         getUserDetails();
-        if (userDetails == null) {
-            return HOME_VIEW_URL;
-        }
+        if (checkIfLogged()) return HOME_VIEW_URL;
+
         if (userDetailsService.loadUserByEmail(modifyUserForm.getEmail()) != null) {
             model.addAttribute("user", userDetails);
             model.addAttribute("error", "Email already exists!");
@@ -86,9 +80,7 @@ public class UserViewController {
             LOGGER.info(">> Error changing email: {}", e.getLocalizedMessage());
             return PROFILE_VIEW_TEMPLATE;
         }
-        userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(userDetails.getUsername());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        relogUser(userDetails.getUsername());
         return "redirect:/" + PROFILE_VIEW_TEMPLATE;
     }
 
@@ -96,9 +88,7 @@ public class UserViewController {
     public String changePassword(Model model, @ModelAttribute ModifyUserForm modifyUserForm) {
         LOGGER.info(">> Profile Page, changing password...");
         getUserDetails();
-        if (userDetails == null) {
-            return HOME_VIEW_URL;
-        }
+        if (checkIfLogged()) return HOME_VIEW_URL;
 
         try {
             userDetailsService.updatePassword(userDetails.getId(), PasswordEncoderGenerator.passwordEncoder(modifyUserForm.getPassword()));
@@ -106,9 +96,7 @@ public class UserViewController {
             LOGGER.info(">> Error changing password: {}", e.getLocalizedMessage());
             return PROFILE_VIEW_TEMPLATE;
         }
-        userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(userDetails.getUsername());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        relogUser(userDetails.getUsername());
         return "redirect:/" + PROFILE_VIEW_TEMPLATE;
     }
 
@@ -117,6 +105,19 @@ public class UserViewController {
         if (principal instanceof UserDetails) {
             userDetails = ((UserDetailsImpl)principal);
         }
+    }
+
+    private boolean checkIfLogged() {
+        if (userDetails == null) {
+            return true;
+        }
+        return false;
+    }
+
+    public void relogUser(String username) {
+        userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(username);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     public class ModifyUserForm {
@@ -148,4 +149,6 @@ public class UserViewController {
             this.password = password;
         }
     }
+
+
 }
