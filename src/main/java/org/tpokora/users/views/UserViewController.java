@@ -108,10 +108,7 @@ public class UserViewController {
     }
 
     private boolean checkIfLogged() {
-        if (userDetails == null) {
-            return true;
-        }
-        return false;
+        return userDetails == null;
     }
 
     public void relogUser(String username) {
