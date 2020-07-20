@@ -2,7 +2,6 @@ package org.tpokora.users.views;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.tpokora.common.services.PasswordEncoderGenerator;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
 
@@ -63,6 +63,50 @@ public class UserViewController {
             return PROFILE_VIEW_TEMPLATE;
         }
         userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(modifyUserForm.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:/" + PROFILE_VIEW_TEMPLATE;
+    }
+
+    @PostMapping(value = PROFILE_CHANGE_EMAIL, name = "changeEmail")
+    public String changeEmail(Model model, @ModelAttribute ModifyUserForm modifyUserForm) {
+        LOGGER.info(">> Profile Page, changing email...");
+        getUserDetails();
+        if (userDetails == null) {
+            return HOME_VIEW_URL;
+        }
+        if (userDetailsService.loadUserByEmail(modifyUserForm.getEmail()) != null) {
+            model.addAttribute("user", userDetails);
+            model.addAttribute("error", "Email already exists!");
+            return PROFILE_VIEW_TEMPLATE;
+        }
+        try {
+            userDetailsService.updateEmail(userDetails.getId(), modifyUserForm.getEmail());
+        } catch (Exception e) {
+            LOGGER.info(">> Error changing email: {}", e.getLocalizedMessage());
+            return PROFILE_VIEW_TEMPLATE;
+        }
+        userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(userDetails.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:/" + PROFILE_VIEW_TEMPLATE;
+    }
+
+    @PostMapping(value = PROFILE_CHANGE_PASSWORD, name = "changePassword")
+    public String changePassword(Model model, @ModelAttribute ModifyUserForm modifyUserForm) {
+        LOGGER.info(">> Profile Page, changing password...");
+        getUserDetails();
+        if (userDetails == null) {
+            return HOME_VIEW_URL;
+        }
+
+        try {
+            userDetailsService.updatePassword(userDetails.getId(), PasswordEncoderGenerator.passwordEncoder(modifyUserForm.getPassword()));
+        } catch (Exception e) {
+            LOGGER.info(">> Error changing password: {}", e.getLocalizedMessage());
+            return PROFILE_VIEW_TEMPLATE;
+        }
+        userDetails = (UserDetailsImpl) userDetailsService.loadUserByUsername(userDetails.getUsername());
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return "redirect:/" + PROFILE_VIEW_TEMPLATE;

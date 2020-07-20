@@ -12,6 +12,8 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <h1>Welcome, <span th:text="${user.username}"></span></h1>
+        <h6><span th:text="${user.email}" /></h6>
+        <hr />
         <div th:if="${error != null}">
             <div th:text="${error}" class="alert alert-danger" role="alert"></div>
         </div>
