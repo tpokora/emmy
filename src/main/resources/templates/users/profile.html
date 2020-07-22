@@ -47,7 +47,7 @@
                 <form class="form-inline" th:action="@{/users/profile/changePassword}" th:object="${modifyUserForm}" method="post">
                     <div class="form-group mx-sm-3 mb-2">
                         <label for="newPassword" class="sr-only">New password</label>
-                        <input type="text" th:field="*{password}" class="form-control" id="newPassword" placeholder="New password ...">
+                        <input type="password" th:field="*{password}" class="form-control" id="newPassword" placeholder="New password ...">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Save</button>
                 </form>
