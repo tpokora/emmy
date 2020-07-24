@@ -14,7 +14,7 @@ configurations {
 }
 
 bootJar {
-    archivesBaseName = 'emmy-rose'
+    archivesBaseName = 'emmy'
     archiveVersion = '0.1.0'
 }
 
