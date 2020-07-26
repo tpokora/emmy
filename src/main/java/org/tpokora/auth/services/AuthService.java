@@ -25,7 +25,7 @@ public class AuthService {
 
     public UserDetails createNewUser(User newUser) {
         Objects.requireNonNull(newUser, "User is null!");
-        LOGGER.debug("==> Creating new user: {}, {}", newUser.getUsername(), newUser.getEmail());
+        LOGGER.debug(">>> Creating new user: {}, {}", newUser.getUsername(), newUser.getEmail());
         newUser = new User(newUser.getUsername(), newUser.getPassword(), newUser.getEmail());
         newUser = userDetailsService.saveUser(newUser, USER_ROLE_NAME);
         return new UserDetailsImpl(newUser);

@@ -1,0 +1,139 @@
+{
+  "documentation": "https://opencagedata.com/api",
+  "licenses": [
+    {
+      "name": "see attribution guide",
+      "url": "https://opencagedata.com/credits"
+    }
+  ],
+  "rate": {
+    "limit": 2500,
+    "remaining": 2488,
+    "reset": 1593475200
+  },
+  "results": [
+    {
+      "annotations": {
+        "DMS": {
+          "lat": "52° 41' 44.21040'' N",
+          "lng": "16° 21' 55.97532'' E"
+        },
+        "MGRS": "33UWU9228339285",
+        "Maidenhead": "JO82eq36uw",
+        "Mercator": {
+          "x": 1821804.548,
+          "y": 6892881.068
+        },
+        "OSM": {
+          "edit_url": "https://www.openstreetmap.org/edit?node=3009679495#map=16/52.69561/16.36555",
+          "note_url": "https://www.openstreetmap.org/note/new#map=16/52.69561/16.36555&layers=N",
+          "url": "https://www.openstreetmap.org/?mlat=52.69561&mlon=16.36555#map=16/52.69561/16.36555"
+        },
+        "UN_M49": {
+          "regions": {
+            "EASTERN_EUROPE": "151",
+            "EUROPE": "150",
+            "PL": "616",
+            "WORLD": "001"
+          },
+          "statistical_groupings": [
+            "MEDC"
+          ]
+        },
+        "callingcode": 48,
+        "currency": {
+          "alternate_symbols": [],
+          "decimal_mark": ",",
+          "html_entity": "z&#322;",
+          "iso_code": "PLN",
+          "iso_numeric": "985",
+          "name": "Polish Złoty",
+          "smallest_denomination": 1,
+          "subunit": "Grosz",
+          "subunit_to_unit": 100,
+          "symbol": "zł",
+          "symbol_first": 0,
+          "thousands_separator": " "
+        },
+        "flag": "🇵🇱",
+        "geohash": "u37eu2vn0ymtdkpef24h",
+        "qibla": 141.01,
+        "roadinfo": {
+          "drive_on": "right",
+          "speed_in": "km/h"
+        },
+        "sun": {
+          "rise": {
+            "apparent": 1593398100,
+            "astronomical": 0,
+            "civil": 1593395100,
+            "nautical": 1593390120
+          },
+          "set": {
+            "apparent": 1593458460,
+            "astronomical": 0,
+            "civil": 1593461460,
+            "nautical": 1593466380
+          }
+        },
+        "timezone": {
+          "name": "Europe/Warsaw",
+          "now_in_dst": 1,
+          "offset_sec": 7200,
+          "offset_string": "+0200",
+          "short_name": "CEST"
+        },
+        "what3words": {
+          "words": "globes.belonged.stumble"
+        },
+        "wikidata": "Q9371134"
+      },
+      "bounds": {
+        "northeast": {
+          "lat": 52.715614,
+          "lng": 16.3855487
+        },
+        "southwest": {
+          "lat": 52.675614,
+          "lng": 16.3455487
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "place",
+        "_type": "village",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "county": "gmina Wronki",
+        "hamlet": "Warszawa",
+        "political_union": "European Union",
+        "postcode": "64-510",
+        "state": "Greater Poland Voivodeship",
+        "state_code": "WP",
+        "village": "Nowa Wieś"
+      },
+      "confidence": 7,
+      "formatted": "64-510 Nowa Wieś, Poland",
+      "geometry": {
+        "lat": 52.695614,
+        "lng": 16.3655487
+      }
+    }
+  ],
+  "status": {
+    "code": 200,
+    "message": "OK"
+  },
+  "stay_informed": {
+    "blog": "https://blog.opencagedata.com",
+    "twitter": "https://twitter.com/OpenCage"
+  },
+  "thanks": "For using an OpenCage API",
+  "timestamp": {
+    "created_http": "Mon, 29 Jun 2020 18:07:03 GMT",
+    "created_unix": 1593454023
+  },
+  "total_results": 1
+}

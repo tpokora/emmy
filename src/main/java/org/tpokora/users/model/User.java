@@ -1,15 +1,17 @@
 package org.tpokora.users.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.tpokora.auth.views.forms.UserForm;
+import org.tpokora.weather.model.entity.MonitoredCoordinatesEntity;
 
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "USERS", schema = "public")
+@Table(name = "USERS", schema = "public",
+    uniqueConstraints =
+        @UniqueConstraint(columnNames = { "USERNAME", "EMAIL" }))
 public class User {
 
     @Id
@@ -28,9 +30,10 @@ public class User {
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@JoinTable(name="USERS_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-    //@JsonIgnore
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private Set<MonitoredCoordinatesEntity> monitoredCoordinateEntities;
 
     public User() {
     }
@@ -87,6 +90,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<MonitoredCoordinatesEntity> getMonitoredCoordinateEntities() {
+        return monitoredCoordinateEntities;
+    }
+
+    public void setMonitoredCoordinateEntities(Set<MonitoredCoordinatesEntity> monitoredCoordinateEntities) {
+        this.monitoredCoordinateEntities = monitoredCoordinateEntities;
     }
 
     public static User valueOf(UserForm userForm) {
