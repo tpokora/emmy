@@ -2,18 +2,14 @@ package org.tpokora.users.views;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.tpokora.common.services.PasswordEncoderGenerator;
 import org.tpokora.users.model.UserDetailsImpl;
@@ -23,8 +19,6 @@ import org.tpokora.users.views.forms.ModifyPasswordForm;
 import org.tpokora.users.views.forms.ModifyUsernameForm;
 
 import javax.validation.Valid;
-
-import java.util.LinkedList;
 
 import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW_URL;
 import static org.tpokora.users.views.UsersViewConstants.*;
