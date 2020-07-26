@@ -1,7 +1,5 @@
 package org.tpokora.weather.model.entity;
 
-import org.tpokora.common.utils.DateUtils;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
