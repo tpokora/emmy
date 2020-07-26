@@ -14,7 +14,7 @@ configurations {
 }
 
 bootJar {
-    archivesBaseName = 'emmy-rose'
+    archivesBaseName = 'emmy'
     archiveVersion = '0.1.0'
 }
 
@@ -34,6 +34,10 @@ targetCompatibility = 11.0
 def junitVersion = '5.5.0'
 def mockitoVersion = '3.3.0'
 
+def bootstrapVersion = '4.5.0'
+def jqueryVersion = '3.5.0'
+def popperVersion = '1.16.0'
+
 dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
@@ -45,8 +49,9 @@ dependencies {
     implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-    implementation 'org.webjars:bootstrap:4.3.1'
-    implementation 'org.webjars:jquery:3.2.1'
+    implementation group: 'org.webjars', name: 'bootstrap', version: "${bootstrapVersion}"
+    implementation group: 'org.webjars', name: 'jquery', version: "${jqueryVersion}"
+    implementation group: 'org.webjars', name: 'popper.js', version: "${popperVersion}"
     implementation 'org.webjars:webjars-locator:0.30'
 
     implementation 'org.postgresql:postgresql:42.1.1'

@@ -149,6 +149,51 @@ public class UserDetailsServiceImplTest extends BaseServiceTest {
 
     }
 
+    @Test
+    public void updateUser() {
+        String originalUsername = "testUserYoUpdate";
+        String originalEmail = "test@email.com";
+        String originalPassword = "password";
+        User user = new User(originalUsername, originalPassword, originalEmail);
+        user = userDetailsService.saveUser(user, roleUser.getName());
+
+        Assertions.assertNotNull(user);
+        assertUpdateUsername(originalUsername, user);
+        assertUpdateEmail(originalEmail, user);
+        assertUpdatePassword(originalPassword, user);
+    }
+
+    private void assertUpdatePassword(String originalPassword, User user) {
+        String updatedPassword = "updatedPassword";
+        userDetailsService.updatePassword(user.getId(), updatedPassword);
+        User updatedUser = userDetailsService.getUserById(user.getId());
+
+        Assertions.assertEquals(user.getId(), updatedUser.getId());
+        Assertions.assertEquals(updatedPassword, updatedUser.getPassword());
+        Assertions.assertNotEquals(originalPassword, updatedUser.getPassword());
+    }
+
+    private void assertUpdateEmail(String originalEmail, User user) {
+        String updatedEmail = "updatedEmail@email.com";
+        userDetailsService.updateEmail(user.getId(), updatedEmail);
+        User updatedUser = userDetailsService.getUserById(user.getId());
+
+        Assertions.assertEquals(user.getId(), updatedUser.getId());
+        Assertions.assertEquals(updatedEmail, updatedUser.getEmail());
+        Assertions.assertNotEquals(originalEmail, updatedUser.getEmail());
+    }
+
+    private void assertUpdateUsername(String originalUsername, User user) {
+        String updatedUsername = "updatedUsername";
+        userDetailsService.updateUsername(user.getId(), updatedUsername);
+
+        User updatedUser = userDetailsService.getUserById(user.getId());
+
+        Assertions.assertEquals(user.getId(), updatedUser.getId());
+        Assertions.assertEquals(updatedUsername, updatedUser.getUsername());
+        Assertions.assertNotEquals(originalUsername, updatedUser.getUsername());
+    }
+
     private User saveUser(User user) {
         return userRepository.saveAndFlush(user);
     }

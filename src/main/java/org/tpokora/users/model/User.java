@@ -9,7 +9,9 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "USERS", schema = "public")
+@Table(name = "USERS", schema = "public",
+    uniqueConstraints =
+        @UniqueConstraint(columnNames = { "USERNAME", "EMAIL" }))
 public class User {
 
     @Id

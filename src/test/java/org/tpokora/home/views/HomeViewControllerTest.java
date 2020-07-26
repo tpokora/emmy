@@ -11,7 +11,7 @@ import org.tpokora.common.views.BasicViewControllerTest;
 class HomeViewControllerTest extends BasicViewControllerTest {
 
 
-    public static final String HOME_MESSAGE = "Welcome to Emmy App!";
+    public static final String HOME_MESSAGE = "Welcome to Emmy Project!";
     public static final String HOME_URL = "http://localhost:8080/home";
 
     @Test
