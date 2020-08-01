@@ -62,5 +62,22 @@ class AppPropertyServiceTest extends BaseServiceTest {
         Assertions.assertEquals(appPropertyEntityExpectedString, appPropertyEntity.toString());
     }
 
+    @Test
+    void testSaveExistingProperty() {
+        String updatedValue = "UPDATED_VALUE";
+        String updatedDescription = "UPDATED_DESCRIPTION";
+        AppPropertyEntity updatedAppPropertyEntity = new AppPropertyEntity(TEST_PROPERTY, updatedValue, updatedDescription);
+
+        appPropertyService.saveProperty(updatedAppPropertyEntity.getProperty(), updatedAppPropertyEntity.getValue(), updatedAppPropertyEntity.getDescription());
+
+        Optional<AppPropertyEntity> updatedAppPropertyEntityOptional = appPropertyService.getProperty(updatedAppPropertyEntity.getProperty());
+        updatedAppPropertyEntity = updatedAppPropertyEntityOptional.get();
+        Assertions.assertEquals(TEST_ID, updatedAppPropertyEntity.getId());
+        Assertions.assertEquals(TEST_PROPERTY, updatedAppPropertyEntity.getProperty());
+        Assertions.assertEquals(updatedValue, updatedAppPropertyEntity.getValue());
+        Assertions.assertEquals(updatedDescription, updatedAppPropertyEntity.getDescription());
+
+    }
+
 
 }

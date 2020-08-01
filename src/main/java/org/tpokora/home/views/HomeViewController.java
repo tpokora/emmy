@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.tpokora.common.CommonConstants.SLASH;
-import static org.tpokora.home.views.HomeViewConstants.*;
+import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
+import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW_URL;
 
 @Controller
 public class HomeViewController {

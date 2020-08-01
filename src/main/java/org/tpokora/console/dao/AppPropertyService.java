@@ -23,7 +23,17 @@ public class AppPropertyService {
     }
 
     public void saveProperty(String property, String value, String description) {
-        AppPropertyEntity appPropertyEntity = new AppPropertyEntity(property, value, description);
+        Optional<AppPropertyEntity> propertyOptional = appPropertyRepository.findByProperty(property);
+        AppPropertyEntity appPropertyEntity;
+        if (propertyOptional.isEmpty()) {
+            appPropertyEntity = new AppPropertyEntity(property, value, description);
+        } else {
+            appPropertyEntity = propertyOptional.get();
+            appPropertyEntity.setValue(value);
+            appPropertyEntity.setDescription(description);
+        }
+
         appPropertyRepository.save(appPropertyEntity);
+
     }
 }
