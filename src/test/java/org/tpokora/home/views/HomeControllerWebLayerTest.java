@@ -10,7 +10,6 @@ import org.tpokora.config.TestH2DatabaseConfiguration;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,7 +25,7 @@ public class HomeControllerWebLayerTest {
 
     @Test
     public void testHome() throws Exception {
-        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/")).andExpect(status().isOk())
                 .andExpect(content().string(containsString(HOME)));
     }
 }
