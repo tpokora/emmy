@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
+import org.tpokora.console.dao.AppPropertyService;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.weather.dao.MonitoredCoordinatesDaoService;
@@ -36,11 +36,13 @@ public class ConsoleViewController {
 
     private ILocationService locationService;
     private MonitoredCoordinatesDaoService monitoredCoordinatesDaoService;
+    private AppPropertyService appPropertyService;
 
-    public ConsoleViewController(RestTemplate restTemplate, OpenCageDataProperties openCageDataProperties, MonitoredCoordinatesDaoService monitoredCoordinatesDaoService) {
+    public ConsoleViewController(RestTemplate restTemplate, OpenCageDataProperties openCageDataProperties, MonitoredCoordinatesDaoService monitoredCoordinatesDaoService, AppPropertyService appPropertyService) {
         this.restTemplate = restTemplate;
         this.openCageDataProperties = openCageDataProperties;
         this.monitoredCoordinatesDaoService = monitoredCoordinatesDaoService;
+        this.appPropertyService = appPropertyService;
         locationService = new OpenCageDataLocationService(restTemplate, openCageDataProperties);
     }
 
@@ -49,6 +51,7 @@ public class ConsoleViewController {
         LOGGER.info(">> Console");
         model.addAttribute("addLocationForm", new AddLocationForm());
         model.addAttribute("monitoredCoords", monitoredCoordinatesDaoService.getAll());
+        model.addAttribute("appProperties", appPropertyService.getAllProperties());
         getUserDetails();
         return CONSOLE_VIEW_TEMPLATE;
     }
