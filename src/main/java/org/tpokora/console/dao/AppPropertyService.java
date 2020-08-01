@@ -19,10 +19,12 @@ public class AppPropertyService {
     }
 
     public Optional<AppPropertyEntity> getProperty(String property) {
+        LOGGER.info(">>> Get property: {}", property);
         return appPropertyRepository.findByProperty(property);
     }
 
     public void saveProperty(String property, String value, String description) {
+        LOGGER.info(">>> Save property: {}, {}, {}", property, value, description);
         Optional<AppPropertyEntity> propertyOptional = appPropertyRepository.findByProperty(property);
         AppPropertyEntity appPropertyEntity;
         if (propertyOptional.isEmpty()) {
