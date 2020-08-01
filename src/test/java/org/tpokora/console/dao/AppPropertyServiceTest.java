@@ -76,5 +76,12 @@ class AppPropertyServiceTest extends BaseServiceTest {
         Assertions.assertEquals(updatedDescription, updatedAppPropertyEntity.getDescription());
     }
 
+    @Test
+    void testGetAllProperties() {
+        appPropertyService.saveProperty("NEW_PROPERTY", "NEW_VALUE", "NEW_DESCRIPTION");
+
+        Assertions.assertEquals(2, appPropertyService.getAllProperties().size());
+    }
+
 
 }

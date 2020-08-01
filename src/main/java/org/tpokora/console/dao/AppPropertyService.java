@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tpokora.console.model.entity.AppPropertyEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +17,11 @@ public class AppPropertyService {
 
     public AppPropertyService(IAppPropertyRepository appPropertyRepository) {
         this.appPropertyRepository = appPropertyRepository;
+    }
+
+    public List<AppPropertyEntity> getAllProperties() {
+        LOGGER.info(">>> Get all properties");
+        return appPropertyRepository.findAll();
     }
 
     public Optional<AppPropertyEntity> getProperty(String property) {
