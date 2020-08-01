@@ -47,7 +47,6 @@ class AppPropertyServiceTest extends BaseServiceTest {
         Optional<AppPropertyEntity> property = appPropertyService.getProperty(TEST_PROPERTY);
         Assertions.assertTrue(property.isPresent());
         AppPropertyEntity appPropertyEntity = property.get();
-        Assertions.assertEquals(TEST_ID, appPropertyEntity.getId());
         Assertions.assertEquals(TEST_PROPERTY, appPropertyEntity.getProperty());
         Assertions.assertEquals(TEST_VALUE, appPropertyEntity.getValue());
         Assertions.assertEquals(TEST_DESCRIPTION, appPropertyEntity.getDescription());
@@ -72,11 +71,9 @@ class AppPropertyServiceTest extends BaseServiceTest {
 
         Optional<AppPropertyEntity> updatedAppPropertyEntityOptional = appPropertyService.getProperty(updatedAppPropertyEntity.getProperty());
         updatedAppPropertyEntity = updatedAppPropertyEntityOptional.get();
-        Assertions.assertEquals(TEST_ID, updatedAppPropertyEntity.getId());
         Assertions.assertEquals(TEST_PROPERTY, updatedAppPropertyEntity.getProperty());
         Assertions.assertEquals(updatedValue, updatedAppPropertyEntity.getValue());
         Assertions.assertEquals(updatedDescription, updatedAppPropertyEntity.getDescription());
-
     }
 
 
