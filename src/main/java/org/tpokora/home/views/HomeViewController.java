@@ -16,7 +16,7 @@ public class HomeViewController {
     private final Logger LOGGER = LoggerFactory.getLogger(HomeViewController.class);
 
     @GetMapping(value = { SLASH, HOME_VIEW_URL }, name = HOME_VIEW)
-    public @ResponseBody String home(Model model) {
+    public String home(Model model) {
         LOGGER.info(">> HomeView");
         return HOME_VIEW;
     }
