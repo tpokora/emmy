@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HomeControllerWebLayerTest {
 
     public static final String HOME = "home";
+
     @Autowired
     private MockMvc mockMvc;
 
