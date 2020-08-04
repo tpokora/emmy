@@ -27,17 +27,21 @@
                         <h3>Admin Panel Home</h3>
                         <hr />
                         <div>
-                            <form class="form-inline">
+                            <form class="form-inline" th:object="${addPropertyForm}" th:action="@{/console/addProperty}" method="post">
                                 <label class="sr-only" for="inlineFormInputPropertyName">Property Name</label>
-                                <input type="text" class="form-control" id="inlineFormInputPropertyName" placeholder="Name">
+                                <input type="text" class="form-control" th:field="*{name}" id="inlineFormInputPropertyName" placeholder="Name">
 
                                 <label class="sr-only" for="inlineFormInputPropertyValue">Value</label>
-                                <input type="text" class="form-control" id="inlineFormInputPropertyValue" placeholder="Value">
+                                <input type="text" class="form-control" th:field="*{value}" id="inlineFormInputPropertyValue" placeholder="Value">
 
                                 <label class="sr-only" for="inlineFormInputPropertyDescription">Description</label>
-                                <input type="text" class="form-control" id="inlineFormInputPropertyDescription" placeholder="Description">
+                                <input type="text" class="form-control" th:field="*{description}" id="inlineFormInputPropertyDescription" placeholder="Description">
 
                                 <button type="submit" class="btn btn-primary">Add</button>
+                                <div th:if="${propertyFormError != null}">
+                                    <div th:text="${propertyFormError}" class="text-danger px-2" role="alert"></div>
+                                </div>
+                                <span></span>
                             </form>
                         </div>
                         <hr />
