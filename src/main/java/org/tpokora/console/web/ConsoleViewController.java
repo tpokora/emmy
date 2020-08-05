@@ -54,6 +54,7 @@ public class ConsoleViewController {
     @GetMapping(value = CONSOLE_VIEW_URL, name = CONSOLE_VIEW)
     public String home(Model model) {
         LOGGER.info(">> Console");
+        initializeForms(model);
         initializeView(model);
         getUserDetails();
         return CONSOLE_VIEW_TEMPLATE;
@@ -70,12 +71,12 @@ public class ConsoleViewController {
     }
 
     @PostMapping(value = CONSOLE_VIEW_URL + "/addProperty")
-    public String addProperty(Model model, @Valid @ModelAttribute("addPropertyForm") AddPropertyForm propertyForm,
+    public String addProperty(Model model, @Valid AddPropertyForm propertyForm,
                               BindingResult bindingResult) {
+        initializeView(model);
         getUserDetails();
         if (bindingResult.hasErrors()) {
-            initializeView(model);
-            model.addAttribute("propertyFormError", "Fields Validation error");
+            model.addAttribute("addLocationForm", new AddLocationForm());
             return CONSOLE_VIEW_TEMPLATE;
 
         }
@@ -83,9 +84,12 @@ public class ConsoleViewController {
         return "redirect:" + CONSOLE_VIEW_URL;
     }
 
-    private void initializeView(Model model) {
+    private void initializeForms(Model model) {
         model.addAttribute("addLocationForm", new AddLocationForm());
         model.addAttribute("addPropertyForm", new AddPropertyForm());
+    }
+
+    private void initializeView(Model model) {
         model.addAttribute("monitoredCoords", monitoredCoordinatesDaoService.getAll());
         model.addAttribute("appProperties", appPropertyService.getAllProperties());
     }
