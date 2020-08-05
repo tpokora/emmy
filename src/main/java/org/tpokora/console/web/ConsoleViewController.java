@@ -80,7 +80,7 @@ public class ConsoleViewController {
             return CONSOLE_VIEW_TEMPLATE;
 
         }
-        model.addAttribute("addPropertyForm", new AddPropertyForm());
+        appPropertyService.saveProperty(propertyForm.getName(), propertyForm.getValue(), propertyForm.getDescription());
         return "redirect:" + CONSOLE_VIEW_URL;
     }
 
