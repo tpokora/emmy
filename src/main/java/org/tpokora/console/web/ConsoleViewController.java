@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.console.dao.AppPropertyService;
@@ -27,12 +26,13 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 import static org.tpokora.console.web.ConsoleViewConstants.*;
-import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW_URL;
 
 @Controller
 public class ConsoleViewController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleViewController.class);
+    public static final String ADD_LOCATION_FORM = "addLocationForm";
+    public static final String ADD_PROPERTY_FORM = "addPropertyForm";
 
     private UserDetailsImpl userDetails;
 
@@ -66,7 +66,7 @@ public class ConsoleViewController {
         getUserDetails();
         Optional<Location> optionalLocation = locationService.getLocationCoordinatesByName(locationForm.getLocationName());
         optionalLocation.ifPresent(this::saveLocationToMonitor);
-        model.addAttribute("addLocationForm", new AddLocationForm());
+        model.addAttribute(ADD_LOCATION_FORM, new AddLocationForm());
         return "redirect:" + CONSOLE_VIEW_URL;
     }
 
@@ -76,7 +76,7 @@ public class ConsoleViewController {
         initializeView(model);
         getUserDetails();
         if (bindingResult.hasErrors()) {
-            model.addAttribute("addLocationForm", new AddLocationForm());
+            model.addAttribute(ADD_LOCATION_FORM, new AddLocationForm());
             return CONSOLE_VIEW_TEMPLATE;
 
         }
@@ -85,8 +85,8 @@ public class ConsoleViewController {
     }
 
     private void initializeForms(Model model) {
-        model.addAttribute("addLocationForm", new AddLocationForm());
-        model.addAttribute("addPropertyForm", new AddPropertyForm());
+        model.addAttribute(ADD_LOCATION_FORM, new AddLocationForm());
+        model.addAttribute(ADD_PROPERTY_FORM, new AddPropertyForm());
     }
 
     private void initializeView(Model model) {
