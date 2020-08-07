@@ -3,13 +3,21 @@ package org.tpokora.weather.web;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.weather.model.entity.ForecastEntity;
 import org.tpokora.weather.services.forecast.ForecastService;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +45,19 @@ public class WeatherAPIController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(forecastEntity.get(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getArchiveForecastsFromDate", produces = "application/json")
+    public ResponseEntity<List<ForecastEntity>> getForecastsFromPeriod(@RequestParam("longitude") double longitude,
+                                                                    @RequestParam("latitude") double latitude,
+                                                                    @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                    @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        LocalDateTime startDateLocalDateTime = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime endDateLocalDateTime = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LOGGER.info(">> Find archived forecast, Longitude: {}, Latitude: {}, StartDate: {}, EndDate: {}", longitude, latitude,
+                DateUtils.parseDateToString(startDateLocalDateTime), DateUtils.parseDateToString(endDateLocalDateTime));
+        return new ResponseEntity<>(forecastDaoService.findAllByCoordinatesBetweenDates(longitude, latitude,
+                startDateLocalDateTime, endDateLocalDateTime), HttpStatus.OK);
     }
 
     @GetMapping(value = "/getArchiveForecasts", produces = "application/json")
