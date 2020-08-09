@@ -205,7 +205,7 @@ public class ForecastEntity {
                 ", rain3h=" + rain3h +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + DateUtils.parseDateToString(timestamp) +
                 '}';
     }
 }

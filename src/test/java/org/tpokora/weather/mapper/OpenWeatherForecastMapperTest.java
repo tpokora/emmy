@@ -49,7 +49,7 @@ class OpenWeatherForecastMapperTest {
                         forecastEntity.getMinTemp(), forecastEntity.getMaxTemp(), forecastEntity.getPressure(),
                         forecastEntity.getHumidity(), forecastEntity.getWind(), forecastEntity.getRain1h(),
                         forecastEntity.getRain3h(), forecastEntity.getLongitude(), forecastEntity.getLatitude(),
-                        currentLocalDateTime);
+                        DateUtils.parseDateToString(currentLocalDateTime));
         Assertions.assertEquals(expectedForecastString, forecastEntity.toString());
     }
 
