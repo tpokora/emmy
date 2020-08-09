@@ -24,8 +24,8 @@ public class LocationAPIController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LocationAPIController.class);
 
-    private RestTemplate restTemplate;
-    private OpenCageDataProperties openCageDataProperties;
+    private final RestTemplate restTemplate;
+    private final OpenCageDataProperties openCageDataProperties;
     private ILocationService locationService;
 
     public LocationAPIController(RestTemplate restTemplate, OpenCageDataProperties openCageDataProperties) {
@@ -38,10 +38,7 @@ public class LocationAPIController {
     public ResponseEntity<Location> getLocationCoordinates(@RequestParam("name") String name) {
         LOGGER.info(">> Find location by name: {}", name);
         Optional<Location> optionalLocation = locationService.getLocationCoordinatesByName(name);
-        if (optionalLocation.isPresent()) {
-            return new ResponseEntity<>(optionalLocation.get(), HttpStatus.OK);
-        }
+        return optionalLocation.map(location -> new ResponseEntity<>(location, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
