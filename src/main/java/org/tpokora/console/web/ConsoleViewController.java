@@ -82,6 +82,7 @@ public class ConsoleViewController {
 
         }
         appPropertyService.saveProperty(propertyForm.getName(), propertyForm.getValue(), propertyForm.getDescription());
+        model.addAttribute("appProperties", appPropertyService.getAllProperties());
         return "redirect:" + CONSOLE_VIEW_URL;
     }
 
@@ -89,6 +90,8 @@ public class ConsoleViewController {
     public String deleteProperty(Model model, @RequestParam("id") int propertyId) {
         initializeView(model);
         getUserDetails();
+        appPropertyService.deleteProperty(propertyId);
+        model.addAttribute("appProperties", appPropertyService.getAllProperties());
         return "redirect:" + CONSOLE_VIEW_URL;
     }
 
