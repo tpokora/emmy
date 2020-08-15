@@ -30,6 +30,10 @@ public class ForecastDaoService {
         return forecastRepository.findAllByLongitudeAndLatitudeAndOrderByTimestampDesc(longitude, latitude, startDate, endDate);
     }
 
+    public List<ForecastEntity> findAllByLocationBetweenDates(String location, LocalDateTime startDate, LocalDateTime endDate) {
+        return forecastRepository.findAllByLocationContainsIgnoreCaseAndTimestampBetween(location, startDate, endDate);
+    }
+
     public ForecastEntity saveForecast(ForecastEntity forecastEntity) {
         Objects.requireNonNull(forecastEntity, "Forecast can't be null!");
         Optional<ForecastEntity> latestForecast = forecastRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(forecastEntity.getLongitude(), forecastEntity.getLatitude());

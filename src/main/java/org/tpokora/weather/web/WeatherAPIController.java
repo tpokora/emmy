@@ -48,7 +48,7 @@ public class WeatherAPIController {
     }
 
     @GetMapping(value = "/getArchiveForecastsFromDate", produces = "application/json")
-    public ResponseEntity<List<ForecastEntity>> getForecastsFromPeriod(@RequestParam("longitude") double longitude,
+    public ResponseEntity<List<ForecastEntity>> getForecastsFromPeriod(@RequestParam(value = "longitude") double longitude,
                                                                     @RequestParam("latitude") double latitude,
                                                                     @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                                     @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
@@ -59,6 +59,18 @@ public class WeatherAPIController {
         return new ResponseEntity<>(forecastDaoService.findAllByCoordinatesBetweenDates(longitude, latitude,
                 startDateLocalDateTime, endDateLocalDateTime), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/getArchiveForecastsByLocation", produces = "application/json")
+    public ResponseEntity<List<ForecastEntity>> getForecastsFromPeriod(@RequestParam("location") String location,
+                                                                       @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                                       @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        LocalDateTime startDateLocalDateTime = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime endDateLocalDateTime = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LOGGER.info(">> Find archived forecast, Location: {}, StartDate: {}, EndDate: {}", location,
+                DateUtils.parseDateToString(startDateLocalDateTime), DateUtils.parseDateToString(endDateLocalDateTime));
+        return new ResponseEntity<>(forecastDaoService.findAllByLocationBetweenDates(location, startDateLocalDateTime, endDateLocalDateTime), HttpStatus.OK);
+    }
+
 
     @GetMapping(value = "/getArchiveForecasts", produces = "application/json")
     public ResponseEntity<List<ForecastEntity>> getForecasts(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
