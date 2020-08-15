@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.console.dao.AppPropertyService;
 import org.tpokora.console.web.forms.AddLocationForm;
@@ -81,6 +82,13 @@ public class ConsoleViewController {
 
         }
         appPropertyService.saveProperty(propertyForm.getName(), propertyForm.getValue(), propertyForm.getDescription());
+        return "redirect:" + CONSOLE_VIEW_URL;
+    }
+
+    @PostMapping(value = CONSOLE_VIEW_URL + "/deleteProperty")
+    public String deleteProperty(Model model, @RequestParam("id") int propertyId) {
+        initializeView(model);
+        getUserDetails();
         return "redirect:" + CONSOLE_VIEW_URL;
     }
 

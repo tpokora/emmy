@@ -44,4 +44,9 @@ public class AppPropertyService {
         appPropertyRepository.save(appPropertyEntity);
 
     }
+
+    public void deleteProperty(int id) {
+        LOGGER.info(">>> Remove property: {}", id);
+        appPropertyRepository.deleteById(id);
+    }
 }

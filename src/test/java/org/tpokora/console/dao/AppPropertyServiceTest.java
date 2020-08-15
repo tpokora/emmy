@@ -70,10 +70,11 @@ class AppPropertyServiceTest extends BaseServiceTest {
         appPropertyService.saveProperty(updatedAppPropertyEntity.getProperty(), updatedAppPropertyEntity.getValue(), updatedAppPropertyEntity.getDescription());
 
         Optional<AppPropertyEntity> updatedAppPropertyEntityOptional = appPropertyService.getProperty(updatedAppPropertyEntity.getProperty());
-        updatedAppPropertyEntity = updatedAppPropertyEntityOptional.get();
-        Assertions.assertEquals(TEST_PROPERTY, updatedAppPropertyEntity.getProperty());
-        Assertions.assertEquals(updatedValue, updatedAppPropertyEntity.getValue());
-        Assertions.assertEquals(updatedDescription, updatedAppPropertyEntity.getDescription());
+        updatedAppPropertyEntityOptional.ifPresentOrElse(entity -> {
+            Assertions.assertEquals(TEST_PROPERTY, entity.getProperty());
+            Assertions.assertEquals(updatedValue, entity.getValue());
+            Assertions.assertEquals(updatedDescription, entity.getDescription());
+        }, Assertions.fail("Property not found"));
     }
 
     @Test
@@ -81,6 +82,15 @@ class AppPropertyServiceTest extends BaseServiceTest {
         appPropertyService.saveProperty("NEW_PROPERTY", "NEW_VALUE", "NEW_DESCRIPTION");
 
         Assertions.assertEquals(2, appPropertyService.getAllProperties().size());
+    }
+
+    @Test
+    void testDeleteProperties() {
+        String newProperty = "NEW_PROPERTY";
+        appPropertyService.saveProperty(newProperty, "NEW_VALUE", "NEW_DESCRIPTION");
+        AppPropertyEntity property = appPropertyService.getProperty(newProperty).get();
+        appPropertyService.deleteProperty(property.getId());
+        Assertions.assertTrue(appPropertyService.getProperty(newProperty).isEmpty());
     }
 
 
