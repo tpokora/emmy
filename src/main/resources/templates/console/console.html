@@ -73,7 +73,16 @@
                                         </form>
                                         <div class="collapse" th:attr="id=${property.property}">
                                             <div class="card card-body">
-                                                Edit property form
+                                                <form class="console-form-inline" method="post" th:object="${editPropertyForm}" th:action="@{/console/editProperty}">
+                                                    <input type="text" th:name="name" th:value="${property.property}" />
+                                                    <input type="text" th:name="value" th:value="${property.value}" />
+                                                    <input type="text" th:name="description" th:value="${property.description}"/>
+                                                    <button type="submit" name="submit" value="value" class="btn btn-secondary">Submit</button>
+
+                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('name')}"><span class="px-2" th:text="${'Name'}"></span><span th:errors="*{name}"></span></div>
+                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('value')}"><span class="px-2" th:text="${'Value'}"></span> <span th:errors="*{value}"></span></div>
+                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('description')}"><span class="px-2" th:text="${'Description'}"></span><span th:errors="*{description}"></span></div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

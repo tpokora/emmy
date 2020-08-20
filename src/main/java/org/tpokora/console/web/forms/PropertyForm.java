@@ -3,7 +3,7 @@ package org.tpokora.console.web.forms;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class AddPropertyForm {
+public class PropertyForm {
 
     @NotNull
     @Size(min=3, max=30)

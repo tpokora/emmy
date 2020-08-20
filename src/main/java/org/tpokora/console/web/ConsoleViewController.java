@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.console.dao.AppPropertyService;
+import org.tpokora.console.model.entity.AppPropertyEntity;
 import org.tpokora.console.web.forms.AddLocationForm;
-import org.tpokora.console.web.forms.AddPropertyForm;
+import org.tpokora.console.web.forms.PropertyForm;
 import org.tpokora.users.model.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.weather.dao.MonitoredCoordinatesDaoService;
@@ -34,6 +35,7 @@ public class ConsoleViewController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsoleViewController.class);
     public static final String ADD_LOCATION_FORM = "addLocationForm";
     public static final String ADD_PROPERTY_FORM = "addPropertyForm";
+    public static final String EDIT_PROPERTY_FORM = "editPropertyForm";
 
     private UserDetailsImpl userDetails;
 
@@ -72,7 +74,7 @@ public class ConsoleViewController {
     }
 
     @PostMapping(value = CONSOLE_VIEW_URL + "/addProperty")
-    public String addProperty(Model model, @Valid AddPropertyForm propertyForm,
+    public String addProperty(Model model, @Valid PropertyForm propertyForm,
                               BindingResult bindingResult) {
         initializeView(model);
         getUserDetails();
@@ -82,6 +84,22 @@ public class ConsoleViewController {
 
         }
         appPropertyService.saveProperty(propertyForm.getName(), propertyForm.getValue(), propertyForm.getDescription());
+        model.addAttribute("appProperties", appPropertyService.getAllProperties());
+        return "redirect:" + CONSOLE_VIEW_URL;
+    }
+
+    @PostMapping(value = CONSOLE_VIEW_URL + "/editProperty")
+    public String editProperty(Model model, @Valid PropertyForm propertyForm,
+                               BindingResult bindingResult) {
+        initializeView(model);
+        getUserDetails();
+        if (bindingResult.hasErrors()) {
+            initializeForms(model);
+            return CONSOLE_VIEW_TEMPLATE;
+
+        }
+        Optional<AppPropertyEntity> propertyOptional = appPropertyService.getProperty(propertyForm.getName());
+        propertyOptional.ifPresent(property -> appPropertyService.saveProperty(property.getProperty(), propertyForm.getValue(), propertyForm.getDescription()));
         model.addAttribute("appProperties", appPropertyService.getAllProperties());
         return "redirect:" + CONSOLE_VIEW_URL;
     }
@@ -97,7 +115,8 @@ public class ConsoleViewController {
 
     private void initializeForms(Model model) {
         model.addAttribute(ADD_LOCATION_FORM, new AddLocationForm());
-        model.addAttribute(ADD_PROPERTY_FORM, new AddPropertyForm());
+        model.addAttribute(ADD_PROPERTY_FORM, new PropertyForm());
+        model.addAttribute(EDIT_PROPERTY_FORM, new PropertyForm());
     }
 
     private void initializeView(Model model) {
