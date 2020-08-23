@@ -7,7 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import static org.tpokora.common.CommonConstants.SLASH;
-import static org.tpokora.home.views.HomeViewConstants.*;
+import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
+import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW_URL;
 
 @Controller
 public class HomeViewController {

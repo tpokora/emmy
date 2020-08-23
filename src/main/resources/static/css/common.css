@@ -37,6 +37,10 @@ main {
 }
 
 /* Forms */
+.console-form-inline {
+    display: inline;
+}
+
 input.form-control, input.form-control:read-only {
     color: #bbb;
     background-color: #505050;
