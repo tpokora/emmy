@@ -96,7 +96,7 @@
                 </div>
             </form>
         </div>
-        <div class="container" th:if="${stormResponse.direction != '' && stormResponse.amount != 0}">
+        <div class="container" th:if="${stormResponse != null}">
             <div class="row text-success">>> Lightning strikes amount: <b class="value" th:text="${stormResponse.amount}"></b> in radius: <b class="value" th:text="${stormRequest.distance}"></b> km in last: <b class="value" th:text="${stormResponse.time}"></b> minutes</div>
             <div class="row text-success">>> Closest lightning strike: <b class="value" th:text="${stormResponse.distance}"></b> km in direction: <b class="value" th:text="${stormResponse.direction}"></b></div>
         </div>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
             </form>
-            <div th:if="${warnings.size() != 0}">
+            <div th:if="${warnings != null}">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item dark-background" th:each="warning : ${warnings}">
                         <div class="alert" th:classappend="${warning.level > 1} ? alert-danger : alert-warning" role="alert">

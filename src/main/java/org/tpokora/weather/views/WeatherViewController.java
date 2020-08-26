@@ -18,6 +18,7 @@ import org.tpokora.weather.services.storms.FindWarningService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.tpokora.weather.views.WeatherViewConstants.*;
 
@@ -41,6 +42,8 @@ public class WeatherViewController {
     private final ForecastService forecastService;
 
     private ForecastEntity forecast;
+    private StormResponse stormResponse;
+    private List<Warning> warnings;
 
     public WeatherViewController(OpenCageDataLocationService openCageDataLocationService, FindCityService findCityService, FindStormService findStormService,
                                  FindWarningService findWarningService, ForecastService forecastService) {
@@ -75,8 +78,7 @@ public class WeatherViewController {
             return WEATHER_VIEW_TEMPLATE;
         }
         updateModelAttribute(model, LOCATION, location);
-        StormRequest stormRequest = new StormRequest();
-        stormRequest.setCoordinates(location.getCoordinates());
+        StormRequest stormRequest = createStormRequest(location.getCoordinates(),20, 10);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, location.getCoordinates());
         return WEATHER_VIEW_TEMPLATE;
@@ -100,7 +102,6 @@ public class WeatherViewController {
         initializeView(model);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
         updateModelAttribute(model, COORDINATES, stormRequest.getCoordinates());
-        StormResponse stormResponse;
         try {
             stormResponse = this.findStormService.checkStorm(stormRequest);
         } catch (Exception e) {
@@ -126,7 +127,6 @@ public class WeatherViewController {
         StormRequest stormRequest = new StormRequest();
         stormRequest.setCoordinates(coordinates);
         updateModelAttribute(model, STORM_REQUEST, stormRequest);
-        List<Warning> warnings;
         try {
             warnings = this.findWarningService.findWarnings(coordinates);
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class WeatherViewController {
             forecast = forecastOptional.get();
             model.addAttribute(FORECAST, forecast);
             updateModelAttribute(model, COORDINATES, coordinates);
-            updateModelAttribute(model, STORM_REQUEST, new StormRequest(coordinates, 20, 10));
+            updateModelAttribute(model, STORM_REQUEST, createStormRequest(coordinates, 20, 10));
             return WEATHER_VIEW_TEMPLATE;
         }
 
@@ -159,10 +159,10 @@ public class WeatherViewController {
     private void initializeView(Model model) {
         model.addAttribute(ERROR, "");
         model.addAttribute(LOCATION, new Location());
-        model.addAttribute(STORM_REQUEST, new StormRequest(new Coordinates(), 25, 15));
-        model.addAttribute(STORM_RESPONSE, new StormResponse());
+        model.addAttribute(STORM_REQUEST, createStormRequest(new Coordinates(), 20, 10));
+        model.addAttribute(STORM_RESPONSE, stormResponse);
         model.addAttribute(COORDINATES, new Coordinates());
-        model.addAttribute(WARNINGS, new HashSet<Warning>());
+        model.addAttribute(WARNINGS, warnings);
         model.addAttribute(FORECAST, forecast);
     }
 
@@ -197,5 +197,9 @@ public class WeatherViewController {
         public String getErrorMsg() {
             return this.errorMsg;
         }
+    }
+
+    private StormRequest createStormRequest(Coordinates coordinates, int distance, int time) {
+        return new StormRequest(coordinates, distance, time);
     }
 }
