@@ -10,6 +10,5 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:application-db.properties")
 @EnableAutoConfiguration
 @EnableTransactionManagement
-@Profile("db")
 public class DatabaseConfiguration {
 }
