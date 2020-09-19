@@ -74,7 +74,7 @@ class AppPropertyServiceTest extends BaseServiceTest {
             Assertions.assertEquals(TEST_PROPERTY, entity.getProperty());
             Assertions.assertEquals(updatedValue, entity.getValue());
             Assertions.assertEquals(updatedDescription, entity.getDescription());
-        }, Assertions.fail("Property not found"));
+        }, () -> Assertions.fail("Property not found"));
     }
 
     @Test
