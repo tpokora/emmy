@@ -54,7 +54,7 @@ public class WeatherAPIControllerTests {
                 .with(user("testUser").password("testPassword"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].location", is("Test Location")));
+                .andExpect(jsonPath("$[0].location", is(forecastEntity.getLocation())));
 
     }
 }
