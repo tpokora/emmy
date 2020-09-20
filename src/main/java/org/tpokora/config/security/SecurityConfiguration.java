@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.tpokora.users.dao.UserRepository;
 
 import static org.tpokora.config.security.SecurityMatchers.*;
-import static org.tpokora.console.web.ConsoleViewConstants.CONSOLE_VIEW_URL;
 
 @Configuration
 @EnableWebSecurity
@@ -47,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(STATIC_FILES_MATCHERS).permitAll()
                 .antMatchers(ALL_ACCESS_MATCHERS).permitAll()
+                .antMatchers(HttpMethod.GET, SWAGGER_MATCHERS).permitAll()
                 .antMatchers(ADMIN_ONLY_MATCHERS).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
