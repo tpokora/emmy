@@ -18,8 +18,7 @@ import org.tpokora.weather.model.entity.ForecastEntity;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,6 +37,25 @@ public class WeatherAPIControllerTests {
 
     @MockBean
     private WeatherAPIController weatherAPIController;
+
+    @Test
+    public void testGetForecastsByCoordinatesFromPeriod() throws Exception {
+        ForecastEntity forecastEntity = new ForecastEntity();
+        forecastEntity.setLocation("Test Location");
+
+        List<ForecastEntity> forecastEntityList = Collections.singletonList(forecastEntity);
+        ResponseEntity<List<ForecastEntity>> responseEntity = new ResponseEntity<>(forecastEntityList, HttpStatus.OK);
+
+        given(weatherAPIController.getForecastsByCoordinatesFromPeriod(anyDouble(), anyDouble(), any(), any())).willReturn(responseEntity);
+
+        String URL_GET_ARCHIVE_FORECASTS_BY_LOCATION = "/api/weather/getArchiveForecastsFromDate?longitude=11&latitude=22&startDate=2020-08-01&endDate=2020-08-01";
+        mockMvc.perform(get(URL_GET_ARCHIVE_FORECASTS_BY_LOCATION)
+                .with(user("testUser").password("testPassword"))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].location", is(forecastEntity.getLocation())));
+
+    }
 
     @Test
     public void testGetArchiveForecastsByLocation() throws Exception {

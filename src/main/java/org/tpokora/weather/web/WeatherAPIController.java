@@ -48,7 +48,7 @@ public class WeatherAPIController {
     }
 
     @GetMapping(value = "/getArchiveForecastsFromDate", produces = "application/json")
-    public ResponseEntity<List<ForecastEntity>> getForecastsFromPeriod(@RequestParam(value = "longitude") double longitude,
+    public ResponseEntity<List<ForecastEntity>> getForecastsByCoordinatesFromPeriod(@RequestParam(value = "longitude") double longitude,
                                                                     @RequestParam("latitude") double latitude,
                                                                     @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                                     @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
