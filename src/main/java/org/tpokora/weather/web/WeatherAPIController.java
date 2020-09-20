@@ -61,7 +61,7 @@ public class WeatherAPIController {
     }
 
     @GetMapping(value = "/getArchiveForecastsByLocation", produces = "application/json")
-    public ResponseEntity<List<ForecastEntity>> getForecastsFromPeriod(@RequestParam("location") String location,
+    public ResponseEntity<List<ForecastEntity>> getForecastsFromPeriodByLocation(@RequestParam("location") String location,
                                                                        @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                                        @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         LocalDateTime startDateLocalDateTime = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
