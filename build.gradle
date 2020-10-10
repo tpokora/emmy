@@ -41,6 +41,9 @@ def jqueryVersion = '3.5.0'
 def popperVersion = '1.16.0'
 
 dependencies {
+    // modules
+    implementation project(":emmy-domain")
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
