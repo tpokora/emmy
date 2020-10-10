@@ -1,4 +1,4 @@
-package org.tpokora.weather.model;
+package org.tpokora.domain.weather;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

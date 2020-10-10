@@ -1,10 +1,9 @@
-package org.tpokora.weather.model;
+package org.tpokora.domain.weather;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.tpokora.common.utils.DateUtils;
-import org.tpokora.domain.weather.StormResponse;
+import org.tpokora.domain.common.utils.DateUtils;
 
 import java.time.LocalDateTime;
 
