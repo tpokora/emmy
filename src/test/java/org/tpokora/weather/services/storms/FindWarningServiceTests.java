@@ -9,9 +9,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.dao.WarningDaoService;
-import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.Period;
-import org.tpokora.weather.model.Warning;
+import org.tpokora.domain.weather.Coordinates;
+import org.tpokora.domain.weather.Period;
+import org.tpokora.domain.weather.Warning;
 import org.tpokora.weather.model.WarningResolver;
 import org.tpokora.weather.utils.StormsTestsHelper;
 
@@ -20,7 +20,6 @@ import javax.xml.soap.SOAPMessage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

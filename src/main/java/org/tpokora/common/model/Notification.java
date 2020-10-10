@@ -1,6 +1,6 @@
 package org.tpokora.common.model;
 
-import org.tpokora.weather.model.Warning;
+import org.tpokora.domain.weather.Warning;
 
 import java.util.HashMap;
 

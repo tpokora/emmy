@@ -1,4 +1,4 @@
-package org.tpokora.weather.common;
+package org.tpokora.domain.weather.common;
 
 public class CoordinatesConverter {
 

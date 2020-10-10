@@ -9,11 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.tpokora.weather.common.CoordinatesConverter;
-import org.tpokora.weather.model.Coordinates;
+import org.tpokora.domain.weather.common.CoordinatesConverter;
+import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.weather.model.entity.StormEntity;
-import org.tpokora.weather.model.StormRequest;
-import org.tpokora.weather.model.StormResponse;
+import org.tpokora.domain.weather.StormRequest;
+import org.tpokora.domain.weather.StormResponse;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

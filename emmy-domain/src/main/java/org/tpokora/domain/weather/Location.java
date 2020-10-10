@@ -1,4 +1,4 @@
-package org.tpokora.weather.model;
+package org.tpokora.domain.weather;
 
 public class Location {
     private String name;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Location;
 import org.tpokora.weather.properties.OpenCageDataProperties;
 import org.tpokora.weather.services.location.ILocationService;
 import org.tpokora.weather.services.location.OpenCageDataLocationService;

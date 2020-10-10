@@ -1,6 +1,6 @@
 package org.tpokora.weather.services.location;
 
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Location;
 
 import java.util.Optional;
 

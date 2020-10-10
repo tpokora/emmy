@@ -6,8 +6,8 @@ import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.utils.StringUtils;
-import org.tpokora.weather.common.StormConstants;
-import org.tpokora.weather.model.Coordinates;
+import org.tpokora.domain.weather.common.StormConstants;
+import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.weather.properties.StormProperties;
 
 import javax.xml.soap.*;

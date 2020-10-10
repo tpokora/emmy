@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.services.soap.SOAPService;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Location;
 
 import javax.xml.soap.*;
 import java.util.HashMap;

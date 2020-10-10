@@ -1,4 +1,4 @@
-package org.tpokora.weather.model;
+package org.tpokora.domain.weather;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

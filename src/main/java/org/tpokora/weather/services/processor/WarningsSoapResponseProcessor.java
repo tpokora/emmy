@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.services.soap.ISoapResponseMessageProcessor;
 import org.tpokora.common.utils.IResolver;
-import org.tpokora.weather.model.Period;
-import org.tpokora.weather.model.Warning;
+import org.tpokora.domain.weather.Period;
+import org.tpokora.domain.weather.Warning;
 import org.tpokora.weather.model.WarningResolver;
-import org.tpokora.weather.common.WarningStrings;
+import org.tpokora.domain.weather.common.WarningStrings;
 
 import javax.xml.soap.Node;
 import javax.xml.soap.SOAPBody;

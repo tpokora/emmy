@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tpokora.weather.model.Location;
-import org.tpokora.weather.model.Coordinates;
+import org.tpokora.domain.weather.Location;
+import org.tpokora.domain.weather.Coordinates;
 
 public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
 

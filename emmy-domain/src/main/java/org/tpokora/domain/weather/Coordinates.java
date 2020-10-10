@@ -1,6 +1,7 @@
-package org.tpokora.weather.model;
+package org.tpokora.domain.weather;
 
-import org.tpokora.weather.common.CoordinatesConverter;
+
+import org.tpokora.domain.weather.common.CoordinatesConverter;
 
 public class Coordinates {
     

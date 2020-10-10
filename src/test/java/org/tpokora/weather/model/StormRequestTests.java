@@ -3,6 +3,8 @@ package org.tpokora.weather.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.tpokora.domain.weather.Coordinates;
+import org.tpokora.domain.weather.StormRequest;
 
 public class StormRequestTests {
 

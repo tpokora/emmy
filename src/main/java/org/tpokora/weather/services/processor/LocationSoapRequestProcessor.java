@@ -6,7 +6,7 @@ import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
 import org.tpokora.weather.properties.StormProperties;
-import org.tpokora.weather.common.StormConstants;
+import org.tpokora.domain.weather.common.StormConstants;
 
 import javax.xml.soap.*;
 import java.util.HashMap;

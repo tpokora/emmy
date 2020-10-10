@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.services.soap.ISoapResponseMessageProcessor;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Location;
 
 import javax.xml.soap.Node;
 import javax.xml.soap.SOAPBody;

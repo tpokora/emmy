@@ -6,8 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.StormsTestsConstants;
-import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.StormRequest;
+import org.tpokora.domain.weather.Coordinates;
+import org.tpokora.domain.weather.StormRequest;
 
 import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPException;

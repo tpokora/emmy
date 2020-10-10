@@ -3,8 +3,8 @@ package org.tpokora.weather.model.entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.tpokora.users.model.User;
-import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Coordinates;
+import org.tpokora.domain.weather.Location;
 
 public class MonitoredCoordinatesEntityTest {
 

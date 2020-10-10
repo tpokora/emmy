@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.utils.FileReaderUtils;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Location;
 import org.tpokora.weather.properties.OpenCageDataProperties;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 

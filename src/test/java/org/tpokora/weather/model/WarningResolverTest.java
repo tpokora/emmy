@@ -3,7 +3,7 @@ package org.tpokora.weather.model;
 import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.tpokora.weather.common.WarningStrings;
+import org.tpokora.domain.weather.common.WarningStrings;
 
 class WarningResolverTest {
 

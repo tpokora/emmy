@@ -10,14 +10,13 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.weather.dao.StormDaoService;
-import org.tpokora.weather.model.Coordinates;
-import org.tpokora.weather.model.StormRequest;
-import org.tpokora.weather.model.StormResponse;
+import org.tpokora.domain.weather.Coordinates;
+import org.tpokora.domain.weather.StormRequest;
+import org.tpokora.domain.weather.StormResponse;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

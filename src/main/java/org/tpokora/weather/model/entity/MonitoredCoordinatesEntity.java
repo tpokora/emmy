@@ -2,7 +2,7 @@ package org.tpokora.weather.model.entity;
 
 import org.tpokora.common.model.AbstractEntity;
 import org.tpokora.users.model.User;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Location;
 
 import javax.persistence.*;
 

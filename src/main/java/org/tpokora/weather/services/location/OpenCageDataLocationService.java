@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.weather.mapper.IJSONMapper;
 import org.tpokora.weather.mapper.OpenCageDataLocationMapper;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Location;
 import org.tpokora.weather.properties.OpenCageDataProperties;
 
 import java.util.Map;

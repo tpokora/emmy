@@ -7,11 +7,10 @@ import org.tpokora.common.services.soap.SoapMessageUtilities;
 import org.tpokora.common.services.soap.ISoapRequestMessageProcessor;
 import org.tpokora.common.utils.StringUtils;
 import org.tpokora.weather.properties.StormProperties;
-import org.tpokora.weather.model.StormRequest;
-import org.tpokora.weather.common.StormConstants;
+import org.tpokora.domain.weather.StormRequest;
+import org.tpokora.domain.weather.common.StormConstants;
 
 import javax.xml.soap.*;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import static org.tpokora.weather.services.processor.StormProcessorStrings.*;

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.utils.DateUtils;
+import org.tpokora.domain.weather.StormResponse;
 
 import java.time.LocalDateTime;
 

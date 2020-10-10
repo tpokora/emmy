@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.weather.properties.StormProperties;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.Location;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;

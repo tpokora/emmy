@@ -4,6 +4,8 @@ import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.tpokora.domain.weather.Coordinates;
+import org.tpokora.domain.weather.Location;
 
 public class LocationTests {
 

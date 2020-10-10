@@ -1,6 +1,6 @@
-package org.tpokora.weather.model;
+package org.tpokora.domain.weather;
 
-import org.tpokora.common.utils.DateUtils;
+import org.tpokora.domain.common.utils.DateUtils;
 
 import java.time.LocalDateTime;
 

@@ -5,9 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.services.soap.SOAPService;
-import org.tpokora.weather.model.Period;
-import org.tpokora.weather.model.Warning;
-import org.tpokora.weather.common.WarningStrings;
+import org.tpokora.domain.weather.Period;
+import org.tpokora.domain.weather.Warning;
+import org.tpokora.domain.weather.common.WarningStrings;
 
 import javax.xml.soap.*;
 import java.util.HashMap;

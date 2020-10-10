@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.weather.properties.StormProperties;
-import org.tpokora.weather.common.StormConstants;
-import org.tpokora.weather.model.Location;
+import org.tpokora.domain.weather.common.StormConstants;
+import org.tpokora.domain.weather.Location;
 import org.tpokora.weather.services.processor.LocationSoapRequestProcessor;
 import org.tpokora.weather.services.processor.LocationSoapResponseProcessor;
 

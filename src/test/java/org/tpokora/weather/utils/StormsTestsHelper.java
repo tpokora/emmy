@@ -1,7 +1,7 @@
 package org.tpokora.weather.utils;
 
-import org.tpokora.weather.model.Period;
-import org.tpokora.weather.model.Warning;
+import org.tpokora.domain.weather.Period;
+import org.tpokora.domain.weather.Warning;
 
 public class StormsTestsHelper {
 

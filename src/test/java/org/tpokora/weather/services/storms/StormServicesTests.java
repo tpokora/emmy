@@ -3,10 +3,10 @@ package org.tpokora.weather.services.storms;
 import org.mockito.Mock;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.weather.properties.StormProperties;
-import org.tpokora.weather.common.StormConstants;
-import org.tpokora.weather.model.Location;
-import org.tpokora.weather.model.StormResponse;
-import org.tpokora.weather.model.Warning;
+import org.tpokora.domain.weather.common.StormConstants;
+import org.tpokora.domain.weather.Location;
+import org.tpokora.domain.weather.StormResponse;
+import org.tpokora.domain.weather.Warning;
 import org.tpokora.weather.services.processor.StormProcessorStrings;
 
 import javax.xml.soap.*;

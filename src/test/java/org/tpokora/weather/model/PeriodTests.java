@@ -3,7 +3,8 @@ package org.tpokora.weather.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.tpokora.weather.common.WarningStrings;
+import org.tpokora.domain.weather.Period;
+import org.tpokora.domain.weather.common.WarningStrings;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
