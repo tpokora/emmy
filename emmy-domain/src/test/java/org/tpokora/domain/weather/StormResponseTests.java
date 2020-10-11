@@ -35,5 +35,11 @@ public class StormResponseTests {
 
         Assertions.assertEquals(expectedStormResponseString, stormResponse.toString());
 
+        stormResponse = new StormResponse(amount, distance, direction, time);
+        expectedStormResponseString = String.format("StormResponse{amount=%d, distance=%s, direction='%s', time=%d, timestamp=%s}",
+                amount, distance, direction, time, DateUtils.parseDateToString(timestamp));
+
+        Assertions.assertEquals(expectedStormResponseString, stormResponse.toString());
+
     }
 }

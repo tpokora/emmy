@@ -19,5 +19,12 @@ public class LocationTests {
         String testCity = "TestCity";
         location.setName(testCity);
         Assertions.assertEquals(testCity, location.getName());
+
+        String expectedString = String.format("Location{name='%s', coordinates=%s}", location.getName(), location.getCoordinates());
+        Assertions.assertEquals(expectedString, location.toString());
+
+        Location locationConstructorParams = new Location(location.getCoordinates().getLongitude(), location.getCoordinates().getLatitude());
+        locationConstructorParams.setName(testCity);
+        Assertions.assertEquals(expectedString, locationConstructorParams.toString());
     }
 }
