@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'idea'
 }
 
 version 'unspecified'
@@ -11,4 +12,8 @@ repositories {
 dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2"
     testImplementation "org.junit.platform:junit-platform-runner:1.5.2"
+}
+
+test {
+    useJUnitPlatform()
 }
