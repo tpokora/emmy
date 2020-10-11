@@ -42,6 +42,7 @@ def popperVersion = '1.16.0'
 
 dependencies {
     // modules
+    implementation project(":emmy-common")
     implementation project(":emmy-domain")
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
