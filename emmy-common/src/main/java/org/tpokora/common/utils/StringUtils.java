@@ -2,7 +2,6 @@ package org.tpokora.common.utils;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
-import java.util.function.BinaryOperator;
 import java.util.function.UnaryOperator;
 
 public class StringUtils {
