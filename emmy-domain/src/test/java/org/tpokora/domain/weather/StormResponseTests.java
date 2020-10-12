@@ -31,13 +31,13 @@ public class StormResponseTests {
         Assertions.assertEquals(timestamp, stormResponse.getTimestamp());
 
         String expectedStormResponseString = String.format("StormResponse{amount=%d, distance=%s, direction='%s', time=%d, timestamp=%s}",
-                amount, distance, direction, time, DateUtils.parseDateToString(timestamp));
+                amount, distance, direction, time, DateUtils.parseDateToString(stormResponse.getTimestamp()));
 
         Assertions.assertEquals(expectedStormResponseString, stormResponse.toString());
 
         stormResponse = new StormResponse(amount, distance, direction, time);
         expectedStormResponseString = String.format("StormResponse{amount=%d, distance=%s, direction='%s', time=%d, timestamp=%s}",
-                amount, distance, direction, time, DateUtils.parseDateToString(timestamp));
+                amount, distance, direction, time, DateUtils.parseDateToString(stormResponse.getTimestamp()));
 
         Assertions.assertEquals(expectedStormResponseString, stormResponse.toString());
 
