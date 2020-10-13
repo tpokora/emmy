@@ -4,8 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.tpokora.users.model.User;
-import org.tpokora.weather.model.entity.MonitoredCoordinatesEntity;
+import org.tpokora.persistance.entity.users.User;
+import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
+import org.tpokora.persistance.repositories.weather.IMonitoredCoordinatesRepository;
 
 import java.util.List;
 

@@ -3,6 +3,7 @@ package org.tpokora.users.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.tpokora.persistance.entity.users.User;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

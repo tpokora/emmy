@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tpokora.users.dao.UserRepository;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.User;
 
 import java.util.List;
 

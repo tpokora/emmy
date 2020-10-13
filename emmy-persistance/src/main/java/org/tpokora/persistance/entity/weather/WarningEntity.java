@@ -1,8 +1,8 @@
-package org.tpokora.weather.model.entity;
+package org.tpokora.persistance.entity.weather;
 
-import org.tpokora.domain.weather.common.WarningStrings;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.Warning;
+import org.tpokora.domain.weather.common.WarningStrings;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

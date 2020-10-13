@@ -15,9 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.common.utils.FileReaderUtils;
+import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.domain.weather.Coordinates;
-import org.tpokora.weather.model.entity.ForecastEntity;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
 import java.util.Optional;

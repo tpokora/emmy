@@ -1,10 +1,10 @@
-package org.tpokora.weather.dao;
+package org.tpokora.persistance.repositories.weather;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.tpokora.weather.model.entity.ForecastEntity;
+import org.tpokora.persistance.entity.weather.ForecastEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

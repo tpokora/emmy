@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.users.dao.RolesRepository;
 import org.tpokora.users.dao.UserRepository;
-import org.tpokora.users.model.Role;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.Role;
+import org.tpokora.persistance.entity.users.User;
 
 import java.util.HashSet;
 import java.util.List;

@@ -3,6 +3,8 @@ package org.tpokora.users.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.tpokora.auth.views.forms.UserForm;
+import org.tpokora.persistance.entity.users.Role;
+import org.tpokora.persistance.entity.users.User;
 
 public class UserTests {
 
@@ -13,18 +15,11 @@ public class UserTests {
         userForm.setPassword("testPassword");
         userForm.setEmail("test@test.com");
 
-        User user = User.valueOf(userForm);
+        User user = userForm.valueOf();
 
         Assertions.assertEquals(userForm.getUsername(), user.getUsername());
         Assertions.assertEquals(userForm.getPassword(), user.getPassword());
         Assertions.assertEquals(userForm.getEmail(), user.getEmail());
-    }
-
-    @Test
-    public void testUserValueOfUserFormIsNull() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            User.valueOf(null);
-        });
     }
 
     @Test

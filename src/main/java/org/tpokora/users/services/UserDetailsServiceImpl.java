@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.tpokora.common.services.PasswordEncoderGenerator;
 import org.tpokora.users.dao.RolesRepository;
 import org.tpokora.users.dao.UserRepository;
-import org.tpokora.users.model.Role;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.Role;
+import org.tpokora.persistance.entity.users.User;
 import org.tpokora.users.model.UserDetailsImpl;
 
 import javax.persistence.EntityNotFoundException;

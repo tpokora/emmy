@@ -1,8 +1,8 @@
-package org.tpokora.weather.model.entity;
+package org.tpokora.persistance.entity.weather;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.User;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.Location;
 

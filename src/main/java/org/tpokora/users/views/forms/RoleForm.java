@@ -1,5 +1,7 @@
 package org.tpokora.users.views.forms;
 
+import org.tpokora.persistance.entity.users.Role;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,6 +23,10 @@ public class RoleForm {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public Role valueOf() {
+        return Role.valueOf(roleName);
     }
 
     public String toString() {

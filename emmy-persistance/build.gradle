@@ -1,6 +1,13 @@
 plugins {
     id 'java'
     id 'idea'
+    id 'io.spring.dependency-management'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
 }
 
 def moduleName = "emmy.persistance"
@@ -9,6 +16,8 @@ version 'unspecified'
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
 }
 
 compileJava {
@@ -22,7 +31,7 @@ compileJava {
 }
 
 compileTestJava {
-    inputs.property("moduleName", "emmy-domain")
+    inputs.property("moduleName", moduleName)
     doFirst {
         options.compilerArgs = [
                 '--module-path', classpath.asPath,
@@ -37,9 +46,16 @@ compileTestJava {
 
 dependencies {
     implementation project(":emmy-common")
+    implementation project(":emmy-domain")
 
-    testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2"
-    testImplementation "org.junit.platform:junit-platform-runner:1.5.2"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: "com.vaadin.external.google", module: "android-json"
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        exclude group: 'junit', module: 'junit'
+    }
 }
 
 test {

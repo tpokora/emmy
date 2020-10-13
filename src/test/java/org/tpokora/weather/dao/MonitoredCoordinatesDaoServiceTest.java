@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.tpokora.common.services.BaseServiceTest;
+import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
+import org.tpokora.persistance.repositories.weather.IMonitoredCoordinatesRepository;
 import org.tpokora.users.dao.UserRepository;
-import org.tpokora.users.model.User;
-import org.tpokora.weather.model.entity.MonitoredCoordinatesEntity;
+import org.tpokora.persistance.entity.users.User;
 
 import java.util.List;
 

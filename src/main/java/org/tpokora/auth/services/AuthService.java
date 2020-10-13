@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.tpokora.users.model.Role;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.Role;
+import org.tpokora.persistance.entity.users.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
 

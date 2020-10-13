@@ -1,11 +1,9 @@
-package org.tpokora.users.model;
+package org.tpokora.persistance.entity.users;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.tpokora.auth.views.forms.UserForm;
-import org.tpokora.weather.model.entity.MonitoredCoordinatesEntity;
+import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -98,15 +96,6 @@ public class User {
 
     public void setMonitoredCoordinateEntities(Set<MonitoredCoordinatesEntity> monitoredCoordinateEntities) {
         this.monitoredCoordinateEntities = monitoredCoordinateEntities;
-    }
-
-    public static User valueOf(UserForm userForm) {
-        Objects.requireNonNull(userForm, "UserForm is null!");
-        User user = new User();
-        user.setUsername(userForm.getUsername());
-        user.setPassword(userForm.getPassword());
-        user.setEmail(userForm.getEmail());
-        return user;
     }
 
     @Override

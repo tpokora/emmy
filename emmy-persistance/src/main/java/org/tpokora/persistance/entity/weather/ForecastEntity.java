@@ -1,4 +1,4 @@
-package org.tpokora.weather.model.entity;
+package org.tpokora.persistance.entity.weather;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.tpokora.common.utils.DateUtils;

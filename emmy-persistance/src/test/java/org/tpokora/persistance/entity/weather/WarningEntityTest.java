@@ -1,12 +1,12 @@
-package org.tpokora.weather.model.entity;
+package org.tpokora.persistance.entity.weather;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.utils.DateUtils;
-import org.tpokora.domain.weather.common.WarningStrings;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.Warning;
+import org.tpokora.domain.weather.common.WarningStrings;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

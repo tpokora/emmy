@@ -1,7 +1,7 @@
-package org.tpokora.weather.dao;
+package org.tpokora.persistance.repositories.weather;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.tpokora.weather.model.entity.MonitoredCoordinatesEntity;
+import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
 
 import java.util.List;
 

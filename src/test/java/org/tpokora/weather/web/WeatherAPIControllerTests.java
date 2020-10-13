@@ -13,7 +13,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.tpokora.config.TestH2DatabaseConfiguration;
-import org.tpokora.weather.model.entity.ForecastEntity;
+import org.tpokora.persistance.entity.weather.ForecastEntity;
 
 import java.util.Collections;
 import java.util.List;

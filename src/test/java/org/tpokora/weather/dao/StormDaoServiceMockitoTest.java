@@ -11,9 +11,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.domain.weather.common.CoordinatesConverter;
 import org.tpokora.domain.weather.Coordinates;
-import org.tpokora.weather.model.entity.StormEntity;
 import org.tpokora.domain.weather.StormRequest;
 import org.tpokora.domain.weather.StormResponse;
+import org.tpokora.persistance.entity.weather.StormEntity;
+import org.tpokora.persistance.repositories.weather.IStormsRepository;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;

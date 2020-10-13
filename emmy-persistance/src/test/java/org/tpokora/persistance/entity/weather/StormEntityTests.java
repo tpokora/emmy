@@ -1,10 +1,9 @@
-package org.tpokora.weather.model.entity;
+package org.tpokora.persistance.entity.weather;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tpokora.common.utils.DateUtils;
-import org.tpokora.weather.model.entity.StormEntity;
 
 import java.time.LocalDateTime;
 

@@ -10,8 +10,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.domain.weather.Coordinates;
-import org.tpokora.weather.model.entity.WarningEntity;
 import org.tpokora.domain.weather.common.WarningStrings;
+import org.tpokora.persistance.entity.weather.WarningEntity;
+import org.tpokora.persistance.repositories.weather.IWarningRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

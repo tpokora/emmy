@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.User;
 
 import java.util.Optional;
 

@@ -44,6 +44,7 @@ dependencies {
     // modules
     implementation project(":emmy-common")
     implementation project(":emmy-domain")
+    implementation project(":emmy-persistance")
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 

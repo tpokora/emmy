@@ -1,6 +1,6 @@
 package org.tpokora.auth.views.forms;
 
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.User;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -41,6 +41,14 @@ public class UserForm {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public User valueOf() {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        return user;
     }
 
     public String toString() {

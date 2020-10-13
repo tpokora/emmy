@@ -7,8 +7,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.tpokora.users.model.Role;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.Role;
+import org.tpokora.persistance.entity.users.User;
 import org.tpokora.users.services.UserDetailsServiceImpl;
 import org.tpokora.users.views.forms.RoleForm;
 

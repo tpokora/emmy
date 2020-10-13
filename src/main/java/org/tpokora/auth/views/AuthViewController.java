@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.tpokora.auth.services.AuthViewService;
 import org.tpokora.auth.views.forms.UserForm;
 import org.tpokora.common.utils.StringUtils;
-import org.tpokora.users.model.Role;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.Role;
 import org.tpokora.users.views.forms.RoleForm;
 
 import javax.validation.Valid;
@@ -65,7 +64,7 @@ public class AuthViewController {
             return authViewService.signInView(model);
         }
 
-        return authViewService.registerNewUserView(User.valueOf(userForm));
+        return authViewService.registerNewUserView(userForm.valueOf());
     }
 
     @PostMapping(value = "add-role")
@@ -80,7 +79,7 @@ public class AuthViewController {
             return authViewService.rolesView(model);
         }
         roleForm.setRoleName(roleNameUppercase);
-        Role newRole = Role.valueOf(roleForm);
+        Role newRole = roleForm.valueOf();
         newRole = authViewService.createRole(newRole);
 
         return authViewService.rolesView(model);

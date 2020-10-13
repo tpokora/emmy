@@ -1,6 +1,4 @@
-package org.tpokora.users.model;
-
-import org.tpokora.users.views.forms.RoleForm;
+package org.tpokora.persistance.entity.users;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -61,11 +59,6 @@ public class Role {
 
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
-
-    public static Role valueOf(RoleForm roleForm) {
-        Objects.requireNonNull(roleForm, "RoleForm is null!");
-        return valueOf(roleForm.getRoleName());
     }
 
     public static Role valueOf(String roleName) {

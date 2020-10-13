@@ -1,8 +1,8 @@
-package org.tpokora.weather.model.entity;
+package org.tpokora.persistance.entity.weather;
 
-import org.tpokora.common.model.AbstractEntity;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.common.AbstractEntity;
 import org.tpokora.domain.weather.Location;
+import org.tpokora.persistance.entity.users.User;
 
 import javax.persistence.*;
 

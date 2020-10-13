@@ -10,7 +10,7 @@ import org.tpokora.config.TestH2DatabaseConfiguration;
 import org.tpokora.config.security.SecurityConfiguration;
 import org.tpokora.users.dao.RolesRepository;
 import org.tpokora.users.dao.UserRepository;
-import org.tpokora.users.model.User;
+import org.tpokora.persistance.entity.users.User;
 
 
 @SpringBootTest(classes = {TestApplication.class, TestH2DatabaseConfiguration.class, SecurityConfiguration.class})

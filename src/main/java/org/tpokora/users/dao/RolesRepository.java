@@ -1,7 +1,7 @@
 package org.tpokora.users.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.tpokora.users.model.Role;
+import org.tpokora.persistance.entity.users.Role;
 
 import java.util.Optional;
 

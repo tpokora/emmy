@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.weather.dao.ForecastDaoService;
 import org.tpokora.weather.mapper.IJSONMapper;
 import org.tpokora.weather.mapper.OpenWeatherForecastMapper;
 import org.tpokora.domain.weather.Coordinates;
-import org.tpokora.weather.model.entity.ForecastEntity;
 import org.tpokora.weather.properties.OpenWeatherProperties;
 
 import java.util.Map;

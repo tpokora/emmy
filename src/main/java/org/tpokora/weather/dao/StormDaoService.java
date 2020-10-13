@@ -4,9 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.tpokora.common.utils.DateUtils;
-import org.tpokora.weather.model.entity.StormEntity;
 import org.tpokora.domain.weather.StormRequest;
 import org.tpokora.domain.weather.StormResponse;
+import org.tpokora.persistance.entity.weather.StormEntity;
+import org.tpokora.persistance.repositories.weather.IStormsRepository;
 
 import java.util.List;
 import java.util.Objects;
