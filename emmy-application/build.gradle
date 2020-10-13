@@ -3,7 +3,7 @@ plugins {
     id 'idea'
 }
 
-def moduleName = "emmy.rest.api"
+def moduleName = "emmy.application"
 
 version 'unspecified'
 
@@ -22,7 +22,7 @@ compileJava {
 }
 
 compileTestJava {
-    inputs.property("moduleName", "emmy-domain")
+    inputs.property("moduleName", moduleName)
     doFirst {
         options.compilerArgs = [
                 '--module-path', classpath.asPath,

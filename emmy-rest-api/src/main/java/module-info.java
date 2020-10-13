@@ -1,0 +1,2 @@
+module emmy.rest.api {
+}
