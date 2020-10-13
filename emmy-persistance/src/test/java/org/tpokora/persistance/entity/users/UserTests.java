@@ -1,26 +1,9 @@
-package org.tpokora.users.model;
+package org.tpokora.persistance.entity.users;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.tpokora.auth.views.forms.UserForm;
-import org.tpokora.persistance.entity.users.Role;
-import org.tpokora.persistance.entity.users.User;
 
 public class UserTests {
-
-    @Test
-    public void testUserValueOfUserForm() {
-        UserForm userForm = new UserForm();
-        userForm.setUsername("testUser");
-        userForm.setPassword("testPassword");
-        userForm.setEmail("test@test.com");
-
-        User user = userForm.valueOf();
-
-        Assertions.assertEquals(userForm.getUsername(), user.getUsername());
-        Assertions.assertEquals(userForm.getPassword(), user.getPassword());
-        Assertions.assertEquals(userForm.getEmail(), user.getEmail());
-    }
 
     @Test
     public void testUserToString() {

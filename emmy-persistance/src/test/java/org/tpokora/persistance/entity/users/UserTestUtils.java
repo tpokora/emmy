@@ -1,6 +1,4 @@
-package org.tpokora.users.model;
-
-import org.tpokora.persistance.entity.users.User;
+package org.tpokora.persistance.entity.users;
 
 public class UserTestUtils {
 
