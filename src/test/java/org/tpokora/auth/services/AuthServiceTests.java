@@ -19,7 +19,6 @@ import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.persistance.entity.users.Role;
 import org.tpokora.persistance.entity.users.User;
 import org.tpokora.users.model.UserDetailsImpl;
-import org.tpokora.users.model.UserTestUtils;
 import org.tpokora.users.services.UserDetailsServiceImpl;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -51,7 +50,7 @@ public class AuthServiceTests extends BaseServiceTest {
 
     @Test
     void testAuthServiceCreateNewUser() {
-        User newUser = UserTestUtils.createTestUser("testUser1", "testUser", "testUser@test.com");
+        User newUser = new User("testUser1", "testUser", "testUser@test.com");
         newUser.setId(1);
         newUser.setRoles(Sets.newHashSet(new Role("USER")));
         Mockito.lenient().when(userDetailsService.saveUser(any(), anyString())).thenReturn(newUser);
