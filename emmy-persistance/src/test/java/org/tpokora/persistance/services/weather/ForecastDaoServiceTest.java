@@ -2,6 +2,7 @@ package org.tpokora.persistance.services.weather;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
@@ -12,6 +13,7 @@ import org.tpokora.persistance.common.utils.ForecastTestsHelper;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Disabled
 public class ForecastDaoServiceTest extends BaseServiceTest {
 
     @Autowired

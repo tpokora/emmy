@@ -1,9 +1,6 @@
 package org.tpokora.persistance.services.weather;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.persistance.entity.users.User;
 import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
@@ -13,6 +10,7 @@ import org.tpokora.persistance.services.BaseServiceTest;
 
 import java.util.List;
 
+@Disabled
 class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
 
     @Autowired

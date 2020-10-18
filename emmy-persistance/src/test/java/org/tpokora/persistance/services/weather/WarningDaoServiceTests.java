@@ -1,9 +1,6 @@
 package org.tpokora.persistance.services.weather;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.common.WarningStrings;
@@ -16,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@Disabled
 public class WarningDaoServiceTests extends BaseServiceTest {
 
     @Autowired
