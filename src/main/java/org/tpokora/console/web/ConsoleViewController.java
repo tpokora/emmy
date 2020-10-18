@@ -17,7 +17,7 @@ import org.tpokora.console.web.forms.AddLocationForm;
 import org.tpokora.console.web.forms.PropertyForm;
 import org.tpokora.persistance.entity.users.User;
 import org.tpokora.users.model.UserDetailsImpl;
-import org.tpokora.weather.dao.MonitoredCoordinatesDaoService;
+import org.tpokora.persistance.services.weather.MonitoredCoordinatesDaoService;
 import org.tpokora.domain.weather.Location;
 import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
 import org.tpokora.weather.properties.OpenCageDataProperties;

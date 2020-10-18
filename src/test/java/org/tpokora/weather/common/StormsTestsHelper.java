@@ -1,4 +1,4 @@
-package org.tpokora.weather.utils;
+package org.tpokora.weather.common;
 
 import org.tpokora.domain.weather.Period;
 import org.tpokora.domain.weather.Warning;

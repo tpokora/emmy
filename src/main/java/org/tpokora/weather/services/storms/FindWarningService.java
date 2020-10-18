@@ -7,7 +7,7 @@ import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.persistance.entity.weather.WarningEntity;
 import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.domain.weather.common.StormConstants;
-import org.tpokora.weather.dao.WarningDaoService;
+import org.tpokora.persistance.services.weather.WarningDaoService;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.Warning;
 import org.tpokora.weather.services.processor.WarningsSoapRequestProcessor;

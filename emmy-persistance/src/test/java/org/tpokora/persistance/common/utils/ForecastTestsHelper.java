@@ -1,4 +1,4 @@
-package org.tpokora.weather.utils;
+package org.tpokora.persistance.common.utils;
 
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;

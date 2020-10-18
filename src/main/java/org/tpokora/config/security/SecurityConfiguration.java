@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.tpokora.users.dao.UserRepository;
+import org.tpokora.persistance.repositories.users.UserRepository;
 
 import static org.tpokora.config.security.SecurityMatchers.*;
 

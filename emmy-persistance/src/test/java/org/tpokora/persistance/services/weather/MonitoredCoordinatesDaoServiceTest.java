@@ -1,15 +1,15 @@
-package org.tpokora.weather.dao;
+package org.tpokora.persistance.services.weather;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.tpokora.common.services.BaseServiceTest;
-import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
-import org.tpokora.persistance.repositories.weather.IMonitoredCoordinatesRepository;
-import org.tpokora.users.dao.UserRepository;
 import org.tpokora.persistance.entity.users.User;
+import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
+import org.tpokora.persistance.repositories.users.UserRepository;
+import org.tpokora.persistance.repositories.weather.IMonitoredCoordinatesRepository;
+import org.tpokora.persistance.services.BaseServiceTest;
 
 import java.util.List;
 

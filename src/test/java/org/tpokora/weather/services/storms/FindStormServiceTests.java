@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.weather.properties.StormProperties;
-import org.tpokora.weather.dao.StormDaoService;
+import org.tpokora.persistance.services.weather.StormDaoService;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.StormRequest;
 import org.tpokora.domain.weather.StormResponse;

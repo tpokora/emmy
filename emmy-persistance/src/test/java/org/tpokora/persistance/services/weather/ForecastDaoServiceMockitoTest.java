@@ -1,4 +1,4 @@
-package org.tpokora.weather.dao;
+package org.tpokora.persistance.services.weather;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.persistance.repositories.weather.IForecastRepository;
-import org.tpokora.weather.utils.ForecastTestsHelper;
+import org.tpokora.persistance.common.utils.ForecastTestsHelper;
 
 import java.util.Collections;
 import java.util.List;

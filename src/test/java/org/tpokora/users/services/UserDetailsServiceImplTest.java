@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.tpokora.common.services.BaseServiceTest;
-import org.tpokora.users.dao.RolesRepository;
-import org.tpokora.users.dao.UserRepository;
+import org.tpokora.persistance.repositories.users.RolesRepository;
+import org.tpokora.persistance.repositories.users.UserRepository;
 import org.tpokora.persistance.entity.users.Role;
 import org.tpokora.persistance.entity.users.User;
 

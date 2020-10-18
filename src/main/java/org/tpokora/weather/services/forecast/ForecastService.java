@@ -7,7 +7,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
-import org.tpokora.weather.dao.ForecastDaoService;
+import org.tpokora.persistance.services.weather.ForecastDaoService;
 import org.tpokora.weather.mapper.IJSONMapper;
 import org.tpokora.weather.mapper.OpenWeatherForecastMapper;
 import org.tpokora.domain.weather.Coordinates;

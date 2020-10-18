@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.tpokora.users.dao.UserRepository;
+import org.tpokora.persistance.repositories.users.UserRepository;
 import org.tpokora.persistance.entity.users.User;
 
 import java.util.List;

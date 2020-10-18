@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.tpokora.common.services.soap.SOAPService;
 import org.tpokora.weather.properties.StormProperties;
 import org.tpokora.domain.weather.common.StormConstants;
-import org.tpokora.weather.dao.StormDaoService;
+import org.tpokora.persistance.services.weather.StormDaoService;
 import org.tpokora.domain.weather.StormRequest;
 import org.tpokora.domain.weather.StormResponse;
 import org.tpokora.weather.services.processor.StormSoapRequestProcessor;

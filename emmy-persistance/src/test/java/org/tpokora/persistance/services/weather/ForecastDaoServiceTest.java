@@ -1,13 +1,13 @@
-package org.tpokora.weather.dao;
+package org.tpokora.persistance.services.weather;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.tpokora.common.services.BaseServiceTest;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.persistance.repositories.weather.IForecastRepository;
-import org.tpokora.weather.utils.ForecastTestsHelper;
+import org.tpokora.persistance.services.BaseServiceTest;
+import org.tpokora.persistance.common.utils.ForecastTestsHelper;
 
 import java.time.LocalDateTime;
 import java.util.List;

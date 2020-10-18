@@ -8,8 +8,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.tpokora.TestApplication;
 import org.tpokora.config.TestH2DatabaseConfiguration;
 import org.tpokora.config.security.SecurityConfiguration;
-import org.tpokora.users.dao.RolesRepository;
-import org.tpokora.users.dao.UserRepository;
+import org.tpokora.persistance.repositories.users.RolesRepository;
+import org.tpokora.persistance.repositories.users.UserRepository;
 import org.tpokora.persistance.entity.users.User;
 
 

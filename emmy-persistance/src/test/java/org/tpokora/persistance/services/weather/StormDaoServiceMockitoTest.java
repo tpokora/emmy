@@ -1,6 +1,5 @@
-package org.tpokora.weather.dao;
+package org.tpokora.persistance.services.weather;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -101,7 +100,7 @@ public class StormDaoServiceMockitoTest {
                 .build();
         Mockito.when(stormsRepository.saveAndFlush(any())).thenReturn(mockedStormEntity);
         StormEntity stormEntity = stormDaoService.saveStormResponse(STORM_REQUEST, STORM_RESPONSE);
-        Assert.assertEquals(mockedStormEntity.toString(), stormEntity.toString());
+        Assertions.assertEquals(mockedStormEntity.toString(), stormEntity.toString());
     }
 
     @Test
@@ -134,7 +133,7 @@ public class StormDaoServiceMockitoTest {
                 .thenReturn(Optional.of(mockedStormEntityFromDB));
         Mockito.when(stormsRepository.saveAndFlush(any())).thenReturn(mockedStormEntity);
         StormEntity stormEntity = stormDaoService.saveStormResponse(STORM_REQUEST, STORM_RESPONSE);
-        Assert.assertEquals(mockedStormEntity.toString(), stormEntity.toString());
+        Assertions.assertEquals(mockedStormEntity.toString(), stormEntity.toString());
     }
 
     @Test
@@ -155,7 +154,7 @@ public class StormDaoServiceMockitoTest {
                 .thenReturn(Optional.empty());
         Mockito.when(stormsRepository.saveAndFlush(any())).thenReturn(mockedStormEntity);
         StormEntity stormEntity = stormDaoService.saveStormResponse(STORM_REQUEST, STORM_RESPONSE);
-        Assert.assertEquals(mockedStormEntity.toString(), stormEntity.toString());
+        Assertions.assertEquals(mockedStormEntity.toString(), stormEntity.toString());
     }
 
     @Test
@@ -187,6 +186,6 @@ public class StormDaoServiceMockitoTest {
         Mockito.when(stormsRepository.findFirstByLongitudeAndLatitudeOrderByTimestampDesc(anyDouble(), anyDouble()))
                 .thenReturn(Optional.of(mockedStormEntityFromDB));
         StormEntity stormEntity = stormDaoService.saveStormResponse(STORM_REQUEST, STORM_RESPONSE);
-        Assert.assertEquals(mockedStormEntity.toString(), stormEntity.toString());
+        Assertions.assertEquals(mockedStormEntity.toString(), stormEntity.toString());
     }
 }

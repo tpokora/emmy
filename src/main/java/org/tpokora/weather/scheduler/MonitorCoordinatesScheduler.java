@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
-import org.tpokora.weather.dao.MonitoredCoordinatesDaoService;
+import org.tpokora.persistance.services.weather.MonitoredCoordinatesDaoService;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.StormRequest;
 import org.tpokora.weather.services.forecast.ForecastService;
