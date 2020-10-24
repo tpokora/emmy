@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
-import org.tpokora.config.properties.FirebaseProperties;
 import org.tpokora.weather.properties.StormProperties;
 
 @SpringBootApplication(scanBasePackages = { "org.tpokora" })
@@ -18,7 +17,7 @@ import org.tpokora.weather.properties.StormProperties;
 @EnableAsync
 @EnableJpaRepositories
 @EnableTransactionManagement
-@EnableConfigurationProperties({FirebaseProperties.class, StormProperties.class})
+@EnableConfigurationProperties({StormProperties.class})
 public class Application extends SpringBootServletInitializer {
 
     @Bean
