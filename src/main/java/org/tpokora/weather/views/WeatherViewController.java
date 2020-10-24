@@ -18,7 +18,7 @@ import org.tpokora.weather.services.storms.FindWarningService;
 import java.util.List;
 import java.util.Optional;
 
-import static org.tpokora.weather.views.WeatherViewConstants.*;
+import static org.tpokora.config.constants.WeatherViewConstants.*;
 
 @Controller
 public class WeatherViewController {

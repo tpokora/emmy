@@ -1,6 +1,5 @@
 package org.tpokora.auth.services;
 
-import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +19,9 @@ import org.tpokora.persistance.entity.users.Role;
 import org.tpokora.persistance.entity.users.User;
 import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.users.services.UserDetailsServiceImpl;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -52,7 +54,7 @@ public class AuthServiceTests extends BaseServiceTest {
     void testAuthServiceCreateNewUser() {
         User newUser = new User("testUser1", "testUser", "testUser@test.com");
         newUser.setId(1);
-        newUser.setRoles(Sets.newHashSet(new Role("USER")));
+        newUser.setRoles(Stream.of(new Role("USER")).collect(Collectors.toSet()));
         Mockito.lenient().when(userDetailsService.saveUser(any(), anyString())).thenReturn(newUser);
         UserDetails newUserDetails = this.authService.createNewUser(newUser);
         Assertions.assertEquals(newUser.getUsername(), newUserDetails.getUsername());

@@ -1,6 +1,5 @@
 package org.tpokora.weather.web;
 
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Api(value = "Weather")
 @RestController
 @RequestMapping(value = "/api/weather")
 public class WeatherAPIController {

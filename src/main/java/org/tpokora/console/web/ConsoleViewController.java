@@ -27,7 +27,7 @@ import org.tpokora.weather.services.location.OpenCageDataLocationService;
 import javax.validation.Valid;
 import java.util.Optional;
 
-import static org.tpokora.console.web.ConsoleViewConstants.*;
+import static org.tpokora.config.constants.ConsoleViewConstants.*;
 
 @Controller
 public class ConsoleViewController {

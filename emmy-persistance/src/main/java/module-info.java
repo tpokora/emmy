@@ -14,4 +14,5 @@ module emmy.persistance {
     exports org.tpokora.persistance.entity.weather;
 
     exports org.tpokora.persistance.repositories.weather;
+    exports org.tpokora.persistance.repositories.users;
 }

@@ -1,6 +1,6 @@
-package org.tpokora.users.views;
+package org.tpokora.config.constants;
 
-import static org.tpokora.common.CommonConstants.SLASH;
+import static org.tpokora.config.constants.CommonConstants.SLASH;
 
 public class UsersViewConstants {
 

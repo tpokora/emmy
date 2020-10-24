@@ -15,7 +15,7 @@ import org.tpokora.users.views.forms.RoleForm;
 import java.util.List;
 import java.util.Optional;
 
-import static org.tpokora.users.views.UsersViewConstants.*;
+import static org.tpokora.config.constants.UsersViewConstants.*;
 
 @Controller
 public class UsersViewController {

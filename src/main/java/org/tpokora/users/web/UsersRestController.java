@@ -1,7 +1,5 @@
 package org.tpokora.users.web;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.tpokora.persistance.entity.users.User;
 import java.util.List;
 
 @Profile("!nodb")
-@Api(value = "User controller", description = "User API")
 @RestController
 @RequestMapping(value = "/api/users")
 public class UsersRestController {
@@ -27,7 +24,6 @@ public class UsersRestController {
     @Autowired
     UserRepository userRepository;
 
-    @ApiOperation(value = "Get users", notes = "Returns all users")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> userList = userRepository.findAll();

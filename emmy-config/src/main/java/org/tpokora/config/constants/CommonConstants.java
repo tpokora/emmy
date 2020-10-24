@@ -1,4 +1,4 @@
-package org.tpokora.common;
+package org.tpokora.config.constants;
 
 public class CommonConstants {
 

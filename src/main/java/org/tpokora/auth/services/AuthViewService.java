@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.tpokora.config.constants.AuthConstants;
 import org.tpokora.persistance.entity.users.Role;
 import org.tpokora.persistance.entity.users.User;
 import org.tpokora.users.services.UserDetailsServiceImpl;
@@ -15,9 +16,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.tpokora.auth.AuthConstatns.SIGNIN_VIEW_TEMPLATE;
 import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
-import static org.tpokora.users.views.UsersViewConstants.ROLES_VIEW_TEMPLATE;
+import static org.tpokora.config.constants.UsersViewConstants.ROLES_VIEW_TEMPLATE;
 
 @Service
 public class AuthViewService {
@@ -36,7 +36,7 @@ public class AuthViewService {
 
     public String signInView(Model model) {
         model.addAttribute(USER_ATTRIBUTE, new User());
-        return SIGNIN_VIEW_TEMPLATE;
+        return AuthConstants.SIGNIN_VIEW_TEMPLATE;
     }
 
     public String rolesView(Model model) {
