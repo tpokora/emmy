@@ -13,7 +13,6 @@ import org.tpokora.persistance.common.utils.ForecastTestsHelper;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Disabled
 public class ForecastDaoServiceTest extends BaseServiceTest {
 
     @Autowired

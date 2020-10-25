@@ -10,7 +10,6 @@ import org.tpokora.persistance.services.BaseServiceTest;
 
 import java.util.List;
 
-@Disabled
 class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
 
     @Autowired

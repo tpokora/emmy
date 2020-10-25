@@ -1,15 +1,33 @@
 package org.tpokora.persistance.entity.rates;
 
-import org.tpokora.persistance.entity.common.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-public class RateEntity extends AbstractEntity {
+@Entity
+@Table(name="RATE")
+public class RateEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private int id;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "RATE_FROM")
     private String from;
+
+    @Column(name = "RATE_TO")
     private String to;
+
+    @Column(name = "VALUE")
     private Double value;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(name = "TIMESTAMP", nullable = false)
     private LocalDateTime timestamp;
 
     public RateEntity() {}
@@ -23,12 +41,20 @@ public class RateEntity extends AbstractEntity {
     }
 
     public RateEntity(Integer id, String name, String from, String to, Double value, LocalDateTime timestamp) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.from = from;
         this.to = to;
         this.value = value;
         this.timestamp = timestamp;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
