@@ -10,11 +10,12 @@ public class RateTests {
 
     @Test
     void testRate() {
-        String name = "XAU";
+        String name = "USDtoEUR";
         LocalDateTime timestamp = LocalDateTime.now();
         double value = 1924.5;
-        String currency = "USD";
-        Rate rate = new Rate(name, timestamp, value, currency);
+        String from = "USD";
+        String to = "EUR";
+        Rate rate = new Rate(name, timestamp, value, from, to);
 
         Assertions.assertEquals(expectedString(rate), rate.toString());
 
@@ -22,7 +23,8 @@ public class RateTests {
         rate.setName(name);
         rate.setTimestamp(timestamp);
         rate.setValue(value);
-        rate.setCurrency(currency);
+        rate.setFrom(from);
+        rate.setTo(to);
 
         Assertions.assertEquals(expectedString(rate), rate.toString());
     }
@@ -32,7 +34,8 @@ public class RateTests {
                 "name='" + rate.getName() + '\'' +
                 ", timestamp=" + DateUtils.parseDateToString(rate.getTimestamp()) +
                 ", value=" + rate.getValue() +
-                ", currency='" + rate.getCurrency() + '\'' +
+                ", from='" + rate.getFrom() + '\'' +
+                ", to='" + rate.getTo() + '\'' +
                 '}';;
 
         return expectedString;

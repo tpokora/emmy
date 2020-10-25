@@ -8,15 +8,17 @@ public class Rate {
     private String name;
     private LocalDateTime timestamp;
     private Double value;
-    private String currency;
+    private String from;
+    private String to;
 
     public Rate() { }
 
-    public Rate(String name, LocalDateTime timestamp, Double value, String currency) {
+    public Rate(String name, LocalDateTime timestamp, Double value, String from, String to) {
         this.name = name;
         this.timestamp = timestamp;
         this.value = value;
-        this.currency = currency;
+        this.from = from;
+        this.to = to;
     }
 
     public String getName() {
@@ -43,12 +45,20 @@ public class Rate {
         this.value = value;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getFrom() {
+        return from;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 
     @Override
@@ -57,7 +67,8 @@ public class Rate {
                 "name='" + name + '\'' +
                 ", timestamp=" + DateUtils.parseDateToString(timestamp) +
                 ", value=" + value +
-                ", currency='" + currency + '\'' +
+                ", from='" + from + '\'' +
+                ", to='" + to + '\'' +
                 '}';
     }
 }
