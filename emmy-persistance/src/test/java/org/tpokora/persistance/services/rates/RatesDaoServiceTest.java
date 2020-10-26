@@ -8,7 +8,10 @@ import org.tpokora.persistance.services.BaseServiceTest;
 
 import java.time.LocalDateTime;
 
-public class RateDaoServiceTest extends BaseServiceTest {
+public class RatesDaoServiceTest extends BaseServiceTest {
+
+    public static final String FROM = "from";
+    public static final String TO = "to";
 
     @Autowired
     private RatesRepository ratesRepository;
@@ -27,11 +30,22 @@ public class RateDaoServiceTest extends BaseServiceTest {
 
     @Test
     public void testSaveRate() {
-        LocalDateTime now = LocalDateTime.now();
-        RateEntity rateEntity = new RateEntity("name", "from", "to", 1.1, now);
+        RateEntity rateEntity = new RateEntity("name", FROM, TO, 1.1, LocalDateTime.now());
         RateEntity rateFromDB = saveRateEntity(rateEntity);
 
         assertRateEntity(rateEntity, rateFromDB);
+    }
+
+    @Test
+    public void testGetRatesDaysBeforeToday() {
+        RateEntity rateEntity = new RateEntity("name", FROM, TO, 1.1, LocalDateTime.now());
+        RateEntity pastRateEntity = new RateEntity("name", FROM, TO, 2.2, LocalDateTime.now().minusDays(10));
+
+        saveRateEntity(rateEntity);
+        saveRateEntity(pastRateEntity);
+
+        Assertions.assertEquals(1, ratesDaoService.getRatesDaysBeforeToday(FROM, TO, 4).size());
+        Assertions.assertEquals(2, ratesDaoService.getRatesDaysBeforeToday(FROM, TO, 12).size());
     }
 
     private RateEntity saveRateEntity(RateEntity rateEntity) {
