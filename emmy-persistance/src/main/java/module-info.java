@@ -1,6 +1,7 @@
 module emmy.persistance {
     requires emmy.common;
     requires emmy.domain;
+
     requires java.persistence;
     requires spring.data.jpa;
     requires spring.data.commons;
@@ -13,6 +14,9 @@ module emmy.persistance {
     exports org.tpokora.persistance.entity.users;
     exports org.tpokora.persistance.entity.weather;
 
+    // Temporary repositories export
     exports org.tpokora.persistance.repositories.weather;
     exports org.tpokora.persistance.repositories.users;
+
+    exports org.tpokora.persistance.services.rates;
 }
