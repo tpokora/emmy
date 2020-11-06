@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@ConfigurationProperties("")
+@ConfigurationProperties()
 public class StormProperties {
 
     public static final String KEY = "key";

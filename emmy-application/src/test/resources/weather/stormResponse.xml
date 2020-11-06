@@ -1,0 +1,16 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:ns1="https://burze.dzis.net/soap.php" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+                   SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <SOAP-ENV:Body>
+        <ns1:szukaj_burzyResponse>
+            <return xsi:type="ns1:MyComplexTypeBurza">
+                <liczba xsi:type="xsd:int">11</liczba>
+                <odleglosc xsi:type="xsd:float">117.4</odleglosc>
+                <kierunek xsi:type="xsd:string">E</kierunek>
+                <okres xsi:type="xsd:int">15</okres>
+            </return>
+        </ns1:szukaj_burzyResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
