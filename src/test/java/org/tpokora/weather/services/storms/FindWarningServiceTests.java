@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.tpokora.services.weather.storms.FindWarningService;
 import org.tpokora.weather.common.StormsTestsHelper;
 import org.tpokora.services.weather.properties.StormProperties;
 import org.tpokora.persistance.services.weather.WarningDaoService;

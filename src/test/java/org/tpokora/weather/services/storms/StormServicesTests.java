@@ -1,19 +1,20 @@
 package org.tpokora.weather.services.storms;
 
 import org.mockito.Mock;
-import org.tpokora.common.soap.SOAPService;
+import org.tpokora.services.soap.SOAPService;
+import org.tpokora.services.weather.processor.StormProcessorStrings;
 import org.tpokora.services.weather.properties.StormProperties;
 import org.tpokora.domain.weather.common.StormConstants;
 import org.tpokora.domain.weather.Location;
 import org.tpokora.domain.weather.StormResponse;
 import org.tpokora.domain.weather.Warning;
-import org.tpokora.weather.services.processor.StormProcessorStrings;
 
 import javax.xml.soap.*;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.tpokora.weather.services.processor.StormProcessorStrings.*;
+import static org.tpokora.services.weather.processor.StormProcessorStrings.*;
+
 
 abstract public class StormServicesTests {
 
