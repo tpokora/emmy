@@ -7,14 +7,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.tpokora.services.weather.storms.FindWarningService;
+import org.tpokora.application.weather.storms.FindWarningService;
 import org.tpokora.weather.common.StormsTestsHelper;
-import org.tpokora.services.weather.properties.StormProperties;
+import org.tpokora.application.weather.properties.StormProperties;
 import org.tpokora.persistance.services.weather.WarningDaoService;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.Period;
 import org.tpokora.domain.weather.Warning;
-import org.tpokora.services.weather.model.WarningResolver;
+import org.tpokora.application.weather.model.WarningResolver;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;

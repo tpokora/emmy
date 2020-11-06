@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.tpokora.domain.weather.Period;
 import org.tpokora.domain.weather.Warning;
 import org.tpokora.domain.weather.common.WarningStrings;
-import org.tpokora.services.soap.SOAPService;
-import org.tpokora.services.weather.processor.WarningsSoapResponseProcessor;
+import org.tpokora.application.soap.SOAPService;
+import org.tpokora.application.weather.processor.WarningsSoapResponseProcessor;
 
 import javax.xml.soap.*;
 import java.util.HashMap;

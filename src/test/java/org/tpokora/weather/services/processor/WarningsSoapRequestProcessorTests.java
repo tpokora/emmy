@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.tpokora.services.weather.processor.WarningsSoapRequestProcessor;
-import org.tpokora.services.weather.properties.StormProperties;
+import org.tpokora.application.weather.processor.WarningsSoapRequestProcessor;
+import org.tpokora.application.weather.properties.StormProperties;
 import org.tpokora.weather.StormsTestsConstants;
 import org.tpokora.domain.weather.Coordinates;
 

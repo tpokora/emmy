@@ -5,13 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tpokora.domain.weather.StormResponse;
-import org.tpokora.services.soap.SOAPService;
-import org.tpokora.services.weather.processor.StormSoapResponseProcessor;
+import org.tpokora.application.soap.SOAPService;
+import org.tpokora.application.weather.processor.StormSoapResponseProcessor;
 
 import javax.xml.soap.*;
 import java.util.HashMap;
 
-import static org.tpokora.services.weather.processor.StormProcessorStrings.*;
+import static org.tpokora.application.weather.processor.StormProcessorStrings.*;
 
 
 public class StormSoapResponseProcessorTests {

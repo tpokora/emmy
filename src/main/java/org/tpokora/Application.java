@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
-import org.tpokora.services.weather.properties.StormProperties;
+import org.tpokora.application.weather.properties.StormProperties;
 
 @SpringBootApplication(scanBasePackages = { "org.tpokora" })
 @EnableScheduling

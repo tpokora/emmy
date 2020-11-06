@@ -10,6 +10,6 @@ module emmy.application {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 
-    exports org.tpokora.services.rates;
-    exports org.tpokora.services.weather.storms;
+    exports org.tpokora.application.rates;
+    exports org.tpokora.application.weather.storms;
 }

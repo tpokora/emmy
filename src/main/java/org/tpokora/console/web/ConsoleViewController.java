@@ -20,9 +20,9 @@ import org.tpokora.users.model.UserDetailsImpl;
 import org.tpokora.persistance.services.weather.MonitoredCoordinatesDaoService;
 import org.tpokora.domain.weather.Location;
 import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
-import org.tpokora.services.weather.properties.OpenCageDataProperties;
-import org.tpokora.services.weather.location.ILocationService;
-import org.tpokora.services.weather.location.OpenCageDataLocationService;
+import org.tpokora.application.weather.properties.OpenCageDataProperties;
+import org.tpokora.application.weather.location.ILocationService;
+import org.tpokora.application.weather.location.OpenCageDataLocationService;
 
 import javax.validation.Valid;
 import java.util.Optional;

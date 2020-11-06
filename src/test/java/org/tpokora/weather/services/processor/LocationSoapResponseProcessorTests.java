@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tpokora.domain.weather.Location;
-import org.tpokora.services.soap.SOAPService;
-import org.tpokora.services.weather.processor.LocationSoapResponseProcessor;
+import org.tpokora.application.soap.SOAPService;
+import org.tpokora.application.weather.processor.LocationSoapResponseProcessor;
 
 import javax.xml.soap.*;
 import java.util.HashMap;

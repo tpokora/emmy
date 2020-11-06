@@ -7,9 +7,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.tpokora.services.weather.properties.StormProperties;
+import org.tpokora.application.weather.properties.StormProperties;
 import org.tpokora.domain.weather.Location;
-import org.tpokora.services.weather.storms.FindCityService;
+import org.tpokora.application.weather.storms.FindCityService;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;

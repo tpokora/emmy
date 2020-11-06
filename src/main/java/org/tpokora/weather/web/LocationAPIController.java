@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.domain.weather.Location;
-import org.tpokora.services.weather.properties.OpenCageDataProperties;
-import org.tpokora.services.weather.location.ILocationService;
-import org.tpokora.services.weather.location.OpenCageDataLocationService;
+import org.tpokora.application.weather.properties.OpenCageDataProperties;
+import org.tpokora.application.weather.location.ILocationService;
+import org.tpokora.application.weather.location.OpenCageDataLocationService;
 
 import java.util.Optional;
 
