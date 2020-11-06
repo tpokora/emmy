@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.persistance.services.weather.ForecastDaoService;
-import org.tpokora.weather.services.forecast.ForecastService;
+import org.tpokora.services.weather.forecast.ForecastService;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

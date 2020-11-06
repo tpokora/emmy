@@ -18,7 +18,8 @@ import org.tpokora.common.utils.FileReaderUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.persistance.services.weather.ForecastDaoService;
 import org.tpokora.domain.weather.Coordinates;
-import org.tpokora.weather.properties.OpenWeatherProperties;
+import org.tpokora.services.weather.forecast.ForecastService;
+import org.tpokora.services.weather.properties.OpenWeatherProperties;
 
 import java.util.Optional;
 

@@ -1,8 +1,8 @@
 package org.tpokora.weather.services.storms;
 
 import org.mockito.Mock;
-import org.tpokora.common.services.soap.SOAPService;
-import org.tpokora.weather.properties.StormProperties;
+import org.tpokora.common.soap.SOAPService;
+import org.tpokora.services.weather.properties.StormProperties;
 import org.tpokora.domain.weather.common.StormConstants;
 import org.tpokora.domain.weather.Location;
 import org.tpokora.domain.weather.StormResponse;

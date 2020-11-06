@@ -3,6 +3,7 @@ package org.tpokora.weather.properties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.tpokora.services.weather.properties.StormProperties;
 
 class StormPropertiesTest extends PropertiesTests {
 

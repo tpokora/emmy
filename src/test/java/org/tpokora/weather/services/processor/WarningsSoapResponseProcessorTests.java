@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.tpokora.common.services.soap.SOAPService;
+import org.tpokora.common.soap.SOAPService;
 import org.tpokora.domain.weather.Period;
 import org.tpokora.domain.weather.Warning;
 import org.tpokora.domain.weather.common.WarningStrings;

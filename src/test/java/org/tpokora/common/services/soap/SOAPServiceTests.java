@@ -8,6 +8,7 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.tpokora.common.soap.SOAPService;
 
 import javax.xml.soap.*;
 import java.util.Map;

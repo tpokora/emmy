@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.tpokora.domain.weather.*;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
-import org.tpokora.weather.services.forecast.ForecastService;
-import org.tpokora.weather.services.location.OpenCageDataLocationService;
-import org.tpokora.weather.services.storms.FindCityService;
-import org.tpokora.weather.services.storms.FindStormService;
-import org.tpokora.weather.services.storms.FindWarningService;
+import org.tpokora.services.weather.forecast.ForecastService;
+import org.tpokora.services.weather.location.OpenCageDataLocationService;
+import org.tpokora.services.weather.storms.FindCityService;
+import org.tpokora.services.weather.storms.FindStormService;
+import org.tpokora.services.weather.storms.FindWarningService;
 
 import java.util.List;
 import java.util.Optional;

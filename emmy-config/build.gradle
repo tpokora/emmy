@@ -44,6 +44,7 @@ compileTestJava {
 }
 
 dependencies {
+    implementation project(":emmy-domain")
     implementation project(":emmy-persistance")
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.3.4.RELEASE'

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.tpokora.weather.properties.StormProperties;
+import org.tpokora.services.weather.properties.StormProperties;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
