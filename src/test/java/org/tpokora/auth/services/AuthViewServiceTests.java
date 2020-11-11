@@ -18,7 +18,7 @@ import org.tpokora.users.services.UserDetailsServiceImpl;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.tpokora.config.constants.AuthConstants.SIGNIN_VIEW_TEMPLATE;
-import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
+import static org.tpokora.application.home.views.HomeViewConstants.HOME_VIEW;
 import static org.tpokora.config.constants.UsersViewConstants.ROLES_VIEW_TEMPLATE;
 
 @ExtendWith(MockitoExtension.class)

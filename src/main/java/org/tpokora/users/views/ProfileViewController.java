@@ -20,7 +20,7 @@ import org.tpokora.users.views.forms.ModifyUsernameForm;
 
 import javax.validation.Valid;
 
-import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW_URL;
+import static org.tpokora.application.home.views.HomeViewConstants.HOME_VIEW_URL;
 import static org.tpokora.config.constants.UsersViewConstants.*;
 
 @Controller

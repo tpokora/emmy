@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
+import static org.tpokora.application.home.views.HomeViewConstants.HOME_VIEW;
 import static org.tpokora.config.constants.UsersViewConstants.ROLES_VIEW_TEMPLATE;
 
 @Service

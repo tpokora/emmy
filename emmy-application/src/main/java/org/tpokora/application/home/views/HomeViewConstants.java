@@ -1,4 +1,4 @@
-package org.tpokora.home.views;
+package org.tpokora.application.home.views;
 
 import static org.tpokora.config.constants.CommonConstants.SLASH;
 

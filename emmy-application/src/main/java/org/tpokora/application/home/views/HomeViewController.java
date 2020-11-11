@@ -1,4 +1,4 @@
-package org.tpokora.home.views;
+package org.tpokora.application.home.views;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import static org.tpokora.config.constants.CommonConstants.SLASH;
-import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW;
-import static org.tpokora.home.views.HomeViewConstants.HOME_VIEW_URL;
+import static org.tpokora.application.home.views.HomeViewConstants.HOME_VIEW;
+import static org.tpokora.application.home.views.HomeViewConstants.HOME_VIEW_URL;
 
 @Controller
 public class HomeViewController {
