@@ -1,4 +1,4 @@
-package org.tpokora.weather.web;
+package org.tpokora.application.weather.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

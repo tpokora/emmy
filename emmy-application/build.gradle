@@ -57,6 +57,7 @@ dependencies {
     implementation project(":emmy-common")
     implementation project(":emmy-domain")
     implementation project(":emmy-persistance")
+    implementation project(":emmy-config")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.sun.xml.messaging.saaj:saaj-impl:1.5.0'

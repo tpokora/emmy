@@ -1,6 +1,7 @@
 module emmy.application {
     requires emmy.common;
     requires emmy.persistance;
+    requires emmy.config;
 
     requires spring.context;
     requires java.xml;

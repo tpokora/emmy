@@ -1,4 +1,4 @@
-package org.tpokora.weather.web;
+package org.tpokora.application.weather.web;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.tpokora.config.TestH2DatabaseConfiguration;
+import org.tpokora.application.config.TestH2DatabaseConfiguration;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 
 import java.util.Collections;
