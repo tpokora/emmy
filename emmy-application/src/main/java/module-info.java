@@ -15,6 +15,10 @@ module emmy.application {
 
     requires org.apache.logging.log4j;
     requires spring.boot;
+    requires spring.tx;
+    requires java.persistence;
+    requires java.validation;
+    requires spring.beans;
 
     exports org.tpokora.application.rates;
     exports org.tpokora.application.weather.storms;
