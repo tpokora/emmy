@@ -1,6 +1,5 @@
 package org.tpokora.persistance.entity.weather;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.tpokora.common.utils.DateUtils;
 
 import javax.persistence.*;
@@ -57,7 +56,6 @@ public class ForecastEntity {
     @Column(name = "LATITUDE", nullable = false)
     private double latitude;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "TIMESTAMP", nullable = false)
     private LocalDateTime timestamp;
 

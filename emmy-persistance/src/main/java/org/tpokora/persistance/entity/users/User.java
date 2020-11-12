@@ -1,6 +1,5 @@
 package org.tpokora.persistance.entity.users;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
 
 import javax.persistence.*;
@@ -20,7 +19,6 @@ public class User {
     @Column(name = "USERNAME")
     private String username;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "PASSWORD")
     private String password;
 

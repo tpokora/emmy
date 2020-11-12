@@ -1,15 +1,14 @@
 module emmy.persistance {
     requires emmy.common;
-    requires transitive emmy.domain;
+    requires emmy.domain;
 
-    requires java.persistence;
     requires spring.data.jpa;
+    requires java.persistence;
     requires spring.data.commons;
-    requires com.fasterxml.jackson.annotation;
     requires spring.tx;
-    requires org.slf4j;
     requires spring.context;
-    requires java.sql;
+
+    requires org.slf4j;
 
     exports org.tpokora.persistance.entity.users;
     exports org.tpokora.persistance.entity.weather;

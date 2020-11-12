@@ -1,7 +1,5 @@
 package org.tpokora.persistance.entity.rates;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -26,7 +24,6 @@ public class RateEntity {
     @Column(name = "VALUE")
     private Double value;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Column(name = "TIMESTAMP", nullable = false)
     private LocalDateTime timestamp;
 
