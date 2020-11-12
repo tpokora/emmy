@@ -49,18 +49,23 @@ dependencies {
     implementation project(":emmy-common")
     implementation project(":emmy-domain")
 
-    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.4.1'
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.5.RELEASE') {
+        exclude group: 'jakarta.persistence', module: 'jakarta.persistence-api'
+    }
     implementation 'org.postgresql:postgresql:42.1.1'
     implementation 'org.slf4j:slf4j-api:1.7.29'
 
     // Tests dependencies
-    testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.1'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: "com.vaadin.external.google", module: "android-json"
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        exclude group: 'junit', module: 'junit'
+    }
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.4.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.4.2'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
     testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
+//    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.6.0'
 }
 

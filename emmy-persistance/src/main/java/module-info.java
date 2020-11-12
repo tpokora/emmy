@@ -3,10 +3,10 @@ module emmy.persistance {
     requires emmy.domain;
 
     requires spring.data.jpa;
-    requires java.persistence;
     requires spring.data.commons;
     requires spring.tx;
     requires spring.context;
+    requires hibernate.jpa;
 
     requires org.slf4j;
 
