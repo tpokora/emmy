@@ -7,9 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.tpokora.persistance.common.utils.ForecastTestsHelper;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.persistance.repositories.weather.IForecastRepository;
-import org.tpokora.persistance.common.utils.ForecastTestsHelper;
 
 import java.util.Collections;
 import java.util.List;
