@@ -1,6 +1,6 @@
 package org.tpokora.application.weather.services.storms;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,9 +14,6 @@ import org.tpokora.application.weather.storms.FindCityService;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
 public class FindLocationServiceTests extends StormServicesTests {
@@ -38,9 +35,9 @@ public class FindLocationServiceTests extends StormServicesTests {
         Mockito.when(stormProperties.getValue(StormProperties.KEY)).thenReturn(STORM_TEST_KEY);
         Mockito.when(soapService.sendSOAPMessage(ArgumentMatchers.any(), ArgumentMatchers.anyString())).thenReturn(response);
         Location location = findCityService.findCity(TEST_CITY);
-        Assert.assertEquals(EXPECTED_LOCATION.getName(), location.getName());
-        Assert.assertEquals(EXPECTED_LOCATION.getCoordinates().getLongitude(), location.getCoordinates().getLongitude());
-        Assert.assertEquals(EXPECTED_LOCATION.getCoordinates().getLatitude(), location.getCoordinates().getLatitude());
-        Assert.assertEquals(EXPECTED_LOCATION.toString(), location.toString());
+        Assertions.assertEquals(EXPECTED_LOCATION.getName(), location.getName());
+        Assertions.assertEquals(EXPECTED_LOCATION.getCoordinates().getLongitude(), location.getCoordinates().getLongitude());
+        Assertions.assertEquals(EXPECTED_LOCATION.getCoordinates().getLatitude(), location.getCoordinates().getLatitude());
+        Assertions.assertEquals(EXPECTED_LOCATION.toString(), location.toString());
     }
 }
