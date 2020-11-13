@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
@@ -35,7 +36,7 @@ public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
         JsonNode rootNode;
         try {
             rootNode = objectMapper.readTree(json);
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
             LOGGER.error("Error parsing JSON: {}", json);
             LOGGER.error(e.getMessage());
             return null;

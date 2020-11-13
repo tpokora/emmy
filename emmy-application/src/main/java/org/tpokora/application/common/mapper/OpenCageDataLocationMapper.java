@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.Location;
 
+import java.io.IOException;
+
 
 public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
 
@@ -19,7 +21,7 @@ public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
         JsonNode rootNode;
         try {
             rootNode = objectMapper.readTree(json);
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
             LOGGER.error("Error parsing JSON: {}", json);
             LOGGER.error(e.getMessage());
             return null;

@@ -16,12 +16,12 @@ module emmy.application {
     requires org.apache.logging.log4j;
     requires spring.boot;
     requires spring.tx;
-    requires java.persistence;
     requires java.validation;
     requires spring.beans;
     requires spring.data.jpa;
     requires spring.boot.autoconfigure;
-    requires org.apache.tomcat.embed.core;
+    requires emmy.domain;
+    requires tomcat.embed.core;
 
     exports org.tpokora.application;
     exports org.tpokora.application.rates;
