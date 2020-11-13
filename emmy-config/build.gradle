@@ -47,10 +47,11 @@ dependencies {
     implementation project(":emmy-domain")
     implementation project(":emmy-persistance")
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.3.4.RELEASE'
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.5.RELEASE') {
+        exclude group: 'jakarta.persistence', module: 'jakarta.persistence-api'
+    }
     implementation 'org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-security:2.3.4.RELEASE'
-    implementation 'javax.servlet:javax.servlet-api:4.0.1'
 
     testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2"
     testImplementation "org.junit.platform:junit-platform-runner:1.5.2"
