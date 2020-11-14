@@ -1,4 +1,4 @@
-module emmy.config {
+module org.tpokora.config {
     requires spring.context;
     requires spring.webmvc;
     requires spring.boot.autoconfigure;
@@ -10,7 +10,7 @@ module emmy.config {
     requires spring.security.core;
     requires spring.web;
 
-    requires emmy.persistance;
+    requires org.tpokora.persistance;
 
     exports org.tpokora.config.constants;
 }

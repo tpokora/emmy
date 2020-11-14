@@ -10,7 +10,6 @@ dependencyManagement {
     }
 }
 
-def moduleName = "emmy.config"
 
 version 'unspecified'
 
@@ -20,28 +19,29 @@ repositories {
     maven { url 'https://repo.spring.io/snapshot' }
 }
 
-compileJava {
-    inputs.property("moduleName", moduleName)
-    doFirst {
-        options.compilerArgs = [
-                '--module-path', classpath.asPath,
-        ]
-        classpath = files()
-    }
-}
-
-compileTestJava {
-    inputs.property("moduleName", moduleName)
-    doFirst {
-        options.compilerArgs = [
-                '--module-path', classpath.asPath,
-                '--add-modules', 'org.junit.jupiter.api',
-                '--add-reads', "$moduleName=org.junit.jupiter.api",
-                '--patch-module', "$moduleName=" + files(sourceSets.test.java.srcDirs).asPath,
-        ]
-        classpath = files()
-    }
-}
+//def moduleName = "emmy.config"
+//compileJava {
+//    inputs.property("moduleName", moduleName)
+//    doFirst {
+//        options.compilerArgs = [
+//                '--module-path', classpath.asPath,
+//        ]
+//        classpath = files()
+//    }
+//}
+//
+//compileTestJava {
+//    inputs.property("moduleName", moduleName)
+//    doFirst {
+//        options.compilerArgs = [
+//                '--module-path', classpath.asPath,
+//                '--add-modules', 'org.junit.jupiter.api',
+//                '--add-reads', "$moduleName=org.junit.jupiter.api",
+//                '--patch-module', "$moduleName=" + files(sourceSets.test.java.srcDirs).asPath,
+//        ]
+//        classpath = files()
+//    }
+//}
 
 dependencies {
     implementation project(":emmy-domain")
@@ -60,3 +60,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+ext.moduleName = 'org.tpokora.config'

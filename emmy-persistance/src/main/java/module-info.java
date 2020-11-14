@@ -1,6 +1,6 @@
-module emmy.persistance {
-    requires emmy.common;
-    requires emmy.domain;
+module org.tpokora.persistance {
+    requires org.tpokora.common;
+    requires org.tpokora.domain;
 
     requires spring.data.jpa;
     requires spring.data.commons;

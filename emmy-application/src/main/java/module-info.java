@@ -1,7 +1,8 @@
-module emmy.application {
-    requires emmy.common;
-    requires emmy.persistance;
-    requires emmy.config;
+module org.tpokora.application {
+    requires org.tpokora.common;
+    requires org.tpokora.persistance;
+    requires org.tpokora.config;
+    requires org.tpokora.domain;
 
     requires spring.context;
     requires java.xml;
@@ -21,7 +22,6 @@ module emmy.application {
     requires spring.beans;
     requires spring.data.jpa;
     requires spring.boot.autoconfigure;
-    requires emmy.domain;
     requires tomcat.embed.core;
     requires hibernate.jpa;
     requires spring.webmvc;
