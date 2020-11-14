@@ -47,6 +47,9 @@ compileTestJava {
 sourceCompatibility = 11.0
 targetCompatibility = 11.0
 
+def bootstrapVersion = '4.5.0'
+def jqueryVersion = '3.5.0'
+
 def junitVersion = '5.7.0'
 def mockitoVersion = '3.5.0'
 
@@ -75,6 +78,9 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.29'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation group: 'org.webjars', name: 'bootstrap', version: "${bootstrapVersion}"
+    implementation group: 'org.webjars', name: 'jquery', version: "${jqueryVersion}"
 
     testImplementation project(":emmy-persistance")
 
