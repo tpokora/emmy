@@ -1,4 +1,4 @@
-package org.tpokora.application.console.model.entity;
+package org.tpokora.persistance.entity.console;
 
 import javax.persistence.*;
 

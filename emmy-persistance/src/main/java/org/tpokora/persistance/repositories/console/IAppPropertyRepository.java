@@ -1,7 +1,7 @@
-package org.tpokora.application.console.dao;
+package org.tpokora.persistance.repositories.console;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.tpokora.application.console.model.entity.AppPropertyEntity;
+import org.tpokora.persistance.entity.console.AppPropertyEntity;
 
 import java.util.Optional;
 

@@ -1,9 +1,10 @@
-package org.tpokora.application.console.dao;
+package org.tpokora.persistance.services.console;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.tpokora.application.console.model.entity.AppPropertyEntity;
+import org.tpokora.persistance.entity.console.AppPropertyEntity;
+import org.tpokora.persistance.repositories.console.IAppPropertyRepository;
 
 import java.util.List;
 import java.util.Optional;

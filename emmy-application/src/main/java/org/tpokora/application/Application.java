@@ -2,6 +2,7 @@ package org.tpokora.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +19,10 @@ import javax.servlet.ServletException;
 @SpringBootApplication(scanBasePackages = { "org.tpokora" })
 @EnableScheduling
 @EnableAsync
-@EnableJpaRepositories
 @EnableTransactionManagement
 @EnableConfigurationProperties({StormProperties.class})
+@EnableJpaRepositories("org.tpokora.persistance.repositories.*")
+@EntityScan("org.tpokora.persistance.entity.*")
 public class Application extends SpringBootServletInitializer {
 
     @Bean

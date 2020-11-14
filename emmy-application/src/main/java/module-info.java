@@ -12,6 +12,7 @@ module emmy.application {
     requires com.fasterxml.jackson.databind;
     requires spring.security.core;
     requires java.sql;
+    requires java.xml.bind;
 
     requires org.apache.logging.log4j;
     requires spring.boot;
@@ -22,6 +23,8 @@ module emmy.application {
     requires spring.boot.autoconfigure;
     requires emmy.domain;
     requires tomcat.embed.core;
+    requires hibernate.jpa;
+    requires spring.webmvc;
 
     exports org.tpokora.application;
     exports org.tpokora.application.rates;
