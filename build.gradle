@@ -7,16 +7,6 @@
 //}
 
 buildscript {
-//    bootRun {
-//        String activeProfile = System.properties['spring.profiles.active']
-//        systemProperty "spring.profiles.active", activeProfile
-//    }
-//
-//    bootJar {
-//        archivesBaseName = 'emmy'
-//        archiveVersion = '0.1.0'
-//    }
-
     repositories {
         mavenCentral()
         maven {
@@ -39,15 +29,6 @@ subprojects {
     apply plugin: "io.spring.dependency-management"
 
     sourceCompatibility = 1.11
-
-    configurations.all {
-        resolutionStrategy {
-//            failOnVersionConflict()
-
-            exclude module: 'logback-classic'
-            exclude module: 'spring-boot-starter-jetty'
-        }
-    }
 
     test {
         useJUnitPlatform()
