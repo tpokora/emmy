@@ -5,10 +5,9 @@
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
-//import org.tpokora.application.common.services.BaseServiceTest;
 //import org.tpokora.persistance.entity.console.AppPropertyEntity;
 //import org.tpokora.persistance.repositories.console.IAppPropertyRepository;
-//import org.tpokora.persistance.services.console.AppPropertyService;
+//import org.tpokora.persistance.services.BaseServiceTest;
 //
 //import java.util.Optional;
 //
