@@ -24,6 +24,9 @@ buildscript {
 group 'org.tpokora'
 version '1.0-SNAPSHOT'
 
+def junitVersion = '5.7.0'
+def mockitoVersion = '3.5.0'
+
 subprojects {
     apply plugin: "java"
     apply plugin: "io.spring.dependency-management"
@@ -55,8 +58,8 @@ subprojects {
     }
 
     dependencies {
-        testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2"
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+        testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
         testImplementation "org.junit.platform:junit-platform-runner:1.5.2"
     }
-
 }
