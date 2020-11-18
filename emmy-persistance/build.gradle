@@ -17,32 +17,7 @@ repositories {
     mavenCentral()
     maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://repo.spring.io/snapshot' }
-    maven { url 'https://repo.spring.io/plugins-release' }
 }
-
-//def moduleName = "emmy.persistance"
-//compileJava {
-//    inputs.property("moduleName", moduleName)
-//    doFirst {
-//        options.compilerArgs = [
-//                '--module-path', classpath.asPath,
-//        ]
-//        classpath = files()
-//    }
-//}
-//
-//compileTestJava {
-//    inputs.property("moduleName", moduleName)
-//    doFirst {
-//        options.compilerArgs = [
-//                '--module-path', classpath.asPath,
-//                '--add-modules', 'org.junit.jupiter.api',
-//                '--add-reads', "$moduleName=org.junit.jupiter.api",
-//                '--patch-module', "$moduleName=" + files(sourceSets.test.java.srcDirs).asPath,
-//        ]
-//        classpath = files()
-//    }
-//}
 
 
 dependencies {
@@ -69,10 +44,6 @@ dependencies {
     testImplementation 'com.h2database:h2:1.4.199'
     testImplementation 'org.mockito:mockito-core:2.23.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
-}
-
-test {
-    useJUnitPlatform()
 }
 
 ext.moduleName = 'org.tpokora.persistance'

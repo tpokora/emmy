@@ -36,6 +36,9 @@ subprojects {
 
     repositories {
         mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        maven { url 'https://repo.spring.io/plugins-release' }
     }
 
     // required for modules
@@ -49,6 +52,11 @@ subprojects {
                 classpath = files()
             }
         }
+    }
+
+    dependencies {
+        testImplementation "org.junit.jupiter:junit-jupiter-engine:5.5.2"
+        testImplementation "org.junit.platform:junit-platform-runner:1.5.2"
     }
 
 }
