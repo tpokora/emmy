@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Home</title>
+    <script th:src="@{/webjars/jquery/3.5.0/jquery.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/common.css}"/>
+</head>
+<body>
+<div th:replace="common/navigation :: navigation"></div>
+<main role="main" class="container">
+    <div class="jumbotron">
+        <p>
+        <h1>Weather</h1>
+        <div th:if="${error != ''}">
+            <div th:text="${error}" class="alert alert-danger" role="alert"></div>
+        </div>
+        </p>
+        <hr/>
+        <div>
+            <h3>Find Location</h3>
+            <form th:object="${location}" th:action="@{/weather/find-location}" method="get">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="locationName" class="sr-only">City</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="locationName" placeholder="Location name">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Find location</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container" th:if="${coordinates.longitude != 0.0 && coordinates.latitude != 0.0}">
+            <div class="row text-success">>> Longitude: <b class="value" th:text=" ${coordinates.longitude}"></b></div>
+            <div class="row text-success">>> Latitude: <b class="value" th:text=" ${coordinates.latitude}"></b></div>
+        </div>
+        <hr />
+        <div>
+            <h3>Forecast:</h3>
+            <form th:object="${coordinates}" th:action="@{/weather/find-forecast}" method="get">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="locationName" class="sr-only">Longitude</label>
+                        <input type="text" class="form-control" th:field="*{longitude}" id="forecastLon">
+                        <small class="form-text text-muted">Longitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="locationName" class="sr-only">Latitude</label>
+                        <input type="text" class="form-control" th:field="*{latitude}" id="forecastLat">
+                        <small class="form-text text-muted">Latitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Get forecast</button>
+                    </div>
+                </div>
+            </form>
+            <div class="container" th:if="${forecast != null}">
+                <div class="row text-success">>> Forecast: <b class="value" th:text="${forecast.name}"></b>, <b class="value" th:text="${forecast.description}"></b></div>
+                <div class="row text-success">>> Location: <b class="value" th:text="${forecast.location}"></b></div>
+                <div class="row text-success">>> Temperature: <b class="value" th:text="${forecast.temp}"></b> C, feels like: <b class="value" th:text="${forecast.feelTemp}"></b> C</div>
+                <div class="row text-success">>> Minimum temperature: <b class="value" th:text="${forecast.minTemp}"></b> C, Maximum temperature: <b class="value" th:text="${forecast.maxTemp}"></b> C</div>
+                <div class="row text-success">>> Rain in 1h: <b class="value" th:text="${forecast.rain1h}"></b> mm, Rain in 3h: <b class="value" th:text="${forecast.rain3h}"></b> mm</div>
+                <div class="row text-success">>> Pressure: <b class="value" th:text="${forecast.pressure}"></b>  hPa, Humidity: <b class="value" th:text="${forecast.humidity}"></b>%, Wind: <b class="value" th:text="${forecast.wind}"></b> km/h</div>
+            </div>
+        </div>
+        <hr />
+        <div>
+            <h3>Find Storm</h3>
+            <form th:object="${stormRequest}" th:action="@{/weather/find-storm}" method="get">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="stormLon" class="sr-only">Longitude</label>
+                        <input type="text" class="form-control" th:field="*{longitude}" id="stormLon" />
+                        <small class="form-text text-muted">Longitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="stormLat" class="sr-only">Latitude</label>
+                        <input type="text" class="form-control" th:field="*{latitude}" id="stormLat" />
+                        <small class="form-text text-muted">Latitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="distance" class="sr-only">Distance</label>
+                        <input type="text" class="form-control" th:field="*{distance}" id="distance" placeholder="Distance in km">
+                        <small class="form-text text-muted">Distance in km</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="distance" class="sr-only">Distance</label>
+                        <input type="text" class="form-control" th:field="*{time}" id="time" placeholder="Time in minutes">
+                        <small class="form-text text-muted">Time in minutes</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Find storm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container" th:if="${stormResponse != null}">
+            <div class="row text-success">>> Lightning strikes amount: <b class="value" th:text="${stormResponse.amount}"></b> in radius: <b class="value" th:text="${stormRequest.distance}"></b> km in last: <b class="value" th:text="${stormResponse.time}"></b> minutes</div>
+            <div class="row text-success">>> Closest lightning strike: <b class="value" th:text="${stormResponse.distance}"></b> km in direction: <b class="value" th:text="${stormResponse.direction}"></b></div>
+        </div>
+        <hr />
+        <div>
+            <h3>Find weather warnings:</h3>
+            <form th:object="${coordinates}" th:action="@{/weather/find-warnings}" method="get">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="locationName" class="sr-only">Longitude</label>
+                        <input type="text" class="form-control" th:field="*{longitude}" id="warningsLon">
+                        <small class="form-text text-muted">Longitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="locationName" class="sr-only">Latitude</label>
+                        <input type="text" class="form-control" th:field="*{latitude}" id="warningsLat">
+                        <small class="form-text text-muted">Latitude</small>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Find warnings</button>
+                    </div>
+                </div>
+            </form>
+            <div th:if="${warnings != null}">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item dark-background" th:each="warning : ${warnings}">
+                        <div class="alert" th:classappend="${warning.level > 1} ? alert-danger : alert-warning" role="alert">
+                            <h4 class="alert-heading">Warning : <span th:text="${warning.name}"></span></h4>
+                            <p>Level : <span th:text="${warning.level}"></span></p>
+                            <hr>
+                            <p class="mb-0">From : <span th:text="${warning.period.from}"></span></p>
+                            <p class="mb-0">To : <span th:text="${warning.period.to}"></span></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+<script>
+                $('#forecastBtn').click(function() {
+                    var longitude = document.getElementById("forecastLon").value;
+                    var latitude = document.getElementById("forecastLat").value;
+                    console.log("Longitude: " + longitude);
+                    console.log("Latitude: " + latitude);
+                    $.ajax({
+                        url: "http://localhost:8080/weather/api/getForecast?longitude=" + longitude + "&latitude=" + latitude,
+                        success : function(response) {
+                                console.log(response);
+                        },
+                        error : function() {
+                            console.log("Connection Error");
+                        }
+                    });
+                });
+</script>
+</html>

@@ -14,8 +14,9 @@ module org.tpokora.persistance {
     exports org.tpokora.persistance.entity.weather;
     exports org.tpokora.persistance.entity.console;
 
+    exports org.tpokora.persistance.repositories.users;
+
     exports org.tpokora.persistance.services.rates;
     exports org.tpokora.persistance.services.weather;
     exports org.tpokora.persistance.services.console;
-    exports org.tpokora.persistance.repositories.users;
 }

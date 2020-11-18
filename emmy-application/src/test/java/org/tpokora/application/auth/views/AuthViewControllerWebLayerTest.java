@@ -20,9 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 // TODO: Fix WebLayerTest
-//@WebMvcTest(AuthViewController.class)
-//@TestPropertySource(locations = {"classpath:application-test.properties", "classpath:application-db-test.properties"})
-//@Import(TestH2DatabaseConfiguration.class)
+@WebMvcTest(AuthViewController.class)
+@TestPropertySource(locations = {"classpath:application-test.properties", "classpath:application-db-test.properties"})
+@Import(TestH2DatabaseConfiguration.class)
 class AuthViewControllerWebLayerTest {
 
     public static final String LOGIN = "login";
