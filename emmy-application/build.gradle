@@ -72,7 +72,7 @@ dependencies {
 //    testImplementation group: 'org.mockito', name: 'mockito-core', version: "${mockitoVersion}"
 //    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: "${mockitoVersion}"
 //    testImplementation('org.springframework.security:spring-security-test')
-//    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
+    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
 }
 
 ext.moduleName = 'org.tpokora.application'
