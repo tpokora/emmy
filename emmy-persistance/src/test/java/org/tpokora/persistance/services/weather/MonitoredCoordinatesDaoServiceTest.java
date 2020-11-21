@@ -59,7 +59,7 @@ class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
         Assertions.assertEquals(monitoredCoordinatesEntity.getUser().getId(), saved.getUser().getId());
     }
 
-    @Disabled
+    @Disabled("Fix test")
     @Test
     void testSaveTheSameCoordinates_fails() {
         MonitoredCoordinatesEntity monitoredCoordinatesEntity = new MonitoredCoordinatesEntity();
