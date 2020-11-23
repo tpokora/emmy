@@ -10,7 +10,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.tpokora.application.auth.services.AuthService;
 import org.tpokora.application.auth.services.AuthViewService;
-import org.tpokora.application.config.TestH2DatabaseConfiguration;
 import org.tpokora.application.users.services.UserDetailsServiceImpl;
 
 import static org.hamcrest.Matchers.containsString;
@@ -22,7 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 // TODO: Fix WebLayerTest
 @WebMvcTest(AuthViewController.class)
 @TestPropertySource(locations = {"classpath:application-test.properties", "classpath:application-db-test.properties"})
-@Import(TestH2DatabaseConfiguration.class)
 class AuthViewControllerWebLayerTest {
 
     public static final String LOGIN = "login";

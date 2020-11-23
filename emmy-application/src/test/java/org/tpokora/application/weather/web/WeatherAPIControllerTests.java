@@ -3,33 +3,33 @@ package org.tpokora.application.weather.web;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.tpokora.application.config.TestH2DatabaseConfiguration;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 
 import java.util.Collections;
 import java.util.List;
 
+import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.core.Is.is;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(WeatherAPIController.class)
-@ContextConfiguration(classes = TestH2DatabaseConfiguration.class)
 @TestPropertySource(locations = {"classpath:application-test.properties", "classpath:application-db-test.properties"})
+@EnableAutoConfiguration(exclude = JpaRepositoriesAutoConfiguration.class)
 public class WeatherAPIControllerTests {
 
     @Autowired
