@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = { "classpath:application-test.properties", "classpath:application-db-test.properties" })
 @EnableJpaRepositories("org.tpokora.persistance.repositories")
-@EntityScan("org.tpokora.persistance.entity.*")
+@EntityScan("org.tpokora.persistance.entity")
 @EnableAutoConfiguration(exclude = JpaRepositoriesAutoConfiguration.class)
 public class TestApplication {
 
