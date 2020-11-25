@@ -1,5 +1,6 @@
 package org.tpokora.persistance.entity.weather;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,5 +54,10 @@ public class WarningEntityTest {
                 '}';
 
         Assertions.assertEquals(expectedWarningString, warningEntity.toString());
+
+        warningEntity.addCoordinates(coordinates);
+        Assert.assertEquals(0, Double.compare(warningEntity.getLatitude(), coordinates.getLatitude()));
+        Assert.assertEquals(0, Double.compare(warningEntity.getLongitude(), coordinates.getLongitude()));
+
     }
 }
