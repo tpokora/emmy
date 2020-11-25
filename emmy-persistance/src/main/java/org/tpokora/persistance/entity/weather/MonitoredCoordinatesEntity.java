@@ -1,6 +1,5 @@
 package org.tpokora.persistance.entity.weather;
 
-import org.tpokora.persistance.entity.common.AbstractEntity;
 import org.tpokora.domain.weather.Location;
 import org.tpokora.persistance.entity.users.User;
 
@@ -11,8 +10,12 @@ import javax.persistence.*;
     uniqueConstraints =
         @UniqueConstraint(columnNames = { "LONGITUDE", "LATITUDE", "user_id"})
 )
-public class MonitoredCoordinatesEntity extends AbstractEntity {
+public class MonitoredCoordinatesEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private int id;
     @Column(name = "LOCATION_NAME")
     private String locationName;
     @Column(name = "LONGITUDE", nullable = false)
@@ -37,6 +40,14 @@ public class MonitoredCoordinatesEntity extends AbstractEntity {
         longitudeDM = location.getCoordinates().getLongitudeDM();
         latitudeDM = location.getCoordinates().getLatitudeDM();
         this.user = user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLocationName() {
