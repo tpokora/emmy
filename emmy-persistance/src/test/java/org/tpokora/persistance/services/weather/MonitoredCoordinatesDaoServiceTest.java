@@ -5,6 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.tpokora.persistance.entity.users.User;
 import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
 import org.tpokora.persistance.repositories.users.UserRepository;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
 class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
 
     @Autowired
@@ -59,7 +62,6 @@ class MonitoredCoordinatesDaoServiceTest extends BaseServiceTest {
         Assertions.assertEquals(monitoredCoordinatesEntity.getUser().getId(), saved.getUser().getId());
     }
 
-    @Disabled("Fix test")
     @Test
     void testSaveTheSameCoordinates_fails() {
         MonitoredCoordinatesEntity monitoredCoordinatesEntity = new MonitoredCoordinatesEntity();
