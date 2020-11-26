@@ -208,4 +208,128 @@ public class ForecastEntity {
                 ", timestamp=" + DateUtils.parseDateToString(timestamp) +
                 '}';
     }
+
+    public static Builder builder() { return new Builder(); }
+
+    public static final class Builder {
+        private int id;
+        private String location;
+        private String name;
+        private String description;
+        private double temp;
+        private double feelTemp;
+        private double minTemp;
+        private double maxTemp;
+        private int pressure;
+        private int humidity;
+        private double wind;
+        private double rain1h;
+        private double rain3h;
+        private double longitude;
+        private double latitude;
+        private LocalDateTime timestamp;
+
+        public Builder id(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder location(String location) {
+            this.location = location;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.name = description;
+            return this;
+        }
+
+        public Builder temp(double temp) {
+            this.temp = temp;
+            return this;
+        }
+
+        public Builder feelTemp(double feelTemp) {
+            this.feelTemp = feelTemp;
+            return this;
+        }
+
+        public Builder minTemp(double minTemp) {
+            this.minTemp = minTemp;
+            return this;
+        }
+
+        public Builder maxTemp(double maxTemp) {
+            this.maxTemp = maxTemp;
+            return this;
+        }
+
+        public Builder pressure(int pressure) {
+            this.pressure = pressure;
+            return this;
+        }
+
+        public Builder humidity(int humidity) {
+            this.humidity = humidity;
+            return this;
+        }
+
+        public Builder wind(double wind) {
+            this.wind = wind;
+            return this;
+        }
+
+        public Builder rain1h(double rain1h) {
+            this.rain1h = wind;
+            return this;
+        }
+
+        public Builder rain3h(double rain3h) {
+            this.rain3h = rain3h;
+            return this;
+        }
+
+        public Builder longitude(double longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+        public Builder latitude(double latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+
+        public Builder timestamp(LocalDateTime timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
+        // Build using setters
+        public ForecastEntity build() {
+            ForecastEntity forecastEntity = new ForecastEntity();
+            forecastEntity.setId(this.id);
+            forecastEntity.setLocation(this.location);
+            forecastEntity.setName(this.name);
+            forecastEntity.setDescription(this.description);
+            forecastEntity.setTemp(this.temp);
+            forecastEntity.setFeelTemp(this.feelTemp);
+            forecastEntity.setMinTemp(this.minTemp);
+            forecastEntity.setMaxTemp(this.maxTemp);
+            forecastEntity.setPressure(this.pressure);
+            forecastEntity.setHumidity(this.humidity);
+            forecastEntity.setWind(this.wind);
+            forecastEntity.setRain1h(this.rain1h);
+            forecastEntity.setRain3h(this.rain3h);
+            forecastEntity.setLongitude(this.longitude);
+            forecastEntity.setLatitude(this.latitude);
+            forecastEntity.setTimestamp(this.timestamp);
+
+            return forecastEntity;
+        }
+    }
 }
