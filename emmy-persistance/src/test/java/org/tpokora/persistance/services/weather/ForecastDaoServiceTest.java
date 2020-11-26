@@ -1,5 +1,6 @@
 package org.tpokora.persistance.services.weather;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.tpokora.persistance.repositories.weather.IForecastRepository;
 import org.tpokora.persistance.services.BaseServiceTest;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
@@ -27,6 +29,11 @@ public class ForecastDaoServiceTest extends BaseServiceTest {
     @BeforeEach
     public void setup() {
         forecastDaoService = new ForecastDaoService(forecastRepository);
+    }
+
+    @AfterEach
+    public void teardown() {
+        forecastRepository.deleteAll();
     }
 
     @Test
@@ -50,4 +57,34 @@ public class ForecastDaoServiceTest extends BaseServiceTest {
         Assertions.assertEquals(2, allByCoordinates.size());
     }
 
+    @Test
+    void testFindAllByCoordinatesBetweenDates() {
+        LocalDateTime startDate = LocalDateTime.now().minusDays(10);
+        LocalDateTime endDate = LocalDateTime.now().minusDays(3);
+
+        ForecastEntity forecastEntityOne = ForecastTestsHelper.createForecast(LocalDateTime.now().minusDays(11));
+        ForecastEntity forecastEntityTwo = ForecastTestsHelper.createForecast(LocalDateTime.now().minusDays(8));
+        ForecastEntity forecastEntityThree = ForecastTestsHelper.createForecast(LocalDateTime.now().minusDays(5));
+        ForecastEntity forecastEntityFour = ForecastTestsHelper.createForecast(LocalDateTime.now().minusDays(1));
+
+        forecastRepository.saveAll(Arrays.asList(forecastEntityOne, forecastEntityTwo, forecastEntityThree, forecastEntityFour));
+
+        Assertions.assertEquals(2,
+                forecastDaoService.findAllByCoordinatesBetweenDates(11.11, 22.11, startDate, endDate).size());
+    }
+
+    @Test
+    void testFindAllByLocationBetweenDates() {
+        LocalDateTime startDate = LocalDateTime.now().minusDays(10);
+        LocalDateTime endDate = LocalDateTime.now().minusDays(3);
+
+        ForecastEntity forecastEntityOne = ForecastTestsHelper.createForecast(LocalDateTime.now().minusDays(11));
+        ForecastEntity forecastEntityTwo = ForecastTestsHelper.createForecast(LocalDateTime.now().minusDays(8));
+        ForecastEntity forecastEntityThree = ForecastTestsHelper.createForecast(LocalDateTime.now().minusDays(5));
+        ForecastEntity forecastEntityFour = ForecastTestsHelper.createForecast(LocalDateTime.now().minusDays(1));
+
+        forecastRepository.saveAll(Arrays.asList(forecastEntityOne, forecastEntityTwo, forecastEntityThree, forecastEntityFour));
+
+        Assertions.assertEquals(2, forecastDaoService.findAllByLocationBetweenDates("testLocation", startDate, endDate).size());
+    }
 }
