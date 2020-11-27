@@ -39,8 +39,6 @@ public class RatesService implements IRatesService {
         LOGGER.info(">>> Find rate from: {}, to: {} from date: {}", from, to, DateUtils.parseDateToString(localDateTime));
         HttpEntity request = new HttpEntity(setupHeaders());
 
-        localDateTime = localDateTime.minusMonths(7);
-        localDateTime = localDateTime.minusDays(20);
         ResponseEntity<String> responseEntity =
                 this.restTemplate.exchange(URL, HttpMethod.GET, request, String.class, getUriVariables(from, to, localDateTime));
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
