@@ -20,6 +20,16 @@ public class DateUtils {
         return parseDateToString(localDateTime, DATE_TIME);
     }
 
+    public static LocalDateTime parseStringToDate(String dateString) {
+        Objects.requireNonNull(dateString, "dateString String can't be null!");
+        return parseStringToDate(dateString, DATE_TIME);
+    }
+
+    public static LocalDateTime parseStringToDate(String dateString, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return LocalDateTime.parse(dateString, formatter);
+    }
+
     public static LocalDateTime getCurrentLocalDateTime() {
         LocalDateTime now = LocalDateTime.now();
         now = now.minusNanos(now.getNano());

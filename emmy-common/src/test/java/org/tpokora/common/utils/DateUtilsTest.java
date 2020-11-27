@@ -24,4 +24,16 @@ class DateUtilsTest {
         LocalDateTime futurePlus10Minutes = LocalDateTime.now().plusMinutes(minutes);
         Assertions.assertEquals(minutes, DateUtils.getMinuteDifference(futurePlus10Minutes, now));
     }
+
+    @Test
+    void testParseStringToDate() {
+        String stringDate = "2020-10-11 12:13:14";
+        LocalDateTime localDateTime = DateUtils.parseStringToDate(stringDate);
+        Assertions.assertEquals(2020, localDateTime.getYear());
+        Assertions.assertEquals(10, localDateTime.getMonthValue());
+        Assertions.assertEquals(11, localDateTime.getDayOfMonth());
+        Assertions.assertEquals(12, localDateTime.getHour());
+        Assertions.assertEquals(13, localDateTime.getMinute());
+        Assertions.assertEquals(14, localDateTime.getSecond());
+    }
 }

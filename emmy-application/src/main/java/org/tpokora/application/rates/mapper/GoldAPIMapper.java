@@ -10,10 +10,14 @@ import org.tpokora.persistance.entity.rates.RateEntity;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class GoldAPIMapper implements IJSONMapper<RateEntity> {
 
+    public static final String METAL = "metal";
+    public static final String CURRENCY = "currency";
+    public static final String PRICE = "price";
+    public static final String DATE = "date";
+    public static final String GOLDAPI_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     private final Logger LOGGER = LoggerFactory.getLogger(GoldAPIMapper.class);
 
     @Override
@@ -38,21 +42,20 @@ public class GoldAPIMapper implements IJSONMapper<RateEntity> {
     }
 
     private void setFrom(RateEntity rateEntity, JsonNode rootNode) {
-        rateEntity.setFrom(rootNode.get("metal").asText());
+        rateEntity.setFrom(rootNode.get(METAL).asText());
     }
 
     private void setTo(RateEntity rateEntity, JsonNode rootNode) {
-        rateEntity.setTo(rootNode.get("currency").asText());
+        rateEntity.setTo(rootNode.get(CURRENCY).asText());
     }
 
     private void setValue(RateEntity rateEntity, JsonNode rootNode) {
-        rateEntity.setValue(rootNode.get("price").asDouble());
+        rateEntity.setValue(rootNode.get(PRICE).asDouble());
     }
 
     private void setTimestamp(RateEntity rateEntity, JsonNode rootNode) {
-        String dateString = rootNode.get("date").asText();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        LocalDateTime localDateTime = LocalDateTime.parse(dateString, formatter);
+        String dateString = rootNode.get(DATE).asText();
+        LocalDateTime localDateTime = DateUtils.parseStringToDate(dateString, GOLDAPI_DATE_FORMAT);
         rateEntity.setTimestamp(localDateTime);
     }
 }
