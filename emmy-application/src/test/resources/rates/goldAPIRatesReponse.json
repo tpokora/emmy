@@ -1,0 +1,11 @@
+{
+  "date": "2020-10-09T09:30:00.000Z",
+  "timestamp": 1602235800000,
+  "metal": "XAU",
+  "exchange": "LBMA",
+  "currency": "USD",
+  "price": 1912.4,
+  "prev_close_price": 1891.35,
+  "ch": 21.05,
+  "chp": 1.1007
+}

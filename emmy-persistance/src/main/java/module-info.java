@@ -13,6 +13,7 @@ module org.tpokora.persistance {
     exports org.tpokora.persistance.entity.users;
     exports org.tpokora.persistance.entity.weather;
     exports org.tpokora.persistance.entity.console;
+    exports org.tpokora.persistance.entity.rates;
 
     exports org.tpokora.persistance.repositories.users;
 

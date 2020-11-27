@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.tpokora.application.common.utils.FileReaderUtils;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
-import org.tpokora.application.common.mapper.OpenWeatherForecastMapper;
 
 import java.time.LocalDateTime;
 

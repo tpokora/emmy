@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tpokora.application.common.utils.FileReaderUtils;
 import org.tpokora.domain.weather.Location;
-import org.tpokora.application.common.mapper.OpenCageDataLocationMapper;
 
 class OpenCageDataLocationMapperTest {
 

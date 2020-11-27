@@ -2,6 +2,7 @@ package org.tpokora.persistance.entity.rates;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.tpokora.common.utils.DateUtils;
 
 import java.time.LocalDateTime;
 
@@ -40,7 +41,7 @@ public class RateEntityTest {
                 ", from='" + rate.getFrom() + '\'' +
                 ", to='" + rate.getTo() + '\'' +
                 ", value=" + rate.getValue() +
-                ", timestamp=" + rate.getTimestamp() +
+                ", timestamp=" + DateUtils.parseDateToString(rate.getTimestamp()) +
                 ", id=" + rate.getId() +
                 '}';;
 

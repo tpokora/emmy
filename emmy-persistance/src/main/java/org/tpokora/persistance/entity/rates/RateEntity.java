@@ -1,5 +1,7 @@
 package org.tpokora.persistance.entity.rates;
 
+import org.tpokora.common.utils.DateUtils;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -101,7 +103,7 @@ public class RateEntity {
                 ", from='" + from + '\'' +
                 ", to='" + to + '\'' +
                 ", value=" + value +
-                ", timestamp=" + timestamp +
+                ", timestamp=" + DateUtils.parseDateToString(timestamp) +
                 ", id=" + id +
                 '}';
     }
