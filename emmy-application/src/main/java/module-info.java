@@ -27,6 +27,5 @@ module org.tpokora.application {
     requires spring.webmvc;
 
     exports org.tpokora.application;
-    exports org.tpokora.application.rates;
     exports org.tpokora.application.weather.storms;
 }
