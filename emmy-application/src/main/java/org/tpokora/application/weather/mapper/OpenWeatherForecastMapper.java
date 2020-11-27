@@ -1,14 +1,12 @@
 package org.tpokora.application.weather.mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.application.common.mapper.IJSONMapper;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 
-import java.io.IOException;
 import java.util.Optional;
 
 public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
@@ -32,23 +30,18 @@ public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
 
     @Override
     public ForecastEntity map(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode;
-        try {
-            rootNode = objectMapper.readTree(json);
-        } catch (IOException e) {
-            LOGGER.error("Error parsing JSON: {}", json);
-            LOGGER.error(e.getMessage());
-            return null;
+        Optional<JsonNode> optionalRootNode = getRootNode(LOGGER, json);
+        if (optionalRootNode.isPresent()) {
+            JsonNode rootNode = optionalRootNode.get();
+            ForecastEntity forecastEntity = new ForecastEntity();
+            setWeather(forecastEntity, rootNode);
+            setCoordinates(forecastEntity, rootNode);
+            setTemperature(forecastEntity, rootNode);
+            setRain(forecastEntity, rootNode);
+            setOther(forecastEntity, rootNode);
+            return forecastEntity;
         }
-
-        ForecastEntity forecastEntity = new ForecastEntity();
-        setWeather(forecastEntity, rootNode);
-        setCoordinates(forecastEntity, rootNode);
-        setTemperature(forecastEntity, rootNode);
-        setRain(forecastEntity, rootNode);
-        setOther(forecastEntity, rootNode);
-        return forecastEntity;
+        return null;
     }
 
     private void setWeather(ForecastEntity forecastEntity, JsonNode rootNode) {

@@ -1,15 +1,14 @@
 package org.tpokora.application.rates.mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.application.common.mapper.IJSONMapper;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class GoldAPIMapper implements IJSONMapper<RateEntity> {
 
@@ -22,23 +21,19 @@ public class GoldAPIMapper implements IJSONMapper<RateEntity> {
 
     @Override
     public RateEntity map(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode;
-        try {
-            rootNode = objectMapper.readTree(json);
-        } catch (IOException e) {
-            LOGGER.error("Error parsing JSON: {}", json);
-            LOGGER.error(e.getMessage());
-            return null;
-        }
+        Optional<JsonNode> optionalRootNode = getRootNode(LOGGER, json);
 
-        RateEntity rateEntity = new RateEntity();
-        rateEntity.setName("Gold API Rate");
-        setFrom(rateEntity, rootNode);
-        setTo(rateEntity, rootNode);
-        setValue(rateEntity, rootNode);
-        setTimestamp(rateEntity, rootNode);
-        return rateEntity;
+        if (optionalRootNode.isPresent()) {
+            JsonNode rootNode = optionalRootNode.get();
+            RateEntity rateEntity = new RateEntity();
+            rateEntity.setName("Gold API Rate");
+            setFrom(rateEntity, rootNode);
+            setTo(rateEntity, rootNode);
+            setValue(rateEntity, rootNode);
+            setTimestamp(rateEntity, rootNode);
+            return rateEntity;
+        }
+        return null;
     }
 
     private void setFrom(RateEntity rateEntity, JsonNode rootNode) {

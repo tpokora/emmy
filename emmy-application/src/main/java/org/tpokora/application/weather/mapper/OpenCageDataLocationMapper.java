@@ -1,14 +1,13 @@
 package org.tpokora.application.weather.mapper;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tpokora.application.common.mapper.IJSONMapper;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.Location;
 
-import java.io.IOException;
+import java.util.Optional;
 
 
 public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
@@ -17,19 +16,15 @@ public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
 
     @Override
     public Location map(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode;
-        try {
-            rootNode = objectMapper.readTree(json);
-        } catch (IOException e) {
-            LOGGER.error("Error parsing JSON: {}", json);
-            LOGGER.error(e.getMessage());
-            return null;
+        Optional<JsonNode> optionalRootNode = getRootNode(LOGGER, json);
+        if (optionalRootNode.isPresent()) {
+            JsonNode rootNode = optionalRootNode.get();
+            Location location = new Location();
+            setName(location, rootNode);
+            setCoordinates(location, rootNode);
+            return location;
         }
-        Location location = new Location();
-        setName(location, rootNode);
-        setCoordinates(location, rootNode);
-        return location;
+        return null;
     }
 
     private void setName(Location location, JsonNode rootNode) {
