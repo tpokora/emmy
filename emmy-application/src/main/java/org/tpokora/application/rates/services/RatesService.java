@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.common.mapper.IJSONMapper;
 import org.tpokora.application.rates.mapper.GoldAPIMapper;
+import org.tpokora.application.rates.properties.GoldAPIProperties;
+import org.tpokora.application.weather.properties.OpenWeatherProperties;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 
@@ -26,11 +28,13 @@ public class RatesService implements IRatesService {
 
     private final RestTemplate restTemplate;
     private final IJSONMapper IJSONMapper;
+    private final GoldAPIProperties goldAPIProperties;
 
     public static final String URL = "https://www.goldapi.io/api/{from}/{to}/{date}";
 
-    public RatesService(RestTemplate restTemplate) {
+    public RatesService(RestTemplate restTemplate, GoldAPIProperties goldAPIProperties) {
         this.restTemplate = restTemplate;
+        this.goldAPIProperties = goldAPIProperties;
         IJSONMapper = new GoldAPIMapper();
     }
 
@@ -51,7 +55,7 @@ public class RatesService implements IRatesService {
 
     private HttpHeaders setupHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("x-access-token", "");
+        httpHeaders.set("x-access-token", goldAPIProperties.getValue(GoldAPIProperties.KEY));
         httpHeaders.set("Content-Type", "application/json");
 
         return httpHeaders;
