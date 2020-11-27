@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.rates.properties.GoldAPIProperties;
 import org.tpokora.application.rates.services.IRatesService;
-import org.tpokora.application.rates.services.RatesService;
+import org.tpokora.application.rates.services.GoldAPIRatesService;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 
@@ -34,7 +34,7 @@ public class RatesAPIController {
     public RatesAPIController(RestTemplate restTemplate, IRatesService ratesService, GoldAPIProperties goldAPIProperties) {
         this.restTemplate = restTemplate;
         this.goldAPIProperties = goldAPIProperties;
-        this.ratesService = new RatesService(restTemplate, goldAPIProperties);
+        this.ratesService = new GoldAPIRatesService(restTemplate, goldAPIProperties);
     }
 
     @GetMapping(value = "/getRate", produces = "application/json")

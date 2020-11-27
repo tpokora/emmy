@@ -4,12 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.common.mapper.IJSONMapper;
 import org.tpokora.application.rates.mapper.GoldAPIMapper;
 import org.tpokora.application.rates.properties.GoldAPIProperties;
-import org.tpokora.application.weather.properties.OpenWeatherProperties;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 
@@ -18,13 +16,13 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class RatesService implements IRatesService {
+public class GoldAPIRatesService implements IRatesService {
 
     public static final String FROM = "from";
     public static final String TO = "to";
     public static final String DATE = "date";
 
-    private final Logger LOGGER = LoggerFactory.getLogger(RatesService.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(GoldAPIRatesService.class);
 
     private final RestTemplate restTemplate;
     private final IJSONMapper IJSONMapper;
@@ -32,7 +30,7 @@ public class RatesService implements IRatesService {
 
     public static final String URL = "https://www.goldapi.io/api/{from}/{to}/{date}";
 
-    public RatesService(RestTemplate restTemplate, GoldAPIProperties goldAPIProperties) {
+    public GoldAPIRatesService(RestTemplate restTemplate, GoldAPIProperties goldAPIProperties) {
         this.restTemplate = restTemplate;
         this.goldAPIProperties = goldAPIProperties;
         IJSONMapper = new GoldAPIMapper();

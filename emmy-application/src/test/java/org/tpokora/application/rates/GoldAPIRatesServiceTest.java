@@ -6,12 +6,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
-import org.tpokora.application.rates.services.RatesService;
+import org.tpokora.application.rates.properties.GoldAPIProperties;
+import org.tpokora.application.rates.services.GoldAPIRatesService;
 
 import java.time.LocalDateTime;
 
 @ExtendWith(MockitoExtension.class)
-class RatesServiceTest {
+class GoldAPIRatesServiceTest {
 
     @Mock
     RestTemplate restTemplate;
@@ -19,7 +20,7 @@ class RatesServiceTest {
     @Disabled
     @Test
     void testFindRate() {
-        RatesService ratesService = new RatesService(restTemplate);
-        ratesService.findRate("XAU", "USD", LocalDateTime.now());
+        GoldAPIRatesService goldAPIRatesService = new GoldAPIRatesService(restTemplate, new GoldAPIProperties());
+        goldAPIRatesService.findRate("XAU", "USD", LocalDateTime.now());
     }
 }
