@@ -3,6 +3,7 @@ package org.tpokora.persistance.services.rates;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 import org.tpokora.persistance.repositories.rates.RatesRepository;
 
@@ -33,4 +34,16 @@ public class RatesDaoService {
         LOGGER.info(String.format(">>> Get rates %s before today", minusDays));
         return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetween(from, to, LocalDateTime.now().minusDays(minusDays), LocalDateTime.now());
     }
+
+    public List<RateEntity> getRatesForDate(String from, String to, LocalDateTime localDateTime) {
+        Objects.requireNonNull(from, "'from' can't be null!");
+        Objects.requireNonNull(to, "'to' can't be null!");
+        Objects.requireNonNull(localDateTime, "'localDateTime' can't be null!");
+        LOGGER.info(String.format(">>> Get rates %s from", DateUtils.parseDateToString(localDateTime)));
+        LocalDateTime startLocalDateTime = localDateTime.toLocalDate().atTime(0,0, 0);
+        LocalDateTime endLocalDateTime = localDateTime.toLocalDate().atTime(23, 59, 59);
+        return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetween(from, to, startLocalDateTime, endLocalDateTime);
+    }
+
+
 }

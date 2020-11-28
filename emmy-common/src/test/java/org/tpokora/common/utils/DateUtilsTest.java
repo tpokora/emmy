@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class DateUtilsTest {
 
     @Test
@@ -28,7 +26,7 @@ class DateUtilsTest {
     @Test
     void testParseStringToDate() {
         String stringDate = "2020-10-11 12:13:14";
-        LocalDateTime localDateTime = DateUtils.parseStringToDate(stringDate);
+        LocalDateTime localDateTime = DateUtils.parseStringToDateTime(stringDate);
         Assertions.assertEquals(2020, localDateTime.getYear());
         Assertions.assertEquals(10, localDateTime.getMonthValue());
         Assertions.assertEquals(11, localDateTime.getDayOfMonth());

@@ -8,6 +8,7 @@ import java.util.Objects;
 public class DateUtils {
 
     public final static String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    public final static String DATE = "yyyy-MM-dd";
 
     private DateUtils() {}
 
@@ -20,12 +21,12 @@ public class DateUtils {
         return parseDateToString(localDateTime, DATE_TIME);
     }
 
-    public static LocalDateTime parseStringToDate(String dateString) {
+    public static LocalDateTime parseStringToDateTime(String dateString) {
         Objects.requireNonNull(dateString, "dateString String can't be null!");
-        return parseStringToDate(dateString, DATE_TIME);
+        return parseStringToDateTime(dateString, DATE_TIME);
     }
 
-    public static LocalDateTime parseStringToDate(String dateString, String format) {
+    public static LocalDateTime parseStringToDateTime(String dateString, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return LocalDateTime.parse(dateString, formatter);
     }

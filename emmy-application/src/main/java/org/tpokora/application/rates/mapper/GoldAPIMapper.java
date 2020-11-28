@@ -50,7 +50,7 @@ public class GoldAPIMapper implements IJSONMapper<RateEntity> {
 
     private void setTimestamp(RateEntity rateEntity, JsonNode rootNode) {
         String dateString = rootNode.get(DATE).asText();
-        LocalDateTime localDateTime = DateUtils.parseStringToDate(dateString, GOLDAPI_DATE_FORMAT);
+        LocalDateTime localDateTime = DateUtils.parseStringToDateTime(dateString, GOLDAPI_DATE_FORMAT);
         rateEntity.setTimestamp(localDateTime);
     }
 }

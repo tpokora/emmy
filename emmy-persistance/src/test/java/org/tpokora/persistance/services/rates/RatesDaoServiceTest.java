@@ -8,11 +8,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 import org.tpokora.persistance.repositories.rates.RatesRepository;
 import org.tpokora.persistance.services.BaseServiceTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -56,8 +58,30 @@ public class RatesDaoServiceTest extends BaseServiceTest {
         Assertions.assertEquals(2, ratesDaoService.getRatesDaysBeforeToday(FROM, TO, 12).size());
     }
 
+    @Test
+    public void testGetRatesDaysFromTimestamp() {
+        RateEntity rateEntityOne = new RateEntity("name", FROM, TO, 1.1, DateUtils.parseStringToDateTime("2020-11-20 19:20:30"));
+        RateEntity rateEntityTwo = new RateEntity("name", FROM, TO, 1.1, DateUtils.parseStringToDateTime("2020-11-20 09:20:30"));
+        RateEntity rateEntityThree = new RateEntity("name", FROM, TO, 2.2, DateUtils.parseStringToDateTime("2020-11-19 09:20:30"));
+        RateEntity rateEntityFour = new RateEntity("name", FROM, TO, 2.2, DateUtils.parseStringToDateTime("2020-11-21 09:20:30"));
+
+        saveRates(rateEntityOne, rateEntityTwo, rateEntityThree, rateEntityFour);
+
+        LocalDateTime searchLocalDateTime = DateUtils.parseStringToDateTime("2020-11-20 19:20:30");
+
+        List<RateEntity> ratesDaoServiceRatesForDate = ratesDaoService.getRatesForDate(FROM, TO, searchLocalDateTime);
+
+        Assertions.assertEquals(2, ratesDaoServiceRatesForDate.size());
+    }
+
     private RateEntity saveRateEntity(RateEntity rateEntity) {
         return ratesDaoService.saveRate(rateEntity);
+    }
+
+    private void saveRates(RateEntity... rates) {
+        for (RateEntity rate : rates) {
+            saveRateEntity(rate);
+        }
     }
 
     private void assertRateEntity(RateEntity expectedRateEntity, RateEntity givenRateEntity) {
