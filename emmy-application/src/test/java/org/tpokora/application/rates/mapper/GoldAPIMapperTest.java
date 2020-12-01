@@ -27,4 +27,9 @@ class GoldAPIMapperTest {
         Assertions.assertEquals("2020-10-09 09:30:00", DateUtils.parseDateToString(rateEntity.getTimestamp()));
         Assertions.assertEquals("Gold API Rate", rateEntity.getName());
     }
+
+    @Test
+    void testGoldAPIRateMap_failedToParseJSON() {
+        Assertions.assertNull(goldAPIMapper.map("a;a"));
+    }
 }

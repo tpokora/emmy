@@ -2,7 +2,6 @@ package org.tpokora.application.rates.api;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -41,10 +40,14 @@ class GoldAPIRatesServiceTest {
     @Mock
     RestTemplate restTemplate;
 
+    GoldAPIRatesService goldAPIRatesService;
+
     @BeforeEach
     public void setup()
     {
+        goldAPIRatesService = new GoldAPIRatesService(restTemplate, new GoldAPIProperties());
         Mockito.when(goldAPIProperties.getValue(GoldAPIProperties.KEY)).thenReturn("testKey");
+
     }
 
     @Test
@@ -54,7 +57,6 @@ class GoldAPIRatesServiceTest {
         Mockito.when(restTemplate.exchange(
                 ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class), ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(), ArgumentMatchers.anyMap())
         ).thenReturn(stringResponseEntity);
-        GoldAPIRatesService goldAPIRatesService = new GoldAPIRatesService(restTemplate, new GoldAPIProperties());
         Optional<RateEntity> rateOptional = goldAPIRatesService.findRate("XAU", "USD", LocalDateTime.now());
         Assertions.assertTrue(rateOptional.isPresent());
         RateEntity rateEntity = rateOptional.get();
@@ -64,5 +66,15 @@ class GoldAPIRatesServiceTest {
         Assertions.assertEquals(USD, rateEntity.getTo());
         Assertions.assertEquals(VALUE, rateEntity.getValue());
         Assertions.assertEquals(DATE_STRING, DateUtils.parseDateToString(rateEntity.getTimestamp()));
+    }
+
+    @Test
+    void testFindRate_empty() {
+        ResponseEntity<String> stringResponseEntity = new ResponseEntity<>("", null, HttpStatus.BAD_REQUEST);
+        Mockito.when(restTemplate.exchange(
+                ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class), ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(), ArgumentMatchers.anyMap())
+        ).thenReturn(stringResponseEntity);
+        Optional<RateEntity> rateOptional = goldAPIRatesService.findRate("XAU", "USD", LocalDateTime.now());
+        Assertions.assertTrue(rateOptional.isEmpty());
     }
 }
