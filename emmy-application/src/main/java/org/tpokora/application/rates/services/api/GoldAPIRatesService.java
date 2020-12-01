@@ -1,4 +1,4 @@
-package org.tpokora.application.rates.services;
+package org.tpokora.application.rates.services.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class GoldAPIRatesService implements IRatesService {
+public class GoldAPIRatesService implements IRatesAPIService {
 
     public static final String FROM = "from";
     public static final String TO = "to";

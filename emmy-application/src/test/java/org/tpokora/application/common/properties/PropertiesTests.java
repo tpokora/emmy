@@ -1,4 +1,4 @@
-package org.tpokora.application.weather.properties;
+package org.tpokora.application.common.properties;
 
 abstract public class PropertiesTests {
 

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.rates.properties.GoldAPIProperties;
-import org.tpokora.application.rates.services.IRatesService;
-import org.tpokora.application.rates.services.GoldAPIRatesService;
+import org.tpokora.application.rates.services.api.IRatesAPIService;
+import org.tpokora.application.rates.services.api.GoldAPIRatesService;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 
@@ -28,10 +28,10 @@ public class RatesAPIController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RatesAPIController.class);
 
     private final RestTemplate restTemplate;
-    private IRatesService ratesService;
+    private IRatesAPIService ratesService;
     private GoldAPIProperties goldAPIProperties;
 
-    public RatesAPIController(RestTemplate restTemplate, IRatesService ratesService, GoldAPIProperties goldAPIProperties) {
+    public RatesAPIController(RestTemplate restTemplate, IRatesAPIService ratesService, GoldAPIProperties goldAPIProperties) {
         this.restTemplate = restTemplate;
         this.goldAPIProperties = goldAPIProperties;
         this.ratesService = new GoldAPIRatesService(restTemplate, goldAPIProperties);
