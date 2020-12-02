@@ -74,6 +74,23 @@ public class RatesDaoServiceTest extends BaseServiceTest {
         Assertions.assertEquals(2, ratesDaoServiceRatesForDate.size());
     }
 
+    @Test
+    public void testGetRatesBetweenDates() {
+        RateEntity rateEntityOne = new RateEntity("name", FROM, TO, 1.1, DateUtils.parseStringToDateTime("2020-11-18 19:20:30"));
+        RateEntity rateEntityTwo = new RateEntity("name", FROM, TO, 1.1, DateUtils.parseStringToDateTime("2020-11-20 09:20:30"));
+        RateEntity rateEntityThree = new RateEntity("name", FROM, TO, 2.2, DateUtils.parseStringToDateTime("2020-11-19 09:20:30"));
+        RateEntity rateEntityFour = new RateEntity("name", FROM, TO, 2.2, DateUtils.parseStringToDateTime("2020-11-21 09:20:30"));
+
+        saveRates(rateEntityOne, rateEntityTwo, rateEntityThree, rateEntityFour);
+
+        LocalDateTime searchLocalDateTimeStart = DateUtils.parseStringToDateTime("2020-11-19 09:20:30");
+        LocalDateTime searchLocalDateTimeEnd = DateUtils.parseStringToDateTime("2020-11-20 19:20:30");
+
+        List<RateEntity> ratesDaoServiceRatesForDate = ratesDaoService.getRatesBetweenDates(FROM, TO, searchLocalDateTimeStart, searchLocalDateTimeEnd);
+
+        Assertions.assertEquals(2, ratesDaoServiceRatesForDate.size());
+    }
+
     private RateEntity saveRateEntity(RateEntity rateEntity) {
         return ratesDaoService.saveRate(rateEntity);
     }

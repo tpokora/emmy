@@ -28,6 +28,15 @@ public class RatesDaoService {
         return ratesRepository.save(rateEntity);
     }
 
+    public List<RateEntity> getRatesBetweenDates(String from, String to, LocalDateTime startDate, LocalDateTime endDate) {
+        Objects.requireNonNull(from, "'from' can't be null!");
+        Objects.requireNonNull(to, "'to' can't be null!");
+        Objects.requireNonNull(startDate, "startDate can't be null!");
+        Objects.requireNonNull(endDate, "endDate can't be null!");
+        LOGGER.info(String.format(">>> Get rates %s => %s between %s and %s", from, to, DateUtils.parseDateToString(startDate), DateUtils.parseDateToString(endDate)));
+        return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetween(from, to, startDate, endDate);
+    }
+
     public List<RateEntity> getRatesDaysBeforeToday(String from, String to, int minusDays) {
         Objects.requireNonNull(from, "'from' can't be null!");
         Objects.requireNonNull(to, "'to' can't be null!");

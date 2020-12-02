@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IRatesService {
 
-    RateEntity findRate(String from, String to, LocalDateTime localDateTime);
-//    List<RateEntity> findArchivedRates(String from, String to, LocalDateTime from, LocalDateTime to);
+    List<RateEntity> findArchivedRateForDate(String from, String to, LocalDateTime localDateTime);
+    List<RateEntity> findArchivedRates(String from, String to, LocalDateTime startDate, LocalDateTime endDate);
+    RateEntity saveRate(RateEntity rateEntity);
 }
