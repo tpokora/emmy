@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -58,5 +59,13 @@ public class RatesAPIController {
                                               @RequestParam("to")String to) {
 
         return getRate(from, to, Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC)));
+    }
+
+    @GetMapping(value = "/getArchivedRates", produces = "application/json")
+    public ResponseEntity<List<RateEntity>> getRate(@RequestParam("from") String from,
+                                              @RequestParam("to")String to) {
+        LOGGER.info(">>> Find ArchivedRate from: {}, to: {}", from, to);
+        List<RateEntity> archivedRates = ratesService.findArchivedRates(from, to, LocalDateTime.now().minusDays(14), LocalDateTime.now());
+        return new ResponseEntity<>(archivedRates, HttpStatus.OK);
     }
 }
