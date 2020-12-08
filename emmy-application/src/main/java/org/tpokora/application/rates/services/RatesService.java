@@ -28,10 +28,9 @@ public class RatesService implements IRatesService {
     }
 
     @Override
-    public RateEntity findRateForDate(String from, String to, LocalDateTime localDateTime) {
+    public Optional<RateEntity> findRateForDate(String from, String to, LocalDateTime localDateTime) {
         LOGGER.info(String.format(">>> Find Archived Rates %s => %s for date: %s", from, to, DateUtils.parseDateToString(localDateTime)));
-        Optional<RateEntity> rateEntityOptional = ratesAPIService.findRate(from, to, localDateTime);
-        return rateEntityOptional.orElse(null);
+        return ratesAPIService.findRate(from, to, localDateTime);
     }
 
     @Override

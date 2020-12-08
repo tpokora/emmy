@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.rates.properties.GoldAPIProperties;
-import org.tpokora.application.rates.services.api.IRatesAPIService;
-import org.tpokora.application.rates.services.api.GoldAPIRatesService;
+import org.tpokora.application.rates.services.IRatesService;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Optional;
 
@@ -28,13 +28,13 @@ public class RatesAPIController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RatesAPIController.class);
 
     private final RestTemplate restTemplate;
-    private IRatesAPIService ratesService;
+    private IRatesService ratesService;
     private GoldAPIProperties goldAPIProperties;
 
-    public RatesAPIController(RestTemplate restTemplate, IRatesAPIService ratesService, GoldAPIProperties goldAPIProperties) {
+    public RatesAPIController(RestTemplate restTemplate, IRatesService ratesService, GoldAPIProperties goldAPIProperties) {
         this.restTemplate = restTemplate;
         this.goldAPIProperties = goldAPIProperties;
-        this.ratesService = new GoldAPIRatesService(restTemplate, goldAPIProperties);
+        this.ratesService = ratesService;
     }
 
     @GetMapping(value = "/getRate", produces = "application/json")
@@ -43,7 +43,20 @@ public class RatesAPIController {
                                               @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         LOGGER.info(">> Find Rate from: {}, to: {} from date: {}", from, to, DateUtils.parseDateToString(localDateTime));
-        Optional<RateEntity> rateOptional = ratesService.findRate(from, to, localDateTime);
-        return rateOptional.map(location -> new ResponseEntity<>(location, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
+        Optional<RateEntity> rateOptional = ratesService.findRateForDate(from, to, localDateTime);
+        if (rateOptional.isPresent()) {
+            RateEntity rateEntity = rateOptional.get();
+            ratesService.saveRate(rateEntity);
+            return new ResponseEntity<>(rateEntity, HttpStatus.OK);
+        }
+        LOGGER.info(">> Rate not found");
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/getCurrentRate", produces = "application/json")
+    public ResponseEntity<RateEntity> getCurrentRate(@RequestParam("from") String from,
+                                              @RequestParam("to")String to) {
+
+        return getRate(from, to, Date.from(LocalDateTime.now().toInstant(ZoneOffset.UTC)));
     }
 }

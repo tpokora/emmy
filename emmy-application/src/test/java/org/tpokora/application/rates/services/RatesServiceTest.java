@@ -61,11 +61,11 @@ class RatesServiceTest extends BaseServiceTest {
         RateEntity rateEntity = createRateEntity(XAU, USD, now);
 
         Mockito.when(ratesAPIService.findRate(XAU, USD, now)).thenReturn(Optional.of(rateEntity));
-        RateEntity rateForDate = ratesService.findRateForDate(XAU, USD, now);
+        Optional<RateEntity> rateForDate = ratesService.findRateForDate(XAU, USD, now);
 
-        Assertions.assertEquals(rateEntity.getFrom(), rateForDate.getFrom());
-        Assertions.assertEquals(rateEntity.getTo(), rateForDate.getTo());
-        Assertions.assertEquals(DateUtils.parseDateToString(rateEntity.getTimestamp()), DateUtils.parseDateToString(rateForDate.getTimestamp()));
+        Assertions.assertEquals(rateEntity.getFrom(), rateForDate.get().getFrom());
+        Assertions.assertEquals(rateEntity.getTo(), rateForDate.get().getTo());
+        Assertions.assertEquals(DateUtils.parseDateToString(rateEntity.getTimestamp()), DateUtils.parseDateToString(rateForDate.get().getTimestamp()));
     }
 
     @Test

@@ -25,6 +25,10 @@ public class GoldAPIMapper implements IJSONMapper<RateEntity> {
 
         if (optionalRootNode.isPresent()) {
             JsonNode rootNode = optionalRootNode.get();
+            if (rootNode.get("error") != null) {
+                LOGGER.debug(rootNode.get("error").textValue());
+                return null;
+            }
             RateEntity rateEntity = new RateEntity();
             rateEntity.setName("Gold API Rate");
             setFrom(rateEntity, rootNode);

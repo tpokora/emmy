@@ -11,11 +11,13 @@ class GoldAPIMapperTest {
 
     private GoldAPIMapper goldAPIMapper;
     private String goldAPIMapperStringResponse;
+    private String goldAPIMapperStringErrorResponse;
 
     @BeforeEach
     public void setup() {
         goldAPIMapper = new GoldAPIMapper();
-        goldAPIMapperStringResponse = FileReaderUtils.fileToString("rates/goldAPIRatesReponse.json");
+        goldAPIMapperStringResponse = FileReaderUtils.fileToString("rates/goldAPIRatesResponse.json");
+        goldAPIMapperStringErrorResponse = FileReaderUtils.fileToString("rates/goldAPIRatesErrorResponse.json");
     }
 
     @Test
@@ -26,6 +28,9 @@ class GoldAPIMapperTest {
         Assertions.assertEquals(1912.4, rateEntity.getValue());
         Assertions.assertEquals("2020-10-09 09:30:00", DateUtils.parseDateToString(rateEntity.getTimestamp()));
         Assertions.assertEquals("Gold API Rate", rateEntity.getName());
+
+        // Assert error message
+        Assertions.assertNull(goldAPIMapper.map(goldAPIMapperStringErrorResponse));
     }
 
     @Test

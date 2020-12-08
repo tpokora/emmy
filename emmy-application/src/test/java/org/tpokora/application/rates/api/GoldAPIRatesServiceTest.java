@@ -52,7 +52,7 @@ class GoldAPIRatesServiceTest {
 
     @Test
     void testFindRate() {
-        String fileToString = FileReaderUtils.fileToString("rates/goldAPIRatesReponse.json");
+        String fileToString = FileReaderUtils.fileToString("rates/goldAPIRatesResponse.json");
         ResponseEntity<String> stringResponseEntity = new ResponseEntity<>(fileToString, null, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class), ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(), ArgumentMatchers.anyMap())

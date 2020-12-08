@@ -46,7 +46,7 @@ public class GoldAPIRatesService implements IRatesAPIService {
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             String ratesString = responseEntity.getBody();
             RateEntity rateEntity = (RateEntity) IJSONMapper.map(ratesString);
-            return Optional.of(rateEntity);
+            return Optional.ofNullable(rateEntity);
         }
         return Optional.empty();
     }
