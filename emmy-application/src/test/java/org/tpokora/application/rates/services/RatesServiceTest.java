@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,14 +13,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.common.services.BaseServiceTest;
 import org.tpokora.application.rates.properties.GoldAPIProperties;
-import org.tpokora.application.rates.services.api.GoldAPIRatesService;
+import org.tpokora.application.rates.services.api.IRatesAPIService;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 import org.tpokora.persistance.repositories.rates.RatesRepository;
 import org.tpokora.persistance.services.rates.RatesDaoService;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -39,19 +38,34 @@ class RatesServiceTest extends BaseServiceTest {
     RatesRepository ratesRepository;
 
     RatesDaoService ratesDaoService;
-    GoldAPIRatesService goldAPIRatesService;
+
+    @MockBean
+    IRatesAPIService ratesAPIService;
+
     RatesService ratesService;
 
     @BeforeEach
     public void setup() {
         this.ratesDaoService = new RatesDaoService(ratesRepository);
-        this.goldAPIRatesService = new GoldAPIRatesService(restTemplate, goldAPIProperties);
-        this.ratesService = new RatesService(goldAPIRatesService, ratesDaoService);
+        this.ratesService = new RatesService(ratesAPIService, ratesDaoService);
     }
 
     @AfterEach
     public void teardown() {
         ratesRepository.deleteAll();
+    }
+
+    @Test
+    void testFindRateForDate() {
+        LocalDateTime now = LocalDateTime.now();
+        RateEntity rateEntity = createRateEntity(XAU, USD, now);
+
+        Mockito.when(ratesAPIService.findRate(XAU, USD, now)).thenReturn(Optional.of(rateEntity));
+        RateEntity rateForDate = ratesService.findRateForDate(XAU, USD, now);
+
+        Assertions.assertEquals(rateEntity.getFrom(), rateForDate.getFrom());
+        Assertions.assertEquals(rateEntity.getTo(), rateForDate.getTo());
+        Assertions.assertEquals(DateUtils.parseDateToString(rateEntity.getTimestamp()), DateUtils.parseDateToString(rateForDate.getTimestamp()));
     }
 
     @Test

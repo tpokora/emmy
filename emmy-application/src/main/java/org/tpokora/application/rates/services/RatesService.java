@@ -10,6 +10,7 @@ import org.tpokora.persistance.services.rates.RatesDaoService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RatesService implements IRatesService {
@@ -27,14 +28,21 @@ public class RatesService implements IRatesService {
     }
 
     @Override
+    public RateEntity findRateForDate(String from, String to, LocalDateTime localDateTime) {
+        LOGGER.info(String.format(">>> Find Archived Rates %s => %s for date: %s", from, to, DateUtils.parseDateToString(localDateTime)));
+        Optional<RateEntity> rateEntityOptional = ratesAPIService.findRate(from, to, localDateTime);
+        return rateEntityOptional.orElse(null);
+    }
+
+    @Override
     public List<RateEntity> findArchivedRateForDate(String from, String to, LocalDateTime localDateTime) {
-        LOGGER.info(String.format(">>> Find Rates %s => %s for date: %s", from, to, DateUtils.parseDateToString(localDateTime)));
+        LOGGER.info(String.format(">>> Find Archived Rates %s => %s for date: %s", from, to, DateUtils.parseDateToString(localDateTime)));
         return ratesDaoService.getRatesForDate(from, to, localDateTime);
     }
 
     @Override
     public List<RateEntity> findArchivedRates(String from, String to, LocalDateTime startDate, LocalDateTime endDate) {
-        LOGGER.info(String.format(">>> Find Rates %s => %s between %s and %s", from, to, DateUtils.parseDateToString(startDate), DateUtils.parseDateToString(endDate)));
+        LOGGER.info(String.format(">>> Find Archived Rates %s => %s between %s and %s", from, to, DateUtils.parseDateToString(startDate), DateUtils.parseDateToString(endDate)));
         return ratesDaoService.getRatesBetweenDates(from, to, startDate, endDate);
     }
 
