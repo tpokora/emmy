@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RatesRepository extends JpaRepository<RateEntity, Integer> {
 
-    List<RateEntity> findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetween(String from,
+    List<RateEntity> findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetweenOrderByTimestampAsc(String from,
                                                                                  String to,
                                                                                  LocalDateTime timestampStart,
                                                                                  LocalDateTime timestampEnd);

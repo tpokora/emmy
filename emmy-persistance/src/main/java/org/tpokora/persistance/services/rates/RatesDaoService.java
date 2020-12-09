@@ -34,14 +34,14 @@ public class RatesDaoService {
         Objects.requireNonNull(startDate, "startDate can't be null!");
         Objects.requireNonNull(endDate, "endDate can't be null!");
         LOGGER.info(String.format(">>> Get rates %s => %s between %s and %s", from, to, DateUtils.parseDateToString(startDate), DateUtils.parseDateToString(endDate)));
-        return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetween(from, to, startDate, endDate);
+        return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetweenOrderByTimestampAsc(from, to, startDate, endDate);
     }
 
     public List<RateEntity> getRatesDaysBeforeToday(String from, String to, int minusDays) {
         Objects.requireNonNull(from, "'from' can't be null!");
         Objects.requireNonNull(to, "'to' can't be null!");
         LOGGER.info(String.format(">>> Get rates %s before today", minusDays));
-        return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetween(from, to, LocalDateTime.now().minusDays(minusDays), LocalDateTime.now());
+        return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetweenOrderByTimestampAsc(from, to, LocalDateTime.now().minusDays(minusDays), LocalDateTime.now());
     }
 
     public List<RateEntity> getRatesForDate(String from, String to, LocalDateTime localDateTime) {
@@ -51,7 +51,7 @@ public class RatesDaoService {
         LOGGER.info(String.format(">>> Get rates %s from", DateUtils.parseDateToString(localDateTime)));
         LocalDateTime startLocalDateTime = localDateTime.toLocalDate().atTime(0,0, 0);
         LocalDateTime endLocalDateTime = localDateTime.toLocalDate().atTime(23, 59, 59);
-        return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetween(from, to, startLocalDateTime, endLocalDateTime);
+        return ratesRepository.findAllByFromContainsIgnoreCaseAndToContainsIgnoreCaseAndTimestampBetweenOrderByTimestampAsc(from, to, startLocalDateTime, endLocalDateTime);
     }
 
 
