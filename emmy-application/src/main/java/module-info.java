@@ -14,7 +14,6 @@ module org.tpokora.application {
     requires spring.security.core;
     requires java.sql;
     requires java.xml.bind;
-
     requires org.apache.logging.log4j;
     requires spring.boot;
     requires spring.tx;
@@ -25,6 +24,7 @@ module org.tpokora.application {
     requires tomcat.embed.core;
     requires hibernate.jpa;
     requires spring.webmvc;
+    requires org.jvnet.staxex;
 
     exports org.tpokora.application;
     exports org.tpokora.application.weather.storms;
