@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'io.spring.dependency-management'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+
+version 'unspecified'
+
+
+dependencies {
+    implementation project(":emmy-domain")
+    implementation project(":emmy-persistance")
+
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.5.RELEASE') {
+        exclude group: 'jakarta.persistence', module: 'jakarta.persistence-api'
+    }
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.4.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.3.4.RELEASE'
+
+}
+
+ext.moduleName = 'org.tpokora.config'

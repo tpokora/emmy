@@ -1,0 +1,91 @@
+plugins {
+    id 'io.spring.dependency-management'
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+version 'unspecified'
+
+task copyJar(type: Copy) {
+    from jar
+    into '../build/libs'
+}
+
+build.dependsOn copyJar
+
+sourceCompatibility = 11.0
+targetCompatibility = 11.0
+
+def bootstrapVersion = '4.5.0'
+def jqueryVersion = '3.5.0'
+
+def mockitoVersion = '3.5.0'
+
+dependencies {
+    implementation project(":emmy-common")
+    implementation project(":emmy-domain")
+    implementation project(":emmy-persistance")
+    implementation project(":emmy-config")
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation('org.springframework.boot:spring-boot-starter-validation:2.3.5.RELEASE') {
+        exclude group: 'org.glassfish', module:'jakarta.el'
+    }
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.5.RELEASE') {
+        exclude group: 'jakarta.persistence', module: 'jakarta.persistence-api'
+        exclude group: 'org.javassist', module: 'javassist'
+    }
+
+    implementation('com.sun.xml.messaging.saaj:saaj-impl:1.5.0') {
+        exclude group: 'org.jvnet.staxex', module: 'stax-ex'
+    }
+    implementation group: 'javax.xml.soap', name: 'javax.xml.soap-api', version: '1.3.5'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    implementation group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.postgresql:postgresql:42.1.1'
+    implementation 'org.slf4j:slf4j-api:1.7.29'
+    implementation group: 'org.jvnet.staxex', name: 'stax-ex', version: '2.0.0'
+    implementation group: 'com.sun.activation', name: 'jakarta.activation', version: '2.0.0'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation group: 'org.webjars', name: 'bootstrap', version: "${bootstrapVersion}"
+    implementation group: 'org.webjars', name: 'jquery', version: "${jqueryVersion}"
+
+
+    // Tests dependencies
+    testImplementation project(":emmy-persistance")
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: "com.vaadin.external.google", module: "android-json"
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        exclude group: 'junit', module: 'junit'
+        exclude group: 'org.hamcrest', module: 'hamcrest-library'
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+    
+    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
+
+    testImplementation('org.springframework.security:spring-security-test')
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+
+    testImplementation 'org.javassist:javassist:3.27.0-GA'
+
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: "${mockitoVersion}"
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: "${mockitoVersion}"
+    //required by mockito
+    testImplementation group: 'net.bytebuddy', name: 'byte-buddy', version: '1.10.18'
+    testImplementation  group: 'org.jvnet.staxex', name: 'stax-ex', version: '2.0.0'
+
+}
+
+ext.moduleName = 'org.tpokora.application'

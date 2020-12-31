@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+
+version 'unspecified'
+
+dependencies {
+    implementation project(":emmy-common")
+}
+
+
+ext.moduleName = 'org.tpokora.domain'

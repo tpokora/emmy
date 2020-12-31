@@ -13,4 +13,9 @@ pluginManagement {
     }
 }
 rootProject.name = 'emmy'
+include 'emmy-domain'
+include 'emmy-common'
+include 'emmy-persistance'
+include 'emmy-application'
+include 'emmy-config'
 
