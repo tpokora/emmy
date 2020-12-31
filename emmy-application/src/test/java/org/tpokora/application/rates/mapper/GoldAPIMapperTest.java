@@ -26,7 +26,7 @@ class GoldAPIMapperTest {
         Assertions.assertEquals("XAU", rateEntity.getFrom());
         Assertions.assertEquals("USD", rateEntity.getTo());
         Assertions.assertEquals(1912.4, rateEntity.getValue());
-        Assertions.assertEquals("2020-10-09 09:30:00", DateUtils.parseDateToString(rateEntity.getTimestamp()));
+        Assertions.assertEquals("2020-09-09 09:30:00", DateUtils.parseDateToString(rateEntity.getTimestamp()));
         Assertions.assertEquals("Gold API Rate", rateEntity.getName());
 
         // Assert error message

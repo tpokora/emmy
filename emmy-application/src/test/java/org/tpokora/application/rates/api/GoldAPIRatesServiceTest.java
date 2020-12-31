@@ -31,8 +31,9 @@ class GoldAPIRatesServiceTest {
     public static final String XAU = "XAU";
     public static final String USD = "USD";
     public static final double VALUE = 1912.4;
-    public static final String DATE_STRING = "2020-10-09 09:30:00";
+    public static final String DATE_STRING = "2020-09-09 09:30:00";
     public static final String GOLD_API_RATE_NAME = "Gold API Rate";
+    public static final String RATES_GOLD_APIRATES_RESPONSE_JSON = "rates/goldAPIRatesResponse.json";
 
     @Mock
     private GoldAPIProperties goldAPIProperties;
@@ -52,12 +53,14 @@ class GoldAPIRatesServiceTest {
 
     @Test
     void testFindRate() {
-        String fileToString = FileReaderUtils.fileToString("rates/goldAPIRatesResponse.json");
+        String fileToString = FileReaderUtils.fileToString(RATES_GOLD_APIRATES_RESPONSE_JSON);
         ResponseEntity<String> stringResponseEntity = new ResponseEntity<>(fileToString, null, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class), ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(), ArgumentMatchers.anyMap())
+                ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class),
+                ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(),
+                ArgumentMatchers.anyMap())
         ).thenReturn(stringResponseEntity);
-        Optional<RateEntity> rateOptional = goldAPIRatesService.findRate("XAU", "USD", LocalDateTime.now());
+        Optional<RateEntity> rateOptional = goldAPIRatesService.findRate(XAU, USD, DateUtils.parseStringToDateTime(DATE_STRING));
         Assertions.assertTrue(rateOptional.isPresent());
         RateEntity rateEntity = rateOptional.get();
 
@@ -74,7 +77,7 @@ class GoldAPIRatesServiceTest {
         Mockito.when(restTemplate.exchange(
                 ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class), ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(), ArgumentMatchers.anyMap())
         ).thenReturn(stringResponseEntity);
-        Optional<RateEntity> rateOptional = goldAPIRatesService.findRate("XAU", "USD", LocalDateTime.now());
+        Optional<RateEntity> rateOptional = goldAPIRatesService.findRate(XAU, USD, LocalDateTime.now());
         Assertions.assertTrue(rateOptional.isEmpty());
     }
 }
