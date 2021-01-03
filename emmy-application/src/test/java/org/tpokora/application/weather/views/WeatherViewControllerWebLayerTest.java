@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.client.HttpClientErrorException;
 import org.tpokora.application.common.views.BaseViewControllerWebLayerTest;
 import org.tpokora.application.weather.forecast.ForecastService;
 import org.tpokora.application.weather.location.OpenCageDataLocationService;
@@ -105,6 +106,18 @@ public class WeatherViewControllerWebLayerTest extends BaseViewControllerWebLaye
 
         String responseBody = mvcResult.getResponse().getContentAsString();
         Assertions.assertTrue(responseBody.contains("City not found"), "Error msg 'City not found' should be present");
+
+    }
+
+    @Test
+    @WithMockUser
+    void testWeatherViewFindCity_connectionError() throws Exception {
+        String testCity = "testCity";
+        Mockito.when(openCageDataLocationService.getLocationCoordinatesByName(testCity)).thenThrow(HttpClientErrorException.class);
+        MvcResult mvcResult = this.mockMvc.perform(get(WEATHER_URL + "/find-location?name=" + testCity)).andDo(print()).andExpect(status().isOk()).andReturn();
+
+        String responseBody = mvcResult.getResponse().getContentAsString();
+        Assertions.assertTrue(responseBody.contains("Connection error"), "Error msg 'Connection error' should be present");
 
     }
 }
