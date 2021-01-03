@@ -92,4 +92,19 @@ public class WeatherViewControllerWebLayerTest extends BaseViewControllerWebLaye
         Assertions.assertTrue(responseBody.contains(warningsLon), "Find Warnings longitude is wrong");
         Assertions.assertTrue(responseBody.contains(warningsLat), "Find Warnings latitude is wrong");
     }
+
+    @Test
+    @WithMockUser
+    void testWeatherViewFindCity_cityNotFound() throws Exception {
+        String testCity = "testCity";
+        Location testLocation = new Location();
+        testLocation.setName(testCity);
+        testLocation.setCoordinates(new Coordinates(0.0, 0.0));
+        Mockito.when(openCageDataLocationService.getLocationCoordinatesByName(testCity)).thenReturn(Optional.of(testLocation));
+        MvcResult mvcResult = this.mockMvc.perform(get(WEATHER_URL + "/find-location?name=" + testCity)).andDo(print()).andExpect(status().isOk()).andReturn();
+
+        String responseBody = mvcResult.getResponse().getContentAsString();
+        Assertions.assertTrue(responseBody.contains("City not found"), "Error msg 'City not found' should be present");
+
+    }
 }
