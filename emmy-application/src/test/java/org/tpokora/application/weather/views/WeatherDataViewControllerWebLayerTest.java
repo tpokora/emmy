@@ -1,4 +1,4 @@
-package org.tpokora.application.home.views;
+package org.tpokora.application.weather.views;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,19 +15,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(HomeViewController.class)
-public class HomeViewControllerWebLayerTest {
+@WebMvcTest(WeatherDataViewController.class)
+class WeatherDataViewControllerWebLayerTest {
 
-    public static final String WELCOME_MESSAGE = "Welcome to Emmy Project!";
-    public static final String ROOT_URL = "/";
-
+    public static final String WEATHER_DATA_URL = "/weather-data";
+    public static final String WEATHER_DATA_MESSAGE = "Weather Data";
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @WithMockUser
-    void testHomeView() throws Exception {
-        this.mockMvc.perform(get(ROOT_URL)).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString(WELCOME_MESSAGE)));
+    void testWeatherDataView() throws Exception {
+        this.mockMvc.perform(get(WEATHER_DATA_URL)).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString(WEATHER_DATA_MESSAGE)));
     }
 }
