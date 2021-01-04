@@ -47,6 +47,8 @@ public class WarningEntityTest {
                 "id=" + warningEntity.getId() +
                 ", longitude=" + warningEntity.getLongitude() +
                 ", latitude=" + warningEntity.getLatitude() +
+                ", longitudeDM=" + warningEntity.getLongitudeDM() +
+                ", latitudeDM=" + warningEntity.getLatitudeDM() +
                 ", name='" + warningEntity.getName() + '\'' +
                 ", level=" + warningEntity.getLevel() +
                 ", start=" + warningEntity.getStart().format(DateTimeFormatter.ofPattern(WarningStrings.WARNINGS_DATE_FORMAT)) +
@@ -58,6 +60,8 @@ public class WarningEntityTest {
         warningEntity.addCoordinates(coordinates);
         Assert.assertEquals(0, Double.compare(warningEntity.getLatitude(), coordinates.getLatitude()));
         Assert.assertEquals(0, Double.compare(warningEntity.getLongitude(), coordinates.getLongitude()));
+        Assert.assertEquals(0, Double.compare(warningEntity.getLatitudeDM(), coordinates.getLatitudeDM()));
+        Assert.assertEquals(0, Double.compare(warningEntity.getLongitudeDM(), coordinates.getLongitudeDM()));
 
     }
 }
