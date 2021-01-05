@@ -7,11 +7,16 @@ pipeline {
       }
     }
 
-    stage('Run tests') {
+    stage('Prepare') {
       steps {
         sh 'chmod +x gradlew'
         sh './gradlew clean'
-        sh './gradlew test'
+      }
+    }
+
+    stage('emmy-common:test') {
+      steps {
+        sh './gradlew :emmy-common:test'
       }
     }
 
