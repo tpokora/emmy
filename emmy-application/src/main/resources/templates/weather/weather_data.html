@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Weather Data</title>
+    <script th:src="@{/webjars/jquery/3.5.0/jquery.min.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/common.css}"/>
+</head>
+<body>
+<div th:replace="common/navigation :: navigation"></div>
+<main role="main" class="container">
+    <div class="jumbotron">
+        <p>
+        <h1>Weather Data</h1>
+        </p>
+        <hr/>
+    </div>
+</main>
+</body>
+</html>

@@ -13,10 +13,12 @@ public class SecurityMatchers {
     public static final String ALL_MATCHER_SUFFIX = "/**";
     public static final String API_MATCHER = "/api" + ALL_MATCHER_SUFFIX;
     public static final String WEATHER_VIEW_MATCHER = WeatherViewConstants.WEATHER_VIEW_URL + ALL_MATCHER_SUFFIX;
+    public static final String WEATHER_DATA_VIEW_MATCHER = WeatherViewConstants.WEATHER_DATA_VIEW_URL + ALL_MATCHER_SUFFIX;
     public static final String CONSOLE_VIEW_MATCHER = ConsoleViewConstants.CONSOLE_VIEW_URL + ALL_MATCHER_SUFFIX;
 
     public final static String[] STATIC_FILES_MATCHERS = {"/**/*.js", "/**/*.css"};
-    public final static String[] ALL_ACCESS_MATCHERS = {"/", HOME, WEATHER_VIEW_MATCHER, SIGNIN_VIEW_URL, "/add-user", API_MATCHER};
+    public final static String[] ALL_ACCESS_MATCHERS = {"/", HOME, WEATHER_VIEW_MATCHER, WEATHER_DATA_VIEW_MATCHER,
+            SIGNIN_VIEW_URL, "/add-user", API_MATCHER};
     public final static String[] SWAGGER_MATCHERS = {"/v2/api-docs",
             "/swagger-resources/**",
             "/swagger-ui.html**",

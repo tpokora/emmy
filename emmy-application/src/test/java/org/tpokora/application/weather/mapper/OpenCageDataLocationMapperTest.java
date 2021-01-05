@@ -14,7 +14,7 @@ class OpenCageDataLocationMapperTest {
     @BeforeEach
     public void setup() {
         openCageDataLocationMapper = new OpenCageDataLocationMapper();
-        openCageDataLocationStringResponse = FileReaderUtils.fileToString("weather/location/opencageDataResponse.json");
+        openCageDataLocationStringResponse = FileReaderUtils.fileToString("weather/location/openCageDataResponse.json");
     }
 
     @Test
