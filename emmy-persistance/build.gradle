@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'io.spring.dependency-management'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+version 'unspecified'
+
+dependencies {
+    implementation project(":emmy-common")
+    implementation project(":emmy-domain")
+
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.3.5.RELEASE') {
+        exclude group: 'jakarta.persistence', module: 'jakarta.persistence-api'
+        exclude group: 'org.javassist', module: 'javassist'
+    }
+    implementation 'org.postgresql:postgresql:42.1.1'
+    implementation 'org.slf4j:slf4j-api:1.7.29'
+
+    // Tests dependencies
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: "com.vaadin.external.google", module: "android-json"
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        exclude group: 'junit', module: 'junit'
+        exclude group: 'org.hamcrest', module: 'hamcrest-library'
+    }
+    testImplementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    testImplementation 'org.javassist:javassist:3.27.0-GA'
+    testImplementation 'com.h2database:h2:1.4.199'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:2.23.0'
+}
+
+ext.moduleName = 'org.tpokora.persistance'
