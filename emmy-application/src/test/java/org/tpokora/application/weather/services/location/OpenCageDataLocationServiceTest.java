@@ -29,7 +29,7 @@ import java.util.Optional;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class OpenCageDataLocationServiceTest {
 
-    private static final String WEATHER_LOCATION_OPENCAGE_DATA_RESPONSE_JSON = "weather/location/opencageDataResponse.json";
+    private static final String WEATHER_LOCATION_OPENCAGE_DATA_RESPONSE_JSON = "weather/location/openCageDataResponse.json";
 
     @Mock
     private OpenCageDataProperties openCageDataProperties;
