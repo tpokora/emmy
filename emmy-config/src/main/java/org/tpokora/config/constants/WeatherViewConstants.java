@@ -13,6 +13,8 @@ public class WeatherViewConstants {
     public static final String WEATHER_FIND_WARNINGS_URL = WEATHER_VIEW_URL + "/find-warnings";
     public static final String WEATHER_FIND_FORECAST_URL = WEATHER_VIEW_URL + "/find-forecast";
 
+    public static final String WEATHER_DATA_FIND_URL = WEATHER_DATA_VIEW_URL + "/find";
+
     /**
      * Class is providing static constant strings for WeatherViewController
      */

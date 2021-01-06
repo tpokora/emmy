@@ -19,19 +19,13 @@ import org.tpokora.application.weather.storms.FindWarningService;
 import java.util.List;
 import java.util.Optional;
 
+import static org.tpokora.application.weather.views.WeatherViewConstants.*;
+
 
 @Controller
 public class WeatherViewController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(WeatherViewController.class);
-
-    public static final String LOCATION = "location";
-    public static final String STORM_RESPONSE = "stormResponse";
-    public static final String STORM_REQUEST = "stormRequest";
-    public static final String COORDINATES = "coordinates";
-    public static final String FORECAST = "forecast";
-    public static final String WARNINGS = "warnings";
-    public static final String ERROR = "error";
 
     private final OpenCageDataLocationService openCageDataLocationService;
     private final FindCityService findCityService;

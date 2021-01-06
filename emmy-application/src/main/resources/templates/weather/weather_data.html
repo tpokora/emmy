@@ -15,6 +15,40 @@
         <h1>Weather Data</h1>
         </p>
         <hr/>
+        <div>
+            <h3>Find Weather Data by Location name</h3>
+            <form th:object="${location}" th:action="@{/weather-data/find}" method="get">
+                <div class="row">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="locationName" class="sr-only">Location</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="locationName" placeholder="Location name">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <button type="submit" class="btn btn-primary mb-2">Find location</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr />
+        <div th:if="${forecasts != null && forecasts.size() == 0}">
+            <h2>No Forecast found</h2>
+        </div>
+        <div th:if="${forecasts != null && forecasts.size() > 0}">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Location</th>
+                        <th scope="col">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="forecast : ${forecasts}">
+                        <td th:text="${forecast.location}"></td>
+                        <td th:text="${datesFormatter.parseDate(forecast.timestamp)}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
 </body>
