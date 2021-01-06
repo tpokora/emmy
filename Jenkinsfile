@@ -44,5 +44,11 @@ pipeline {
       }
     }
 
+    stage('Test Results') {
+      steps {
+        testcompletetest(project: 'emmy', launchType: 'lcProject', suite: 'Projects\\\\JenkinsTests.pjs')
+      }
+    }
+
   }
 }
