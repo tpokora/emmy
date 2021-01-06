@@ -33,10 +33,13 @@ public class AuthViewController {
     public static final String ROLE_NAME_ERROR = "roleNameError";
     public static final String ROLE_NAME_ALREADY_EXISTS = "Role already exists!";
 
-    @Autowired
     private AuthViewService authViewService;
 
     private BiConsumer<Model, ObjectError> addFormErrorConsumer = this::addFormError;
+
+    public AuthViewController(AuthViewService authViewService) {
+        this.authViewService = authViewService;
+    }
 
     @GetMapping(value = LOGIN_VIEW_URL, name = LOGIN_VIEW)
     public String login(Model model) {
