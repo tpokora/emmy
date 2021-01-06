@@ -3,31 +3,24 @@ package org.tpokora.application.common.utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Objects;
 
 public class FileReaderUtils {
 
     public static String fileToString(String path) {
         ClassLoader classLoader = FileReaderUtils.class.getClassLoader();
 
-        StringBuilder stringBuilder = new StringBuilder();
-        try (InputStream inputStream = classLoader.getResourceAsStream(path);
-             InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-             BufferedReader reader = new BufferedReader(streamReader)) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-
-        } catch (IOException e) {
+        String readString = null;
+        try {
+            readString = Files.readString(Path.of(Objects.requireNonNull(classLoader.getResource(path)).toURI()));
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-        return stringBuilder.toString();
+        return readString;
     }
 
     @Test
