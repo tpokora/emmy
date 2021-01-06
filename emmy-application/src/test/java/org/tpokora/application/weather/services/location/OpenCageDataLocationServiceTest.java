@@ -29,6 +29,8 @@ import java.util.Optional;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class OpenCageDataLocationServiceTest {
 
+    private static final String WEATHER_LOCATION_OPENCAGE_DATA_RESPONSE_JSON = "weather/location/opencageDataResponse.json";
+
     @Mock
     private OpenCageDataProperties openCageDataProperties;
 
@@ -45,7 +47,7 @@ class OpenCageDataLocationServiceTest {
 
     @Test
     void testGetCityCoordinatesByName() {
-        String fileToString = FileReaderUtils.fileToString("weather/location/opencageDataResponse.json");
+        String fileToString = FileReaderUtils.fileToString(WEATHER_LOCATION_OPENCAGE_DATA_RESPONSE_JSON);
         ResponseEntity<String> stringResponseEntity = new ResponseEntity<>(fileToString, null, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class), ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(), ArgumentMatchers.anyMap())
@@ -56,7 +58,7 @@ class OpenCageDataLocationServiceTest {
 
     @Test
     public void testGetForecast_fail() {
-        String fileToString = FileReaderUtils.fileToString("weather/location/opencageDataResponse.json");
+        String fileToString = FileReaderUtils.fileToString(WEATHER_LOCATION_OPENCAGE_DATA_RESPONSE_JSON);
         ResponseEntity<String> stringResponseEntity = new ResponseEntity<>(fileToString, null, HttpStatus.BAD_REQUEST);
         Mockito.when(restTemplate.exchange(
                 ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class), ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(), ArgumentMatchers.anyMap())
