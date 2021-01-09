@@ -3,13 +3,14 @@ package org.tpokora.application.weather.mapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.tpokora.application.common.mapper.IJSONMapper;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.Location;
 
 import java.util.Optional;
 
-
+@Component("openCageDataLocationMapper")
 public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OpenCageDataLocationMapper.class);
