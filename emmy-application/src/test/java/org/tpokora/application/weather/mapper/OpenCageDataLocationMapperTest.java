@@ -19,8 +19,8 @@ class OpenCageDataLocationMapperTest {
 
     @Test
     void testMap() {
-        Location expectedLocation = new Location(16.3655487, 52.695614);
-        expectedLocation.setName("Warszawa");
+        Location expectedLocation = new Location(19.9368564, 50.0619474);
+        expectedLocation.setName("Krakow");
         Location location = openCageDataLocationMapper.map(openCageDataLocationStringResponse);
         Assertions.assertEquals(expectedLocation.toString(), location.toString());
 
