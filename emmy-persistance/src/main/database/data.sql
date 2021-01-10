@@ -9,3 +9,10 @@ UPDATE forecast SET rain1h = 0.0, rain3h = 0.0 WHERE rain1h IS NULL;
 
 -- Add DM coordinates to storm entity
 UPDATE storm SET latitude_dm = 0.0, longitude_dm = 0.0;
+
+-- Create SEQUENCE on Forecast Table
+CREATE SEQUENCE forecast_id_seq;
+
+ALTER TABLE forecast ALTER id SET DEFAULT NEXTVAL('forecast_id_seq');
+
+ALTER SEQUENCE forecast_id_seq RESTART 2000;
