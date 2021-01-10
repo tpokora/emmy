@@ -11,6 +11,8 @@
 <div th:replace="common/navigation :: navigation"></div>
 <main role="main" class="container">
     <div class="jumbotron">
+        <div th:replace="weather/weather_nav :: weather_nav"></div>
+        <hr />
         <p>
         <h1>Weather</h1>
         <div th:if="${error != ''}">
