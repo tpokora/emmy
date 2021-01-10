@@ -59,7 +59,7 @@ public class OpenCageDataLocationService implements ILocationService {
         return Map.of(KEY, openCageDataProperties.getValue(KEY),
                 Q, name,
                 LIMIT, "1",
-                MIN, "7");
+                MIN, "3");
     }
 
 }
