@@ -12,9 +12,7 @@ import org.tpokora.application.auth.services.AuthViewService;
 import org.tpokora.application.common.views.BaseViewControllerWebLayerTest;
 import org.tpokora.application.users.services.UserDetailsServiceImpl;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -24,6 +22,7 @@ class AuthViewControllerWebLayerTest extends BaseViewControllerWebLayerTest {
 
     public static final String LOGIN = "login";
     public static final String LOGIN_MSG = "Please Log in";
+    public static final String LOGIN_URL = "/login";
 
     @MockBean
     private AuthViewService authViewService;
@@ -37,16 +36,14 @@ class AuthViewControllerWebLayerTest extends BaseViewControllerWebLayerTest {
     @Test
     @WithAnonymousUser
     void testLogin() throws Exception {
-        this.mockMvc.perform(get("/login")).andExpect(status().isOk())
-                .andExpect(content().string(containsString(LOGIN_MSG)));
+        this.mockMvc.perform(get(LOGIN_URL)).andExpect(status().isOk());
     }
 
     @Disabled
     @Test
     @WithMockUser
     void testSignin() throws Exception {
-        this.mockMvc.perform(get("/signin")).andExpect(status().isOk())
-                .andExpect(content().string(containsString("auth/signin")));
+        this.mockMvc.perform(get("/signin")).andExpect(status().isOk());
     }
 
     @Disabled
