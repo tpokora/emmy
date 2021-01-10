@@ -3,6 +3,7 @@ package org.tpokora.application.weather.forecast;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -28,15 +29,19 @@ public class ForecastService implements IForecastService {
     private final Logger LOGGER = LoggerFactory.getLogger(ForecastService.class);
 
     private final RestTemplate restTemplate;
+
+    // TODO: Separate resolving mappers and properties for RestTemplate from this Service
+
     private final IJSONMapper IJSONMapper;
     private final OpenWeatherProperties openWeatherProperties;
     private final ForecastDaoService forecastDaoService;
 
     public static final String URL = "https://community-open-weather-map.p.rapidapi.com/weather?id={id}&lon={lon}&lat={lat}&&units=metric";
 
-    public ForecastService(RestTemplate restTemplate, OpenWeatherProperties openWeatherProperties, ForecastDaoService forecastDaoService) {
+    public ForecastService(RestTemplate restTemplate, OpenWeatherProperties openWeatherProperties,
+                           ForecastDaoService forecastDaoService, @Qualifier("openWeatherForecastMapper") IJSONMapper IJSONMapper) {
         this.restTemplate = restTemplate;
-        IJSONMapper = new OpenWeatherForecastMapper();
+        this.IJSONMapper = IJSONMapper;
         this.openWeatherProperties = openWeatherProperties;
         this.forecastDaoService = forecastDaoService;
 

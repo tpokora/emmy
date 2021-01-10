@@ -15,12 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.common.utils.FileReaderUtils;
+import org.tpokora.application.weather.forecast.ForecastService;
+import org.tpokora.application.weather.mapper.OpenWeatherForecastMapper;
+import org.tpokora.application.weather.properties.OpenWeatherProperties;
 import org.tpokora.common.utils.DateUtils;
+import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.persistance.services.weather.ForecastDaoService;
-import org.tpokora.domain.weather.Coordinates;
-import org.tpokora.application.weather.forecast.ForecastService;
-import org.tpokora.application.weather.properties.OpenWeatherProperties;
 
 import java.util.Optional;
 
@@ -39,6 +40,9 @@ public class OpenWeatherForecastServiceTests {
 
     @Mock
     private ForecastDaoService forecastDaoService;
+
+    @Mock
+    private OpenWeatherForecastMapper openWeatherForecastMapper;
 
     @InjectMocks
     private ForecastService forecastService;

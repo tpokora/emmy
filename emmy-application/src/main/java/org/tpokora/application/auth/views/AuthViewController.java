@@ -2,7 +2,6 @@ package org.tpokora.application.auth.views;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,10 +32,13 @@ public class AuthViewController {
     public static final String ROLE_NAME_ERROR = "roleNameError";
     public static final String ROLE_NAME_ALREADY_EXISTS = "Role already exists!";
 
-    @Autowired
     private AuthViewService authViewService;
 
     private BiConsumer<Model, ObjectError> addFormErrorConsumer = this::addFormError;
+
+    public AuthViewController(AuthViewService authViewService) {
+        this.authViewService = authViewService;
+    }
 
     @GetMapping(value = LOGIN_VIEW_URL, name = LOGIN_VIEW)
     public String login(Model model) {
