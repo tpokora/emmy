@@ -25,7 +25,7 @@ public class OpenCageDataLocationService implements ILocationService {
     private RestTemplate restTemplate;
     private IJSONMapper IJSONMapper;
     private OpenCageDataProperties openCageDataProperties;
-    private String URL = "https://api.opencagedata.com/geocode/v1/json?key={key}&q={q}&limit={limit}&min_confidence={min}";
+    private String URL = "https://api.opencagedata.com/geocode/v1/json?key={key}&q={q}&min_confidence={min}";
 
     public OpenCageDataLocationService(RestTemplate restTemplate, OpenCageDataProperties openCageDataProperties) {
         this.restTemplate = restTemplate;
@@ -58,7 +58,6 @@ public class OpenCageDataLocationService implements ILocationService {
     private Map<String, String> getUriVariables(String name) {
         return Map.of(KEY, openCageDataProperties.getValue(KEY),
                 Q, name,
-                LIMIT, "1",
                 MIN, "3");
     }
 
