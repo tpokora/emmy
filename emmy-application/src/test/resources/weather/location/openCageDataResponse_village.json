@@ -1,0 +1,327 @@
+{
+  "documentation": "https://opencagedata.com/api",
+  "licenses": [
+    {
+      "name": "see attribution guide",
+      "url": "https://opencagedata.com/credits"
+    }
+  ],
+  "results": [
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 50.1261338,
+          "lng": 20.2173455
+        },
+        "southwest": {
+          "lat": 49.9676668,
+          "lng": 19.7922355
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "government",
+        "_type": "administrative",
+        "administrative": "Krakow",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "county": "Kraków County",
+        "political_union": "European Union",
+        "state": "Lesser Poland Voivodeship",
+        "state_code": "12"
+      },
+      "confidence": 4,
+      "formatted": "Krakow, Kraków County, Poland",
+      "geometry": {
+        "lat": 50.0469432,
+        "lng": 19.9971534
+      }
+    },
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 50.1261338,
+          "lng": 20.2173455
+        },
+        "southwest": {
+          "lat": 49.9676668,
+          "lng": 19.7922355
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "place",
+        "_type": "village",
+        "village": "Krakow",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "political_union": "European Union",
+        "state": "Lesser Poland Voivodeship",
+        "state_code": "12"
+      },
+      "confidence": 4,
+      "formatted": "Krakow, Lesser Poland Voivodeship, Poland",
+      "geometry": {
+        "lat": 50.0619474,
+        "lng": 19.9368564
+      }
+    },
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 52.3711111,
+          "lng": 19.9641667
+        },
+        "southwest": {
+          "lat": 52.3311111,
+          "lng": 19.9241667
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "place",
+        "_type": "village",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "county": "Płock County",
+        "hamlet": "Kraków",
+        "municipality": "gmina Słubice",
+        "political_union": "European Union",
+        "postcode": "09-533",
+        "state": "Masovian Voivodeship",
+        "state_code": "14",
+        "village": "Potok Biały"
+      },
+      "confidence": 7,
+      "formatted": "09-533 Potok Biały, Poland",
+      "geometry": {
+        "lat": 52.3511111,
+        "lng": 19.9441667
+      }
+    },
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 50.9819186,
+          "lng": 23.5908763
+        },
+        "southwest": {
+          "lat": 50.9419186,
+          "lng": 23.5508763
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "place",
+        "_type": "village",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "county": "Chełm County",
+        "hamlet": "Kraków",
+        "municipality": "gmina Leśniowice",
+        "political_union": "European Union",
+        "postcode": "22-120",
+        "state": "Lublin Voivodeship",
+        "state_code": "06",
+        "village": "Poniatówka"
+      },
+      "confidence": 7,
+      "formatted": "22-120 Poniatówka, Poland",
+      "geometry": {
+        "lat": 50.9619186,
+        "lng": 23.5708763
+      }
+    },
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 52.8061111,
+          "lng": 20.62
+        },
+        "southwest": {
+          "lat": 52.7661111,
+          "lng": 20.58
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "place",
+        "_type": "village",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "county": "Ciechanów County",
+        "hamlet": "Kraków",
+        "municipality": "gmina Ojrzeń",
+        "political_union": "European Union",
+        "state": "Masovian Voivodeship",
+        "state_code": "14",
+        "village": "Kraszewo"
+      },
+      "confidence": 7,
+      "formatted": "Kraszewo, Ciechanów County, Poland",
+      "geometry": {
+        "lat": 52.7861111,
+        "lng": 20.6
+      }
+    },
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 50.1294444,
+          "lng": 21.1680556
+        },
+        "southwest": {
+          "lat": 50.0894444,
+          "lng": 21.1280556
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "place",
+        "_type": "village",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "county": "Tarnów County",
+        "hamlet": "Kraków",
+        "municipality": "gmina Lisia Góra",
+        "political_union": "European Union",
+        "postcode": "33-151",
+        "state": "Lesser Poland Voivodeship",
+        "state_code": "12",
+        "village": "Nowa Jastrząbka"
+      },
+      "confidence": 7,
+      "formatted": "33-151 Nowa Jastrząbka, Poland",
+      "geometry": {
+        "lat": 50.1094444,
+        "lng": 21.1480556
+      }
+    },
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 50.2733833,
+          "lng": 23.1569945
+        },
+        "southwest": {
+          "lat": 50.2732833,
+          "lng": 23.1568945
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "building",
+        "_type": "building",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "county": "Lubaczów County",
+        "isolated_dwelling": "Kraków",
+        "municipality": "gmina Cieszanów",
+        "political_union": "European Union",
+        "postcode": "37-611",
+        "state": "Subcarpathian Voivodeship",
+        "state_code": "18",
+        "village": "Kowalówka"
+      },
+      "confidence": 10,
+      "formatted": "Kraków, 37-611 Kowalówka, Poland",
+      "geometry": {
+        "lat": 50.2733333,
+        "lng": 23.1569445
+      }
+    },
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 51.7494656,
+          "lng": 18.5350445
+        },
+        "southwest": {
+          "lat": 51.7094656,
+          "lng": 18.4950445
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "PL",
+        "ISO_3166-1_alpha-3": "POL",
+        "_category": "place",
+        "_type": "village",
+        "continent": "Europe",
+        "country": "Poland",
+        "country_code": "pl",
+        "county": "Sieradz County",
+        "municipality": "gmina Warta",
+        "political_union": "European Union",
+        "postcode": "98-290",
+        "state": "Łódź Voivodeship",
+        "state_code": "10",
+        "village": "Krąków"
+      },
+      "confidence": 7,
+      "formatted": "98-290 Krąków, Poland",
+      "geometry": {
+        "lat": 51.7294656,
+        "lng": 18.5150445
+      }
+    },
+    {
+      "bounds": {
+        "northeast": {
+          "lat": 53.77,
+          "lng": -112.413333
+        },
+        "southwest": {
+          "lat": 53.73,
+          "lng": -112.453333
+        }
+      },
+      "components": {
+        "ISO_3166-1_alpha-2": "CA",
+        "ISO_3166-1_alpha-3": "CAN",
+        "_category": "place",
+        "_type": "village",
+        "continent": "North America",
+        "country": "Canada",
+        "country_code": "ca",
+        "county": "Lamont County",
+        "state": "Alberta",
+        "state_code": "AB",
+        "village": "Krakow"
+      },
+      "confidence": 7,
+      "formatted": "Krakow, AB, Canada",
+      "geometry": {
+        "lat": 53.75,
+        "lng": -112.433333
+      }
+    }
+  ],
+  "status": {
+    "code": 200,
+    "message": "OK"
+  },
+  "stay_informed": {
+    "blog": "https://blog.opencagedata.com",
+    "twitter": "https://twitter.com/OpenCage"
+  },
+  "thanks": "For using an OpenCage API",
+  "timestamp": {
+    "created_http": "Sun, 10 Jan 2021 17:37:28 GMT",
+    "created_unix": 1610300248
+  },
+  "total_results": 9
+}

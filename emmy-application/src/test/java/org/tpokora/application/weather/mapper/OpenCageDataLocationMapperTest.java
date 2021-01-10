@@ -8,22 +8,42 @@ import org.tpokora.domain.weather.Location;
 
 class OpenCageDataLocationMapperTest {
 
+    private final String WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_CITY_JSON = "weather/location/openCageDataResponse_city.json";
+    private final String WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_TOWN_JSON = "weather/location/openCageDataResponse_town.json";
+    private final String WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_VILLAGE_JSON = "weather/location/openCageDataResponse_village.json";
     private OpenCageDataLocationMapper openCageDataLocationMapper;
     private String openCageDataLocationStringResponse;
 
     @BeforeEach
     public void setup() {
         openCageDataLocationMapper = new OpenCageDataLocationMapper();
-        openCageDataLocationStringResponse = FileReaderUtils.fileToString("weather/location/openCageDataResponse.json");
     }
 
     @Test
-    void testMap() {
+    void testMap_city() {
+        openCageDataLocationStringResponse = FileReaderUtils.fileToString(WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_CITY_JSON);
         Location expectedLocation = new Location(19.9368564, 50.0619474);
         expectedLocation.setName("Krakow");
         Location location = openCageDataLocationMapper.map(openCageDataLocationStringResponse);
         Assertions.assertEquals(expectedLocation.toString(), location.toString());
+    }
 
+    @Test
+    void testMap_town() {
+        openCageDataLocationStringResponse = FileReaderUtils.fileToString(WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_TOWN_JSON);
+        Location expectedLocation = new Location(19.9368564, 50.0619474);
+        expectedLocation.setName("Krakow");
+        Location location = openCageDataLocationMapper.map(openCageDataLocationStringResponse);
+        Assertions.assertEquals(expectedLocation.toString(), location.toString());
+    }
+
+    @Test
+    void testMap_village() {
+        openCageDataLocationStringResponse = FileReaderUtils.fileToString(WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_VILLAGE_JSON);
+        Location expectedLocation = new Location(19.9368564, 50.0619474);
+        expectedLocation.setName("Krakow");
+        Location location = openCageDataLocationMapper.map(openCageDataLocationStringResponse);
+        Assertions.assertEquals(expectedLocation.toString(), location.toString());
     }
 
     @Test
