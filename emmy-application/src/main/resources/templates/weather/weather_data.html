@@ -53,10 +53,7 @@
 // chart data
 var labels = "[[${chartLabels}]]";
 var labelsArray = labels.split("|");
-var tempData = [[${chartData}]];
-
-console.log("Chart labels: " + labelsArray);
-console.log("Data labels: " + data);
+var tempData = [[${chartTempData}]];
 
 // chart colors
 var colors = ['#007bff','#28a745','#333333','#c3e6cb','#dc3545','#6c757d'];
@@ -99,12 +96,14 @@ if (chLine) {
                     <tr>
                         <th scope="col">Location</th>
                         <th scope="col">Timestamp</th>
+                        <th scope="col">Temperature</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="forecast : ${forecasts}">
                         <td th:text="${forecast.location}"></td>
                         <td th:text="${datesFormatter.parseDate(forecast.timestamp)}"></td>
+                        <td th:text="${forecast.temp}"></td>
                     </tr>
                 </tbody>
             </table>

@@ -1,6 +1,5 @@
 package org.tpokora.application.weather.views;
 
-import org.h2.mvstore.DataUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -79,9 +78,11 @@ class WeatherDataViewControllerWebLayerTest extends BaseViewControllerWebLayerTe
         forecastEntities.forEach(forecastEntity -> {
             String locationElement = tableElementString(forecastEntity.getLocation());
             String timestampElement = tableElementString(DateUtils.parseDateToString(forecastEntity.getTimestamp()));
+            String tempElement = tableElementString(String.valueOf(forecastEntity.getTemp()));
 
             Assertions.assertTrue(responseBody.contains(locationElement));
             Assertions.assertTrue(responseBody.contains(timestampElement));
+            Assertions.assertTrue(responseBody.contains(tempElement));
         });
 
         // Assert modelAndView

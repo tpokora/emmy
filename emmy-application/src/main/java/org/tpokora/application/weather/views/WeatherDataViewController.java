@@ -46,7 +46,7 @@ public class WeatherDataViewController {
         initializeModel(model);
         LOGGER.info(">> Find WeatherData by location: {}", location);
         LocalDateTime now = LocalDateTime.now();
-        List<ForecastEntity> allByLocationBetweenDates = forecastDaoService.findAllByLocationBetweenDates(location, now.minusMonths(4), now);
+        List<ForecastEntity> allByLocationBetweenDates = forecastDaoService.findAllByLocationBetweenDates(location, now.minusMonths(3), now);
         updateModelAttribute(model, FORECASTS, allByLocationBetweenDates);
         chartData(model, allByLocationBetweenDates);
         return WeatherViewConstants.WEATHER_DATA_VIEW_TEMPLATE;

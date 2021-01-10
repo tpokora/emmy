@@ -6,6 +6,8 @@ html, body, main {
 
 main {
     margin-top: 80px;
+    min-width: 1200px;
+    max-width: 1440px;
 }
 
 #logout-form {
