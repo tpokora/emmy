@@ -1,5 +1,6 @@
 package org.tpokora.application.weather.views;
 
+import org.h2.mvstore.DataUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -7,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.servlet.ModelAndView;
 import org.tpokora.application.common.views.BaseViewControllerWebLayerTest;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
@@ -16,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -79,6 +83,21 @@ class WeatherDataViewControllerWebLayerTest extends BaseViewControllerWebLayerTe
             Assertions.assertTrue(responseBody.contains(locationElement));
             Assertions.assertTrue(responseBody.contains(timestampElement));
         });
+
+        // Assert modelAndView
+        assertModel(forecastEntities, mvcResult);
+    }
+
+    private void assertModel(List<ForecastEntity> forecastEntities, MvcResult mvcResult) {
+        ModelAndView modelAndView = mvcResult.getModelAndView();
+        Map<String, Object> model = modelAndView.getModel();
+        Assertions.assertNotNull(model);
+        String expectedChartLabels = DateUtils.parseDateToString(forecastEntities.get(0).getTimestamp()) + "|" + DateUtils.parseDateToString(forecastEntities.get(1).getTimestamp());
+        List<Double> expectedDataList = forecastEntities.stream()
+                .map(ForecastEntity::getTemp)
+                .collect(Collectors.toList());
+        Assertions.assertEquals(expectedChartLabels, model.get("chartLabels"));
+        Assertions.assertEquals(expectedDataList, model.get("chartTempData"));
     }
 
     private void assertBasicContent(String body) {
@@ -93,7 +112,8 @@ class WeatherDataViewControllerWebLayerTest extends BaseViewControllerWebLayerTe
                 .name("Clouds")
                 .location("testCity")
                 .description("testDescription")
-                .timestamp(LocalDateTime.now().minusDays(1))
+                .timestamp(LocalDateTime.now().minusDays(2))
+                .temp(11.2)
                 .build();
 
         ForecastEntity forecastTwo = ForecastEntity.builder()
@@ -101,7 +121,8 @@ class WeatherDataViewControllerWebLayerTest extends BaseViewControllerWebLayerTe
                 .name("Rainy")
                 .location("testCity")
                 .description("testDescription")
-                .timestamp(LocalDateTime.now().minusDays(2))
+                .timestamp(LocalDateTime.now().minusDays(1))
+                .temp(11.5)
                 .build();
         forecasts.add(forecastOne);
         forecasts.add(forecastTwo);

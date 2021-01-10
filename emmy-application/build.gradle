@@ -25,6 +25,7 @@ targetCompatibility = 11.0
 
 def bootstrapVersion = '4.5.0'
 def jqueryVersion = '3.5.0'
+def chartjsVersion = '2.9.3'
 
 def mockitoVersion = '3.5.0'
 
@@ -58,8 +59,10 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    // WebJars
     implementation group: 'org.webjars', name: 'bootstrap', version: "${bootstrapVersion}"
     implementation group: 'org.webjars', name: 'jquery', version: "${jqueryVersion}"
+    implementation group: 'org.webjars', name: 'chartjs', version: "${chartjsVersion}"
 
 
     // Tests dependencies

@@ -4,6 +4,7 @@
 <head>
     <title>Weather Data</title>
     <script th:src="@{/webjars/jquery/3.5.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/chartjs/2.9.3/Chart.min.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css} "/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/common.css}"/>
 </head>
@@ -34,6 +35,65 @@
             <h2>No Forecast found</h2>
         </div>
         <div th:if="${forecasts != null && forecasts.size() > 0}">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="chLine"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+            /* chart.js chart examples */
+
+// chart data
+var labels = "[[${chartLabels}]]";
+var labelsArray = labels.split("|");
+var tempData = [[${chartData}]];
+
+console.log("Chart labels: " + labelsArray);
+console.log("Data labels: " + data);
+
+// chart colors
+var colors = ['#007bff','#28a745','#333333','#c3e6cb','#dc3545','#6c757d'];
+
+/* large line chart */
+var chLine = document.getElementById("chLine");
+var chartData = {
+  labels: labelsArray,
+  datasets: [{
+    data: tempData,
+    backgroundColor: 'transparent',
+    borderColor: colors[0],
+    borderWidth: 4,
+    pointBackgroundColor: colors[0]
+  }]
+};
+
+if (chLine) {
+  new Chart(chLine, {
+  type: 'line',
+  data: chartData,
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: false
+        }
+      }]
+    },
+    legend: {
+      display: false
+    }
+  }
+  });
+}
+        </script>
+            <hr />
             <table class="table">
                 <thead>
                     <tr>

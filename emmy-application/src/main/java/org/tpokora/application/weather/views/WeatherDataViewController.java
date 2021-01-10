@@ -6,13 +6,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.tpokora.common.utils.DateUtils;
 import org.tpokora.config.constants.WeatherViewConstants;
 import org.tpokora.domain.weather.Location;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.persistance.services.weather.ForecastDaoService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.tpokora.application.weather.views.WeatherViewConstants.FORECASTS;
 import static org.tpokora.application.weather.views.WeatherViewConstants.LOCATION;
@@ -44,7 +48,19 @@ public class WeatherDataViewController {
         LocalDateTime now = LocalDateTime.now();
         List<ForecastEntity> allByLocationBetweenDates = forecastDaoService.findAllByLocationBetweenDates(location, now.minusMonths(4), now);
         updateModelAttribute(model, FORECASTS, allByLocationBetweenDates);
+        chartData(model, allByLocationBetweenDates);
         return WeatherViewConstants.WEATHER_DATA_VIEW_TEMPLATE;
+    }
+
+    private void chartData(Model model, List<ForecastEntity> forecastEntityList) {
+        String chartLabels = forecastEntityList.stream()
+                .map(forecastEntity -> DateUtils.parseDateToString(forecastEntity.getTimestamp()))
+                .collect(Collectors.joining("|"));
+        List<Double> chartTempData = forecastEntityList.stream()
+                .map(ForecastEntity::getTemp)
+                .collect(Collectors.toList());
+        updateModelAttribute(model, "chartLabels", chartLabels);
+        updateModelAttribute(model, "chartTempData", chartTempData);
     }
 
     private void initializeModel(Model model) {
