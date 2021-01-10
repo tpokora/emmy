@@ -25,7 +25,7 @@ public class FileReaderUtils {
 
     @Test
     void loadJSONTest() {
-        String fileName = "weather/location/openCageDataResponse.json";
+        String fileName = "weather/location/openCageDataResponse_city.json";
 
         String fileContent = fileToString(fileName);
         Assertions.assertNotNull(fileContent, "File is empty!");

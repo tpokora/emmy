@@ -43,6 +43,10 @@ pipeline {
         sh './gradlew :emmy-application:test'
       }
     }
-
+  }
+  post {
+    always {
+        junit '**/reports/junit/*.xml'
+    }
   }
 }
