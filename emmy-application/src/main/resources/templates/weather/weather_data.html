@@ -63,11 +63,13 @@ var chLine = document.getElementById("chLine");
 var chartData = {
   labels: labelsArray,
   datasets: [{
+    label: 'Temperature',
     data: tempData,
     backgroundColor: 'transparent',
     borderColor: colors[0],
-    borderWidth: 4,
-    pointBackgroundColor: colors[0]
+    borderWidth: 2,
+    pointBackgroundColor: colors[0],
+    pointRadius: 2
   }]
 };
 
@@ -82,9 +84,6 @@ if (chLine) {
           beginAtZero: false
         }
       }]
-    },
-    legend: {
-      display: false
     }
   }
   });
