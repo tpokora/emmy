@@ -32,14 +32,14 @@ public class ForecastService implements IForecastService {
 
     // TODO: Separate resolving mappers and properties for RestTemplate from this Service
 
-    @Qualifier("openCageDataLocationMapper")
     private final IJSONMapper IJSONMapper;
     private final OpenWeatherProperties openWeatherProperties;
     private final ForecastDaoService forecastDaoService;
 
     public static final String URL = "https://community-open-weather-map.p.rapidapi.com/weather?id={id}&lon={lon}&lat={lat}&&units=metric";
 
-    public ForecastService(RestTemplate restTemplate, OpenWeatherProperties openWeatherProperties, ForecastDaoService forecastDaoService, IJSONMapper IJSONMapper) {
+    public ForecastService(RestTemplate restTemplate, OpenWeatherProperties openWeatherProperties,
+                           ForecastDaoService forecastDaoService, @Qualifier("openWeatherForecastMapper") IJSONMapper IJSONMapper) {
         this.restTemplate = restTemplate;
         this.IJSONMapper = IJSONMapper;
         this.openWeatherProperties = openWeatherProperties;
