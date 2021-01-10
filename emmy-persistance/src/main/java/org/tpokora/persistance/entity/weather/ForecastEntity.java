@@ -10,7 +10,10 @@ import java.time.LocalDateTime;
 public class ForecastEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name="forecast_id_seq",
+            sequenceName="forecast_id_seq",
+            allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "forecast_id_seq")
     @Column(name = "ID")
     private int id;
 

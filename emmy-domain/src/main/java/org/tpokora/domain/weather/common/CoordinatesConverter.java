@@ -16,4 +16,9 @@ public class CoordinatesConverter {
         }
         return Double.parseDouble(String.format("%s.%s", wholeNumberPart, minutesFromFracture));
     }
+
+    public static void main(String args[]) {
+        double input = 49.9747508;
+        System.out.println(convertDecimalDegreeToDM(input));
+    }
 }

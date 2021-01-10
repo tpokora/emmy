@@ -1,6 +1,5 @@
 package org.tpokora.config.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -29,8 +28,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGOUT_SUCCESS_URL = "/login?logout";
     public static final String HOME = "/home";
 
-    @Autowired
-    UserDetailsService userDetailsService;
+    final UserDetailsService userDetailsService;
+
+    public SecurityConfiguration(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -52,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage(LOGIN_URL).permitAll()
+                .loginPage(LOGIN_URL)
                 .defaultSuccessUrl(HOME)
                 .failureUrl(LOGIN_FAILURE_URL)
 

@@ -3,12 +3,14 @@ package org.tpokora.application.weather.mapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.tpokora.application.common.mapper.IJSONMapper;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 
 import java.util.Optional;
 
+@Component("openWeatherForecastMapper")
 public class OpenWeatherForecastMapper implements IJSONMapper<ForecastEntity> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(OpenWeatherForecastMapper.class);
