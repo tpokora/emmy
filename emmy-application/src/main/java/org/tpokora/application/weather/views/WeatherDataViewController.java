@@ -2,6 +2,7 @@ package org.tpokora.application.weather.views;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,9 @@ public class WeatherDataViewController {
 
     private ForecastDaoService forecastDaoService;
 
+    @Value("${forecast.interval}")
+    private int defaultIntervalInWeeks;
+
     public WeatherDataViewController(ForecastDaoService forecastDaoService) {
         this.forecastDaoService = forecastDaoService;
     }
@@ -46,7 +50,7 @@ public class WeatherDataViewController {
         initializeModel(model);
         LOGGER.info(">> Find WeatherData by location: {}", location);
         LocalDateTime now = LocalDateTime.now();
-        List<ForecastEntity> allByLocationBetweenDates = forecastDaoService.findAllByLocationBetweenDates(location, now.minusMonths(1), now);
+        List<ForecastEntity> allByLocationBetweenDates = forecastDaoService.findAllByLocationBetweenDates(location, now.minusWeeks(defaultIntervalInWeeks), now);
         updateModelAttribute(model, FORECASTS, allByLocationBetweenDates);
         chartData(model, allByLocationBetweenDates);
         return WeatherViewConstants.WEATHER_DATA_VIEW_TEMPLATE;
