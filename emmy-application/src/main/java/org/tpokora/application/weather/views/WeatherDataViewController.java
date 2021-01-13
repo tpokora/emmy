@@ -31,7 +31,7 @@ public class WeatherDataViewController {
 
     private ForecastDaoService forecastDaoService;
 
-    @Value("${forecast.interval}")
+    @Value("${forecast.interval:2}")
     private int defaultIntervalInWeeks;
 
     public WeatherDataViewController(ForecastDaoService forecastDaoService) {
