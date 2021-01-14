@@ -53,9 +53,9 @@
                                     </div>
                                 </div>
 
-                                <div class="form-row text-danger" th:if="${#fields.hasErrors('name')}"><span class="px-2" th:text="${'Name'}"></span><span th:errors="*{name}"></span></div>
-                                <div class="form-row text-danger" th:if="${#fields.hasErrors('value')}"><span class="px-2" th:text="${'Value'}"></span> <span th:errors="*{value}"></span></div>
-                                <div class="form-row text-danger" th:if="${#fields.hasErrors('description')}"><span class="px-2" th:text="${'Description'}"></span><span th:errors="*{description}"></span></div>
+                                <div class="form-row text-danger" th:if="${#fields.hasErrors('name')}"></span><span th:errors="*{name}"></span></div>
+                                <div class="form-row text-danger" th:if="${#fields.hasErrors('value')}"></span> <span th:errors="*{value}"></span></div>
+                                <div class="form-row text-danger" th:if="${#fields.hasErrors('description')}"></span><span th:errors="*{description}"></span></div>
                             </form>
                         </div>
                         <hr/>
@@ -78,10 +78,8 @@
                                                     <input type="text" th:name="value" th:value="${property.value}" />
                                                     <input type="text" th:name="description" th:value="${property.description}"/>
                                                     <button type="submit" name="submit" value="value" class="btn btn-secondary">Submit</button>
-
-                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('name')}"><span class="px-2" th:text="${'Name'}"></span><span th:errors="*{name}"></span></div>
-                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('value')}"><span class="px-2" th:text="${'Value'}"></span> <span th:errors="*{value}"></span></div>
-                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('description')}"><span class="px-2" th:text="${'Description'}"></span><span th:errors="*{description}"></span></div>
+                                                    <!-- TODO: Refactor edit property -->
+<!--                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('name')}"></span><span th:errors="*{name}"></span></div>-->
                                                 </form>
                                             </div>
                                         </div>

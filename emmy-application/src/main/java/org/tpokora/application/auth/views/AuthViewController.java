@@ -73,7 +73,6 @@ public class AuthViewController {
     public String addRole(@Valid RoleForm roleForm, BindingResult bindingResult, Model model) {
         LOGGER.info(">> Adding new role");
         if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(error -> addFormErrorConsumer.accept(model, error));
             return authViewService.rolesView(model);
         }
         String roleNameUppercase = roleForm.getRoleName().toUpperCase();

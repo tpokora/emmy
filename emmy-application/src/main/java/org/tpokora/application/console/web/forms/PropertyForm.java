@@ -1,19 +1,23 @@
 package org.tpokora.application.console.web.forms;
 
+import org.tpokora.application.common.views.forms.BasicForm;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class PropertyForm {
+public class PropertyForm extends BasicForm {
 
-    @NotNull
-    @Size(min=3, max=30)
+    public static final String NAME = "Name";
+
+    @NotNull(message = FIELD_REQUIRED)
+    @Size(min=3, max=30, message = NAME + MIN_AND_MAX)
     private String name;
 
-    @NotNull
-    @Size(min=1, max=30)
+    @NotNull(message = FIELD_REQUIRED)
+    @Size(min=1, max=30, message = "Name" + MIN_AND_MAX)
     private String value;
 
-    @Size(max=200)
+    @Size(max=200, message = "Name" + MAX)
     private String description;
 
     public String getName() {
