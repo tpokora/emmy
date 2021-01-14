@@ -78,8 +78,10 @@
                                                     <input type="text" th:name="value" th:value="${property.value}" />
                                                     <input type="text" th:name="description" th:value="${property.description}"/>
                                                     <button type="submit" name="submit" value="value" class="btn btn-secondary">Submit</button>
-                                                    <!-- TODO: Refactor edit property -->
-<!--                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('name')}"></span><span th:errors="*{name}"></span></div>-->
+
+                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('name')}"></span><span th:errors="*{name}"></span></div>
+                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('value')}"></span> <span th:errors="*{value}"></span></div>
+                                                    <div class="form-row text-danger" th:if="${#fields.hasErrors('description')}"></span><span th:errors="*{description}"></span></div>
                                                 </form>
                                             </div>
                                         </div>
