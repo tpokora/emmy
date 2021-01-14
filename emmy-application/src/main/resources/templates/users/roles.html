@@ -23,6 +23,7 @@
             </div>
             <button type="submit" class="btn btn-primary mb-2">Create Role</button>
             <div class="form-group mb-2">
+                <small th:if="${#fields.hasErrors('roleName')}" th:errors="*{roleName}" class="form-text text-danger"></small>
                 <small th:if="${roleNameError != null}" th:text="${roleNameError}" class="form-text text-danger">Bad role
                     name</small>
             </div>
