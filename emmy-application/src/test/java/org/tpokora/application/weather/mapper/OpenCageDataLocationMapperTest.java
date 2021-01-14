@@ -11,6 +11,7 @@ class OpenCageDataLocationMapperTest {
     private final String WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_CITY_JSON = "weather/location/openCageDataResponse_city.json";
     private final String WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_TOWN_JSON = "weather/location/openCageDataResponse_town.json";
     private final String WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_VILLAGE_JSON = "weather/location/openCageDataResponse_village.json";
+    private final String WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_EMPTY_RESULTS_JSON = "weather/location/openCageDataResponse_emptyResults.json";
     private OpenCageDataLocationMapper openCageDataLocationMapper;
     private String openCageDataLocationStringResponse;
 
@@ -44,6 +45,13 @@ class OpenCageDataLocationMapperTest {
         expectedLocation.setName("Krakow");
         Location location = openCageDataLocationMapper.map(openCageDataLocationStringResponse);
         Assertions.assertEquals(expectedLocation.toString(), location.toString());
+    }
+
+    @Test
+    public void testMap_emptyResults() {
+        openCageDataLocationStringResponse = FileReaderUtils.fileToString(WEATHER_LOCATION_OPEN_CAGE_DATA_RESPONSE_EMPTY_RESULTS_JSON);
+        Location location = openCageDataLocationMapper.map(openCageDataLocationStringResponse);
+        Assertions.assertNull(location);
     }
 
     @Test

@@ -21,10 +21,12 @@ public class OpenCageDataLocationMapper implements IJSONMapper<Location> {
         if (optionalRootNode.isPresent()) {
             JsonNode rootNode = optionalRootNode.get();
             JsonNode result = getResult(rootNode);
-            Location location = new Location();
-            setName(location, result);
-            setCoordinates(location, result);
-            return location;
+            if (result != null) {
+                Location location = new Location();
+                setName(location, result);
+                setCoordinates(location, result);
+                return location;
+            }
         }
         return null;
     }
