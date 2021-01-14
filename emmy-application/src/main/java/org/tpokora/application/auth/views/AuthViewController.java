@@ -12,6 +12,7 @@ import org.tpokora.application.auth.services.AuthViewService;
 import org.tpokora.application.auth.views.forms.UserForm;
 import org.tpokora.application.users.views.forms.RoleForm;
 import org.tpokora.common.utils.StringUtils;
+import org.tpokora.config.constants.AuthConstants;
 import org.tpokora.persistance.entity.users.Role;
 
 import javax.validation.Valid;
@@ -56,8 +57,7 @@ public class AuthViewController {
     public String addUser(@Valid UserForm userForm, BindingResult bindingResult, Model model) {
         LOGGER.info(">> Adding new user");
         if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(error -> addFormErrorConsumer.accept(model, error));
-            return authViewService.signInView(model);
+            return AuthConstants.SIGNIN_VIEW_TEMPLATE;
         }
         if (checkForUser(userForm.getUsername(), model)) {
             return authViewService.signInView(model);
