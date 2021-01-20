@@ -2,19 +2,20 @@ package org.tpokora.application.weather.views;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.tpokora.config.constants.WeatherViewConstants;
-import org.tpokora.domain.weather.*;
-import org.tpokora.persistance.entity.weather.ForecastEntity;
-import org.tpokora.application.weather.forecast.ForecastService;
+import org.tpokora.application.weather.forecast.IForecastService;
 import org.tpokora.application.weather.location.OpenCageDataLocationService;
 import org.tpokora.application.weather.storms.FindCityService;
 import org.tpokora.application.weather.storms.FindStormService;
 import org.tpokora.application.weather.storms.FindWarningService;
+import org.tpokora.config.constants.WeatherViewConstants;
+import org.tpokora.domain.weather.*;
+import org.tpokora.persistance.entity.weather.ForecastEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,14 +32,17 @@ public class WeatherViewController {
     private final FindCityService findCityService;
     private final FindStormService findStormService;
     private final FindWarningService findWarningService;
-    private final ForecastService forecastService;
+    private final IForecastService forecastService;
 
     private ForecastEntity forecast;
     private StormResponse stormResponse;
     private List<Warning> warnings;
 
-    public WeatherViewController(OpenCageDataLocationService openCageDataLocationService, FindCityService findCityService, FindStormService findStormService,
-                                 FindWarningService findWarningService, ForecastService forecastService) {
+    public WeatherViewController(OpenCageDataLocationService openCageDataLocationService,
+                                 FindCityService findCityService,
+                                 FindStormService findStormService,
+                                 FindWarningService findWarningService,
+                                 @Autowired IForecastService forecastService) {
         this.openCageDataLocationService = openCageDataLocationService;
         this.findCityService = findCityService;
         this.findStormService = findStormService;
