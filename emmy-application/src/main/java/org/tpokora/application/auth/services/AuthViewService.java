@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.tpokora.application.auth.views.forms.UserForm;
 import org.tpokora.application.users.services.UserDetailsServiceImpl;
 import org.tpokora.application.users.views.forms.RoleForm;
 import org.tpokora.config.constants.AuthConstants;
@@ -23,7 +24,7 @@ import static org.tpokora.config.constants.UsersViewConstants.ROLES_VIEW_TEMPLAT
 public class AuthViewService {
 
     private static final String USER_FOR_LOGIN_IS_NULL = "User for login is null!";
-    public static final String USER_ATTRIBUTE = "user";
+    public static final String USER_FORM_ATTRIBUTE = "userForm";
     public static final String ROLES_ATTRIBUTE = "roles";
     public static final String ROLE_FORM_ATTRIBUTE = "roleForm";
     private UserDetailsServiceImpl userDetailsService;
@@ -35,7 +36,7 @@ public class AuthViewService {
     }
 
     public String signInView(Model model) {
-        model.addAttribute(USER_ATTRIBUTE, new User());
+        model.addAttribute(USER_FORM_ATTRIBUTE, new UserForm());
         return AuthConstants.SIGNIN_VIEW_TEMPLATE;
     }
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -55,51 +56,51 @@ public class ConsoleViewController {
     }
 
     @GetMapping(value = CONSOLE_VIEW_URL, name = CONSOLE_VIEW)
-    public String home(Model model) {
+    public String home(Model model, @ModelAttribute(ADD_PROPERTY_FORM) PropertyForm addPropertyForm,
+                       @ModelAttribute(EDIT_PROPERTY_FORM) PropertyForm editPropertyForm,
+                       @ModelAttribute(ADD_LOCATION_FORM) AddLocationForm addLocationForm) {
         LOGGER.info(">> Console");
-        initializeForms(model);
         initializeView(model);
         getUserDetails();
         return CONSOLE_VIEW_TEMPLATE;
     }
 
     @PostMapping(value = CONSOLE_VIEW_URL + "/addLocation")
-    public String addLocationMonitorByName(Model model, AddLocationForm locationForm) {
+    public String addLocationMonitorByName(Model model, @ModelAttribute(ADD_LOCATION_FORM) AddLocationForm locationForm) {
         LOGGER.info(">> Add Location to monitor by name: {}", locationForm.getLocationName());
         getUserDetails();
         Optional<Location> optionalLocation = locationService.getLocationCoordinatesByName(locationForm.getLocationName());
         optionalLocation.ifPresent(this::saveLocationToMonitor);
-        model.addAttribute(ADD_LOCATION_FORM, new AddLocationForm());
         return "redirect:" + CONSOLE_VIEW_URL;
     }
 
     @PostMapping(value = CONSOLE_VIEW_URL + "/addProperty")
-    public String addProperty(Model model, @Valid PropertyForm propertyForm,
-                              BindingResult bindingResult) {
-        initializeView(model);
+    public String addProperty(@Valid @ModelAttribute(ADD_PROPERTY_FORM) PropertyForm addPropertyForm,
+                              BindingResult bindingResult, Model model,
+                              @ModelAttribute(EDIT_PROPERTY_FORM) PropertyForm editPropertyForm,
+                              @ModelAttribute(ADD_LOCATION_FORM) AddLocationForm addLocationForm) {
         getUserDetails();
         if (bindingResult.hasErrors()) {
-            model.addAttribute(ADD_LOCATION_FORM, new AddLocationForm());
+            model.addAttribute("appProperties", appPropertyService.getAllProperties());
             return CONSOLE_VIEW_TEMPLATE;
-
         }
-        appPropertyService.saveProperty(propertyForm.getName(), propertyForm.getValue(), propertyForm.getDescription());
+        appPropertyService.saveProperty(addPropertyForm.getName(), addPropertyForm.getValue(), addPropertyForm.getDescription());
         model.addAttribute("appProperties", appPropertyService.getAllProperties());
         return "redirect:" + CONSOLE_VIEW_URL;
     }
 
     @PostMapping(value = CONSOLE_VIEW_URL + "/editProperty")
-    public String editProperty(Model model, @Valid PropertyForm propertyForm,
-                               BindingResult bindingResult) {
-        initializeView(model);
+    public String editProperty(@Valid @ModelAttribute(EDIT_PROPERTY_FORM) PropertyForm editPropertyForm,
+                               BindingResult bindingResult, Model model,
+                               @ModelAttribute(ADD_PROPERTY_FORM) PropertyForm addPropertyForm,
+                               @ModelAttribute(ADD_LOCATION_FORM) AddLocationForm addLocationForm) {
         getUserDetails();
         if (bindingResult.hasErrors()) {
-            initializeForms(model);
+            model.addAttribute("appProperties", appPropertyService.getAllProperties());
             return CONSOLE_VIEW_TEMPLATE;
-
         }
-        Optional<AppPropertyEntity> propertyOptional = appPropertyService.getProperty(propertyForm.getName());
-        propertyOptional.ifPresent(property -> appPropertyService.saveProperty(property.getProperty(), propertyForm.getValue(), propertyForm.getDescription()));
+        Optional<AppPropertyEntity> propertyOptional = appPropertyService.getProperty(editPropertyForm.getName());
+        propertyOptional.ifPresent(property -> appPropertyService.saveProperty(property.getProperty(), editPropertyForm.getValue(), editPropertyForm.getDescription()));
         model.addAttribute("appProperties", appPropertyService.getAllProperties());
         return "redirect:" + CONSOLE_VIEW_URL;
     }
@@ -111,12 +112,6 @@ public class ConsoleViewController {
         appPropertyService.deleteProperty(propertyId);
         model.addAttribute("appProperties", appPropertyService.getAllProperties());
         return "redirect:" + CONSOLE_VIEW_URL;
-    }
-
-    private void initializeForms(Model model) {
-        model.addAttribute(ADD_LOCATION_FORM, new AddLocationForm());
-        model.addAttribute(ADD_PROPERTY_FORM, new PropertyForm());
-        model.addAttribute(EDIT_PROPERTY_FORM, new PropertyForm());
     }
 
     private void initializeView(Model model) {

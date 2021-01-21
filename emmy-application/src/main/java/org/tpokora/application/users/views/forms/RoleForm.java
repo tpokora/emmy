@@ -1,14 +1,15 @@
 package org.tpokora.application.users.views.forms;
 
+import org.tpokora.application.common.views.forms.BasicForm;
 import org.tpokora.persistance.entity.users.Role;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class RoleForm {
+public class RoleForm extends BasicForm {
 
-    @NotNull
-    @Size(min=3, max=10)
+    @NotNull(message = FIELD_REQUIRED)
+    @Size(min=3, max=10, message = MIN_AND_MAX)
     private String roleName;
 
     public RoleForm() { }
