@@ -9,6 +9,7 @@ import org.tpokora.application.soap.SOAPService;
 import org.tpokora.application.weather.processor.StormSoapResponseProcessor;
 
 import javax.xml.soap.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import static org.tpokora.application.weather.processor.StormProcessorStrings.*;
@@ -28,8 +29,9 @@ public class StormSoapResponseProcessorTests {
     @Test
     @DisplayName("StormSoapResponseProcessor generate StormResponse object")
     public void testProcess() throws SOAPException {
-        StormResponse expectedResponse = new StormResponse(11, 117.4, "E", 15);
         StormResponse stormResponse = stormSoapResponseProcessor.process(soapMessageResponse);
+        StormResponse expectedResponse = new StormResponse(11, 117.4, "E", 15);
+        expectedResponse.setTimestamp(stormResponse.getTimestamp());
         Assertions.assertEquals(expectedResponse.getAmount(), stormResponse.getAmount());
         Assertions.assertEquals(expectedResponse.getDistance(), stormResponse.getDistance());
         Assertions.assertEquals(expectedResponse.getDirection(), stormResponse.getDirection());
