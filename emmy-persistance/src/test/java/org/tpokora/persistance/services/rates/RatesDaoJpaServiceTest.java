@@ -18,7 +18,7 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class RatesDaoServiceTest extends BaseServiceTest {
+public class RatesDaoJpaServiceTest extends BaseServiceTest {
 
     public static final String FROM = "from";
     public static final String TO = "to";
@@ -26,11 +26,11 @@ public class RatesDaoServiceTest extends BaseServiceTest {
     @Autowired
     private RatesRepository ratesRepository;
 
-    private RatesDaoService ratesDaoService;
+    private RatesDaoJpaService ratesDaoJpaService;
 
     @BeforeEach
     public void setup() {
-        ratesDaoService = new RatesDaoService(ratesRepository);
+        ratesDaoJpaService = new RatesDaoJpaService(ratesRepository);
     }
 
     @AfterEach
@@ -54,8 +54,8 @@ public class RatesDaoServiceTest extends BaseServiceTest {
         saveRateEntity(rateEntity);
         saveRateEntity(pastRateEntity);
 
-        Assertions.assertEquals(1, ratesDaoService.getRatesDaysBeforeToday(FROM, TO, 4).size());
-        Assertions.assertEquals(2, ratesDaoService.getRatesDaysBeforeToday(FROM, TO, 12).size());
+        Assertions.assertEquals(1, ratesDaoJpaService.getRatesDaysBeforeToday(FROM, TO, 4).size());
+        Assertions.assertEquals(2, ratesDaoJpaService.getRatesDaysBeforeToday(FROM, TO, 12).size());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class RatesDaoServiceTest extends BaseServiceTest {
 
         LocalDateTime searchLocalDateTime = DateUtils.parseStringToDateTime("2020-11-20 19:20:30");
 
-        List<RateEntity> ratesDaoServiceRatesForDate = ratesDaoService.getRatesForDate(FROM, TO, searchLocalDateTime);
+        List<RateEntity> ratesDaoServiceRatesForDate = ratesDaoJpaService.getRatesForDate(FROM, TO, searchLocalDateTime);
 
         Assertions.assertEquals(2, ratesDaoServiceRatesForDate.size());
     }
@@ -86,13 +86,13 @@ public class RatesDaoServiceTest extends BaseServiceTest {
         LocalDateTime searchLocalDateTimeStart = DateUtils.parseStringToDateTime("2020-11-19 09:20:30");
         LocalDateTime searchLocalDateTimeEnd = DateUtils.parseStringToDateTime("2020-11-20 19:20:30");
 
-        List<RateEntity> ratesDaoServiceRatesForDate = ratesDaoService.getRatesBetweenDates(FROM, TO, searchLocalDateTimeStart, searchLocalDateTimeEnd);
+        List<RateEntity> ratesDaoServiceRatesForDate = ratesDaoJpaService.getRatesBetweenDates(FROM, TO, searchLocalDateTimeStart, searchLocalDateTimeEnd);
 
         Assertions.assertEquals(2, ratesDaoServiceRatesForDate.size());
     }
 
     private RateEntity saveRateEntity(RateEntity rateEntity) {
-        return ratesDaoService.saveRate(rateEntity);
+        return ratesDaoJpaService.saveRate(rateEntity);
     }
 
     private void saveRates(RateEntity... rates) {

@@ -18,7 +18,7 @@ import org.tpokora.application.rates.services.suppliers.IRatesSupplier;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 import org.tpokora.persistance.repositories.rates.RatesRepository;
-import org.tpokora.persistance.services.rates.RatesDaoService;
+import org.tpokora.persistance.services.rates.RatesDaoJpaService;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -29,6 +29,7 @@ class RatesServiceTest extends BaseServiceTest {
 
     public static final String XAU = "XAU";
     public static final String USD = "USD";
+
     @MockBean
     GoldAPIProperties goldAPIProperties;
 
@@ -38,7 +39,7 @@ class RatesServiceTest extends BaseServiceTest {
     @Autowired
     RatesRepository ratesRepository;
 
-    RatesDaoService ratesDaoService;
+    RatesDaoJpaService ratesDaoJpaService;
 
     @MockBean
     IRatesSupplier ratesSupplier;
@@ -47,8 +48,8 @@ class RatesServiceTest extends BaseServiceTest {
 
     @BeforeEach
     public void setup() {
-        this.ratesDaoService = new RatesDaoService(ratesRepository);
-        this.ratesService = new RatesService(ratesSupplier, ratesDaoService);
+        this.ratesDaoJpaService = new RatesDaoJpaService(ratesRepository);
+        this.ratesService = new RatesService(ratesSupplier, ratesDaoJpaService);
     }
 
     @AfterEach

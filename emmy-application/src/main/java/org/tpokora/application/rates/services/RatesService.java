@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.tpokora.application.rates.services.suppliers.IRatesSupplier;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
-import org.tpokora.persistance.services.rates.RatesDaoService;
+import org.tpokora.persistance.services.rates.IRatesDaoService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,9 +21,10 @@ public class RatesService implements IRatesService {
     public final int SAVE_INTERVAL = 4;
 
     private IRatesSupplier ratesSupplier;
-    private RatesDaoService ratesDaoService;
+    private IRatesDaoService ratesDaoService;
 
-    public RatesService(@Qualifier("goldAPIRatesSupplier") IRatesSupplier ratesSupplier, RatesDaoService ratesDaoService) {
+    public RatesService(@Qualifier("goldAPIRatesSupplier") IRatesSupplier ratesSupplier,
+                        @Qualifier("ratesDaoJpaService") IRatesDaoService ratesDaoService) {
         this.ratesSupplier = ratesSupplier;
         this.ratesDaoService = ratesDaoService;
     }
