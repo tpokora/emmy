@@ -1,4 +1,4 @@
-package org.tpokora.application.rates.services;
+package org.tpokora.application.rates;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +13,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.common.services.BaseServiceTest;
 import org.tpokora.application.rates.properties.GoldAPIProperties;
-import org.tpokora.application.rates.services.api.IRatesAPIService;
+import org.tpokora.application.rates.services.RatesService;
+import org.tpokora.application.rates.services.suppliers.IRatesSupplier;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 import org.tpokora.persistance.repositories.rates.RatesRepository;
@@ -40,14 +41,14 @@ class RatesServiceTest extends BaseServiceTest {
     RatesDaoService ratesDaoService;
 
     @MockBean
-    IRatesAPIService ratesAPIService;
+    IRatesSupplier ratesSupplier;
 
     RatesService ratesService;
 
     @BeforeEach
     public void setup() {
         this.ratesDaoService = new RatesDaoService(ratesRepository);
-        this.ratesService = new RatesService(ratesAPIService, ratesDaoService);
+        this.ratesService = new RatesService(ratesSupplier, ratesDaoService);
     }
 
     @AfterEach
@@ -60,7 +61,7 @@ class RatesServiceTest extends BaseServiceTest {
         LocalDateTime now = LocalDateTime.now();
         RateEntity rateEntity = createRateEntity(XAU, USD, now);
 
-        Mockito.when(ratesAPIService.findRate(XAU, USD, now)).thenReturn(Optional.of(rateEntity));
+        Mockito.when(ratesSupplier.findRate(XAU, USD, now)).thenReturn(Optional.of(rateEntity));
         Optional<RateEntity> rateForDate = ratesService.findRateForDate(XAU, USD, now);
 
         Assertions.assertEquals(rateEntity.getFrom(), rateForDate.get().getFrom());

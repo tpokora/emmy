@@ -2,8 +2,9 @@ package org.tpokora.application.rates.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.tpokora.application.rates.services.api.IRatesAPIService;
+import org.tpokora.application.rates.services.suppliers.IRatesSupplier;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 import org.tpokora.persistance.services.rates.RatesDaoService;
@@ -19,18 +20,18 @@ public class RatesService implements IRatesService {
 
     public final int SAVE_INTERVAL = 4;
 
-    private IRatesAPIService ratesAPIService;
+    private IRatesSupplier ratesSupplier;
     private RatesDaoService ratesDaoService;
 
-    public RatesService(IRatesAPIService ratesAPIService, RatesDaoService ratesDaoService) {
-        this.ratesAPIService = ratesAPIService;
+    public RatesService(@Qualifier("goldAPIRatesSupplier") IRatesSupplier ratesSupplier, RatesDaoService ratesDaoService) {
+        this.ratesSupplier = ratesSupplier;
         this.ratesDaoService = ratesDaoService;
     }
 
     @Override
     public Optional<RateEntity> findRateForDate(String from, String to, LocalDateTime localDateTime) {
         LOGGER.info(String.format(">>> Find Archived Rates %s => %s for date: %s", from, to, DateUtils.parseDateToString(localDateTime)));
-        return ratesAPIService.findRate(from, to, localDateTime);
+        return ratesSupplier.findRate(from, to, localDateTime);
     }
 
     @Override
