@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+import static org.tpokora.application.rates.views.RatesViewConstants.*;
+
+@Controller(RATES)
 public class RatesHistoricViewController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(RatesHistoricViewController.class);
@@ -15,9 +17,9 @@ public class RatesHistoricViewController {
 
     }
 
-    @GetMapping(value = "/rates/historicRates", name = "historic-rates")
+    @GetMapping(value = HISTORIC_RATES, name = RATES_HISTORIC_VIEW_NAME)
     public String historicRatesHome(Model model) {
         LOGGER.info(">>> RatesViewController");
-        return "rates/historic_rates";
+        return HISTORIC_RATES_TEMPLATE_URL;
     }
 }
