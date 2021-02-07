@@ -93,12 +93,6 @@ class WeatherDataViewControllerWebLayerTest extends BaseViewControllerWebLayerTe
         ModelAndView modelAndView = mvcResult.getModelAndView();
         Map<String, Object> model = modelAndView.getModel();
         Assertions.assertNotNull(model);
-        String expectedChartLabels = DateUtils.parseDateToString(forecastEntities.get(0).getTimestamp()) + "|" + DateUtils.parseDateToString(forecastEntities.get(1).getTimestamp());
-        List<Double> expectedDataList = forecastEntities.stream()
-                .map(ForecastEntity::getTemp)
-                .collect(Collectors.toList());
-        Assertions.assertEquals(expectedChartLabels, model.get("chartLabels"));
-        Assertions.assertEquals(expectedDataList, model.get("chartTempData"));
     }
 
     private void assertBasicContent(String body) {

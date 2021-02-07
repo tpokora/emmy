@@ -50,20 +50,9 @@ public class WeatherDataViewController {
         LocalDateTime now = LocalDateTime.now();
         List<ForecastEntity> allByLocationBetweenDates = forecastDaoService.findAllByLocationBetweenDates(location, now.minusWeeks(defaultIntervalInWeeks), now);
         updateModelAttribute(model, FORECASTS, allByLocationBetweenDates);
-        chartData(model, allByLocationBetweenDates);
         return WeatherViewConstants.WEATHER_DATA_VIEW_TEMPLATE;
     }
 
-    private void chartData(Model model, List<ForecastEntity> forecastEntityList) {
-        String chartLabels = forecastEntityList.stream()
-                .map(forecastEntity -> DateUtils.parseDateToString(forecastEntity.getTimestamp()))
-                .collect(Collectors.joining("|"));
-        List<Double> chartTempData = forecastEntityList.stream()
-                .map(ForecastEntity::getTemp)
-                .collect(Collectors.toList());
-        updateModelAttribute(model, "chartLabels", chartLabels);
-        updateModelAttribute(model, "chartTempData", chartTempData);
-    }
 
     private void initializeModel(Model model) {
         model.addAttribute(DATES_FORMATTER, new DatesFormatterViewsHelper());
