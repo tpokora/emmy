@@ -14,6 +14,25 @@
         <hr />
         <p>
         <h1>Historic Rates Data</h1>
+        <form th:object="${rateForm}" th:action="@{/rates/historicRates/find}" method="get">
+            <div class="row">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="from" class="sr-only">Rates From</label>
+                    <input type="text" class="form-control" th:field="*{from}" id="from"/>
+                    <small class="form-text text-muted">Rates From</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('from')}" th:errors="*{from}">from Error</small>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="to" class="sr-only">Rates To</label>
+                    <input type="text" class="form-control" th:field="*{to}" id="to"/>
+                    <small class="form-text text-muted">Rates To</small>
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('to')}" th:errors="*{to}">from Error</small>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <button type="submit" class="btn btn-primary mb-2">Find rates</button>
+                </div>
+            </div>
+        </form>
         </p>
 
         <div class="container mb-3 mt-3">

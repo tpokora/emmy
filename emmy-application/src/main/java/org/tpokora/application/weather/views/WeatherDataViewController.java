@@ -55,7 +55,6 @@ public class WeatherDataViewController {
     private void initializeModel(Model model) {
         model.addAttribute(DATES_FORMATTER, new DatesFormatterViewsHelper());
         model.addAttribute(LOCATION, new Location());
-
     }
 
     private void updateModelAttribute(Model model, String attributeName, Object object) {
