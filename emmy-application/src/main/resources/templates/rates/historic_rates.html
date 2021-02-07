@@ -18,14 +18,14 @@
             <div class="row">
                 <div class="form-group mx-sm-3 mb-2">
                     <label for="from" class="sr-only">Rates From</label>
-                    <input type="text" class="form-control" th:field="*{from}" id="from"/>
                     <small class="form-text text-muted">Rates From</small>
+                    <input type="text" class="form-control" th:field="*{from}" id="from"/>
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('from')}" th:errors="*{from}">from Error</small>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
                     <label for="to" class="sr-only">Rates To</label>
-                    <input type="text" class="form-control" th:field="*{to}" id="to"/>
                     <small class="form-text text-muted">Rates To</small>
+                    <input type="text" class="form-control" th:field="*{to}" id="to"/>
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('to')}" th:errors="*{to}">from Error</small>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
