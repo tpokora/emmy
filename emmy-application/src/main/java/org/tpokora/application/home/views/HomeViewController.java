@@ -15,10 +15,16 @@ public class HomeViewController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(HomeViewController.class);
 
-    @GetMapping(value = { SLASH, HOME_VIEW_URL }, name = HOME_VIEW)
+    @GetMapping(value = {  HOME_VIEW_URL }, name = HOME_VIEW)
     public String home(Model model) {
         LOGGER.info(">> HomeView");
         return HOME_VIEW;
+    }
+
+    @GetMapping(value = {  "/app" }, name = "react")
+    public String react(Model model) {
+        LOGGER.info(">> HomeView");
+        return "react/index";
     }
 
 }
