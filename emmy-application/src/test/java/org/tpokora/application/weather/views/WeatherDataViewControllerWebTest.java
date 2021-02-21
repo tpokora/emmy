@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WeatherDataViewControllerWebTest extends BaseViewControllerWebTest {
 
     @Autowired
-    WeatherDataViewController weatherDataViewController;
+    private WeatherDataViewController weatherDataViewController;
 
     @MockBean
     private ForecastDaoService forecastDaoService;

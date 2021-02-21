@@ -25,7 +25,7 @@ targetCompatibility = 11.0
 
 def bootstrapVersion = '4.5.0'
 def jqueryVersion = '3.5.0'
-def chartjsVersion = '2.9.3'
+def datatableVersion = '1.10.19'
 
 def mockitoVersion = '3.5.0'
 
@@ -34,6 +34,7 @@ dependencies {
     implementation project(":emmy-domain")
     implementation project(":emmy-persistance")
     implementation project(":emmy-config")
+    implementation project(":frontend")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -62,7 +63,7 @@ dependencies {
     // WebJars
     implementation group: 'org.webjars', name: 'bootstrap', version: "${bootstrapVersion}"
     implementation group: 'org.webjars', name: 'jquery', version: "${jqueryVersion}"
-    implementation group: 'org.webjars', name: 'chartjs', version: "${chartjsVersion}"
+    implementation group: 'org.webjars', name: 'datatables', version: "${datatableVersion}"
 
 
     // Tests dependencies
@@ -90,5 +91,19 @@ dependencies {
     testImplementation  group: 'org.jvnet.staxex', name: 'stax-ex', version: '2.0.0'
 
 }
+
+task copyWebApp(type: Copy) {
+    from "$rootDir/frontend/build/static"
+    into "$rootDir/emmy-application/build/resources/main/static/."
+}
+
+task copyIndex(type: Copy) {
+    from "$rootDir/frontend/build/index.html"
+    into "$rootDir/emmy-application/build/resources/main/templates/react/."
+}
+
+bootJar.dependsOn(copyWebApp)
+bootJar.dependsOn(copyIndex)
+compileJava.dependsOn ':frontend:build'
 
 ext.moduleName = 'org.tpokora.application'

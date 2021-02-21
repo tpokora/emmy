@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-@Service
-public class RatesDaoService {
+@Service("ratesDaoJpaService")
+public class RatesDaoJpaService implements IRatesDaoService {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(RatesDaoService.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(RatesDaoJpaService.class);
 
     private final RatesRepository ratesRepository;
 
-    public RatesDaoService(RatesRepository ratesRepository) {
+    public RatesDaoJpaService(RatesRepository ratesRepository) {
         this.ratesRepository = ratesRepository;
     }
 

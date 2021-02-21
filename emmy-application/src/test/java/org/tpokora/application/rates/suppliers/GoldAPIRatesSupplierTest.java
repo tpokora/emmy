@@ -1,4 +1,4 @@
-package org.tpokora.application.rates.api;
+package org.tpokora.application.rates.suppliers;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.common.utils.FileReaderUtils;
 import org.tpokora.application.rates.properties.GoldAPIProperties;
-import org.tpokora.application.rates.services.api.GoldAPIRatesService;
+import org.tpokora.application.rates.services.suppliers.GoldAPIRatesSupplier;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 
@@ -26,7 +26,7 @@ import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-class GoldAPIRatesServiceTest {
+class GoldAPIRatesSupplierTest {
 
     public static final String XAU = "XAU";
     public static final String USD = "USD";
@@ -41,12 +41,12 @@ class GoldAPIRatesServiceTest {
     @Mock
     RestTemplate restTemplate;
 
-    GoldAPIRatesService goldAPIRatesService;
+    GoldAPIRatesSupplier goldAPIRatesSupplier;
 
     @BeforeEach
     public void setup()
     {
-        goldAPIRatesService = new GoldAPIRatesService(restTemplate, new GoldAPIProperties());
+        goldAPIRatesSupplier = new GoldAPIRatesSupplier(restTemplate, new GoldAPIProperties());
         Mockito.when(goldAPIProperties.getValue(GoldAPIProperties.KEY)).thenReturn("testKey");
 
     }
@@ -60,7 +60,7 @@ class GoldAPIRatesServiceTest {
                 ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(),
                 ArgumentMatchers.anyMap())
         ).thenReturn(stringResponseEntity);
-        Optional<RateEntity> rateOptional = goldAPIRatesService.findRate(XAU, USD, DateUtils.parseStringToDateTime(DATE_STRING));
+        Optional<RateEntity> rateOptional = goldAPIRatesSupplier.findRate(XAU, USD, DateUtils.parseStringToDateTime(DATE_STRING));
         Assertions.assertTrue(rateOptional.isPresent());
         RateEntity rateEntity = rateOptional.get();
 
@@ -77,7 +77,7 @@ class GoldAPIRatesServiceTest {
         Mockito.when(restTemplate.exchange(
                 ArgumentMatchers.anyString(), ArgumentMatchers.any(HttpMethod.class), ArgumentMatchers.any(HttpEntity.class), (Class<String>) ArgumentMatchers.any(), ArgumentMatchers.anyMap())
         ).thenReturn(stringResponseEntity);
-        Optional<RateEntity> rateOptional = goldAPIRatesService.findRate(XAU, USD, LocalDateTime.now());
+        Optional<RateEntity> rateOptional = goldAPIRatesSupplier.findRate(XAU, USD, LocalDateTime.now());
         Assertions.assertTrue(rateOptional.isEmpty());
     }
 }

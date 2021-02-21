@@ -1,4 +1,4 @@
-package org.tpokora.application.rates.services;
+package org.tpokora.application.rates;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -13,11 +13,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 import org.tpokora.application.common.services.BaseServiceTest;
 import org.tpokora.application.rates.properties.GoldAPIProperties;
-import org.tpokora.application.rates.services.api.IRatesAPIService;
+import org.tpokora.application.rates.services.RatesService;
+import org.tpokora.application.rates.services.suppliers.IRatesSupplier;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.rates.RateEntity;
 import org.tpokora.persistance.repositories.rates.RatesRepository;
-import org.tpokora.persistance.services.rates.RatesDaoService;
+import org.tpokora.persistance.services.rates.RatesDaoJpaService;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -28,6 +29,7 @@ class RatesServiceTest extends BaseServiceTest {
 
     public static final String XAU = "XAU";
     public static final String USD = "USD";
+
     @MockBean
     GoldAPIProperties goldAPIProperties;
 
@@ -37,17 +39,17 @@ class RatesServiceTest extends BaseServiceTest {
     @Autowired
     RatesRepository ratesRepository;
 
-    RatesDaoService ratesDaoService;
+    RatesDaoJpaService ratesDaoJpaService;
 
     @MockBean
-    IRatesAPIService ratesAPIService;
+    IRatesSupplier ratesSupplier;
 
     RatesService ratesService;
 
     @BeforeEach
     public void setup() {
-        this.ratesDaoService = new RatesDaoService(ratesRepository);
-        this.ratesService = new RatesService(ratesAPIService, ratesDaoService);
+        this.ratesDaoJpaService = new RatesDaoJpaService(ratesRepository);
+        this.ratesService = new RatesService(ratesSupplier, ratesDaoJpaService);
     }
 
     @AfterEach
@@ -60,7 +62,7 @@ class RatesServiceTest extends BaseServiceTest {
         LocalDateTime now = LocalDateTime.now();
         RateEntity rateEntity = createRateEntity(XAU, USD, now);
 
-        Mockito.when(ratesAPIService.findRate(XAU, USD, now)).thenReturn(Optional.of(rateEntity));
+        Mockito.when(ratesSupplier.findRate(XAU, USD, now)).thenReturn(Optional.of(rateEntity));
         Optional<RateEntity> rateForDate = ratesService.findRateForDate(XAU, USD, now);
 
         Assertions.assertEquals(rateEntity.getFrom(), rateForDate.get().getFrom());

@@ -1,4 +1,4 @@
-package org.tpokora.application.rates.services.api;
+package org.tpokora.application.rates.services.suppliers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +15,14 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
-@Service
-public class GoldAPIRatesService implements IRatesAPIService {
+@Service("goldAPIRatesSupplier")
+public class GoldAPIRatesSupplier implements IRatesSupplier {
 
     public static final String FROM = "from";
     public static final String TO = "to";
     public static final String DATE = "date";
 
-    private final Logger LOGGER = LoggerFactory.getLogger(GoldAPIRatesService.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(GoldAPIRatesSupplier.class);
 
     private final RestTemplate restTemplate;
     private final IJSONMapper IJSONMapper;
@@ -30,7 +30,7 @@ public class GoldAPIRatesService implements IRatesAPIService {
 
     public static final String URL = "https://www.goldapi.io/api/{from}/{to}/{date}";
 
-    public GoldAPIRatesService(RestTemplate restTemplate, GoldAPIProperties goldAPIProperties) {
+    public GoldAPIRatesSupplier(RestTemplate restTemplate, GoldAPIProperties goldAPIProperties) {
         this.restTemplate = restTemplate;
         this.goldAPIProperties = goldAPIProperties;
         IJSONMapper = new GoldAPIMapper();

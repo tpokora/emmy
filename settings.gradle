@@ -18,4 +18,5 @@ include 'emmy-common'
 include 'emmy-persistance'
 include 'emmy-application'
 include 'emmy-config'
+include 'frontend'
 
