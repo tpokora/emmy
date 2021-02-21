@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import WelcomeElement from './home/Welcome.js'
+import NavBarElement from './common/NavBar.js'
 
 class App extends Component {
 
@@ -20,10 +22,11 @@ class App extends Component {
         return (
             <div className="App">
                 <header className="App-header">
+                    <NavBarElement/>
+                </header>
+                <main className="App-main">
+                    <WelcomeElement/>
                     <h1 className="App-title">{this.state.message}</h1>
-                    <p>
-                        <WelcomeElement/>
-                    </p>
                     <a
                         className="App-link"
                         href="https://reactjs.org"
@@ -32,7 +35,7 @@ class App extends Component {
                     >
                         Learn React
                     </a>
-                </header>
+                </main>
             </div>
         );
     }
