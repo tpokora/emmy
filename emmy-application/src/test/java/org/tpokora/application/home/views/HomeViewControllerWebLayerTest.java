@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HomeViewControllerWebLayerTest extends BaseViewControllerWebLayerTest {
 
     public static final String WELCOME_MESSAGE = "Welcome to Emmy Project!";
-    public static final String ROOT_URL = "/";
+    public static final String ROOT_URL = "/home";
 
     @Test
     @WithMockUser
