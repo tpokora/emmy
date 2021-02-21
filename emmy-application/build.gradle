@@ -104,6 +104,6 @@ task copyIndex(type: Copy) {
 
 bootJar.dependsOn(copyWebApp)
 bootJar.dependsOn(copyIndex)
-compileJava.dependsOn ':frontend:build'
+bootJar.dependsOn ':frontend:build'
 
 ext.moduleName = 'org.tpokora.application'
