@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
+import HomeElement from './home/Welcome.js'
+import WelcomeElement from "./home/Welcome.js";
 
 class App extends Component {
 
@@ -22,7 +24,7 @@ render () {
       <header className="App-header">
         <h1 className="App-title">{this.state.message}</h1>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <WelcomeElement/>
         </p>
         <a
           className="App-link"
