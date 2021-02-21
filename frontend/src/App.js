@@ -1,11 +1,26 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 
-function App() {
+class App extends Component {
+
+    state = {};
+
+    constructor() {
+        super();
+        fetch('http://localhost:8080/api/hello')
+            .then(response => response.text())
+            .then(message => {
+        this.setState({message: message});
+        });
+    }
+
+
+
+render () {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="App-title">{this.state.message}</h1>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -20,6 +35,7 @@ function App() {
       </header>
     </div>
   );
+}
 }
 
 export default App;
