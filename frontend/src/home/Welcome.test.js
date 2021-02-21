@@ -3,6 +3,6 @@ import WelcomeElement from './Welcome';
 
 test('Show welcome message', () => {
     render(<WelcomeElement/>);
-    const linkElement = screen.getByText(/Welcome to Emmy Project ReactApp!/i);
-    expect(linkElement).toBeInTheDocument();
+    const welcomeElement = screen.getByText(/Welcome to Emmy Project ReactApp!/i);
+    expect(welcomeElement).toBeInTheDocument();
 });
