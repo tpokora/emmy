@@ -9,6 +9,8 @@ import {
 import WelcomeElement from './home/Welcome.js'
 import NavBarElement from './common/NavBar.js'
 import RatesElement from "./rates/Rates";
+import UsersElement from "./users/Users";
+import WeatherElement from "./weather/Weather";
 
 class App extends React.Component {
 
@@ -33,6 +35,12 @@ class App extends React.Component {
                     </header>
                     <main className="App-main">
                         <Switch>
+                            <Route path="/users">
+                                <UsersElement/>
+                            </Route>
+                            <Route path="/weather">
+                                <WeatherElement/>
+                            </Route>
                             <Route path="/rates">
                                 <RatesElement/>
                             </Route>
