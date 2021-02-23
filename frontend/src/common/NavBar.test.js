@@ -1,14 +1,14 @@
 import {render, screen} from '@testing-library/react';
-import NavBarElement from './NavBar';
+import App from "../App";
 
-test('Show welcome message', () => {
-    render(<NavBarElement/>);
-    const emmyElement = screen.getByText(/Emmy/i);
+test('Navigation bar', () => {
+    render(<App/>);
+    const emmyAppElement = screen.getByText(/EmmyApp/i);
     const homeElement = screen.getByText(/Home/i);
     const usersElement = screen.getByText(/Users/i);
     const weatherElement = screen.getByText(/Weather/i);
     const ratesElement = screen.getByText(/Rates/i);
-    expect(emmyElement).toBeInTheDocument();
+    expect(emmyAppElement).toBeInTheDocument();
     expect(homeElement).toBeInTheDocument();
     expect(usersElement).toBeInTheDocument();
     expect(weatherElement).toBeInTheDocument();

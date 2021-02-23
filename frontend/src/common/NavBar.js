@@ -9,7 +9,7 @@ class NavBarElement extends React.Component {
     render() {
         return (<div>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">Emmy</Navbar.Brand>
+                <Navbar.Brand href="#home">EmmyApp</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Link to="/" className="nav-link">Home</Link>
                     <Link to="/users" className="nav-link">Users</Link>

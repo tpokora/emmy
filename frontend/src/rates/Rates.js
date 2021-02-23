@@ -3,7 +3,7 @@ import React from 'react';
 class RatesElement extends React.Component {
 
     render() {
-        return ("RatesElement")
+        return (<div className="jumbotron">Rates</div>)
     }
 }
 
