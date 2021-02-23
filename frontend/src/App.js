@@ -1,10 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 import WelcomeElement from './home/Welcome.js'
 import NavBarElement from './common/NavBar.js'
+import RatesElement from "./rates/Rates";
 
-class App extends Component {
+class App extends React.Component {
 
     state = {};
 
@@ -20,23 +26,32 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <NavBarElement/>
-                </header>
-                <main className="App-main">
-                    <WelcomeElement/>
-                    <h1 className="App-title">{this.state.message}</h1>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </main>
-            </div>
+            <Router>
+                <div className="App">
+                    <header className="App-header">
+                        <NavBarElement/>
+                    </header>
+                    <main className="App-main">
+                        <Switch>
+                            <Route path="/rates">
+                                <RatesElement/>
+                            </Route>
+                            <Route path="/">
+                                <WelcomeElement/>
+                            </Route>
+                        </Switch>
+                        <h1 className="App-title">{this.state.message}</h1>
+                        <a
+                            className="App-link"
+                            href="https://reactjs.org"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Learn React
+                        </a>
+                    </main>
+                </div>
+            </Router>
         );
     }
 }

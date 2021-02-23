@@ -1,5 +1,8 @@
 import React from 'react';
 import { Navbar, Nav }from 'react-bootstrap';
+import {
+    Link
+} from "react-router-dom";
 
 class NavBarElement extends React.Component {
 
@@ -8,9 +11,10 @@ class NavBarElement extends React.Component {
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="#home">Emmy</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#users">Users</Nav.Link>
-                    <Nav.Link href="#weather">Weather</Nav.Link>
+                    <Link to="/" className="nav-link">Home</Link>
+                    <Link to="/users" className="nav-link">Users</Link>
+                    <Link to="/weather" className="nav-link">Weather</Link>
+                    <Link to="/rates" className="nav-link">Rates</Link>
                 </Nav>
             </Navbar>
         </div>)
