@@ -1,9 +1,12 @@
 import React from 'react';
+import {Jumbotron} from "react-bootstrap";
 
 class RatesElement extends React.Component {
 
     render() {
-        return (<div className="jumbotron">Rates</div>)
+        return (<Jumbotron>
+            <h1>Rates</h1>
+        </Jumbotron>)
     }
 }
 

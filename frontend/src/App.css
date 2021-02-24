@@ -26,3 +26,7 @@ html, body, main {
 .App-link {
   color: #61dafb;
 }
+
+.jumbotron {
+  background-color: #313131;
+}

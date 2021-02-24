@@ -14,15 +14,8 @@ import WeatherElement from "./weather/Weather";
 
 class App extends React.Component {
 
-    state = {};
-
     constructor() {
         super();
-        fetch('http://localhost:8080/api/hello')
-            .then(response => response.text())
-            .then(message => {
-                this.setState({message: message});
-            });
     }
 
 
@@ -48,15 +41,6 @@ class App extends React.Component {
                                 <WelcomeElement/>
                             </Route>
                         </Switch>
-                        <h1 className="App-title">{this.state.message}</h1>
-                        <a
-                            className="App-link"
-                            href="https://reactjs.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Learn React
-                        </a>
                     </main>
                 </div>
             </Router>
