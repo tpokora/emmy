@@ -35,20 +35,18 @@ public class ForecastAPIController {
         this.forecastAPIService = forecastAPIService;
     }
 
-    @GetMapping(value = "/getForecast", produces = "application/json")
-    public ResponseEntity<ForecastEntity> getForecast(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
-        LOGGER.info(">> Find forecast, Longitude: {}, Latitude: {}", longitude, latitude);
-        Optional<ForecastEntity> forecastEntity = forecastAPIService.getForecastByCoordinates(longitude, latitude);
-        if (forecastEntity.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(forecastEntity.get());
-    }
-
     @GetMapping(value = "/forecast", produces = "application/json")
-    public ResponseEntity<ForecastEntity> getForecastByLocation(@RequestParam("location") String location) {
-        LOGGER.info(">> Find forecast, location: {}", location);
-        Optional<ForecastEntity> forecastEntity = forecastAPIService.getByLocation(location);
+    public ResponseEntity<ForecastEntity> getForecastByLocation(@RequestParam(name = "location", required = false) String location,
+                                                                @RequestParam(name = "longitude", required = false) Double longitude,
+                                                                @RequestParam(name = "latitude", required = false) Double latitude) {
+        LOGGER.info(">> Find forecast, location: {}, longitude: {}, latitude: {}", location, longitude, latitude);
+        Optional<ForecastEntity> forecastEntity;
+        if (location != null && !location.isBlank()) {
+            forecastEntity = forecastAPIService.getByLocation(location);
+        } else {
+            forecastEntity = forecastAPIService.getForecastByCoordinates(longitude, latitude);
+        }
+
         if (forecastEntity.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

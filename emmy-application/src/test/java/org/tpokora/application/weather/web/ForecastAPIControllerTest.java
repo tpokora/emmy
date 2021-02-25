@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ForecastAPIController.class)
 @TestPropertySource(locations = {"classpath:application-test.properties", "classpath:application-db-test.properties"})
 @EnableAutoConfiguration(exclude = JpaRepositoriesAutoConfiguration.class)
-public class ForecastAPIControllerTests {
+public class ForecastAPIControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -67,5 +67,30 @@ public class ForecastAPIControllerTests {
                 .andExpect(jsonPath("$.location", is(mockForecastEntity.getLocation())))
                 .andExpect(jsonPath("$.longitude", is(mockForecastEntity.getLongitude())))
                 .andExpect(jsonPath("$.latitude", is(mockForecastEntity.getLatitude())));
+    }
+
+    @Test
+    void getForecastByCoordinates_notFound() throws Exception {
+        Mockito.when(forecastAPIService.getByLocation(anyString())).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/weather/forecast?longitude=0.0&latitude=0.0")
+                .with(user("testUser").password("testPassword"))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getForecastByCoordinates() throws Exception {
+        String locationName = "testLocation";
+        double longitude = 11.11;
+        double latitude = 22.22;
+        ForecastEntity mockForecastEntity = ForecastTestsHelper.createForecastEntity(locationName, longitude, latitude);
+
+        Mockito.when(forecastAPIService.getByLocation(anyString())).thenReturn(Optional.of(mockForecastEntity));
+
+        mockMvc.perform(get("/api/weather/forecast?longitude=11.11&latitude=22.22")
+                .with(user("testUser").password("testPassword"))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
