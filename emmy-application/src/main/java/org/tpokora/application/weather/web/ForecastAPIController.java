@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.tpokora.application.weather.web.service.ForecastAPIService;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
@@ -35,6 +32,7 @@ public class ForecastAPIController {
         this.forecastAPIService = forecastAPIService;
     }
 
+    @CrossOrigin
     @GetMapping(value = "/forecast", produces = "application/json")
     public ResponseEntity<ForecastEntity> getForecastByLocation(@RequestParam(name = "location", required = false) String location,
                                                                 @RequestParam(name = "longitude", required = false) Double longitude,
@@ -53,6 +51,7 @@ public class ForecastAPIController {
         return ResponseEntity.ok(forecastEntity.get());
     }
 
+    @CrossOrigin
     @GetMapping(value = "/getArchiveForecastsFromDate", produces = "application/json")
     public ResponseEntity<List<ForecastEntity>> getForecastsByCoordinatesFromPeriod(@RequestParam(value = "longitude") double longitude,
                                                                     @RequestParam("latitude") double latitude,
