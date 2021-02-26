@@ -30,3 +30,9 @@ html, body, main {
 .jumbotron {
   background-color: #313131;
 }
+
+/* Other */
+.value {
+  margin-left: 4px;
+  margin-right: 4px;
+}
