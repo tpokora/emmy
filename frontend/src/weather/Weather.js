@@ -1,29 +1,34 @@
 import React from 'react';
 import {Jumbotron} from "react-bootstrap";
+import {properties} from '../properties'
 
 class WeatherElement extends React.Component {
 
+    state = {
+        value: '',
+        loading: true,
+        forecast: null,
+    };
+
     constructor() {
         super();
-        this.state = {value: '', forecast: ''};
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({value: event.target.value});
+        this.setState({
+            value: event.target.value
+        });
     }
 
-    handleSubmit(event) {
-        alert('Find in location: ' + this.state.value)
-        fetch('http://localhost:8080/api/weather/forecast?location='+this.state.value)
-            .then(response => response.text())
-            .then(forecast => {
-                this.setState({forecast: forecast});
-            });
-        alert('Forecast: ' + this.state.forecast)
+    async handleSubmit(event) {
         event.preventDefault();
+        let url = properties.emmyEndPoint + '/api/weather/forecast?location=' + this.state.value;
+        const response = await fetch(url);
+        const data = await response.json();
+        this.setState({forecast: data, loading: false})
+        console.log(data);
     }
 
 
@@ -31,18 +36,45 @@ class WeatherElement extends React.Component {
         return (<Jumbotron>
             <h1>Weather</h1>
             <div>
-                <form onSubmit={this.handleSubmit} >
+                <form onSubmit={this.handleSubmit}>
                     <label>
                         Location: <input type="text" value={this.state.value} onChange={this.handleChange}/>
                     </label>
                     <input type="submit" value="Find"/>
                 </form>
             </div>
+            <hr/>
             <div>
-                <h3>Forecast:</h3>
-                <p>{this.state.forecast}</p>
+                {this.state.loading || !this.state.forecast ? (
+                    <div></div>
+                ) : (
+                    <div>
+                        <div className="row text-success">>> Forecast: <b
+                            className="value">{this.state.forecast.name}</b>, <b
+                            className="value">{this.state.forecast.description}</b></div>
+                        <div className="row text-success">>> Location: <b
+                            className="value">{this.state.forecast.location}</b></div>
+                        <div className="row text-success">>> Temperature: <b
+                            className="value">{this.state.forecast.temp}</b> C, feels
+                            like: <b className="value">{this.state.forecast.feelTemp}</b> C
+                        </div>
+                        <div className="row text-success">>> Minimum temperature: <b
+                            className="value">{this.state.forecast.minTemp}</b> C,
+                            Maximum temperature: <b className="value">{this.state.forecast.maxTemp}</b> C
+                        </div>
+                        <div className="row text-success">>> Rain in 1h: <b
+                            className="value">{this.state.forecast.rain1h}</b> mm, Rain
+                            in 3h: <b className="value">{this.state.forecast.rain3h}</b> mm
+                        </div>
+                        <div className="row text-success">>> Pressure: <b
+                            className="value">{this.state.forecast.pressure}</b> hPa,
+                            Humidity: <b className="value">{this.state.forecast.humidity}</b>%, Wind: <b
+                                className="value">{this.state.forecast.wind}</b> km/h
+                        </div>
+                    </div>
+                )}
             </div>
-        </Jumbotron>)
+        </Jumbotron>);
     }
 }
 
