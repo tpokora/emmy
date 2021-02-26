@@ -38,9 +38,9 @@ class WeatherElement extends React.Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Location: <input type="text" value={this.state.value} onChange={this.handleChange}/>
+                        Location: <input id="forecastFormInput" type="text" value={this.state.value} onChange={this.handleChange}/>
                     </label>
-                    <input type="submit" value="Find"/>
+                    <input id="forecastFormBtn" type="submit" value="Find"/>
                 </form>
             </div>
             <hr/>
@@ -48,7 +48,7 @@ class WeatherElement extends React.Component {
                 {this.state.loading || !this.state.forecast ? (
                     <div></div>
                 ) : (
-                    <div>
+                    <div id="forecastDetailsElement">
                         <div className="row text-success">>> Forecast: <b
                             className="value">{this.state.forecast.name}</b>, <b
                             className="value">{this.state.forecast.description}</b></div>
