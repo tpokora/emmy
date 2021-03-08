@@ -10,7 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-@TestPropertySource(locations = { "classpath:application-test.properties", "classpath:application-db-test.properties" })
+@TestPropertySource(locations = { "classpath:application-test.yaml", "classpath:application-db-test.yaml" })
 @EnableJpaRepositories("org.tpokora.persistance.repositories")
 @EntityScan("org.tpokora.persistance.entity")
 @EnableAutoConfiguration(exclude = JpaRepositoriesAutoConfiguration.class)

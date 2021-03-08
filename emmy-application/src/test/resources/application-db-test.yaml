@@ -1,0 +1,25 @@
+hibernate:
+    dialect: org.hibernate.dialect.H2Dialect
+    hbm2ddl:
+        auto: create-drop
+    show_sql: true
+    enable_lazy_load_no_trans: true
+
+spring:
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driverClassName: org.h2.Driver
+        username: sa
+        password: password
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+#hibernate.dialect=
+#hibernate.hbm2ddl.auto=create-drop
+#hibernate.show_sql=true
+#hibernate.enable_lazy_load_no_trans=true
+
+#spring.datasource.url=jdbc:h2:mem:testdb
+#spring.datasource.driverClassName=org.h2.Driver
+#spring.datasource.username=sa
+#spring.datasource.password=password
+#spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
