@@ -23,7 +23,7 @@ html, body, main {
   color: #61dafb;
 }
 
-.jumbotron {
+.jumbotron, .MuiBox-root {
   background-color: #313131;
 }
 

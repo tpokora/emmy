@@ -1,9 +1,18 @@
 import React from 'react';
+import {Box, Container, Typography} from "@material-ui/core";
 
 class UsersElement extends React.Component {
 
     render() {
-        return (<div className="jumbotron">Users</div>)
+        return (
+            <Container maxWidth="false" disableGutters={true}>
+                <Box p={8}>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        Users
+                    </Typography>
+                </Box>
+            </Container>
+        );
     }
 }
 

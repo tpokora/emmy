@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://ec2-46-137-123-136.eu-west-1.compute.amazonaws.com:5432/d6fq4pb3vml0q4?sslmode=require
+    username: fbjpqkqswvyggv
+    password: 27306214e6c5e86e36295952e089d963d0ef2f8980f1d5e570898fcbd2b3c539

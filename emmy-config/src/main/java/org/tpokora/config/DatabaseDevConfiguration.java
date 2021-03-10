@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@PropertySource("classpath:application-db-dev.properties")
+@PropertySource("classpath:application-db-dev.yaml")
 @EnableAutoConfiguration
 @EnableTransactionManagement
 @Profile("dev")

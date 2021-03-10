@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yaml")
 @ConfigurationProperties("")
 public class OpenCageDataProperties {
 

@@ -1,12 +1,18 @@
 import React from 'react';
-import {Jumbotron} from "react-bootstrap";
+import {Box, Container, Typography} from "@material-ui/core";
 
 class RatesElement extends React.Component {
 
     render() {
-        return (<Jumbotron>
-            <h1>Rates</h1>
-        </Jumbotron>)
+        return (
+            <Container maxWidth="false" disableGutters={true}>
+                <Box p={8}>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        Rates
+                    </Typography>
+                </Box>
+            </Container>
+        );
     }
 }
 
