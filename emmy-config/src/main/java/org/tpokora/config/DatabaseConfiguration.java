@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@PropertySource("classpath:application-db.yaml")
+@PropertySource("classpath:application-db.properties")
 @EnableAutoConfiguration
 @EnableTransactionManagement
 @EnableJpaRepositories("org.tpokora.persistance.repositories.*")

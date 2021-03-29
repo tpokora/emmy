@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(AuthViewController.class)
-@TestPropertySource(locations = {"classpath:application-test.yaml", "classpath:application-db-test.yaml"})
+@TestPropertySource(locations = {"classpath:application-test.yaml", "classpath:application-db-test.properties"})
 class AuthViewControllerWebLayerTest extends BaseViewControllerWebLayerTest {
 
     public static final String LOGIN = "login";
