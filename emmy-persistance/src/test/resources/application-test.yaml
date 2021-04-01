@@ -1,0 +1,7 @@
+storm:
+  key: testKey
+
+openweather:
+  host: testHost
+  id: testId
+  key: testKey

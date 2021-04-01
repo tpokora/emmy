@@ -28,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ForecastAPIController.class)
-@TestPropertySource(locations = {"classpath:application-test.yaml", "classpath:application-db-test.properties"})
 @EnableAutoConfiguration(exclude = JpaRepositoriesAutoConfiguration.class)
 public class ForecastAPIControllerTest {
 
