@@ -1,6 +1,6 @@
 import React from 'react';
 import {properties} from '../properties'
-import {Box, Container} from "@material-ui/core";
+import {Box, Button, Container, Input} from "@material-ui/core";
 
 class WeatherElement extends React.Component {
 
@@ -39,11 +39,8 @@ class WeatherElement extends React.Component {
                     <h1>Weather</h1>
                     <div>
                         <form onSubmit={this.handleSubmit}>
-                            <label>
-                                Location: <input id="forecastFormInput" type="text" value={this.state.value}
-                                                 onChange={this.handleChange}/>
-                            </label>
-                            <input id="forecastFormBtn" type="submit" value="Find"/>
+                            <Input placeholder="Location" inputProps={{ 'aria-label': 'description' }} color="primary" />
+                            <Button color="primary" type="submit">Find</Button>
                         </form>
                     </div>
                     <hr/>

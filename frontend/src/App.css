@@ -23,10 +23,6 @@ html, body, main {
   color: #61dafb;
 }
 
-.jumbotron, .MuiBox-root {
-  background-color: #313131;
-}
-
 /* Other */
 .value {
   margin-left: 4px;
