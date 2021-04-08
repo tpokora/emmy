@@ -1,19 +1,17 @@
 import React from 'react';
 import {Box, Container, Typography} from "@material-ui/core";
 
-class RatesElement extends React.Component {
+function RatesElement() {
 
-    render() {
-        return (
-            <Container maxWidth="false" disableGutters={true}>
-                <Box p={8}>
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        Rates
-                    </Typography>
-                </Box>
-            </Container>
-        );
-    }
+    return (
+        <Container maxWidth="false" disableGutters={true}>
+            <Box p={8}>
+                <Typography variant="h4" component="h1" gutterBottom>
+                    Rates
+                </Typography>
+            </Box>
+        </Container>
+    );
 }
 
 export default RatesElement;
