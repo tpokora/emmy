@@ -49,22 +49,6 @@ public class ForecastAPIController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(forecastEntity.get());
-//        ForecastEntity forecastEntity = new ForecastEntity();
-//        forecastEntity.setId(1);
-//        forecastEntity.setLocation("testLocation");
-//        forecastEntity.setName("testName");
-//        forecastEntity.setDescription("testDescription");
-//        forecastEntity.setTemp(1.1);
-//        forecastEntity.setFeelTemp(1.2);
-//        forecastEntity.setMinTemp(0.9);
-//        forecastEntity.setMaxTemp(2.9);
-//        forecastEntity.setPressure(1000);
-//        forecastEntity.setHumidity(10);
-//        forecastEntity.setWind(10.1);
-//        forecastEntity.setLongitude(11.11);
-//        forecastEntity.setLatitude(22.22);
-//        forecastEntity.setTimestamp(DateUtils.getCurrentLocalDateTime());
-//        return ResponseEntity.ok(forecastEntity);
     }
 
     @GetMapping(value = "/getArchiveForecastsFromDate", produces = "application/json")
