@@ -37,7 +37,6 @@ dependencies {
     implementation project(":frontend")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation('org.springframework.boot:spring-boot-starter-validation:2.3.5.RELEASE') {
         exclude group: 'org.glassfish', module:'jakarta.el'
     }
@@ -59,12 +58,6 @@ dependencies {
     implementation group: 'com.sun.activation', name: 'jakarta.activation', version: '2.0.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
-
-    // WebJars
-    implementation group: 'org.webjars', name: 'bootstrap', version: "${bootstrapVersion}"
-    implementation group: 'org.webjars', name: 'jquery', version: "${jqueryVersion}"
-    implementation group: 'org.webjars', name: 'datatables', version: "${datatableVersion}"
-
 
     // Tests dependencies
     testImplementation project(":emmy-persistance")
