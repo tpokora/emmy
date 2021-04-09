@@ -1,8 +1,8 @@
 import {render, screen} from '@testing-library/react';
-import App from "./App";
+import WelcomeElement from './Welcome';
 
-test('Render home page', () => {
-    render(<App/>);
+test('Show welcome message', () => {
+    render(<WelcomeElement/>);
     const welcomeElement = screen.getByText(/Welcome to Emmy Project ReactApp!/i);
     expect(welcomeElement).toBeInTheDocument();
 });

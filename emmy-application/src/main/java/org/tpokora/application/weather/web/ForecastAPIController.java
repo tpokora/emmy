@@ -5,14 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.tpokora.application.weather.web.service.ForecastAPIService;
 import org.tpokora.common.utils.DateUtils;
 import org.tpokora.persistance.entity.weather.ForecastEntity;
 import org.tpokora.persistance.services.weather.ForecastDaoService;
-import org.tpokora.application.weather.forecast.ForecastService;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -23,26 +20,35 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/weather")
-public class WeatherAPIController {
+public class ForecastAPIController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WeatherAPIController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ForecastAPIController.class);
 
-    private ForecastService forecastService;
     private ForecastDaoService forecastDaoService;
+    private ForecastAPIService forecastAPIService;
 
-    public WeatherAPIController(ForecastService forecastService, ForecastDaoService forecastDaoService) {
-        this.forecastService = forecastService;
+    public ForecastAPIController(ForecastDaoService forecastDaoService, ForecastAPIService forecastAPIService) {
         this.forecastDaoService = forecastDaoService;
+        this.forecastAPIService = forecastAPIService;
     }
 
-    @GetMapping(value = "/getForecast", produces = "application/json")
-    public ResponseEntity<ForecastEntity> getForecast(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
-        LOGGER.info(">> Find forecast, Longitude: {}, Latitude: {}", longitude, latitude);
-        Optional<ForecastEntity> forecastEntity = forecastService.getForecast(longitude, latitude);
+    @CrossOrigin
+    @GetMapping(value = "/forecast", produces = "application/json")
+    public ResponseEntity<ForecastEntity> getForecastByLocation(@RequestParam(name = "location", required = false) String location,
+                                                                @RequestParam(name = "longitude", required = false) Double longitude,
+                                                                @RequestParam(name = "latitude", required = false) Double latitude) {
+        LOGGER.info(">> Find forecast, location: {}, longitude: {}, latitude: {}", location, longitude, latitude);
+        Optional<ForecastEntity> forecastEntity;
+        if (location != null && !location.isBlank()) {
+            forecastEntity = forecastAPIService.getByLocation(location);
+        } else {
+            forecastEntity = forecastAPIService.getForecastByCoordinates(longitude, latitude);
+        }
+
         if (forecastEntity.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(forecastEntity.get(), HttpStatus.OK);
+        return ResponseEntity.ok(forecastEntity.get());
     }
 
     @GetMapping(value = "/getArchiveForecastsFromDate", produces = "application/json")
