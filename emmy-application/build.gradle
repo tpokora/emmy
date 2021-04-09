@@ -23,10 +23,6 @@ build.dependsOn copyJar
 sourceCompatibility = 11.0
 targetCompatibility = 11.0
 
-def bootstrapVersion = '4.5.0'
-def jqueryVersion = '3.5.0'
-def datatableVersion = '1.10.19'
-
 def mockitoVersion = '3.5.0'
 
 dependencies {
