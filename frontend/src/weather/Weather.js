@@ -10,9 +10,13 @@ function WeatherElement() {
     const [forecast, setForecast] = useState(null)
 
     const useStyles = makeStyles((theme) => ({
-        weatherForm: {
+        forecastForm: {
             color: 'white'
+        },
+        forecastElement: {
+            fontSize: '14px'
         }
+
     }));
 
     const classes = useStyles();
@@ -33,7 +37,7 @@ function WeatherElement() {
                 <h1>Weather</h1>
                 <div>
                     <form onSubmit={submitForm}>
-                        <Input id="forecastFormInput" className={classes.weatherForm} placeholder="Location"
+                        <Input id="forecastFormInput" className={classes.forecastForm} placeholder="Location"
                                value={locationName} onChange={e => setLocationName(e.target.value)}
                                inputProps={{'aria-label': 'description'}} color="primary"/>
                         <Button id="forecastFormBtn" color="primary" type="submit">Find</Button>
@@ -44,7 +48,7 @@ function WeatherElement() {
                     {loading || !forecast ? (
                         <div></div>
                     ) : (
-                        <div id="forecastDetailsElement">
+                        <div id="forecastDetailsElement" className={classes.forecastElement}>
                             <div className="row text-success">>> Forecast: <b
                                 className="value">{forecast.name}</b>, <b
                                 className="value">{forecast.description}</b></div>
