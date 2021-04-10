@@ -31,7 +31,7 @@ function NavBarElement() {
                       variant="h6" color="inherit">
                     Rates
                 </Link>
-                <Button color="inherit">Login</Button>
+                <Button component={RouterLink} color="inherit" to="/login">Login</Button>
             </Toolbar>
         </AppBar>
     </div>)
