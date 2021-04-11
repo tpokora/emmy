@@ -23,10 +23,6 @@ build.dependsOn copyJar
 sourceCompatibility = 11.0
 targetCompatibility = 11.0
 
-def bootstrapVersion = '4.5.0'
-def jqueryVersion = '3.5.0'
-def chartjsVersion = '2.9.3'
-
 def mockitoVersion = '3.5.0'
 
 dependencies {
@@ -34,9 +30,9 @@ dependencies {
     implementation project(":emmy-domain")
     implementation project(":emmy-persistance")
     implementation project(":emmy-config")
+    implementation project(":frontend")
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation('org.springframework.boot:spring-boot-starter-validation:2.3.5.RELEASE') {
         exclude group: 'org.glassfish', module:'jakarta.el'
     }
@@ -58,12 +54,6 @@ dependencies {
     implementation group: 'com.sun.activation', name: 'jakarta.activation', version: '2.0.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
-
-    // WebJars
-    implementation group: 'org.webjars', name: 'bootstrap', version: "${bootstrapVersion}"
-    implementation group: 'org.webjars', name: 'jquery', version: "${jqueryVersion}"
-    implementation group: 'org.webjars', name: 'chartjs', version: "${chartjsVersion}"
-
 
     // Tests dependencies
     testImplementation project(":emmy-persistance")
@@ -90,5 +80,19 @@ dependencies {
     testImplementation  group: 'org.jvnet.staxex', name: 'stax-ex', version: '2.0.0'
 
 }
+
+task copyWebApp(type: Copy) {
+    from "$rootDir/frontend/build/static"
+    into "$rootDir/emmy-application/build/resources/main/static/."
+}
+
+task copyIndex(type: Copy) {
+    from "$rootDir/frontend/build/index.html"
+    into "$rootDir/emmy-application/build/resources/main/templates/react/."
+}
+
+bootJar.dependsOn(copyWebApp)
+bootJar.dependsOn(copyIndex)
+bootJar.dependsOn ':frontend:build'
 
 ext.moduleName = 'org.tpokora.application'

@@ -4,6 +4,7 @@ package org.tpokora.application.weather.forecast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.tpokora.application.weather.forecast.suppliers.IForecastSupplier;
 import org.tpokora.domain.weather.Coordinates;
@@ -13,6 +14,7 @@ import org.tpokora.persistance.services.weather.ForecastDaoService;
 import java.util.Optional;
 
 @Service
+@Profile("!mock")
 public class ForecastService implements IForecastService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ForecastService.class);

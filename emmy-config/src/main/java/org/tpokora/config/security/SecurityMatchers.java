@@ -1,6 +1,7 @@
 package org.tpokora.config.security;
 
 import org.tpokora.config.constants.ConsoleViewConstants;
+import org.tpokora.config.constants.RatesViewConstants;
 import org.tpokora.config.constants.WeatherViewConstants;
 
 import static org.tpokora.config.constants.AuthConstants.SIGNIN_VIEW_URL;
@@ -15,10 +16,11 @@ public class SecurityMatchers {
     public static final String WEATHER_VIEW_MATCHER = WeatherViewConstants.WEATHER_VIEW_URL + ALL_MATCHER_SUFFIX;
     public static final String WEATHER_DATA_VIEW_MATCHER = WeatherViewConstants.WEATHER_DATA_VIEW_URL + ALL_MATCHER_SUFFIX;
     public static final String CONSOLE_VIEW_MATCHER = ConsoleViewConstants.CONSOLE_VIEW_URL + ALL_MATCHER_SUFFIX;
+    public static final String RATES_VIEW_MATCHER = RatesViewConstants.RATES + ALL_MATCHER_SUFFIX;
 
     public final static String[] STATIC_FILES_MATCHERS = {"/**/*.js", "/**/*.css"};
-    public final static String[] ALL_ACCESS_MATCHERS = {"/", HOME, WEATHER_VIEW_MATCHER,
-            WEATHER_DATA_VIEW_MATCHER, "/login", SIGNIN_VIEW_URL, "/add-user", API_MATCHER};
+    public final static String[] ALL_ACCESS_MATCHERS = {"/", "/app", HOME, WEATHER_VIEW_MATCHER,
+            WEATHER_DATA_VIEW_MATCHER, RATES_VIEW_MATCHER, "/login", SIGNIN_VIEW_URL, "/add-user", API_MATCHER};
     public final static String[] SWAGGER_MATCHERS = {"/v2/api-docs",
             "/swagger-resources/**",
             "/swagger-ui.html**",

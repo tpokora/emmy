@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.tpokora.application.weather.forecast.IForecastService;
 import org.tpokora.domain.weather.Coordinates;
 import org.tpokora.domain.weather.StormRequest;
 import org.tpokora.persistance.entity.weather.MonitoredCoordinatesEntity;
@@ -20,11 +21,11 @@ public class MonitorCoordinatesScheduler {
     private final Logger LOGGER = LoggerFactory.getLogger(MonitorCoordinatesScheduler.class);
 
     private MonitoredCoordinatesDaoService monitoredCoordinatesDaoService;
-    private ForecastService forecastService;
+    private IForecastService forecastService;
     private FindStormService findStormService;
     private FindWarningService findWarningService;
 
-    public MonitorCoordinatesScheduler(MonitoredCoordinatesDaoService monitoredCoordinatesDaoService, ForecastService forecastService, FindStormService findStormService, FindWarningService findWarningService) {
+    public MonitorCoordinatesScheduler(MonitoredCoordinatesDaoService monitoredCoordinatesDaoService, IForecastService forecastService, FindStormService findStormService, FindWarningService findWarningService) {
         this.monitoredCoordinatesDaoService = monitoredCoordinatesDaoService;
         this.forecastService = forecastService;
         this.findStormService = findStormService;

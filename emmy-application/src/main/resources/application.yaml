@@ -1,0 +1,43 @@
+logging:
+  level:
+    org:
+      tpokora: DEBUG
+  file: emmy.log
+
+spring:
+  profiles:
+    active:
+  main:
+    allow-bean-definition-overriding: true
+  thymeleaf:
+    cache: false
+  datasource:
+    hikari:
+      connection-timeout: 20000
+      minimum-idle: 8
+      maximum-pool-size: 10
+      idle-timeout: 10000
+      max-lifetime: 1000
+      auto-commit: true
+
+# Storms properties
+storm:
+  key:
+
+# OpenWeatherForecast properties
+openweather:
+  host:
+  id:
+  key:
+
+# OpenCage properties
+opencage:
+  key:
+
+#GoldAPI properties
+goldapi:
+  key:
+
+#Forecast properties
+forecast:
+  interval: 2
