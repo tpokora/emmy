@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.tpokora.config.security.filter.CustomFilter;
 import org.tpokora.persistance.repositories.users.UserRepository;
 
 import static org.tpokora.config.security.SecurityMatchers.*;
@@ -22,16 +24,15 @@ import static org.tpokora.config.security.SecurityMatchers.*;
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String LOGIN_PROCESSING_URL = "/login";
-    private static final String LOGIN_FAILURE_URL = "/login?error";
-    private static final String LOGIN_URL = "/login";
-    private static final String LOGOUT_SUCCESS_URL = "/login?logout";
     public static final String HOME = "/home";
 
     final UserDetailsService userDetailsService;
+    private EmmyBasicAuthenticationEntryPoint emmyBasicAuthenticationEntryPoint;
 
-    public SecurityConfiguration(UserDetailsService userDetailsService) {
+    public SecurityConfiguration(UserDetailsService userDetailsService,
+                                 EmmyBasicAuthenticationEntryPoint emmyBasicAuthenticationEntryPoint) {
         this.userDetailsService = userDetailsService;
+        this.emmyBasicAuthenticationEntryPoint = emmyBasicAuthenticationEntryPoint;
     }
 
     @Override
@@ -50,16 +51,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(STATIC_FILES_MATCHERS).permitAll()
                 .antMatchers(ALL_ACCESS_MATCHERS).permitAll()
                 .antMatchers(HttpMethod.GET, SWAGGER_MATCHERS).permitAll()
+                .antMatchers("/security").authenticated()
                 .antMatchers(ADMIN_ONLY_MATCHERS).hasRole("ADMIN")
-                .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage(LOGIN_URL)
-                .defaultSuccessUrl(HOME)
-                .failureUrl(LOGIN_FAILURE_URL)
+                .httpBasic()
+                .authenticationEntryPoint(emmyBasicAuthenticationEntryPoint);
 
-                // Configure logout
-                .and().logout().logoutSuccessUrl(HOME);
+        http.addFilterAfter(new CustomFilter(), BasicAuthenticationFilter.class);
+
     }
 
     @Bean

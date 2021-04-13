@@ -11,6 +11,9 @@ module org.tpokora.config {
     requires spring.web;
 
     requires org.tpokora.persistance;
+    requires spring.security.web;
+    requires tomcat.embed.core;
+    requires slf4j.api;
 
     exports org.tpokora.config.constants;
 }
