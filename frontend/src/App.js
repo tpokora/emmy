@@ -12,6 +12,7 @@ import RatesElement from "./rates/Rates";
 import UsersElement from "./users/Users";
 import WeatherElement from "./weather/Weather";
 import {Container, makeStyles} from "@material-ui/core";
+import Login from "./common/Login";
 
 
 function App() {
@@ -38,6 +39,9 @@ function App() {
                         </Route>
                         <Route path="/rates">
                             <RatesElement/>
+                        </Route>
+                        <Route path="/login">
+                            <Login/>
                         </Route>
                         <Route path="/">
                             <WelcomeElement/>

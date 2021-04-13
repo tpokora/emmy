@@ -17,6 +17,7 @@ html, body, main {
   min-height: 70vh;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-top: 40px;
 }
 
 .App-link {

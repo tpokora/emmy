@@ -1,24 +1,40 @@
 import React from 'react';
-import { Navbar, Nav }from 'react-bootstrap';
-import {
-    Link
-} from "react-router-dom";
+import {AppBar, Button, makeStyles, Toolbar} from "@material-ui/core";
 
-class NavBarElement extends React.Component {
+import {Link as RouterLink} from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 
-    render() {
-        return (<div>
-            <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">EmmyApp</Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Link to="/" className="nav-link">Home</Link>
-                    <Link to="/users" className="nav-link">Users</Link>
-                    <Link to="/weather" className="nav-link">Weather</Link>
-                    <Link to="/rates" className="nav-link">Rates</Link>
-                </Nav>
-            </Navbar>
-        </div>)
-    }
+function NavBarElement() {
+
+    const useStyles = makeStyles((theme) => ({
+        root: {},
+        linkElement: {
+            marginLeft: theme.spacing(2),
+        },
+        lastElement: {
+            flexGrow: 1
+        }
+    }));
+
+    const classes = useStyles()
+
+    return (<div className={classes.root}>
+        <AppBar>
+            <Toolbar>
+                <Link to="/" component={RouterLink} variant="h5" color="inherit">
+                    Home
+                </Link>
+                <Link to="/weather" component={RouterLink} className={classes.linkElement} variant="h6" color="inherit">
+                    Weather
+                </Link>
+                <Link to="/rates" component={RouterLink} className={[classes.linkElement, classes.lastElement]}
+                      variant="h6" color="inherit">
+                    Rates
+                </Link>
+                <Button component={RouterLink} color="inherit" to="/login">Login</Button>
+            </Toolbar>
+        </AppBar>
+    </div>)
 }
 
 export default NavBarElement;
