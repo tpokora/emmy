@@ -3,6 +3,10 @@ import Login from "./Login";
 
 test('Login Form', () => {
     let wrapper = render(<Login />);
-    const loginTitle = screen.getByText(/Sign in/i);
+    const loginTitle = document.querySelector("h1")
     expect(loginTitle).toBeInTheDocument()
+    expect(loginTitle).toHaveTextContent("Sign in")
+    const loginBtn = document.querySelector("Button")
+    expect(loginBtn).toBeInTheDocument()
+    expect(loginTitle).toHaveTextContent("Sign in")
 });
