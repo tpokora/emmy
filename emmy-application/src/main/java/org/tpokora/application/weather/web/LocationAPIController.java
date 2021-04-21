@@ -32,7 +32,7 @@ public class LocationAPIController {
         this.openCageDataProperties = new OpenCageDataProperties();
     }
 
-    @GetMapping(value = "/getLocation", produces = "application/json")
+    @GetMapping(value = "/location", produces = "application/json")
     public ResponseEntity<Location> getLocationCoordinates(@RequestParam("name") String name) {
         LOGGER.info(">> Find location by name: {}", name);
         Optional<Location> optionalLocation = locationService.getLocationCoordinatesByName(name);
