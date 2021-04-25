@@ -1,0 +1,16 @@
+#nav-bar {
+
+}
+
+#nav-bar h1 {
+  margin: 8px 8px 8px 0;
+}
+
+.nav-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.nav-button-row mat-button {
+  margin: 8px 8px 8px 0;
+}
