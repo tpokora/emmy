@@ -19,11 +19,17 @@ export class WeatherComponent implements OnInit {
   }
 
   getLocation() {
-    this.locationService.get("Skawina")
-      .subscribe((data: any) => {
-        console.log(data)
-        this.location = data
-    });
+    let locationName = (<HTMLInputElement>document.getElementById("locationFormInput")).value;
+    console.log("locationName: " + locationName)
+    this.locationService.get(locationName)
+      .subscribe((data: any) => this.location = {
+        name: data.name,
+        coordinates: data.coordinates
+      });
+  }
+
+  validLocation() {
+    return this.location.name != undefined;
   }
 
 }

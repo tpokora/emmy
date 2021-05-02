@@ -24,8 +24,8 @@ public class ForecastAPIController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ForecastAPIController.class);
 
-    private ForecastDaoService forecastDaoService;
-    private ForecastAPIService forecastAPIService;
+    private final ForecastDaoService forecastDaoService;
+    private final ForecastAPIService forecastAPIService;
 
     public ForecastAPIController(ForecastDaoService forecastDaoService, ForecastAPIService forecastAPIService) {
         this.forecastDaoService = forecastDaoService;

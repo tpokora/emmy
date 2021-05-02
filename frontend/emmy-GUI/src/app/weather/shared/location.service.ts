@@ -7,6 +7,6 @@ export class LocationService {
   }
 
   get(name: string) {
-    return this.http.get("http://localhost:8080/api/location?name=" + name)
+    return this.http.get("http://localhost:8080/api/location?name=" + name);
   }
 }

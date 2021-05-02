@@ -2,16 +2,14 @@
 <hr/>
 <div>
   <h3>Find Location</h3>
-  <form method="get">
-    <mat-form-field appearance="fill">
-      <mat-label [ngStyle]="{color: formColor}">Location name</mat-label>
-      <input matInput placeholder="Location name">
-    </mat-form-field>
-    <button mat-button (click)="getLocation()">Find</button>
-    <div id="locationResult">
-      >> Longitude:
-      <br/>
-      >> Latitude:
-    </div>
-  </form>
+  <mat-form-field id="locationForm" appearance="fill">
+    <mat-label [ngStyle]="{color: formColor}">Location name</mat-label>
+    <input id="locationFormInput" matInput placeholder="Location name">
+  </mat-form-field>
+  <button id="locationFormBtn" mat-button (click)="getLocation()">Find</button>
+  <div *ngIf="validLocation()" id="locationResult">
+    >> Longitude: {{location.coordinates?.longitude}}
+    <br/>
+    >> Latitude: {{location.coordinates?.latitude}}
+  </div>
 </div>
