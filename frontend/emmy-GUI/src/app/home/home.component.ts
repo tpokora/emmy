@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  title = "Welcome to Emmy-App"
+
   constructor() { }
 
   ngOnInit(): void {
