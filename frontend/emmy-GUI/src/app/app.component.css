@@ -1,4 +1,6 @@
 #main-element {
   width: 1040px;
   margin: auto;
+  background-color: #322e2e;
+  min-height: 480px;
 }
