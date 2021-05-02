@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {LocationService} from "./shared/location.service";
+import {Location} from "./shared/location.model";
 
 @Component({
   selector: 'app-weather',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WeatherComponent implements OnInit {
 
-  constructor() { }
+  title = "Weather"
+  formColor = '#b6b6b6';
+  location= new Location();
+
+  constructor(private locationService: LocationService) { }
 
   ngOnInit(): void {
+  }
+
+  getLocation() {
+    this.locationService.get("Skawina")
+      .subscribe((data: any) => {
+        console.log(data)
+        this.location = data
+    });
   }
 
 }

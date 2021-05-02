@@ -22,4 +22,11 @@ describe('WeatherComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have title', () => {
+    const fixture = TestBed.createComponent(WeatherComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain(compiled.title);
+  });
 });

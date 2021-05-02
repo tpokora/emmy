@@ -1,1 +1,17 @@
-<p>weather works!</p>
+<h1>{{title}}</h1>
+<hr/>
+<div>
+  <h3>Find Location</h3>
+  <form method="get">
+    <mat-form-field appearance="fill">
+      <mat-label [ngStyle]="{color: formColor}">Location name</mat-label>
+      <input matInput placeholder="Location name">
+    </mat-form-field>
+    <button mat-button (click)="getLocation()">Find</button>
+    <div id="locationResult">
+      >> Longitude:
+      <br/>
+      >> Latitude:
+    </div>
+  </form>
+</div>
