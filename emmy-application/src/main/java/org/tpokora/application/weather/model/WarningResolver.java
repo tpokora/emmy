@@ -8,22 +8,22 @@ public class WarningResolver implements IResolver<String, String> {
     public WarningResolver() {}
 
     public String resolve(String warningName) {
-        if ("mroz".equals(warningName.toLowerCase())) {
+        if ("mroz".equalsIgnoreCase(warningName)) {
             return WarningStrings.FROST;
         }
-        if ("upal".equals(warningName.toLowerCase())) {
+        if ("upal".equalsIgnoreCase(warningName)) {
             return WarningStrings.HEAT;
         }
-        if ("wiatr".equals(warningName.toLowerCase())) {
+        if ("wiatr".equalsIgnoreCase(warningName)) {
             return WarningStrings.WIND;
         }
-        if ("opad".equals(warningName.toLowerCase())) {
+        if ("opad".equalsIgnoreCase(warningName)) {
             return WarningStrings.RAINFALL;
         }
-        if ("burza".equals(warningName.toLowerCase())) {
+        if ("burza".equalsIgnoreCase(warningName)) {
             return WarningStrings.STORM;
         }
-        if ("traba".equals(warningName.toLowerCase())) {
+        if ("traba".equalsIgnoreCase(warningName)) {
             return WarningStrings.WHIRLWIND;
         }
         return "";

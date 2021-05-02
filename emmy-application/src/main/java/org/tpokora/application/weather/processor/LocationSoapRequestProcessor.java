@@ -33,7 +33,7 @@ public class LocationSoapRequestProcessor implements ISoapRequestMessageProcesso
         SOAPEnvelope envelope = SOAPService.createSOAPEnvelope(soapMessage, namespaces);
 
         SOAPService.createSOAPAction(soapMessage, StormConstants.SOAP_ACTION_SZUKAJ_BURZY);
-        createSOAPMessage(input, StormConstants.SOAP, envelope);
+        createSOAPMessage(input, envelope);
 
         LOGGER.debug("Location Request SOAP Message:");
         LOGGER.debug(SoapMessageUtilities.soapMessageToString(soapMessage));
@@ -41,11 +41,11 @@ public class LocationSoapRequestProcessor implements ISoapRequestMessageProcesso
         return soapMessage;
     }
 
-    private void createSOAPMessage(String location, String namespace, SOAPEnvelope envelope) throws SOAPException {
+    private void createSOAPMessage(String location, SOAPEnvelope envelope) throws SOAPException {
         SOAPBody soapBody = envelope.getBody();
-        SOAPElement findCity = soapBody.addChildElement(StormConstants.METHOD_MIEJSCOWOSC, namespace);
-        SOAPElement nameElem = findCity.addChildElement(NAZWA, namespace);
-        SOAPElement keyElem = findCity.addChildElement(KLUCZ, namespace);
+        SOAPElement findCity = soapBody.addChildElement(StormConstants.METHOD_MIEJSCOWOSC, StormConstants.SOAP);
+        SOAPElement nameElem = findCity.addChildElement(NAZWA, StormConstants.SOAP);
+        SOAPElement keyElem = findCity.addChildElement(KLUCZ, StormConstants.SOAP);
 
         nameElem.addTextNode(location);
         keyElem.addTextNode(stormProperties.getValue(StormProperties.KEY));
