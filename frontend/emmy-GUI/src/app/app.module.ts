@@ -16,6 +16,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {LocationService} from "./weather/shared/location.service";
 import { WeatherLocationComponent } from './weather/weather-location/weather-location.component';
 import { WeatherForecastComponent } from './weather/weather-forecast/weather-forecast.component';
+import {ForecastService} from "./weather/shared/forecast.service";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { WeatherForecastComponent } from './weather/weather-forecast/weather-for
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
-    LocationService
+    LocationService,
+    ForecastService
   ],
   bootstrap: [AppComponent]
 })

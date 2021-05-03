@@ -2,7 +2,6 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {map} from "rxjs/operators";
 import {Location} from "./location.model";
-import {Coordinates} from "./coordinates.model";
 import {Observable} from "rxjs";
 import {LocationAdapter} from "./location.adapter";
 
