@@ -12,6 +12,7 @@ describe('WeatherComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [WeatherComponent],
+      imports: [],
       providers: [
         {provide: LocationService, useClass: LocationServiceStubs}
       ]
@@ -39,13 +40,15 @@ describe('WeatherComponent', () => {
   it('should show location coordinates when clicked Find button', fakeAsync(() => {
     const fixture = TestBed.createComponent(WeatherComponent);
     fixture.detectChanges();
-    spyOn(component, 'getLocation');
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('#locationResult')).toBeFalsy();
-    let locationFormBtn = fixture.debugElement.query(By.css("button"))
+    expect(fixture.debugElement.query(By.css("div#locationResult"))).toBeFalsy();
+    let locationFormBtn = fixture.debugElement.query(By.css("button#locationFormBtn"))
+    expect(locationFormBtn).toBeTruthy()
     locationFormBtn.triggerEventHandler('click', null);
     tick();
     fixture.detectChanges();
-    expect(component.getLocation).toHaveBeenCalled()
+    let locationResult = fixture.debugElement.query(By.css("div#locationResult"))
+    expect(locationResult).toBeTruthy()
+    expect(locationResult).withContext("Longitude: 11.11")
+    expect(locationResult).withContext("Latitude: 11.11")
   }));
 });
