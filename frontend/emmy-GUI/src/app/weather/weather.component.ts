@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {LocationService} from "./shared/location.service";
+import {Component, Input, OnInit} from '@angular/core';
 import {Location} from "./shared/location.model";
+import {Coordinates} from "./shared/coordinates.model";
 
 @Component({
   selector: 'app-weather',
@@ -10,26 +10,17 @@ import {Location} from "./shared/location.model";
 export class WeatherComponent implements OnInit {
 
   title = "Weather"
-  formColor = '#b6b6b6';
-  location= new Location();
+  location: Location
 
-  constructor(private locationService: LocationService) { }
+  constructor() {
+    this.location = new Location("", new Coordinates(0, 0, 0, 0))
+  }
 
   ngOnInit(): void {
   }
 
-  getLocation() {
-    let locationName = (<HTMLInputElement>document.getElementById("locationFormInput")).value;
-    console.log("locationName: " + locationName)
-    this.locationService.get(locationName)
-      .subscribe((data: any) => this.location = {
-        name: data.name,
-        coordinates: data.coordinates
-      });
+  onLocationSearch(location: Location) {
+    console.log("location from child: " + location.name)
+    this.location = location;
   }
-
-  validLocation() {
-    return this.location.name != undefined;
-  }
-
 }

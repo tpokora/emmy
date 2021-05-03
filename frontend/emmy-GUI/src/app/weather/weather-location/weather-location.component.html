@@ -1,0 +1,13 @@
+<div>
+  <h3>Find Location</h3>
+  <mat-form-field id="locationForm" appearance="fill">
+    <mat-label [ngStyle]="{color: formColor}">Location name</mat-label>
+    <input id="locationFormInput" matInput placeholder="Location name">
+  </mat-form-field>
+  <button id="locationFormBtn" mat-button (click)="getLocation()">Find</button>
+  <div *ngIf="validLocation()" id="locationResult">
+    >> Longitude: {{location.coordinates?.longitude}}
+    <br/>
+    >> Latitude: {{location.coordinates?.latitude}}
+  </div>
+</div>

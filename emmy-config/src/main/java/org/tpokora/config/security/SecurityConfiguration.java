@@ -51,7 +51,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(STATIC_FILES_MATCHERS).permitAll()
                 .antMatchers(ALL_ACCESS_MATCHERS).permitAll()
                 .antMatchers(HttpMethod.GET, SWAGGER_MATCHERS).permitAll()
-                .antMatchers("/security").authenticated()
                 .antMatchers(ADMIN_ONLY_MATCHERS).hasRole("ADMIN")
                 .and()
                 .httpBasic()
