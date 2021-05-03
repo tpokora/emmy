@@ -13,7 +13,7 @@ public class SecurityMatchers {
     public static final String CONSOLE_VIEW_MATCHER = ConsoleViewConstants.CONSOLE_VIEW_URL + ALL_MATCHER_SUFFIX;
 
     public final static String[] STATIC_FILES_MATCHERS = {"/**/*.js", "/**/*.css"};
-    public final static String[] ALL_ACCESS_MATCHERS = {"/", "/login", SIGNIN_VIEW_URL, "/add-user", API_MATCHER, "/api/location/**"};
+    public final static String[] ALL_ACCESS_MATCHERS = {"/", "/login", SIGNIN_VIEW_URL, "/add-user", API_MATCHER, "/api/location/**", "/api/weather/forecast/**"};
     public final static String[] SWAGGER_MATCHERS = {"/v2/api-docs",
             "/swagger-resources/**",
             "/swagger-ui.html**",
