@@ -14,13 +14,15 @@ import {MatButtonModule} from "@angular/material/button";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {LocationService} from "./weather/shared/location.service";
+import { WeatherLocationComponent } from './weather/weather-location/weather-location.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    HomeComponent,
     WeatherComponent,
-    HomeComponent
+    WeatherLocationComponent
   ],
   imports: [
     BrowserModule,
