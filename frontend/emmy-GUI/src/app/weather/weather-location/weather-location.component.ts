@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Location} from "../shared/location.model";
 import {LocationService} from "../shared/location.service";
+import {Coordinates} from "../shared/coordinates.model";
 
 @Component({
   selector: 'app-weather-location',
@@ -10,24 +11,27 @@ import {LocationService} from "../shared/location.service";
 export class WeatherLocationComponent implements OnInit {
 
   formColor = '#b6b6b6';
-  location= new Location();
+  location: Location;
+  @Output()
+  locationEmitter = new EventEmitter<Location>();
 
-  constructor(private locationService: LocationService) { }
+  constructor(private locationService: LocationService) {
+    this.location = new Location("", new Coordinates(0, 0, 0, 0))
+  }
 
   ngOnInit(): void {
   }
 
   getLocation() {
     let locationName = (<HTMLInputElement>document.getElementById("locationFormInput")).value;
-    console.log("locationName: " + locationName)
     this.locationService.get(locationName)
-      .subscribe((data: any) => this.location = {
-        name: data.name,
-        coordinates: data.coordinates
+      .subscribe((data: Location) => {
+        this.location = data;
+        this.locationEmitter.emit(this.location)
       });
   }
 
   validLocation() {
-    return this.location.name != undefined;
+    return this.location.name != '';
   }
 }

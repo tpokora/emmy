@@ -15,6 +15,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {LocationService} from "./weather/shared/location.service";
 import { WeatherLocationComponent } from './weather/weather-location/weather-location.component';
+import { WeatherForecastComponent } from './weather/weather-forecast/weather-forecast.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { WeatherLocationComponent } from './weather/weather-location/weather-loc
     NavbarComponent,
     HomeComponent,
     WeatherComponent,
-    WeatherLocationComponent
+    WeatherLocationComponent,
+    WeatherForecastComponent
   ],
   imports: [
     BrowserModule,
