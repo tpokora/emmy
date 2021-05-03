@@ -10,7 +10,8 @@ export class LocationAdapter implements Adapter<Location> {
 
   adapt(item: any): Location {
     return new Location(item.name,
-        new Coordinates(item.coordinates.longitude, item.coordinates.latitude, 0, 0)
+        new Coordinates(item.coordinates.longitude, item.coordinates.latitude,
+          item.coordinates.longitudeDM, item.coordinates.latitudeDM)
     );
   }
 }
