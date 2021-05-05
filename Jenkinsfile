@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Cloning Git repo') {
       steps {
-        git(url: 'https://github.com/tpokora/emmy', branch: 'issue_96')
+        git(url: 'https://github.com/tpokora/emmy', branch: 'dev')
       }
     }
 
