@@ -21,6 +21,9 @@ import static org.mockito.ArgumentMatchers.*;
 @ExtendWith(MockitoExtension.class)
 class ForecastAPIServiceTest {
 
+    public static final double LONGITUDE = 11.11;
+    public static final double LATITUDE = 22.22;
+
     @Mock
     private ILocationService locationService;
 
@@ -32,17 +35,15 @@ class ForecastAPIServiceTest {
 
     @BeforeEach
     public void setup() {
-
+        forecastAPIService = new ForecastAPIService(locationService, forecastService);
     }
 
     @Test
     void testGetByLocation() {
         String testLocationName = "Test Location";
-        double longitude = 11.11;
-        double latitude = 22.22;
-        forecastAPIService = new ForecastAPIService(locationService, forecastService);
-        Location mockLocation = new Location(longitude, latitude);
-        ForecastEntity mockForecastEntity = ForecastTestsHelper.createForecastEntity(testLocationName, longitude, latitude);
+
+        Location mockLocation = new Location(LONGITUDE, LATITUDE);
+        ForecastEntity mockForecastEntity = ForecastTestsHelper.createForecastEntity(testLocationName, LONGITUDE, LATITUDE);
         Mockito.when(locationService.getLocationCoordinatesByName(anyString())).thenReturn(Optional.of(mockLocation));
         Mockito.when(forecastService.getForecast(anyDouble(), anyDouble())).thenReturn(Optional.of(mockForecastEntity));
         Optional<ForecastEntity> location = forecastAPIService.getByLocation(testLocationName);
@@ -50,14 +51,13 @@ class ForecastAPIServiceTest {
         Assertions.assertFalse(location.isEmpty());
         ForecastEntity forecastEntity = location.get();
         Assertions.assertEquals(testLocationName, forecastEntity.getLocation());
-        Assertions.assertEquals(longitude, forecastEntity.getLongitude());
-        Assertions.assertEquals(latitude, forecastEntity.getLatitude());
+        Assertions.assertEquals(LONGITUDE, forecastEntity.getLongitude());
+        Assertions.assertEquals(LATITUDE, forecastEntity.getLatitude());
     }
 
     @Test
     void testGetByLocation_notFound() {
         String testLocationName = "Location not found";
-        forecastAPIService = new ForecastAPIService(locationService, forecastService);
         Mockito.when(locationService.getLocationCoordinatesByName(testLocationName)).thenReturn(Optional.empty());
         Optional<ForecastEntity> location = forecastAPIService.getByLocation(testLocationName);
 
@@ -66,26 +66,21 @@ class ForecastAPIServiceTest {
 
     @Test
     void testGetByCoordinates() {
-        double longitude = 11.11;
-        double latitude = 22.22;
-        forecastAPIService = new ForecastAPIService(locationService, forecastService);
-        ForecastEntity mockForecastEntity = ForecastTestsHelper.createForecastEntity("testLocationName", longitude, latitude);
+        ForecastEntity mockForecastEntity = ForecastTestsHelper.createForecastEntity("testLocationName", LONGITUDE, LATITUDE);
         Mockito.when(forecastService.getForecast(anyDouble(), anyDouble())).thenReturn(Optional.of(mockForecastEntity));
-        Optional<ForecastEntity> location = forecastAPIService.getForecastByCoordinates(longitude, latitude);
+        Optional<ForecastEntity> location = forecastAPIService.getForecastByCoordinates(LONGITUDE, LATITUDE);
 
         Assertions.assertFalse(location.isEmpty());
         ForecastEntity forecastEntity = location.get();
-        Assertions.assertEquals(longitude, forecastEntity.getLongitude());
-        Assertions.assertEquals(latitude, forecastEntity.getLatitude());
+        Assertions.assertEquals(LONGITUDE, forecastEntity.getLongitude());
+        Assertions.assertEquals(LATITUDE, forecastEntity.getLatitude());
     }
 
     @Test
     void testGetByCoordinates_notFound() {
-        double longitude = 11.11;
-        double latitude = 22.22;
         forecastAPIService = new ForecastAPIService(locationService, forecastService);
-        Mockito.when(forecastService.getForecast(longitude, latitude)).thenReturn(Optional.empty());
-        Optional<ForecastEntity> location = forecastAPIService.getForecastByCoordinates(longitude, latitude);
+        Mockito.when(forecastService.getForecast(LONGITUDE, LATITUDE)).thenReturn(Optional.empty());
+        Optional<ForecastEntity> location = forecastAPIService.getForecastByCoordinates(LONGITUDE, LATITUDE);
 
         Assertions.assertTrue(location.isEmpty());
     }

@@ -1,0 +1,20 @@
+<button id="forecastFormBtn" mat-button (click)="getForecast()">Find Forecast</button>
+<div id="forecastResults" *ngIf="validForecast()">
+  >> Name: {{forecast.name}}, Location: {{forecast.location}}
+  <br/>
+  >> Description: {{forecast.description}}
+  <br/>
+  >> Temp: {{forecast.temp}}, FeelTemp: {{forecast.feelTemp}}
+  <br/>
+  >> MinTemp: {{forecast.minTemp}}, MaxTemp: {{forecast.maxTemp}}
+  <br/>
+  >> Pressure: {{forecast.pressure}}, Humidity: {{forecast.humidity}}
+  <br />
+  >> Wind: {{forecast.wind}}
+  <br />
+  >> Rain1h: {{forecast.rain1h}}, Rain3h: {{forecast.rain3h}}
+  <br />
+  >> Longitude: {{forecast.longitude}}, Latitude: {{forecast.latitude}}
+  <br />
+  >> Timestamp: {{forecast.timestamp}}
+</div>

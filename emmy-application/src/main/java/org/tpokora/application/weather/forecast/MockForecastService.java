@@ -36,6 +36,8 @@ public class MockForecastService implements IForecastService {
         forecastEntity.setWind(10.1);
         forecastEntity.setLongitude(11.11);
         forecastEntity.setLatitude(22.22);
+        forecastEntity.setRain1h(1.3);
+        forecastEntity.setRain3h(3.3);
         forecastEntity.setTimestamp(DateUtils.getCurrentLocalDateTime());
         return Optional.of(forecastEntity);
     }
