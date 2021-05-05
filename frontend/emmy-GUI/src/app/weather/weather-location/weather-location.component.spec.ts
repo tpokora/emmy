@@ -1,7 +1,6 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import { WeatherLocationComponent } from './weather-location.component';
-import {WeatherComponent} from "../weather.component";
+import {WeatherLocationComponent} from './weather-location.component';
 import {By} from "@angular/platform-browser";
 import {LocationService} from "../shared/location.service";
 import {LocationServiceStubs} from "../../testing/location-stubs";
