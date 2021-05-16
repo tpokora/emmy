@@ -1,7 +1,9 @@
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import {Injectable} from "@angular/core";
 
+@Injectable()
 export class RestService<T> {
 
   private API_URL = "http://localhost:8080/api/";

@@ -17,6 +17,8 @@ import {LocationService} from "./weather/shared/location.service";
 import { WeatherLocationComponent } from './weather/weather-location/weather-location.component';
 import { WeatherForecastComponent } from './weather/weather-forecast/weather-forecast.component';
 import {ForecastService} from "./weather/shared/forecast.service";
+import { LoginComponent } from './login/login.component';
+import {RestService} from "./core/rest.service";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {ForecastService} from "./weather/shared/forecast.service";
     HomeComponent,
     WeatherComponent,
     WeatherLocationComponent,
-    WeatherForecastComponent
+    WeatherForecastComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import {ForecastService} from "./weather/shared/forecast.service";
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
     LocationService,
-    ForecastService
+    ForecastService,
+    RestService
   ],
   bootstrap: [AppComponent]
 })
