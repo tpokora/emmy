@@ -12,13 +12,14 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LocationService} from "./weather/shared/location.service";
-import { WeatherLocationComponent } from './weather/weather-location/weather-location.component';
-import { WeatherForecastComponent } from './weather/weather-forecast/weather-forecast.component';
+import {WeatherLocationComponent} from './weather/weather-location/weather-location.component';
+import {WeatherForecastComponent} from './weather/weather-forecast/weather-forecast.component';
 import {ForecastService} from "./weather/shared/forecast.service";
-import { LoginComponent } from './login/login.component';
+import {LoginComponent} from './login/login.component';
 import {RestService} from "./core/rest.service";
+import {HttpErrorInterceptor} from "./core/http-error-interceptor";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {RestService} from "./core/rest.service";
     MatButtonModule
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
     LocationService,
     ForecastService,
