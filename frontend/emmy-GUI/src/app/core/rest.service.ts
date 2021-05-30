@@ -11,10 +11,19 @@ export class RestService<T> {
   constructor(private http: HttpClient) {
   }
 
-  get(url: string, adapter: any): Observable<T> {
+  get(url: string, adapter?: any): Observable<T> {
     return this.http.get(this.API_URL + url)
       .pipe(
-        map((data: any) => adapter.adapt(data))
+        map((data: any) => {
+          return this.returnDate(data, adapter);
+        })
       );
+  }
+
+  private returnDate(data: any, adapter?: any) {
+    if (adapter) {
+      return adapter.adapt(data);
+    }
+    return data;
   }
 }

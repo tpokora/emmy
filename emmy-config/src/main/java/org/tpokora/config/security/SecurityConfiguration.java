@@ -56,6 +56,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .authenticationEntryPoint(emmyBasicAuthenticationEntryPoint);
 
+        http
+                .cors();
+
         http.addFilterAfter(new CustomFilter(), BasicAuthenticationFilter.class);
 
     }

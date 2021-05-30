@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {RestService} from "../core/rest.service";
 
 @Component({
   selector: 'app-navbar',
@@ -7,15 +7,20 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  private readonly GOGGLE_URL = 'http://google.pl';
+  private redirectResponse: string;
 
-  constructor() {}
+  constructor(private restService: RestService<String>) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   redirectAction() {
     console.log("redirect")
-    document.location.href = this.GOGGLE_URL;
+    this.restService.get('misc/redirect')
+      .subscribe((data: string) => {
+        this.redirectResponse = data;
+      })
   }
 
 }
