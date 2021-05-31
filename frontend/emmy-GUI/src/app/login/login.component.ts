@@ -10,6 +10,7 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
   public loginInvalid = false;
+  private formSubmitAttempt = false;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -23,18 +24,18 @@ export class LoginComponent implements OnInit {
 
   async onSubmit(): Promise<void> {
     this.loginInvalid = false;
-    // this.formSubmitAttempt = false;
-    // if (this.form.valid) {
-    //   try {
-    //     const username = this.form.get('username')?.value;
-    //     const password = this.form.get('password')?.value;
-    //     await this.authService.login(username, password);
-    //   } catch (err) {
-    //     this.loginInvalid = true;
-    //   }
-    // } else {
-    //   this.formSubmitAttempt = true;
-    // }
+    this.formSubmitAttempt = false;
+    if (this.form.valid) {
+      try {
+        const username = this.form.get('username')?.value;
+        const password = this.form.get('password')?.value;
+        // TODO: call for log in user
+      } catch (err) {
+        this.loginInvalid = true;
+      }
+    } else {
+      this.formSubmitAttempt = true;
+    }
   }
 
 }
