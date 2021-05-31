@@ -1,5 +1,6 @@
 #nav-bar {
   background-color: #1c1b1b;
+  width: 100%;
 }
 
 #nav-bar h1 {
@@ -13,4 +14,8 @@
 
 .nav-button-row mat-button {
   margin: 8px 8px 8px 0;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }
