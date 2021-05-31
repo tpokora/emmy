@@ -20,6 +20,7 @@ import {ForecastService} from "./weather/shared/forecast.service";
 import {LoginComponent} from './login/login.component';
 import {RestService} from "./core/rest.service";
 import {HttpErrorInterceptor} from "./core/http-error-interceptor";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {HttpErrorInterceptor} from "./core/http-error-interceptor";
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatCardModule
   ],
   exports: [
     MatToolbarModule,
